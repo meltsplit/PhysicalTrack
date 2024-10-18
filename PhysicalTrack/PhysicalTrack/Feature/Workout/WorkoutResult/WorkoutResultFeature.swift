@@ -13,21 +13,26 @@ struct WorkoutResultFeature {
     
     @ObservableState
     struct State: Equatable {
-        var count: Int
+        var record: PushUpRecord
+        var gradeList = PushUp.list
         
-        init(count: Int) {
-            self.count = count
+        init(record: PushUpRecord) {
+            self.record = record
         }
     }
     
     enum Action {
-        
+        case onAppear
+        case goStatisticsButtonTapped
     }
     
     var body: some ReducerOf<Self> {
         Reduce { state, action in
             switch action {
-            
+            case .onAppear:
+                return .none
+            case .goStatisticsButtonTapped:
+                return .none
             }
         }
     }

@@ -6,17 +6,16 @@
 //
 
 import SwiftUI
+import ComposableArchitecture
 
 @main
 struct PhysicalTrackApp: App {
+    let store = Store(initialState: WorkoutFeature.State()) {
+        WorkoutFeature()._printChanges()
+    }
     var body: some Scene {
         WindowGroup {
-            WorkoutView(
-                store: .init(initialState: WorkoutFeature.State()) {
-                    WorkoutFeature()
-                }
-            )
-            
+            WorkoutView(store: store)
         }
     }
 }

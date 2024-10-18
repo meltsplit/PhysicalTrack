@@ -11,14 +11,20 @@ import ComposableArchitecture
 @Reducer
 struct TimerFeature {
     
+    @Dependency(\.dismiss) var dismiss
+    
     @ObservableState
     struct State: Equatable {
+        var record: PushUpRecord
         var isTimerRunning = false
-        fileprivate var leftSeconds: Int = 2 //TODO: 120으로 변경
+        fileprivate var leftSeconds: Int = 120
         var leftTime: String { leftSeconds.to_mmss }
-        var count: Int = 0
         var presentResult: Bool = false
-
+        var path = StackState<WorkoutResultFeature.State>()
+        
+        init(_ record: PushUpRecord) {
+            self.record = record
+        }
     }
     
     enum Action {
@@ -27,18 +33,16 @@ struct TimerFeature {
         case counting
         case quitButtonTapped
         case selectCount(Int)
-        case doneButtonTapped
+        case path(StackAction<WorkoutResultFeature.State, WorkoutResultFeature.Action>)
     }
     
     enum CancelID { case timer}
-    
-    @Dependency(\.dismiss) var dismiss
     
     var body: some ReducerOf<Self> {
         Reduce { state, action in
             switch action {
             case .onAppear:
-                
+                state.leftSeconds = state.record.targetSeconds
                 state.isTimerRunning = true
                 guard state.isTimerRunning 
                 else { return .cancel(id: CancelID.timer ) }
@@ -59,21 +63,27 @@ struct TimerFeature {
                     state.presentResult = true
                     return .cancel(id: CancelID.timer)
                                    }
-                
+                state.record.time = state.record.targetSeconds - state.leftSeconds
                 state.leftSeconds -= 1
                 return .none
             case .counting:
-                state.count += 1
+                state.record.count += 1
+                
                 return .none
             
             case .quitButtonTapped:
                 return .run { _ in await self.dismiss() }
             case .selectCount(let count):
-                state.count = count
+                state.record.count = count
                 return .none
-            case .doneButtonTapped:
+            case .path(.element(id: _, action: .goStatisticsButtonTapped)):
+                return .run { _ in return await dismiss()}
+            case .path:
                 return .none
             }
+        }
+        .forEach(\.path, action: \.path) {
+            WorkoutResultFeature()
         }
     }
     

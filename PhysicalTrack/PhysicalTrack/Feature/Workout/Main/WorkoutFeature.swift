@@ -9,56 +9,6 @@ import Foundation
 
 import ComposableArchitecture
 
-enum WorkoutGrade: Equatable {
-    case elite
-    case grade1
-    case grade2
-    case grade3
-    case failed
-    
-    var title: String {
-        switch self {
-        case .elite:
-            "특급"
-        case .grade1:
-            "1급"
-        case .grade2:
-            "2급"
-        case .grade3:
-            "3급"
-        case .failed:
-            "불합격"
-        }
-    }
-    
-}
-
-protocol Workout: Equatable {
-    var grade: WorkoutGrade { get set }
-    var count: ClosedRange<Int> { get }
-    
-}
-
-struct PushUp: Equatable {
-    
-    static func getCount(_ grade: WorkoutGrade) -> ClosedRange<Int> {
-        switch grade {
-        case .elite:
-            72...1000
-        case .grade1:
-            64...71
-        case .grade2:
-            56...63
-        case .grade3:
-            48...55
-        case .failed:
-            0...47
-        }
-    }
-    
-    
-    
-}
 
 @Reducer
 struct WorkoutFeature {
@@ -66,7 +16,7 @@ struct WorkoutFeature {
     @ObservableState
     struct State: Equatable {
         var grade: WorkoutGrade = .grade2
-        var count: ClosedRange<Int> = PushUp.getCount(.grade2)
+        var count: ClosedRange<Int> { PushUp.getValue(grade) }
         @Presents var timer: TimerFeature.State?
     }
     
@@ -83,7 +33,7 @@ struct WorkoutFeature {
                 return .none
                 
             case .startButtonTapped:
-                state.timer = TimerFeature.State()
+                state.timer = TimerFeature.State(PushUpRecord(for: .grade1))
                 return .none
                 
                 

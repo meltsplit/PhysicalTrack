@@ -11,29 +11,37 @@ import ComposableArchitecture
 struct TimerView: View {
     @Bindable var store: StoreOf<TimerFeature>
     
+    
+    
     var body: some View {
-        VStack{
-            Text("Timer")
-            Text("시간: " + String(store.leftTime))
-            Text("개수: " + String(store.count))
-            Button("횟수 카운팅") {
-                store.send(.counting)
+        
+        
+        NavigationStack(path: $store.scope(state: \.path, action: \.path)) {
+            VStack{
+                Text("Timer")
+                Text("시간: " + String(store.leftTime))
+                Text("개수: " + String(store.record.count))
+                Button("횟수 카운팅") {
+                    store.send(.counting)
+                }
+                Button("종료") {
+                    store.send(.quitButtonTapped)
+                }
+                
             }
-            Button("종료") {
-                store.send(.quitButtonTapped)
+            .frame(maxWidth: .infinity, maxHeight: .infinity)
+            .onAppear {
+                store.send(.onAppear)
+            }
+            .overlay {
+                if store.presentResult {
+                    resultView
+                }
             }
             
+        } destination: { store in
+            WorkoutResultView(store: store)
         }
-        .frame(maxWidth: .infinity, maxHeight: .infinity)
-        .onAppear {
-            store.send(.onAppear)
-        }
-        .overlay {
-            if store.presentResult {
-                resultView
-            }
-        }
-        
 
     }
     
@@ -45,7 +53,7 @@ struct TimerView: View {
             
             VStack {
                 HStack {
-                    Picker("", selection: $store.count.sending(\.selectCount)) {
+                    Picker("", selection: $store.record.count.sending(\.selectCount)) {
                         ForEach((0...200), id: \.self) {
                             Text(String($0))
                                 .padding(.vertical, 20)
@@ -56,9 +64,10 @@ struct TimerView: View {
                 }
                 .padding(.horizontal, 80)
                 
-                Button("완료") {
-                    store.send(.doneButtonTapped)
+                NavigationLink(state: WorkoutResultFeature.State(record: store.record)) {
+                    Text("완료")
                 }
+                
             }
             .background(.white)
             .frame(maxWidth: .infinity)
@@ -80,7 +89,7 @@ struct TimerView: View {
 
 
 #Preview {
-    TimerView(store: .init(initialState: TimerFeature.State(), reducer: {
+    TimerView(store: .init(initialState: TimerFeature.State(.init(for: .grade1)), reducer: {
         TimerFeature()
     }))
 }
