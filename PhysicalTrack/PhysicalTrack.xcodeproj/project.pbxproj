@@ -16,6 +16,7 @@
 		8735D7192CC2014F00C7824C /* Colors.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8735D7182CC2014F00C7824C /* Colors.xcassets */; };
 		8735D7212CC20DCA00C7824C /* TimerFeature.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8735D7202CC20DCA00C7824C /* TimerFeature.swift */; };
 		8735D7232CC20DD200C7824C /* TimerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8735D7222CC20DD200C7824C /* TimerView.swift */; };
+		8735D7262CC21A8000C7824C /* Int+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8735D7252CC21A8000C7824C /* Int+.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -28,6 +29,7 @@
 		8735D7182CC2014F00C7824C /* Colors.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Colors.xcassets; sourceTree = "<group>"; };
 		8735D7202CC20DCA00C7824C /* TimerFeature.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimerFeature.swift; sourceTree = "<group>"; };
 		8735D7222CC20DD200C7824C /* TimerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimerView.swift; sourceTree = "<group>"; };
+		8735D7252CC21A8000C7824C /* Int+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Int+.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -174,6 +176,7 @@
 		8735D71C2CC2044600C7824C /* Util */ = {
 			isa = PBXGroup;
 			children = (
+				8735D7242CC21A7500C7824C /* Extension */,
 			);
 			path = Util;
 			sourceTree = "<group>";
@@ -199,6 +202,14 @@
 				8735D7202CC20DCA00C7824C /* TimerFeature.swift */,
 			);
 			path = Timer;
+			sourceTree = "<group>";
+		};
+		8735D7242CC21A7500C7824C /* Extension */ = {
+			isa = PBXGroup;
+			children = (
+				8735D7252CC21A8000C7824C /* Int+.swift */,
+			);
+			path = Extension;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -278,6 +289,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				8735D7262CC21A8000C7824C /* Int+.swift in Sources */,
 				8735D7232CC20DD200C7824C /* TimerView.swift in Sources */,
 				8717B5F42CC1FD6B00542061 /* WorkoutFeature.swift in Sources */,
 				8735D7212CC20DCA00C7824C /* TimerFeature.swift in Sources */,

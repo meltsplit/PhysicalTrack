@@ -14,21 +14,29 @@ struct WorkoutView: View {
     
     
     var body: some View {
-        
-        
-        Button("스타트")
-        {
-            store.send(.startButtonTapped)
-        }
-        .padding()
-        .fullScreenCover(
-            item: $store.scope(state: \.timer, action: \.timer)
-        ) { store in
-            TimerView(
-                store: .init(initialState: TimerFeature.State()) {
-                    TimerFeature()
+        NavigationStack {
+            VStack {
+                
+                Button {
+                    store.send(.gradeButtonTapped)
+                } label: {
+                    Text(store.grade.title)
                 }
-            )
+                
+                Text(String(store.count.lowerBound) + "-" + String(store.count.upperBound))
+                
+                Button("스타트")
+                {
+                    store.send(.startButtonTapped)
+                }
+                .padding()
+                .fullScreenCover(
+                    item: $store.scope(state: \.timer, action: \.timer)
+                ) { store in
+                    TimerView(store: store)
+                }
+            }
+            .navigationTitle("팔굽혀펴기")
         }
 
     }

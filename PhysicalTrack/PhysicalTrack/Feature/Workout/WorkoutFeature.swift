@@ -75,7 +75,6 @@ struct WorkoutFeature {
         case startButtonTapped
         case timer(PresentationAction<TimerFeature.Action>)
     }
-    
     var body: some ReducerOf<Self> {
         Reduce { state, action in
             switch action {
@@ -86,9 +85,10 @@ struct WorkoutFeature {
             case .startButtonTapped:
                 state.timer = TimerFeature.State()
                 return .none
+                
+                
             case .timer:
                 return .none
-                
             }
         }
         .ifLet(\.$timer, action: \.timer) {

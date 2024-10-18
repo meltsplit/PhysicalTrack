@@ -9,10 +9,20 @@ import SwiftUI
 import ComposableArchitecture
 
 struct TimerView: View {
-    let store: StoreOf<TimerFeature>
+    @Bindable var store: StoreOf<TimerFeature>
     
     var body: some View {
-        Text("Timer")
+        VStack{
+            Text("Timer")
+            Text("시간: " + String(store.leftTime))
+            Text("개수: " + String(store.count))
+            Button("종료") {
+                store.send(.quitButtonTapped)
+            }
+        }
+        .onAppear {
+            store.send(.onAppear)
+        }
     }
 }
 
