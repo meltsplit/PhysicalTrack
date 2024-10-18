@@ -10,12 +10,12 @@ import ComposableArchitecture
 
 @main
 struct PhysicalTrackApp: App {
-    let store = Store(initialState: WorkoutFeature.State()) {
-        WorkoutFeature()._printChanges()
+    let store = Store(initialState: RootFeature.State()) {
+        RootFeature()._printChanges()
     }
     var body: some Scene {
         WindowGroup {
-            WorkoutView(store: store)
+            RootView(store: store)
         }
     }
 }

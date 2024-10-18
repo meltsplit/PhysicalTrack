@@ -23,6 +23,19 @@
 		8735D7322CC2557B00C7824C /* Workout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8735D7312CC2557B00C7824C /* Workout.swift */; };
 		8735D7342CC25C6500C7824C /* PushUpRecord.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8735D7332CC25C6500C7824C /* PushUpRecord.swift */; };
 		8735D7362CC25C7A00C7824C /* PushUp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8735D7352CC25C7A00C7824C /* PushUp.swift */; };
+		8735D7392CC2767000C7824C /* RootFeature.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8735D7382CC2767000C7824C /* RootFeature.swift */; };
+		8735D73B2CC2767600C7824C /* RootView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8735D73A2CC2767600C7824C /* RootView.swift */; };
+		8735D73D2CC276F400C7824C /* StatisticsFeature.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8735D73C2CC276F400C7824C /* StatisticsFeature.swift */; };
+		8735D73F2CC2777E00C7824C /* RankingFeatrue.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8735D73E2CC2777E00C7824C /* RankingFeatrue.swift */; };
+		8735D7412CC2779600C7824C /* SettingFeature.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8735D7402CC2779600C7824C /* SettingFeature.swift */; };
+		8735D7432CC279DA00C7824C /* SettingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8735D7422CC279DA00C7824C /* SettingView.swift */; };
+		8735D7452CC27A2200C7824C /* RankingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8735D7442CC27A2200C7824C /* RankingView.swift */; };
+		8735D7472CC27A4900C7824C /* StatisticsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8735D7462CC27A4900C7824C /* StatisticsView.swift */; };
+		8735D74A2CC27C7E00C7824C /* MainTabView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8735D7492CC27C7E00C7824C /* MainTabView.swift */; };
+		8735D74C2CC27C8C00C7824C /* MainFeature.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8735D74B2CC27C8C00C7824C /* MainFeature.swift */; };
+		8735D74E2CC27CD800C7824C /* MainScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8735D74D2CC27CD800C7824C /* MainScene.swift */; };
+		8735D7512CC27EF800C7824C /* OnboardingFeature.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8735D7502CC27EF800C7824C /* OnboardingFeature.swift */; };
+		8735D7532CC27EFE00C7824C /* OnboardingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8735D7522CC27EFE00C7824C /* OnboardingView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -42,6 +55,19 @@
 		8735D7312CC2557B00C7824C /* Workout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Workout.swift; sourceTree = "<group>"; };
 		8735D7332CC25C6500C7824C /* PushUpRecord.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PushUpRecord.swift; sourceTree = "<group>"; };
 		8735D7352CC25C7A00C7824C /* PushUp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PushUp.swift; sourceTree = "<group>"; };
+		8735D7382CC2767000C7824C /* RootFeature.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RootFeature.swift; sourceTree = "<group>"; };
+		8735D73A2CC2767600C7824C /* RootView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RootView.swift; sourceTree = "<group>"; };
+		8735D73C2CC276F400C7824C /* StatisticsFeature.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatisticsFeature.swift; sourceTree = "<group>"; };
+		8735D73E2CC2777E00C7824C /* RankingFeatrue.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RankingFeatrue.swift; sourceTree = "<group>"; };
+		8735D7402CC2779600C7824C /* SettingFeature.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingFeature.swift; sourceTree = "<group>"; };
+		8735D7422CC279DA00C7824C /* SettingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingView.swift; sourceTree = "<group>"; };
+		8735D7442CC27A2200C7824C /* RankingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RankingView.swift; sourceTree = "<group>"; };
+		8735D7462CC27A4900C7824C /* StatisticsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatisticsView.swift; sourceTree = "<group>"; };
+		8735D7492CC27C7E00C7824C /* MainTabView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainTabView.swift; sourceTree = "<group>"; };
+		8735D74B2CC27C8C00C7824C /* MainFeature.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainFeature.swift; sourceTree = "<group>"; };
+		8735D74D2CC27CD800C7824C /* MainScene.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainScene.swift; sourceTree = "<group>"; };
+		8735D7502CC27EF800C7824C /* OnboardingFeature.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingFeature.swift; sourceTree = "<group>"; };
+		8735D7522CC27EFE00C7824C /* OnboardingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -124,6 +150,9 @@
 		8717B5ED2CC1FB0900542061 /* Feature */ = {
 			isa = PBXGroup;
 			children = (
+				8735D7372CC2766900C7824C /* Root */,
+				8735D74F2CC27EE600C7824C /* Onboarding */,
+				8735D7482CC27C7600C7824C /* Main */,
 				8717B5EF2CC1FB2900542061 /* Workout */,
 				8717B5F02CC1FB3000542061 /* Statistics */,
 				8717B5F12CC1FB3D00542061 /* Ranking */,
@@ -154,6 +183,8 @@
 		8717B5F02CC1FB3000542061 /* Statistics */ = {
 			isa = PBXGroup;
 			children = (
+				8735D73C2CC276F400C7824C /* StatisticsFeature.swift */,
+				8735D7462CC27A4900C7824C /* StatisticsView.swift */,
 			);
 			path = Statistics;
 			sourceTree = "<group>";
@@ -161,6 +192,8 @@
 		8717B5F12CC1FB3D00542061 /* Ranking */ = {
 			isa = PBXGroup;
 			children = (
+				8735D73E2CC2777E00C7824C /* RankingFeatrue.swift */,
+				8735D7442CC27A2200C7824C /* RankingView.swift */,
 			);
 			path = Ranking;
 			sourceTree = "<group>";
@@ -168,6 +201,8 @@
 		8717B5F22CC1FB4900542061 /* Setting */ = {
 			isa = PBXGroup;
 			children = (
+				8735D7402CC2779600C7824C /* SettingFeature.swift */,
+				8735D7422CC279DA00C7824C /* SettingView.swift */,
 			);
 			path = Setting;
 			sourceTree = "<group>";
@@ -244,6 +279,34 @@
 				8717B5F32CC1FD6B00542061 /* WorkoutFeature.swift */,
 			);
 			path = Main;
+			sourceTree = "<group>";
+		};
+		8735D7372CC2766900C7824C /* Root */ = {
+			isa = PBXGroup;
+			children = (
+				8735D7382CC2767000C7824C /* RootFeature.swift */,
+				8735D73A2CC2767600C7824C /* RootView.swift */,
+			);
+			path = Root;
+			sourceTree = "<group>";
+		};
+		8735D7482CC27C7600C7824C /* Main */ = {
+			isa = PBXGroup;
+			children = (
+				8735D7492CC27C7E00C7824C /* MainTabView.swift */,
+				8735D74B2CC27C8C00C7824C /* MainFeature.swift */,
+				8735D74D2CC27CD800C7824C /* MainScene.swift */,
+			);
+			path = Main;
+			sourceTree = "<group>";
+		};
+		8735D74F2CC27EE600C7824C /* Onboarding */ = {
+			isa = PBXGroup;
+			children = (
+				8735D7522CC27EFE00C7824C /* OnboardingView.swift */,
+				8735D7502CC27EF800C7824C /* OnboardingFeature.swift */,
+			);
+			path = Onboarding;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -324,16 +387,29 @@
 			buildActionMask = 2147483647;
 			files = (
 				8735D7362CC25C7A00C7824C /* PushUp.swift in Sources */,
+				8735D74A2CC27C7E00C7824C /* MainTabView.swift in Sources */,
+				8735D7472CC27A4900C7824C /* StatisticsView.swift in Sources */,
 				8735D7262CC21A8000C7824C /* Int+.swift in Sources */,
+				8735D7452CC27A2200C7824C /* RankingView.swift in Sources */,
 				8735D7232CC20DD200C7824C /* TimerView.swift in Sources */,
+				8735D7432CC279DA00C7824C /* SettingView.swift in Sources */,
 				8717B5F42CC1FD6B00542061 /* WorkoutFeature.swift in Sources */,
+				8735D73D2CC276F400C7824C /* StatisticsFeature.swift in Sources */,
+				8735D7512CC27EF800C7824C /* OnboardingFeature.swift in Sources */,
+				8735D73F2CC2777E00C7824C /* RankingFeatrue.swift in Sources */,
+				8735D73B2CC2767600C7824C /* RootView.swift in Sources */,
+				8735D7392CC2767000C7824C /* RootFeature.swift in Sources */,
 				8735D7322CC2557B00C7824C /* Workout.swift in Sources */,
+				8735D74C2CC27C8C00C7824C /* MainFeature.swift in Sources */,
 				8735D7342CC25C6500C7824C /* PushUpRecord.swift in Sources */,
 				8735D7212CC20DCA00C7824C /* TimerFeature.swift in Sources */,
 				8717B5DC2CC1FA7900542061 /* WorkoutView.swift in Sources */,
+				8735D7532CC27EFE00C7824C /* OnboardingView.swift in Sources */,
+				8735D7412CC2779600C7824C /* SettingFeature.swift in Sources */,
 				8717B5DA2CC1FA7900542061 /* PhysicalTrackApp.swift in Sources */,
 				8735D7302CC254C800C7824C /* WorkoutGrade.swift in Sources */,
 				8735D7292CC230BD00C7824C /* WorkoutResultFeature.swift in Sources */,
+				8735D74E2CC27CD800C7824C /* MainScene.swift in Sources */,
 				8735D72E2CC242CD00C7824C /* WorkoutResultView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

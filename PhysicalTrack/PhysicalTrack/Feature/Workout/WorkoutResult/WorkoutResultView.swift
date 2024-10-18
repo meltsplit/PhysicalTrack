@@ -47,7 +47,6 @@ struct WorkoutResultView: View {
             }
         }
         .frame(maxWidth: .infinity, maxHeight: .infinity)
-        .navigationTitle("결과보기")
         .navigationBarBackButtonHidden()
         .onAppear {
             store.send(.onAppear)
