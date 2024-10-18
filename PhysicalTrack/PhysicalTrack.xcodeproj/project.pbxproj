@@ -17,6 +17,8 @@
 		8735D7212CC20DCA00C7824C /* TimerFeature.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8735D7202CC20DCA00C7824C /* TimerFeature.swift */; };
 		8735D7232CC20DD200C7824C /* TimerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8735D7222CC20DD200C7824C /* TimerView.swift */; };
 		8735D7262CC21A8000C7824C /* Int+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8735D7252CC21A8000C7824C /* Int+.swift */; };
+		8735D7292CC230BD00C7824C /* WorkoutResultFeature.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8735D7282CC230BD00C7824C /* WorkoutResultFeature.swift */; };
+		8735D72E2CC242CD00C7824C /* WorkoutResultView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8735D72D2CC242CD00C7824C /* WorkoutResultView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -30,6 +32,8 @@
 		8735D7202CC20DCA00C7824C /* TimerFeature.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimerFeature.swift; sourceTree = "<group>"; };
 		8735D7222CC20DD200C7824C /* TimerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimerView.swift; sourceTree = "<group>"; };
 		8735D7252CC21A8000C7824C /* Int+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Int+.swift"; sourceTree = "<group>"; };
+		8735D7282CC230BD00C7824C /* WorkoutResultFeature.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkoutResultFeature.swift; sourceTree = "<group>"; };
+		8735D72D2CC242CD00C7824C /* WorkoutResultView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkoutResultView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -128,9 +132,9 @@
 		8717B5EF2CC1FB2900542061 /* Workout */ = {
 			isa = PBXGroup;
 			children = (
-				8717B5DB2CC1FA7900542061 /* WorkoutView.swift */,
-				8717B5F32CC1FD6B00542061 /* WorkoutFeature.swift */,
+				8735D72C2CC2429800C7824C /* Main */,
 				8735D71F2CC20DBF00C7824C /* Timer */,
+				8735D7272CC230A100C7824C /* WorkoutResult */,
 			);
 			path = Workout;
 			sourceTree = "<group>";
@@ -210,6 +214,24 @@
 				8735D7252CC21A8000C7824C /* Int+.swift */,
 			);
 			path = Extension;
+			sourceTree = "<group>";
+		};
+		8735D7272CC230A100C7824C /* WorkoutResult */ = {
+			isa = PBXGroup;
+			children = (
+				8735D72D2CC242CD00C7824C /* WorkoutResultView.swift */,
+				8735D7282CC230BD00C7824C /* WorkoutResultFeature.swift */,
+			);
+			path = WorkoutResult;
+			sourceTree = "<group>";
+		};
+		8735D72C2CC2429800C7824C /* Main */ = {
+			isa = PBXGroup;
+			children = (
+				8717B5DB2CC1FA7900542061 /* WorkoutView.swift */,
+				8717B5F32CC1FD6B00542061 /* WorkoutFeature.swift */,
+			);
+			path = Main;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -295,6 +317,8 @@
 				8735D7212CC20DCA00C7824C /* TimerFeature.swift in Sources */,
 				8717B5DC2CC1FA7900542061 /* WorkoutView.swift in Sources */,
 				8717B5DA2CC1FA7900542061 /* PhysicalTrackApp.swift in Sources */,
+				8735D7292CC230BD00C7824C /* WorkoutResultFeature.swift in Sources */,
+				8735D72E2CC242CD00C7824C /* WorkoutResultView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
