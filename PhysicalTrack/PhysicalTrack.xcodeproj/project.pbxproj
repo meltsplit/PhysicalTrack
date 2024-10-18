@@ -1,0 +1,504 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 56;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		8717B5DA2CC1FA7900542061 /* PhysicalTrackApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8717B5D92CC1FA7900542061 /* PhysicalTrackApp.swift */; };
+		8717B5DC2CC1FA7900542061 /* WorkoutView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8717B5DB2CC1FA7900542061 /* WorkoutView.swift */; };
+		8717B5DE2CC1FA7B00542061 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8717B5DD2CC1FA7B00542061 /* Assets.xcassets */; };
+		8717B5E12CC1FA7B00542061 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8717B5E02CC1FA7B00542061 /* Preview Assets.xcassets */; };
+		8717B5E92CC1FABB00542061 /* ComposableArchitecture in Frameworks */ = {isa = PBXBuildFile; productRef = 8717B5E82CC1FABB00542061 /* ComposableArchitecture */; };
+		8717B5F42CC1FD6B00542061 /* WorkoutStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8717B5F32CC1FD6B00542061 /* WorkoutStore.swift */; };
+		8735D7192CC2014F00C7824C /* Colors.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8735D7182CC2014F00C7824C /* Colors.xcassets */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		8717B5D62CC1FA7900542061 /* PhysicalTrack.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PhysicalTrack.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		8717B5D92CC1FA7900542061 /* PhysicalTrackApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhysicalTrackApp.swift; sourceTree = "<group>"; };
+		8717B5DB2CC1FA7900542061 /* WorkoutView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkoutView.swift; sourceTree = "<group>"; };
+		8717B5DD2CC1FA7B00542061 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		8717B5E02CC1FA7B00542061 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
+		8717B5F32CC1FD6B00542061 /* WorkoutStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkoutStore.swift; sourceTree = "<group>"; };
+		8735D7182CC2014F00C7824C /* Colors.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Colors.xcassets; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		8717B5D32CC1FA7900542061 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				8717B5E92CC1FABB00542061 /* ComposableArchitecture in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		8717B5CD2CC1FA7900542061 = {
+			isa = PBXGroup;
+			children = (
+				8717B5D82CC1FA7900542061 /* PhysicalTrack */,
+				8717B5D72CC1FA7900542061 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		8717B5D72CC1FA7900542061 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				8717B5D62CC1FA7900542061 /* PhysicalTrack.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		8717B5D82CC1FA7900542061 /* PhysicalTrack */ = {
+			isa = PBXGroup;
+			children = (
+				8717B5EA2CC1FAF600542061 /* App */,
+				8717B5EC2CC1FB0300542061 /* Domain */,
+				8717B5ED2CC1FB0900542061 /* Feature */,
+				8717B5EB2CC1FAFB00542061 /* Core */,
+				8717B5EE2CC1FB1000542061 /* Shared */,
+				8717B5DF2CC1FA7B00542061 /* Preview Content */,
+			);
+			path = PhysicalTrack;
+			sourceTree = "<group>";
+		};
+		8717B5DF2CC1FA7B00542061 /* Preview Content */ = {
+			isa = PBXGroup;
+			children = (
+				8717B5E02CC1FA7B00542061 /* Preview Assets.xcassets */,
+			);
+			path = "Preview Content";
+			sourceTree = "<group>";
+		};
+		8717B5EA2CC1FAF600542061 /* App */ = {
+			isa = PBXGroup;
+			children = (
+				8717B5D92CC1FA7900542061 /* PhysicalTrackApp.swift */,
+			);
+			path = App;
+			sourceTree = "<group>";
+		};
+		8717B5EB2CC1FAFB00542061 /* Core */ = {
+			isa = PBXGroup;
+			children = (
+				8735D71E2CC2053300C7824C /* Proximity */,
+				8735D71D2CC2046200C7824C /* Network */,
+			);
+			path = Core;
+			sourceTree = "<group>";
+		};
+		8717B5EC2CC1FB0300542061 /* Domain */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Domain;
+			sourceTree = "<group>";
+		};
+		8717B5ED2CC1FB0900542061 /* Feature */ = {
+			isa = PBXGroup;
+			children = (
+				8717B5EF2CC1FB2900542061 /* Workout */,
+				8717B5F02CC1FB3000542061 /* Statistics */,
+				8717B5F12CC1FB3D00542061 /* Ranking */,
+				8717B5F22CC1FB4900542061 /* Setting */,
+			);
+			path = Feature;
+			sourceTree = "<group>";
+		};
+		8717B5EE2CC1FB1000542061 /* Shared */ = {
+			isa = PBXGroup;
+			children = (
+				8735D71C2CC2044600C7824C /* Util */,
+				8735D7172CC2012400C7824C /* DesignSystem */,
+			);
+			path = Shared;
+			sourceTree = "<group>";
+		};
+		8717B5EF2CC1FB2900542061 /* Workout */ = {
+			isa = PBXGroup;
+			children = (
+				8717B5DB2CC1FA7900542061 /* WorkoutView.swift */,
+				8717B5F32CC1FD6B00542061 /* WorkoutStore.swift */,
+			);
+			path = Workout;
+			sourceTree = "<group>";
+		};
+		8717B5F02CC1FB3000542061 /* Statistics */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Statistics;
+			sourceTree = "<group>";
+		};
+		8717B5F12CC1FB3D00542061 /* Ranking */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Ranking;
+			sourceTree = "<group>";
+		};
+		8717B5F22CC1FB4900542061 /* Setting */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Setting;
+			sourceTree = "<group>";
+		};
+		8735D7172CC2012400C7824C /* DesignSystem */ = {
+			isa = PBXGroup;
+			children = (
+				8735D71B2CC2043100C7824C /* Font */,
+				8717B5DD2CC1FA7B00542061 /* Assets.xcassets */,
+				8735D7182CC2014F00C7824C /* Colors.xcassets */,
+			);
+			path = DesignSystem;
+			sourceTree = "<group>";
+		};
+		8735D71B2CC2043100C7824C /* Font */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Font;
+			sourceTree = "<group>";
+		};
+		8735D71C2CC2044600C7824C /* Util */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Util;
+			sourceTree = "<group>";
+		};
+		8735D71D2CC2046200C7824C /* Network */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Network;
+			sourceTree = "<group>";
+		};
+		8735D71E2CC2053300C7824C /* Proximity */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Proximity;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		8717B5D52CC1FA7900542061 /* PhysicalTrack */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 8717B5E42CC1FA7B00542061 /* Build configuration list for PBXNativeTarget "PhysicalTrack" */;
+			buildPhases = (
+				8717B5D22CC1FA7900542061 /* Sources */,
+				8717B5D32CC1FA7900542061 /* Frameworks */,
+				8717B5D42CC1FA7900542061 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = PhysicalTrack;
+			packageProductDependencies = (
+				8717B5E82CC1FABB00542061 /* ComposableArchitecture */,
+			);
+			productName = PhysicalTrack;
+			productReference = 8717B5D62CC1FA7900542061 /* PhysicalTrack.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		8717B5CE2CC1FA7900542061 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				BuildIndependentTargetsInParallel = 1;
+				LastSwiftUpdateCheck = 1500;
+				LastUpgradeCheck = 1500;
+				TargetAttributes = {
+					8717B5D52CC1FA7900542061 = {
+						CreatedOnToolsVersion = 15.0.1;
+					};
+				};
+			};
+			buildConfigurationList = 8717B5D12CC1FA7900542061 /* Build configuration list for PBXProject "PhysicalTrack" */;
+			compatibilityVersion = "Xcode 14.0";
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = 8717B5CD2CC1FA7900542061;
+			packageReferences = (
+				8717B5E72CC1FABB00542061 /* XCRemoteSwiftPackageReference "swift-composable-architecture" */,
+			);
+			productRefGroup = 8717B5D72CC1FA7900542061 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				8717B5D52CC1FA7900542061 /* PhysicalTrack */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		8717B5D42CC1FA7900542061 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				8717B5E12CC1FA7B00542061 /* Preview Assets.xcassets in Resources */,
+				8735D7192CC2014F00C7824C /* Colors.xcassets in Resources */,
+				8717B5DE2CC1FA7B00542061 /* Assets.xcassets in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		8717B5D22CC1FA7900542061 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				8717B5F42CC1FD6B00542061 /* WorkoutStore.swift in Sources */,
+				8717B5DC2CC1FA7900542061 /* WorkoutView.swift in Sources */,
+				8717B5DA2CC1FA7900542061 /* PhysicalTrackApp.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin XCBuildConfiguration section */
+		8717B5E22CC1FA7B00542061 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu17;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
+				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "DEBUG $(inherited)";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+			};
+			name = Debug;
+		};
+		8717B5E32CC1FA7B00542061 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu17;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
+				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_COMPILATION_MODE = wholemodule;
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		8717B5E52CC1FA7B00542061 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_ASSET_PATHS = "\"PhysicalTrack/Preview Content\"";
+				DEVELOPMENT_TEAM = T6DNHAHXG9;
+				ENABLE_PREVIEWS = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.healthcare-fitness";
+				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
+				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
+				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.meltsplit.PhysicalTrack;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = 1;
+			};
+			name = Debug;
+		};
+		8717B5E62CC1FA7B00542061 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_ASSET_PATHS = "\"PhysicalTrack/Preview Content\"";
+				DEVELOPMENT_TEAM = T6DNHAHXG9;
+				ENABLE_PREVIEWS = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.healthcare-fitness";
+				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
+				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
+				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.meltsplit.PhysicalTrack;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = 1;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		8717B5D12CC1FA7900542061 /* Build configuration list for PBXProject "PhysicalTrack" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				8717B5E22CC1FA7B00542061 /* Debug */,
+				8717B5E32CC1FA7B00542061 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		8717B5E42CC1FA7B00542061 /* Build configuration list for PBXNativeTarget "PhysicalTrack" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				8717B5E52CC1FA7B00542061 /* Debug */,
+				8717B5E62CC1FA7B00542061 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		8717B5E72CC1FABB00542061 /* XCRemoteSwiftPackageReference "swift-composable-architecture" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/pointfreeco/swift-composable-architecture";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 1.15.1;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		8717B5E82CC1FABB00542061 /* ComposableArchitecture */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 8717B5E72CC1FABB00542061 /* XCRemoteSwiftPackageReference "swift-composable-architecture" */;
+			productName = ComposableArchitecture;
+		};
+/* End XCSwiftPackageProductDependency section */
+	};
+	rootObject = 8717B5CE2CC1FA7900542061 /* Project object */;
+}
