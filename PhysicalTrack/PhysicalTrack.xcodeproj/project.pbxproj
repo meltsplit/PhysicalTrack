@@ -12,8 +12,10 @@
 		8717B5DE2CC1FA7B00542061 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8717B5DD2CC1FA7B00542061 /* Assets.xcassets */; };
 		8717B5E12CC1FA7B00542061 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8717B5E02CC1FA7B00542061 /* Preview Assets.xcassets */; };
 		8717B5E92CC1FABB00542061 /* ComposableArchitecture in Frameworks */ = {isa = PBXBuildFile; productRef = 8717B5E82CC1FABB00542061 /* ComposableArchitecture */; };
-		8717B5F42CC1FD6B00542061 /* WorkoutStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8717B5F32CC1FD6B00542061 /* WorkoutStore.swift */; };
+		8717B5F42CC1FD6B00542061 /* WorkoutFeature.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8717B5F32CC1FD6B00542061 /* WorkoutFeature.swift */; };
 		8735D7192CC2014F00C7824C /* Colors.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8735D7182CC2014F00C7824C /* Colors.xcassets */; };
+		8735D7212CC20DCA00C7824C /* TimerFeature.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8735D7202CC20DCA00C7824C /* TimerFeature.swift */; };
+		8735D7232CC20DD200C7824C /* TimerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8735D7222CC20DD200C7824C /* TimerView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -22,8 +24,10 @@
 		8717B5DB2CC1FA7900542061 /* WorkoutView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkoutView.swift; sourceTree = "<group>"; };
 		8717B5DD2CC1FA7B00542061 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		8717B5E02CC1FA7B00542061 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
-		8717B5F32CC1FD6B00542061 /* WorkoutStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkoutStore.swift; sourceTree = "<group>"; };
+		8717B5F32CC1FD6B00542061 /* WorkoutFeature.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkoutFeature.swift; sourceTree = "<group>"; };
 		8735D7182CC2014F00C7824C /* Colors.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Colors.xcassets; sourceTree = "<group>"; };
+		8735D7202CC20DCA00C7824C /* TimerFeature.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimerFeature.swift; sourceTree = "<group>"; };
+		8735D7222CC20DD200C7824C /* TimerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimerView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -123,7 +127,8 @@
 			isa = PBXGroup;
 			children = (
 				8717B5DB2CC1FA7900542061 /* WorkoutView.swift */,
-				8717B5F32CC1FD6B00542061 /* WorkoutStore.swift */,
+				8717B5F32CC1FD6B00542061 /* WorkoutFeature.swift */,
+				8735D71F2CC20DBF00C7824C /* Timer */,
 			);
 			path = Workout;
 			sourceTree = "<group>";
@@ -185,6 +190,15 @@
 			children = (
 			);
 			path = Proximity;
+			sourceTree = "<group>";
+		};
+		8735D71F2CC20DBF00C7824C /* Timer */ = {
+			isa = PBXGroup;
+			children = (
+				8735D7222CC20DD200C7824C /* TimerView.swift */,
+				8735D7202CC20DCA00C7824C /* TimerFeature.swift */,
+			);
+			path = Timer;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -264,7 +278,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				8717B5F42CC1FD6B00542061 /* WorkoutStore.swift in Sources */,
+				8735D7232CC20DD200C7824C /* TimerView.swift in Sources */,
+				8717B5F42CC1FD6B00542061 /* WorkoutFeature.swift in Sources */,
+				8735D7212CC20DCA00C7824C /* TimerFeature.swift in Sources */,
 				8717B5DC2CC1FA7900542061 /* WorkoutView.swift in Sources */,
 				8717B5DA2CC1FA7900542061 /* PhysicalTrackApp.swift in Sources */,
 			);

@@ -11,7 +11,12 @@ import SwiftUI
 struct PhysicalTrackApp: App {
     var body: some Scene {
         WindowGroup {
-            WorkoutView()
+            WorkoutView(
+                store: .init(initialState: WorkoutFeature.State()) {
+                    WorkoutFeature()
+                }
+            )
+            
         }
     }
 }

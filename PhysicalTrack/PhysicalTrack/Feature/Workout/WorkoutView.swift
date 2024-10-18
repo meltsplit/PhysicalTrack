@@ -6,19 +6,37 @@
 //
 
 import SwiftUI
+import ComposableArchitecture
 
 struct WorkoutView: View {
+    
+    @Bindable var store: StoreOf<WorkoutFeature>
+    
+    
     var body: some View {
-        VStack {
-            Image(systemName: "globe")
-                .imageScale(.large)
-                .foregroundStyle(.tint)
-            Text("Hello, world!")
+        
+        
+        Button("스타트")
+        {
+            store.send(.startButtonTapped)
         }
         .padding()
+        .fullScreenCover(
+            item: $store.scope(state: \.timer, action: \.timer)
+        ) { store in
+            TimerView(
+                store: .init(initialState: TimerFeature.State()) {
+                    TimerFeature()
+                }
+            )
+        }
+
     }
+    
 }
 
 #Preview {
-    WorkoutView()
+    WorkoutView(store: .init(initialState: WorkoutFeature.State(), reducer: {
+        WorkoutFeature()
+    }))
 }
