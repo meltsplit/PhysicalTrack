@@ -8,7 +8,7 @@
 import Foundation
 
 struct GradeCriteria<W: Workout>: Equatable, Hashable {
-    let grade: WorkoutGrade
+    let grade: Grade
     var value: ClosedRange<Int> {
         W.getValue(grade)
     }
@@ -25,21 +25,21 @@ struct GradeCriteria<W: Workout>: Equatable, Hashable {
 }
 
 protocol Workout: Equatable {
-    static func getValue(_ grade: WorkoutGrade) -> ClosedRange<Int>
+    static func getValue(_ grade: Grade) -> ClosedRange<Int>
     
-    static func judgeGrade(_ value: Int) -> WorkoutGrade
+    static func judgeGrade(_ value: Int) -> Grade
     
     static var list: [GradeCriteria<Self>] { get }
 }
 
 extension Workout {
     static var list: [GradeCriteria<Self>] {
-        return WorkoutGrade.allCases.map { .init(grade: $0) }
+        return Grade.allCases.map { .init(grade: $0) }
     }
     
-    static func judgeGrade(_ value: Int) -> WorkoutGrade {
+    static func judgeGrade(_ value: Int) -> Grade {
         
-        for grade in WorkoutGrade.allCases {
+        for grade in Grade.allCases {
             if Self.getValue(grade).contains(value) { return grade }
         }
         return .failed

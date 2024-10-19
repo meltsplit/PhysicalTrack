@@ -13,16 +13,19 @@ struct MainFeature {
 
     @ObservableState
     struct State {
-        var selectedTab: MainScene = .workout
+        var selectedTab: MainScene
+        
         var workout: WorkoutFeature.State? = .init()
         var statistics: StatisticsFeature.State? = .init()
         var ranking: RankingFeature.State? = .init()
         var setting: SettingFeature.State? = .init()
+        
+        init(_ selectedTab: MainScene = .workout) {
+            self.selectedTab = selectedTab
+        }
     }
     
     enum Action {
-        
-        case onAppear
         case selectTab(MainScene)
         
         case workout(WorkoutFeature.Action)
@@ -33,7 +36,10 @@ struct MainFeature {
     
     var body: some ReducerOf<Self> {
         Reduce { state , action in
-            return .none
+            switch action {
+            default:
+                return .none
+            }
         }
         .ifLet(\.workout, action: \.workout) {
             WorkoutFeature()

@@ -14,7 +14,7 @@ struct TimerFeature {
     @Dependency(\.dismiss) var dismiss
     
     @ObservableState
-    struct State: Equatable {
+    struct State {
         var record: PushUpRecord
         var isTimerRunning = false
         fileprivate var leftSeconds: Int = 120

@@ -26,7 +26,7 @@ public enum MainScene: Hashable {
         }
     }
     
-    var image: String {
+    var systemImage: String {
         switch self {
         case .workout:
             "figure.run"

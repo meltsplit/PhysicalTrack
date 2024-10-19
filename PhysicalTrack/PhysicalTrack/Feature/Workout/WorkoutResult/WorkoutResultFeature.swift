@@ -12,7 +12,7 @@ import ComposableArchitecture
 struct WorkoutResultFeature {
     
     @ObservableState
-    struct State: Equatable {
+    struct State {
         var record: PushUpRecord
         var gradeList = PushUp.list
         

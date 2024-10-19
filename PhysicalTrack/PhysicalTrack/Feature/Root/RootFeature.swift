@@ -12,7 +12,6 @@ import ComposableArchitecture
 struct RootFeature {
     
     @ObservableState
-    @CasePathable
     enum State {
         case onboarding(OnboardingFeature.State)
         case main(MainFeature.State)
@@ -22,7 +21,6 @@ struct RootFeature {
         }
     }
     
-    @CasePathable
     enum Action {
         case onboarding(OnboardingFeature.Action)
         case main(MainFeature.Action)

@@ -14,7 +14,7 @@ struct PushUpRecord: Equatable {
     var time: Int
     var count: Int
     
-    var grade: WorkoutGrade {
+    var grade: Grade {
         PushUp.judgeGrade(count)
     }
     
@@ -22,7 +22,7 @@ struct PushUpRecord: Equatable {
         Double(count) / Double(time)
     }
     
-    init(for grade: WorkoutGrade) {
+    init(for grade: Grade) {
         self.targetSeconds = 10
         self.targetCount = PushUp.getValue(grade).upperBound
         self.time = 0

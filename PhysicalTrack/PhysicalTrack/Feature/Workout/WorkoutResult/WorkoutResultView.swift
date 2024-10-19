@@ -56,9 +56,9 @@ struct WorkoutResultView: View {
 
 fileprivate struct ReesultTitleView : View {
     
-    private let grade: WorkoutGrade
+    private let grade: Grade
     
-    init(grade: WorkoutGrade) {
+    init(grade: Grade) {
         self.grade = grade
     }
     

@@ -1,5 +1,5 @@
 //
-//  WorkoutGrade.swift
+//  Grade.swift
 //  PhysicalTrack
 //
 //  Created by 장석우 on 10/18/24.
@@ -7,7 +7,7 @@
 
 import Foundation
 
-enum WorkoutGrade: Hashable, CaseIterable  {
+enum Grade: Hashable, CaseIterable  {
     case elite
     case grade1
     case grade2

@@ -15,35 +15,22 @@ struct MainTabView: View {
         TabView(
             selection: $store.selectedTab.sending(\.selectTab)
         ) {
-            
-            if let store = store.scope(
-                state: \.workout,
-                action: \.workout
-            ) {
+            if let store = store.scope(state: \.workout, action: \.workout) {
                 WorkoutView(store: store)
                     .tabItem { TabBarItem(.workout) }
             }
             
-            if let store = store.scope(
-                state: \.statistics,
-                action: \.statistics
-            ) {
+            if let store = store.scope(state: \.statistics, action: \.statistics) {
                 StatisticsView(store: store)
                     .tabItem { TabBarItem(.statistics) }
             }
             
-            if let store = store.scope(
-                state: \.ranking,
-                action: \.ranking
-            ) {
+            if let store = store.scope(state: \.ranking, action: \.ranking) {
                 RankingView(store: store)
                     .tabItem { TabBarItem(.ranking) }
             }
             
-            if let store = store.scope(
-                state: \.setting,
-                action: \.setting
-            ) {
+            if let store = store.scope(state: \.setting, action: \.setting) {
                 SettingView(store: store)
                     .tabItem { TabBarItem(.setting) }
             }
@@ -60,7 +47,7 @@ fileprivate struct TabBarItem: View {
     }
     
     var body: some View {
-        Label(scene.title, systemImage:  scene.image)
+        Label(scene.title, systemImage:  scene.systemImage)
     }
 }
 

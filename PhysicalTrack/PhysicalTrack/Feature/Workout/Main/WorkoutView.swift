@@ -19,7 +19,7 @@ struct WorkoutView: View {
                 Picker("grade",
                        selection: $store.grade.sending(\.gradeButtonTapped))
                 {
-                    ForEach(WorkoutGrade.allCases, id: \.self) {
+                    ForEach(Grade.allCases, id: \.self) {
                         Text($0.title)
                     }
                 }

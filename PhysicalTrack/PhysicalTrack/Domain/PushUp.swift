@@ -9,7 +9,7 @@ import Foundation
 
 struct PushUp: Workout {
     
-    static func getValue(_ grade: WorkoutGrade) -> ClosedRange<Int> {
+    static func getValue(_ grade: Grade) -> ClosedRange<Int> {
         switch grade {
         case .elite:
             72...Int.max
