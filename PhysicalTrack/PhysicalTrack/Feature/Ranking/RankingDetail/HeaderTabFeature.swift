@@ -20,6 +20,7 @@ struct HeaderTabFeature<Item: HeaderItemType> {
         var selectedItem: Item
         var items = Item.allCases
         var selectedIndex: Int = 0
+        
         init(
             selectedItem: Item
         ) {
@@ -29,17 +30,13 @@ struct HeaderTabFeature<Item: HeaderItemType> {
     
     enum Action {
         case selectItem(Item)
-        case barAnimation(Int)
     }
     
     var body: some ReducerOf<Self> {
         Reduce { state , action in
             switch action {
             case let .selectItem(item):
-                return .send(.barAnimation(item.rawValue))
-                
-            case let .barAnimation(rawValue):
-                state.selectedIndex = rawValue
+                state.selectedIndex = item.rawValue
                 return .none
             }
         }

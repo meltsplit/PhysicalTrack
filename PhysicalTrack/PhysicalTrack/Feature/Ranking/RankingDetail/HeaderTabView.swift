@@ -20,14 +20,16 @@ struct HeaderTabView<Item: HeaderItemType>: View {
                         store.send(.selectItem(item))
                     } label: {
                         Text(item.title)
-                            .frame(maxWidth: UIScreen.main.bounds.width / CGFloat(store.items.count))
+                            .frame(maxWidth: .infinity)
                             .foregroundColor(.white)
+                            .background(.black)
                             .bold()
+                            .frame(height: 40)
                     }
-                    .buttonStyle(PlainButtonStyle())
+                     .buttonStyle(PlainButtonStyle())
                 }
             }
-            .frame(width: UIScreen.main.bounds.width, height: 40)
+            
             
             Rectangle()
                 .foregroundColor(.gray)
