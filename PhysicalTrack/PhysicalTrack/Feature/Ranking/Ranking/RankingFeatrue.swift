@@ -39,10 +39,7 @@ struct RankingFeature {
         case statistics(StatisticsFeature)
     }
     
-    enum RankingType {
-        case consistency
-        case pushUp
-    }
+
     
    
     
@@ -60,10 +57,10 @@ struct RankingFeature {
                     )
                     
                 }
-            case .rankingDetailButtonTapped:
-                state.path.append(.rankingDetail(RankingDetailFeature.State()))
+            case let .rankingDetailButtonTapped(type):
+                state.path.append(.rankingDetail(RankingDetailFeature.State(type, state.ranking)))
                 return .none
-            case .path(.element(id: _, action: .rankingDetail(.userCellTapped))):
+            case let .path(.element(id: _, action: .rankingDetail(.rankCellTapped(userID)))):
                 state.path.append(.statistics(StatisticsFeature.State()))
                 return .none
                 

@@ -1,27 +1,23 @@
 //
-//  StatisticsFeature.swift
+//  PushUpRankingFeature.swift
 //  PhysicalTrack
 //
-//  Created by 장석우 on 10/18/24.
+//  Created by 장석우 on 10/19/24.
 //
 
 import Foundation
 import ComposableArchitecture
 
 @Reducer
-struct StatisticsFeature {
+struct PushUpRankingFeature {
     
     @ObservableState
     struct State {
-        private var _userID: Int
-        
-        init(_ userID: Int = 1) {
-            self._userID = userID
-        }
+        var ranking: [PushUpRankingResponse] = []
     }
     
     enum Action {
-        
+        case rankCellTapped(Int)
     }
     
     var body: some ReducerOf<Self> {
