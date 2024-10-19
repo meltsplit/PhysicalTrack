@@ -20,7 +20,7 @@ struct RankingClient: Networkable {
 extension RankingClient: DependencyKey {
     static let liveValue = RankingClient(
         fetch: {
-            return .success(.mock)
+            return .success(.stub)
             var url = URL(string: "https://baseURL/api/statistics/stats")!
             let (data, _) = try await URLSession.shared.data(from: url)
             return try jsonDecoder.decode(DTO<RankingResponse>.self, from: data)
@@ -39,7 +39,7 @@ extension DependencyValues {
 
 extension RankingClient: TestDependencyKey {
     static let previewValue = Self(
-        fetch: { .success(.mock) }
+        fetch: { .success(.stub) }
     )
     
     static let testValue = Self()

@@ -23,7 +23,7 @@ struct PushUpRecord: Equatable {
     }
     
     init(for grade: Grade) {
-        self.targetSeconds = 10
+        self.targetSeconds = 120
         self.targetCount = grade == .elite ? PushUp.criteriaDict[grade]!.lowerBound : PushUp.criteriaDict[grade]!.upperBound
         self.time = 0
         self.count = 0

@@ -9,25 +9,51 @@ import SwiftUI
 import ComposableArchitecture
 
 struct TimerView: View {
+    
     @Bindable var store: StoreOf<TimerFeature>
-    
-    
+    @State private var animationValue = 1.0
     
     var body: some View {
-        
-        
         NavigationStack(path: $store.scope(state: \.path, action: \.path)) {
-            VStack{
-                Text("Timer")
-                Text("시간: " + String(store.leftTime))
-                Text("개수: " + String(store.record.count))
-                Button("횟수 카운팅") {
-                    store.send(.counting)
+            
+            ZStack {
+                VStack {
+                    
+                    Circle()
+                        .frame(width: 60, height: 60)
+                        .foregroundColor(.blue)
+                        .overlay(
+                            Circle()
+                                .stroke(.blue)
+                                .frame(width: 60, height: 60)
+                                .scaleEffect(animationValue)
+                                .opacity(1 - (animationValue / 5))
+                                .animation(
+                                    .easeIn(duration: 1),
+                                    value: store.record.count
+                                )
+                        )
+                        .onChange(of: store.record.count) { _, _ in
+                            animationValue = 1
+                            withAnimation {
+                                animationValue = 5
+                            }
+                        }
+                    
+                    Spacer()
                 }
-                Button("종료") {
-                    store.send(.quitButtonTapped)
+                VStack{
+                    Text("Timer")
+                    Text("시간: " + String(store.leftTime))
+                    Text("개수: " + String(store.record.count))
+                    Button("횟수 카운팅") {
+                        store.send(.counting)
+                    }
+                    Button("종료") {
+                        store.send(.quitButtonTapped)
+                    }
+                    
                 }
-                
             }
             .frame(maxWidth: .infinity, maxHeight: .infinity)
             .onAppear {
@@ -42,7 +68,7 @@ struct TimerView: View {
         } destination: { store in
             WorkoutResultView(store: store)
         }
-
+        
     }
     
     @State private var isAnimation = false
@@ -85,11 +111,9 @@ struct TimerView: View {
     }
 }
 
-
-
-
 #Preview {
     TimerView(store: .init(initialState: TimerFeature.State(.init(for: .grade1)), reducer: {
         TimerFeature()
     }))
 }
+

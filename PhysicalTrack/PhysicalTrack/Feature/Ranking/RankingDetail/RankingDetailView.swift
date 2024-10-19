@@ -58,7 +58,7 @@ struct RankingDetailView: View {
 
 #Preview {
     RankingDetailView(
-        store: .init(initialState: RankingDetailFeature.State(.consistency, .mock)) {
+        store: .init(initialState: RankingDetailFeature.State(.consistency, .stub)) {
             RankingDetailFeature()
         }
     )

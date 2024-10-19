@@ -19,7 +19,7 @@ struct HeaderTabFeature<Item: HeaderItemType> {
     struct State {
         var selectedItem: Item
         var items = Item.allCases
-        var selectedIndex: Int = 0
+        var selectedIndex: Int { selectedItem.rawValue }
         
         init(
             selectedItem: Item
@@ -36,7 +36,7 @@ struct HeaderTabFeature<Item: HeaderItemType> {
         Reduce { state , action in
             switch action {
             case let .selectItem(item):
-                state.selectedIndex = item.rawValue
+                state.selectedItem = item
                 return .none
             }
         }

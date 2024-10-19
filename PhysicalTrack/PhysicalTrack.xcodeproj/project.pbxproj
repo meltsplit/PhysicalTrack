@@ -202,7 +202,7 @@
 		8717B5EF2CC1FB2900542061 /* Workout */ = {
 			isa = PBXGroup;
 			children = (
-				8735D72C2CC2429800C7824C /* Main */,
+				8735D72C2CC2429800C7824C /* Workout */,
 				8735D71F2CC20DBF00C7824C /* Timer */,
 				8735D7272CC230A100C7824C /* WorkoutResult */,
 			);
@@ -305,13 +305,13 @@
 			path = WorkoutResult;
 			sourceTree = "<group>";
 		};
-		8735D72C2CC2429800C7824C /* Main */ = {
+		8735D72C2CC2429800C7824C /* Workout */ = {
 			isa = PBXGroup;
 			children = (
 				8717B5DB2CC1FA7900542061 /* WorkoutView.swift */,
 				8717B5F32CC1FD6B00542061 /* WorkoutFeature.swift */,
 			);
-			path = Main;
+			path = Workout;
 			sourceTree = "<group>";
 		};
 		8735D7372CC2766900C7824C /* Root */ = {
@@ -355,12 +355,11 @@
 		8735D7552CC371E100C7824C /* RankingDetail */ = {
 			isa = PBXGroup;
 			children = (
+				8754676E2CC3DAAA00144BE3 /* HeaderTab */,
 				8735D7562CC371F100C7824C /* RankingDetailView.swift */,
 				8735D7582CC371FA00C7824C /* RankingDetailFeature.swift */,
 				871059E62CC3B1F500C4362D /* ConsistencyRankingFeature.swift */,
 				871059E82CC3B1FD00C4362D /* PushUpRankingFeature.swift */,
-				871059EC2CC3BBEE00C4362D /* HeaderTabView.swift */,
-				8754676C2CC3C57A00144BE3 /* HeaderTabFeature.swift */,
 			);
 			path = RankingDetail;
 			sourceTree = "<group>";
@@ -381,6 +380,15 @@
 				8735D7662CC3A23400C7824C /* Networkable.swift */,
 			);
 			path = Foundation;
+			sourceTree = "<group>";
+		};
+		8754676E2CC3DAAA00144BE3 /* HeaderTab */ = {
+			isa = PBXGroup;
+			children = (
+				871059EC2CC3BBEE00C4362D /* HeaderTabView.swift */,
+				8754676C2CC3C57A00144BE3 /* HeaderTabFeature.swift */,
+			);
+			path = HeaderTab;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */

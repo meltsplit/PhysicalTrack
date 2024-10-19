@@ -14,7 +14,7 @@ struct RankingFeature {
     @ObservableState
     struct State {
         var path = StackState<Path.State>()
-        var ranking : RankingResponse = .mock
+        var ranking : RankingResponse = .empty
         var consistencyTop3: [ConsistencyRankingResponse] = []
         var pushUpTop3: [PushUpRankingResponse] = []
         @Presents var alert: AlertState<Action.Alert>?
@@ -61,7 +61,7 @@ struct RankingFeature {
                 state.path.append(.rankingDetail(RankingDetailFeature.State(type, state.ranking)))
                 return .none
             case let .path(.element(id: _, action: .rankingDetail(.rankCellTapped(userID)))):
-                state.path.append(.statistics(StatisticsFeature.State()))
+                state.path.append(.statistics(StatisticsFeature.State(userID)))
                 return .none
                 
             case let .rankingResponse(.success(response)):

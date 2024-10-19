@@ -24,7 +24,7 @@ struct RankingDetailFeature {
             self.selectedTab = selectedTab
             self.consistency = ConsistencyRankingFeature.State(ranking: ranking.consistencyRanking)
             self.pushUp = PushUpRankingFeature.State(ranking: ranking.pushUpRanking)
-            self.headerTab = HeaderTabFeature<RankingType>.State(selectedItem: .consistency)
+            self.headerTab = HeaderTabFeature<RankingType>.State(selectedItem: selectedTab)
         }
     }
     

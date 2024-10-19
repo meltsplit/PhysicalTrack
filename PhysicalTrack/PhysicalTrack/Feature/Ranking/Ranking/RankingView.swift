@@ -70,6 +70,7 @@ struct RankingView: View {
                 StatisticsView(store: store)
             case .rankingDetail(let store):
                 RankingDetailView(store: store)
+                    .navigationBarTitleDisplayMode(.inline)
                     .toolbar(.hidden, for: .tabBar)
             }
         }

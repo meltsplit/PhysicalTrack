@@ -7,6 +7,7 @@
 
 import Foundation
 import ComposableArchitecture
+import UIKit
 
 @Reducer
 struct TimerFeature {
@@ -62,11 +63,12 @@ struct TimerFeature {
                 else {
                     state.presentResult = true
                     return .cancel(id: CancelID.timer)
-                                   }
+                }
                 state.record.time = state.record.targetSeconds - state.leftSeconds
                 state.leftSeconds -= 1
                 return .none
             case .counting:
+                UIImpactFeedbackGenerator(style: .heavy).impactOccurred()
                 state.record.count += 1
                 
                 return .none
