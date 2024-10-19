@@ -34,7 +34,7 @@ struct WorkoutFeature {
                 return .none
                 
             case .startButtonTapped:
-                state.timer = TimerFeature.State(PushUpRecord(for: .grade1))
+                state.timer = TimerFeature.State(PushUpRecord(for: state.grade))
                 return .none
                 
                 
