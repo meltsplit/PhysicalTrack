@@ -7,7 +7,7 @@
 
 import Foundation
 
-enum WorkoutGrade: Equatable, CaseIterable {
+enum WorkoutGrade: Hashable, CaseIterable  {
     case elite
     case grade1
     case grade2

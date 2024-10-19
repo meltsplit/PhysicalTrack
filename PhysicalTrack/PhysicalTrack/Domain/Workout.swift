@@ -7,9 +7,11 @@
 
 import Foundation
 
-struct GradeCriteria: Equatable, Hashable {
+struct GradeCriteria<W: Workout>: Equatable, Hashable {
     let grade: WorkoutGrade
-    let value: ClosedRange<Int>
+    var value: ClosedRange<Int> {
+        W.getValue(grade)
+    }
     
     var description: String {
         guard value.lowerBound != Int.min 
@@ -27,12 +29,12 @@ protocol Workout: Equatable {
     
     static func judgeGrade(_ value: Int) -> WorkoutGrade
     
-    static var list: [GradeCriteria] { get }
+    static var list: [GradeCriteria<Self>] { get }
 }
 
 extension Workout {
-    static var list: [GradeCriteria] {
-        return WorkoutGrade.allCases.map { .init(grade: $0, value: getValue($0)) }
+    static var list: [GradeCriteria<Self>] {
+        return WorkoutGrade.allCases.map { .init(grade: $0) }
     }
     
     static func judgeGrade(_ value: Int) -> WorkoutGrade {

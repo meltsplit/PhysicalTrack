@@ -16,14 +16,17 @@ struct WorkoutView: View {
     var body: some View {
         NavigationStack {
             VStack {
-                
-                Button {
-                    store.send(.gradeButtonTapped)
-                } label: {
-                    Text(store.grade.title)
+                Picker("grade",
+                       selection: $store.grade.sending(\.gradeButtonTapped))
+                {
+                    ForEach(WorkoutGrade.allCases, id: \.self) {
+                        Text($0.title)
+                    }
                 }
+                .pickerStyle(.menu)
                 
-                Text(String(store.count.lowerBound) + "-" + String(store.count.upperBound))
+                
+                Text(store.criteria.description)
                 
                 Button("스타트")
                 {
@@ -38,7 +41,7 @@ struct WorkoutView: View {
             }
             .navigationTitle("팔굽혀펴기")
         }
-
+        
     }
     
 }

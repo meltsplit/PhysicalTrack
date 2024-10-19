@@ -16,12 +16,12 @@ struct WorkoutFeature {
     @ObservableState
     struct State: Equatable {
         var grade: WorkoutGrade = .grade2
-        var count: ClosedRange<Int> { PushUp.getValue(grade) }
+        var criteria: GradeCriteria<PushUp> { GradeCriteria<PushUp>(grade: grade) }
         @Presents var timer: TimerFeature.State?
     }
     
     enum Action {
-        case gradeButtonTapped
+        case gradeButtonTapped(WorkoutGrade)
         case startButtonTapped
         case timer(PresentationAction<TimerFeature.Action>)
     }
@@ -29,7 +29,8 @@ struct WorkoutFeature {
         Reduce { state, action in
             switch action {
                 
-            case .gradeButtonTapped:
+            case let .gradeButtonTapped(grade):
+                state.grade = grade
                 return .none
                 
             case .startButtonTapped:

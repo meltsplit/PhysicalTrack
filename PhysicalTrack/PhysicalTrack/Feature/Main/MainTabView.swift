@@ -24,7 +24,6 @@ struct MainTabView: View {
                         .tabItem {
                             TabBarItem(.workout)
                         }
-                        .tag(MainScene.workout)
                 }
                 
                 IfLetStore(
@@ -34,7 +33,7 @@ struct MainTabView: View {
                         .tabItem {
                             TabBarItem(.statistics)
                         }
-                        .tag(MainScene.statistics)
+                        
                 }
                 
                 IfLetStore(
@@ -44,7 +43,6 @@ struct MainTabView: View {
                         .tabItem {
                             TabBarItem(.ranking)
                         }
-                        .tag(MainScene.ranking)
                 }
                 
                 IfLetStore(
@@ -54,7 +52,6 @@ struct MainTabView: View {
                         .tabItem {
                             TabBarItem(.setting)
                         }
-                        .tag(MainScene.setting)
                 }
                 
                 
@@ -65,10 +62,12 @@ struct MainTabView: View {
 
 fileprivate struct TabBarItem: View {
     
-    var scene: MainScene
-    init(_ scene: MainScene) {
+    private var scene: MainScene
+    
+    fileprivate init(_ scene: MainScene) {
         self.scene = scene
     }
+    
     var body: some View {
         Label(scene.title, systemImage:  scene.image)
     }
