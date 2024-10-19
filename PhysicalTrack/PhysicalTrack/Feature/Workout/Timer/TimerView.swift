@@ -44,11 +44,12 @@ struct TimerView: View {
                 }
                 VStack{
                     Text("Timer")
-                    Text("시간: " + String(store.leftTime))
-                    Text("개수: " + String(store.record.count))
-                    Button("횟수 카운팅") {
-                        store.send(.counting)
-                    }
+                    Text(store.leftTime)
+                        .font(.system(size: 40, weight: .bold))
+                    
+                    Text(String(store.record.count) + "개")
+                        .font(.system(size: 40, weight: .bold))
+                    
                     Button("종료") {
                         store.send(.quitButtonTapped)
                     }

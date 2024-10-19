@@ -50,6 +50,7 @@
 		8735D7672CC3A23400C7824C /* Networkable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8735D7662CC3A23400C7824C /* Networkable.swift */; };
 		8735D7692CC3A38700C7824C /* RankingResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8735D7682CC3A38700C7824C /* RankingResponse.swift */; };
 		8754676D2CC3C57A00144BE3 /* HeaderTabFeature.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8754676C2CC3C57A00144BE3 /* HeaderTabFeature.swift */; };
+		87E1E9F92CC41D61006FAA24 /* ProximityClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87E1E9F82CC41D61006FAA24 /* ProximityClient.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -96,6 +97,7 @@
 		8735D7662CC3A23400C7824C /* Networkable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Networkable.swift; sourceTree = "<group>"; };
 		8735D7682CC3A38700C7824C /* RankingResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RankingResponse.swift; sourceTree = "<group>"; };
 		8754676C2CC3C57A00144BE3 /* HeaderTabFeature.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeaderTabFeature.swift; sourceTree = "<group>"; };
+		87E1E9F82CC41D61006FAA24 /* ProximityClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProximityClient.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -275,6 +277,7 @@
 		8735D71E2CC2053300C7824C /* Proximity */ = {
 			isa = PBXGroup;
 			children = (
+				87E1E9F82CC41D61006FAA24 /* ProximityClient.swift */,
 			);
 			path = Proximity;
 			sourceTree = "<group>";
@@ -472,6 +475,7 @@
 				871059E72CC3B1F500C4362D /* ConsistencyRankingFeature.swift in Sources */,
 				8735D74A2CC27C7E00C7824C /* MainTabView.swift in Sources */,
 				8735D7472CC27A4900C7824C /* StatisticsView.swift in Sources */,
+				87E1E9F92CC41D61006FAA24 /* ProximityClient.swift in Sources */,
 				8735D7262CC21A8000C7824C /* Int+.swift in Sources */,
 				8735D7592CC371FA00C7824C /* RankingDetailFeature.swift in Sources */,
 				8735D7692CC3A38700C7824C /* RankingResponse.swift in Sources */,
