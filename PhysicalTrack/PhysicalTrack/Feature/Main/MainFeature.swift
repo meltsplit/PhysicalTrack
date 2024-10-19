@@ -13,14 +13,11 @@ struct MainFeature {
 
     @ObservableState
     struct State {
-        public var selectedTab: MainScene = .workout
-        
-        public var workout: WorkoutFeature.State? = .init()
-        public var statistics: StatisticsFeature.State? = .init()
-        public var ranking: RankingFeature.State? = .init()
-        public var setting: SettingFeature.State? = .init()
-        
-        public var showTabBar: Bool = true
+        var selectedTab: MainScene = .workout
+        var workout: WorkoutFeature.State? = .init()
+        var statistics: StatisticsFeature.State? = .init()
+        var ranking: RankingFeature.State? = .init()
+        var setting: SettingFeature.State? = .init()
     }
     
     enum Action {

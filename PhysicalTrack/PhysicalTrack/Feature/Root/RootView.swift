@@ -12,26 +12,15 @@ struct RootView: View {
     let store: StoreOf<RootFeature>
     
     var body: some View {
-        SwitchStore(self.store) { state in
-            switch state {
-            case .onboarding:
-                CaseLet(
-                    \RootFeature.State.onboarding,
-                     action: RootFeature.Action.onboarding
-                ) { store in
-                    OnboardingView(store: store)
-                }
-            case .main:
-                CaseLet(
-                    \RootFeature.State.main,
-                     action: RootFeature.Action.main
-                ) { store in
-                    MainTabView(store: store)
-                }
+        switch store.state {
+        case .onboarding:
+            if let store = store.scope(state: \.onboarding, action: \.onboarding) {
+                OnboardingView(store: store)
             }
-            
-            
-            
+        case .main:
+            if let store = store.scope(state: \.main, action: \.main) {
+                MainTabView(store: store)
+            }
         }
     }
 }

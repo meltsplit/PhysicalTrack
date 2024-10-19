@@ -9,52 +9,43 @@ import SwiftUI
 import ComposableArchitecture
 
 struct MainTabView: View {
-    let store: StoreOf<MainFeature>
+    @Bindable var store: StoreOf<MainFeature>
     
     var body: some View {
-        WithViewStore(self.store, observe: \.selectedTab) { viewStore in
-            TabView(selection: viewStore.binding(
-                get: { $0 },
-                send: MainFeature.Action.selectTab)
+        TabView(
+            selection: $store.selectedTab.sending(\.selectTab)
+        ) {
+            
+            if let store = store.scope(
+                state: \.workout,
+                action: \.workout
             ) {
-                IfLetStore(
-                    self.store.scope(state: \.workout, action: \.workout)
-                ) { store in
-                    WorkoutView(store: store)
-                        .tabItem {
-                            TabBarItem(.workout)
-                        }
-                }
-                
-                IfLetStore(
-                    self.store.scope(state: \.statistics, action: \.statistics)
-                ) { store in
-                    StatisticsView(store: store)
-                        .tabItem {
-                            TabBarItem(.statistics)
-                        }
-                        
-                }
-                
-                IfLetStore(
-                    self.store.scope(state: \.ranking, action: \.ranking)
-                ) { store in
-                    RankingView(store: store)
-                        .tabItem {
-                            TabBarItem(.ranking)
-                        }
-                }
-                
-                IfLetStore(
-                    self.store.scope(state: \.setting, action: \.setting)
-                ) { store in
-                    SettingView(store: store)
-                        .tabItem {
-                            TabBarItem(.setting)
-                        }
-                }
-                
-                
+                WorkoutView(store: store)
+                    .tabItem { TabBarItem(.workout) }
+            }
+            
+            if let store = store.scope(
+                state: \.statistics,
+                action: \.statistics
+            ) {
+                StatisticsView(store: store)
+                    .tabItem { TabBarItem(.statistics) }
+            }
+            
+            if let store = store.scope(
+                state: \.ranking,
+                action: \.ranking
+            ) {
+                RankingView(store: store)
+                    .tabItem { TabBarItem(.ranking) }
+            }
+            
+            if let store = store.scope(
+                state: \.setting,
+                action: \.setting
+            ) {
+                SettingView(store: store)
+                    .tabItem { TabBarItem(.setting) }
             }
         }
     }
