@@ -25,7 +25,7 @@ struct WorkoutResultView: View {
                     }
                     
                     LazyVStack {
-                        ForEach(store.gradeList, id: \.self) { criteria in
+                        ForEach(store.criterias, id: \.self) { criteria in
                             HStack {
                                 Text(criteria.grade.title)
                                 Spacer()

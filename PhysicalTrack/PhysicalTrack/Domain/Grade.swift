@@ -7,7 +7,7 @@
 
 import Foundation
 
-enum Grade: Hashable, CaseIterable  {
+enum Grade: Int, Hashable, CaseIterable {
     case elite
     case grade1
     case grade2

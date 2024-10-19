@@ -38,6 +38,7 @@
 		8735D7532CC27EFE00C7824C /* OnboardingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8735D7522CC27EFE00C7824C /* OnboardingView.swift */; };
 		8735D7572CC371F100C7824C /* RankingDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8735D7562CC371F100C7824C /* RankingDetailView.swift */; };
 		8735D7592CC371FA00C7824C /* RankingDetailFeature.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8735D7582CC371FA00C7824C /* RankingDetailFeature.swift */; };
+		8735D75B2CC38D6F00C7824C /* GradeCriteria.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8735D75A2CC38D6F00C7824C /* GradeCriteria.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -72,6 +73,7 @@
 		8735D7522CC27EFE00C7824C /* OnboardingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingView.swift; sourceTree = "<group>"; };
 		8735D7562CC371F100C7824C /* RankingDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RankingDetailView.swift; sourceTree = "<group>"; };
 		8735D7582CC371FA00C7824C /* RankingDetailFeature.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RankingDetailFeature.swift; sourceTree = "<group>"; };
+		8735D75A2CC38D6F00C7824C /* GradeCriteria.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GradeCriteria.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -143,10 +145,11 @@
 		8717B5EC2CC1FB0300542061 /* Domain */ = {
 			isa = PBXGroup;
 			children = (
-				8735D72F2CC254C800C7824C /* Grade.swift */,
 				8735D7312CC2557B00C7824C /* Workout.swift */,
-				8735D7332CC25C6500C7824C /* PushUpRecord.swift */,
+				8735D72F2CC254C800C7824C /* Grade.swift */,
+				8735D75A2CC38D6F00C7824C /* GradeCriteria.swift */,
 				8735D7352CC25C7A00C7824C /* PushUp.swift */,
+				8735D7332CC25C6500C7824C /* PushUpRecord.swift */,
 			);
 			path = Domain;
 			sourceTree = "<group>";
@@ -432,6 +435,7 @@
 				8735D7412CC2779600C7824C /* SettingFeature.swift in Sources */,
 				8717B5DA2CC1FA7900542061 /* PhysicalTrackApp.swift in Sources */,
 				8735D7302CC254C800C7824C /* Grade.swift in Sources */,
+				8735D75B2CC38D6F00C7824C /* GradeCriteria.swift in Sources */,
 				8735D7292CC230BD00C7824C /* WorkoutResultFeature.swift in Sources */,
 				8735D74E2CC27CD800C7824C /* MainScene.swift in Sources */,
 				8735D72E2CC242CD00C7824C /* WorkoutResultView.swift in Sources */,

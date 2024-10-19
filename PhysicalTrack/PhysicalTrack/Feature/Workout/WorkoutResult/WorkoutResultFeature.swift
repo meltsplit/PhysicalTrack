@@ -14,7 +14,7 @@ struct WorkoutResultFeature {
     @ObservableState
     struct State {
         var record: PushUpRecord
-        var gradeList = PushUp.list
+        var criterias = PushUp.criteriaArray
         
         init(record: PushUpRecord) {
             self.record = record

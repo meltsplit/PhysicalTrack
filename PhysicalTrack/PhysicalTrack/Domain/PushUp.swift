@@ -9,19 +9,12 @@ import Foundation
 
 struct PushUp: Workout {
     
-    static func getValue(_ grade: Grade) -> ClosedRange<Int> {
-        switch grade {
-        case .elite:
-            72...Int.max
-        case .grade1:
-            64...71
-        case .grade2:
-            56...63
-        case .grade3:
-            48...55
-        case .failed:
-            Int.min...47
-        }
-    }
+    static let criteriaDict: [Grade : ClosedRange<Int>] = [
+        .elite: 72...Int.max,
+        .grade1: 64...71,
+        .grade2: 56...63,
+        .grade3: 48...55,
+        .failed: Int.min...47,
+    ]
 }
 
