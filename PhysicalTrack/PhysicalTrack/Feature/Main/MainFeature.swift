@@ -12,7 +12,7 @@ import ComposableArchitecture
 struct MainFeature {
 
     @ObservableState
-    struct State: Equatable {
+    struct State {
         public var selectedTab: MainScene = .workout
         
         public var workout: WorkoutFeature.State? = .init()

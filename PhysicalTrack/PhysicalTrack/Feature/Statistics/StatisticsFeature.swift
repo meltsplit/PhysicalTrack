@@ -12,8 +12,8 @@ import ComposableArchitecture
 struct StatisticsFeature {
     
     @ObservableState
-    struct State: Equatable {
-        
+    struct State {
+        var a = ""
     }
     
     enum Action {

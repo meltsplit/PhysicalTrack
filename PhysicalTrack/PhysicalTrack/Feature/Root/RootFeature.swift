@@ -13,7 +13,7 @@ struct RootFeature {
     
     @ObservableState
     @CasePathable
-    enum State: Equatable {
+    enum State {
         case onboarding(OnboardingFeature.State)
         case main(MainFeature.State)
         

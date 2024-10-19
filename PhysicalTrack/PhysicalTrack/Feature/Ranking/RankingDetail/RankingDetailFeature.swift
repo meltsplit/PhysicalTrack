@@ -1,23 +1,22 @@
 //
-//  RankingFeatrue.swift
+//  RankingDetailFeature.swift
 //  PhysicalTrack
 //
-//  Created by 장석우 on 10/18/24.
+//  Created by 장석우 on 10/19/24.
 //
 
 import Foundation
 import ComposableArchitecture
 
 @Reducer
-struct RankingFeature {
+struct RankingDetailFeature {
     
     @ObservableState
-    struct State: Equatable {
-        
+    struct State {
     }
     
     enum Action {
-        
+        case userCellTapped
     }
     
     var body: some ReducerOf<Self> {

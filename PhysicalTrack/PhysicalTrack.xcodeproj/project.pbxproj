@@ -36,6 +36,8 @@
 		8735D74E2CC27CD800C7824C /* MainScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8735D74D2CC27CD800C7824C /* MainScene.swift */; };
 		8735D7512CC27EF800C7824C /* OnboardingFeature.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8735D7502CC27EF800C7824C /* OnboardingFeature.swift */; };
 		8735D7532CC27EFE00C7824C /* OnboardingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8735D7522CC27EFE00C7824C /* OnboardingView.swift */; };
+		8735D7572CC371F100C7824C /* RankingDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8735D7562CC371F100C7824C /* RankingDetailView.swift */; };
+		8735D7592CC371FA00C7824C /* RankingDetailFeature.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8735D7582CC371FA00C7824C /* RankingDetailFeature.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -68,6 +70,8 @@
 		8735D74D2CC27CD800C7824C /* MainScene.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainScene.swift; sourceTree = "<group>"; };
 		8735D7502CC27EF800C7824C /* OnboardingFeature.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingFeature.swift; sourceTree = "<group>"; };
 		8735D7522CC27EFE00C7824C /* OnboardingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingView.swift; sourceTree = "<group>"; };
+		8735D7562CC371F100C7824C /* RankingDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RankingDetailView.swift; sourceTree = "<group>"; };
+		8735D7582CC371FA00C7824C /* RankingDetailFeature.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RankingDetailFeature.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -192,8 +196,8 @@
 		8717B5F12CC1FB3D00542061 /* Ranking */ = {
 			isa = PBXGroup;
 			children = (
-				8735D73E2CC2777E00C7824C /* RankingFeatrue.swift */,
-				8735D7442CC27A2200C7824C /* RankingView.swift */,
+				8735D7542CC371DA00C7824C /* Ranking */,
+				8735D7552CC371E100C7824C /* RankingDetail */,
 			);
 			path = Ranking;
 			sourceTree = "<group>";
@@ -309,6 +313,24 @@
 			path = Onboarding;
 			sourceTree = "<group>";
 		};
+		8735D7542CC371DA00C7824C /* Ranking */ = {
+			isa = PBXGroup;
+			children = (
+				8735D73E2CC2777E00C7824C /* RankingFeatrue.swift */,
+				8735D7442CC27A2200C7824C /* RankingView.swift */,
+			);
+			path = Ranking;
+			sourceTree = "<group>";
+		};
+		8735D7552CC371E100C7824C /* RankingDetail */ = {
+			isa = PBXGroup;
+			children = (
+				8735D7562CC371F100C7824C /* RankingDetailView.swift */,
+				8735D7582CC371FA00C7824C /* RankingDetailFeature.swift */,
+			);
+			path = RankingDetail;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -390,10 +412,12 @@
 				8735D74A2CC27C7E00C7824C /* MainTabView.swift in Sources */,
 				8735D7472CC27A4900C7824C /* StatisticsView.swift in Sources */,
 				8735D7262CC21A8000C7824C /* Int+.swift in Sources */,
+				8735D7592CC371FA00C7824C /* RankingDetailFeature.swift in Sources */,
 				8735D7452CC27A2200C7824C /* RankingView.swift in Sources */,
 				8735D7232CC20DD200C7824C /* TimerView.swift in Sources */,
 				8735D7432CC279DA00C7824C /* SettingView.swift in Sources */,
 				8717B5F42CC1FD6B00542061 /* WorkoutFeature.swift in Sources */,
+				8735D7572CC371F100C7824C /* RankingDetailView.swift in Sources */,
 				8735D73D2CC276F400C7824C /* StatisticsFeature.swift in Sources */,
 				8735D7512CC27EF800C7824C /* OnboardingFeature.swift in Sources */,
 				8735D73F2CC2777E00C7824C /* RankingFeatrue.swift in Sources */,
