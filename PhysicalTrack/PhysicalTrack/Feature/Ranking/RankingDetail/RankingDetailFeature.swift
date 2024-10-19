@@ -13,6 +13,7 @@ struct RankingDetailFeature {
     
     @ObservableState
     struct State {
+        
     }
     
     enum Action {

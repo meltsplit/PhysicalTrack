@@ -17,7 +17,7 @@ struct RankingResponse: Decodable {
     }
 }
 
-struct ConsistencyRankingResponse: Decodable {
+struct ConsistencyRankingResponse: Decodable, Hashable {
     let name: String
     let daysActive: Int
     let rank: Int
@@ -29,7 +29,7 @@ struct ConsistencyRankingResponse: Decodable {
     
 }
 
-struct PushUpRankingResponse: Decodable {
+struct PushUpRankingResponse: Decodable, Hashable {
     let name: String
     let quantity: Int
     let rank: Int

@@ -12,7 +12,7 @@ import ComposableArchitecture
 
 @DependencyClient
 struct RankingClient: Networkable {
-    var fetch: @Sendable () async throws -> DTO<StatisticsResponse>
+    var fetch: @Sendable () async throws -> DTO<RankingResponse>
 }
 
 // MARK: - Live API implementation
@@ -22,7 +22,7 @@ extension RankingClient: DependencyKey {
         fetch: {
             var url = URL(string: "https://baseURL/api/statistics/stats")!
             let (data, _) = try await URLSession.shared.data(from: url)
-            return try jsonDecoder.decode(DTO<StatisticsResponse>.self, from: data)
+            return try jsonDecoder.decode(DTO<RankingResponse>.self, from: data)
         }
     )
 }

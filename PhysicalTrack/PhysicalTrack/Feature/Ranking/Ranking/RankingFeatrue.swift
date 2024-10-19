@@ -14,11 +14,23 @@ struct RankingFeature {
     @ObservableState
     struct State {
         var path = StackState<Path.State>()
+        var ranking : RankingResponse = .mock
+        var consistencyTop3: [ConsistencyRankingResponse] = []
+        var pushUpTop3: [PushUpRankingResponse] = []
+        @Presents var alert: AlertState<Action.Alert>?
     }
     
     enum Action {
+        case onAppear
+        case rankingResponse(Result<RankingResponse, Error>)
         case path(StackActionOf<Path>)
-        case rankingDetailButtonTapped
+        case rankingDetailButtonTapped(RankingType)
+        case alert(PresentationAction<Alert>)
+        
+        @CasePathable
+        enum Alert {
+            case serverFail
+        }
     }
     
     @Reducer
@@ -27,20 +39,60 @@ struct RankingFeature {
         case statistics(StatisticsFeature)
     }
     
+    enum RankingType {
+        case consistency
+        case pushUp
+    }
+    
+   
+    
+    @Dependency(\.rankingClient) private var rankingClient
     
     var body: some ReducerOf<Self> {
         Reduce { state , action in
             switch action {
+            case .onAppear:
+                return .run { send in
+                    await send(
+                        .rankingResponse(Result {
+                            try await rankingClient.fetch().data
+                        })
+                    )
+                    
+                }
             case .rankingDetailButtonTapped:
                 state.path.append(.rankingDetail(RankingDetailFeature.State()))
                 return .none
             case .path(.element(id: _, action: .rankingDetail(.userCellTapped))):
                 state.path.append(.statistics(StatisticsFeature.State()))
                 return .none
+                
+            case let .rankingResponse(.success(response)):
+                state.ranking = response
+                state.consistencyTop3 = Array(response.consistencyRanking.prefix(3))
+                state.pushUpTop3 = Array(response.pushUpRanking.prefix(3))
+                return .none
+                
+            case .rankingResponse(.failure):
+                state.alert = AlertState(
+                    title: { TextState("서버 오류가 발생했습니다.") },
+                    actions: { 
+                        ButtonState(
+                            role: .cancel,
+                            label: { TextState("확인")}
+                        )
+                    },
+                    message: { TextState("잠시 후 다시 시도해주세요") }
+                )
+                return .none
+                    
             case .path:
+                return .none
+            case .alert(_):
                 return .none
             }
         }
         .forEach(\.path, action: \.path)
+        .ifLet(\.alert, action: \.alert)
     }
 }
