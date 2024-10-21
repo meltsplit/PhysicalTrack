@@ -15,6 +15,7 @@ struct WorkoutFeature {
     
     @ObservableState
     struct State {
+        var grades: [Grade] = Grade.allCases.filter { $0 != .failed }
         var grade: Grade = .grade2
         var criteria: GradeCriteria<PushUp> { GradeCriteria<PushUp>(grade: grade) }
         @Presents var timer: TimerFeature.State?
