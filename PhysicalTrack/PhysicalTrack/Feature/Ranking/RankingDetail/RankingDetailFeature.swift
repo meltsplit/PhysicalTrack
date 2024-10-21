@@ -13,7 +13,7 @@ struct RankingDetailFeature {
     
     @ObservableState
     struct State {
-        private var _ranking: RankingResponse = .init(consistencyRanking: [], pushUpRanking: [])
+        private var _ranking: RankingResponse = .empty
         var selectedTab: RankingType
         var consistency: ConsistencyRankingFeature.State? = .init()
         var pushUp: PushUpRankingFeature.State? = .init()

@@ -7,19 +7,16 @@
 
 import Foundation
 import ComposableArchitecture
-import UIKit
 
 @Reducer
 struct TimerFeature {
-    
-    @Dependency(\.dismiss) var dismiss
     
     @ObservableState
     struct State {
         var record: PushUpRecord
         var isTimerRunning = false
-        fileprivate var leftSeconds: Int = 120
-        var leftTime: String { leftSeconds.to_mmss }
+        fileprivate var _leftSeconds: Int = 120
+        var leftTime: String { _leftSeconds.to_mmss }
         var presentResult: Bool = false
         var path = StackState<WorkoutResultFeature.State>()
         
@@ -34,18 +31,21 @@ struct TimerFeature {
         case detected
         case quitButtonTapped
         case selectCount(Int)
+        case doneButtonTapped
         case path(StackAction<WorkoutResultFeature.State, WorkoutResultFeature.Action>)
     }
     
     enum CancelID { case timer }
     
     @Dependency(\.proximityClient) var proximityClient
+    @Dependency(\.hapticClient) var hapticClient
+    @Dependency(\.dismiss) var dismiss
     
     var body: some ReducerOf<Self> {
         Reduce { state, action in
             switch action {
             case .onAppear:
-                state.leftSeconds = state.record.targetSeconds
+                state._leftSeconds = state.record.targetSeconds
                 state.isTimerRunning = true
                 guard state.isTimerRunning
                 else { return .cancel(id: CancelID.timer ) }
@@ -72,17 +72,16 @@ struct TimerFeature {
                 
             case .timerTick:
                 
-                guard state.leftSeconds > 0
-                else {
+                guard state._leftSeconds > 0 else {
                     state.presentResult = true
                     return .cancel(id: CancelID.timer)
                 }
-                state.record.time = state.record.targetSeconds - state.leftSeconds
-                state.leftSeconds -= 1
+                state.record.time = state.record.targetSeconds - state._leftSeconds
+                state._leftSeconds -= 1
                 return .none
                 
             case .detected:
-                UIImpactFeedbackGenerator(style: .heavy).impactOccurred()
+                hapticClient.impact(.heavy)
                 state.record.count += 1
                 
                 return .none
@@ -91,6 +90,9 @@ struct TimerFeature {
                 return .run { _ in await self.dismiss() }
             case .selectCount(let count):
                 state.record.count = count
+                return .none
+            case .doneButtonTapped:
+                state.path.append(.init(record: state.record))
                 return .none
             case .path(.element(id: _, action: .goStatisticsButtonTapped)):
                 return .run { _ in return await dismiss()}

@@ -22,6 +22,15 @@ struct TimerView: View {
                     Circle()
                         .frame(width: 60, height: 60)
                         .foregroundColor(.blue)
+                        .overlay {
+                            Image(systemName: "nose")
+                                .renderingMode(.template)
+                                .resizable()
+                                .scaledToFit()
+                                .frame(width: 30, height: 30)
+                                .foregroundStyle(.white)
+                            
+                        }
                         .overlay(
                             Circle()
                                 .stroke(.blue)
@@ -91,7 +100,9 @@ struct TimerView: View {
                 }
                 .padding(.horizontal, 80)
                 
-                NavigationLink(state: WorkoutResultFeature.State(record: store.record)) {
+                Button {
+                    store.send(.doneButtonTapped)
+                } label: {
                     Text("완료")
                 }
                 

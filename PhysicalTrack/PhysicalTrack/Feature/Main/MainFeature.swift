@@ -34,9 +34,15 @@ struct MainFeature {
         case setting(SettingFeature.Action)
     }
     
+    
+    @Dependency(\.hapticClient) var hapticClient
+    
     var body: some ReducerOf<Self> {
         Reduce { state , action in
             switch action {
+            case .selectTab:
+                hapticClient.impact(.light)
+                return .none
             default:
                 return .none
             }

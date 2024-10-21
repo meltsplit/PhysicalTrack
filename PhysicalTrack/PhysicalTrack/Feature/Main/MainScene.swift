@@ -33,7 +33,7 @@ public enum MainScene: Hashable {
         case .statistics:
             "chart.bar"
         case .ranking:
-            "rosette"
+            "trophy"
         case .setting:
             "gearshape"
         }
