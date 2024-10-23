@@ -19,7 +19,7 @@ struct WorkoutResultView: View {
                     ReesultTitleView(grade: store.record.grade)
                     
                     HStack {
-                        Text("시간: " + String(store.record.time))
+                        Text("시간: " + String(store.record.duration.components.seconds))
                         Text("횟수: " + String(store.record.count))
                         Text("페이스: " + String(format: "%0.2f", store.record.pace))
                     }

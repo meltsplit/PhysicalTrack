@@ -74,6 +74,7 @@ struct TimerView: View {
                     resultView
                 }
             }
+            .alert($store.scope(state: \.alert, action: \.alert))
             
         } destination: { store in
             WorkoutResultView(store: store)

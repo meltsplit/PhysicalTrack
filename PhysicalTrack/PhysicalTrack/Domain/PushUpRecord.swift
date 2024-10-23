@@ -8,10 +8,8 @@
 import Foundation
 
 struct PushUpRecord: Equatable {
-    var targetSeconds: Int
+    var duration: Duration
     var targetCount: Int
-    
-    var time: Int
     var count: Int
     
     var grade: Grade {
@@ -19,13 +17,12 @@ struct PushUpRecord: Equatable {
     }
     
     var pace: Double {
-        Double(count) / Double(time)
+        Double(count) / Double(duration.components.seconds)
     }
     
     init(for grade: Grade) {
-        self.targetSeconds = 10
+        self.duration = .seconds(10)
         self.targetCount = PushUp.criteriaDict[grade]!.lowerBound
-        self.time = 0
         self.count = 0
     }
 }
