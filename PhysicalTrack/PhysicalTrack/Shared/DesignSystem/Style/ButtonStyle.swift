@@ -10,11 +10,19 @@ import SwiftUI
 struct PTButtonColorStyle {
     let background: Color
     let foreground: Color
+    let pressedBackground: Color
+    let pressedForeground: Color
     let disabledBackground: Color
 }
 
 extension PTButtonColorStyle {
-    static let blue = PTButtonColorStyle(background: .ptPoint, foreground: .ptWhite, disabledBackground: .ptGray)
+    static let blue = PTButtonColorStyle(
+        background: .ptPoint,
+        foreground: .ptWhite,
+        pressedBackground: .ptPointPressed, 
+        pressedForeground: .ptWhitePressed,
+        disabledBackground: .ptGray
+    )
 }
 
 enum PTButtonSizeStyle {
@@ -33,9 +41,9 @@ enum PTButtonSizeStyle {
     var font: Font {
         switch self {
         case .large:
-            return .title2
+            return .title3.bold()
         case .medium:
-            return .body
+            return .body.bold()
         }
     }
 }
@@ -58,10 +66,9 @@ struct PTBottomButtonStyle: ButtonStyle {
             .frame(height: sizeStyle.height)
             .frame(maxWidth: .infinity)
             .font(sizeStyle.font)
-            .background(isEnabled ? colorStyle.background : colorStyle.disabledBackground)
-            .foregroundStyle(colorStyle.foreground)
+            .background(isEnabled ? configuration.isPressed ? colorStyle.pressedBackground : colorStyle.background : colorStyle.disabledBackground)
+            .foregroundStyle(configuration.isPressed ? colorStyle.pressedForeground : colorStyle.foreground)
             .clipShape(RoundedRectangle(cornerRadius: 10))
-            .scaleEffect(configuration.isPressed ? 0.95 : 1)
     }
 }
 
