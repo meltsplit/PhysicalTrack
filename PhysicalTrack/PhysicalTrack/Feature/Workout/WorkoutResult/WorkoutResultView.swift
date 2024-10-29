@@ -17,6 +17,7 @@ struct WorkoutResultView: View {
             ScrollView {
                 VStack {
                     ReesultTitleView(grade: store.record.grade)
+                        .padding(.vertical, 40)
                     
                     HStack {
                         Spacer()
@@ -58,20 +59,36 @@ struct WorkoutResultView: View {
                     .clipShape(RoundedRectangle(cornerRadius: 10))
                     .padding(.horizontal, 20)
          
+                    Spacer().frame(height: 24)
                     
                     LazyVStack {
+                        HStack {
+                            Text("등급표")
+                                .font(.title3)
+                                .bold()
+                            
+                            Spacer()
+                        }
+                        .padding(.bottom, 14)
+                        
                         ForEach(store.criterias, id: \.self) { criteria in
                             HStack {
                                 Text(criteria.grade.title)
                                 Spacer()
                                 Text(criteria.description)
                             }
+                            .padding(.vertical, 10)
+                            .foregroundStyle(store.record.grade == criteria.grade ? .ptPoint : .ptLightGray01)
                         }
+                        .padding(.horizontal, 8)
                     }
+                    .padding(.top, 20)
+                    .padding(.bottom, 10)
+                    .padding(.horizontal, 20)
+                    .background(.ptDarkNavyGray)
+                    .clipShape(RoundedRectangle(cornerRadius: 10))
                     .padding(.horizontal, 20)
                     
-                    Spacer()
-                        .frame(height: 400)
                     
                 }
             }
@@ -80,9 +97,12 @@ struct WorkoutResultView: View {
             Button("기록 확인하기") {
                 store.send(.goStatisticsButtonTapped)
             }
+            .ptBottomButtonStyle()
+            .padding(.horizontal, 20)
         }
         .frame(maxWidth: .infinity, maxHeight: .infinity)
         .navigationBarBackButtonHidden()
+        .navigationTitle("결과보기")
         .onAppear {
             store.send(.onAppear)
         }
@@ -92,27 +112,20 @@ struct WorkoutResultView: View {
 fileprivate struct ReesultTitleView : View {
     
     private let grade: Grade
+    private var emoji: String { grade == .failed ? "😅" : "🎉" }
+    private var higlightColor: Color { grade == .failed ? .ptRed : .ptPoint }
     
     init(grade: Grade) {
         self.grade = grade
     }
     
     var body: some View {
-        
-        Group{
-            switch grade {
-            case .elite:
-                Text("특급 입니다🎉")
-            case .grade1:
-                Text("1등급 입니다🎉")
-            case .grade2:
-                Text("2등급 입니다🎉")
-            case .grade3:
-                Text("3등급 입니다🎉")
-            case .failed:
-                Text("불합격 입니다😅")
-            }
-        }
+        PTColorText(
+            text: grade.title + " 입니다 " + emoji,
+            highlightText: grade.title,
+            highlightColor: higlightColor
+        )
+        .font(.system(size: 32, weight: .bold))
     }
 }
 
