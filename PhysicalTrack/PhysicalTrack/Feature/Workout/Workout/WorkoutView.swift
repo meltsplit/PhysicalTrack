@@ -46,7 +46,12 @@ struct WorkoutView: View {
                 
                 
                 Spacer()
-                Text("2분 동안 \(store.criteria.value.lowerBound)회 이상 수행해야 해요.")
+                PTColorText(
+                    "2분 동안 \(store.criteria.value.lowerBound)회 이상 수행해야 해요.",
+                    at: "\(store.criteria.value.lowerBound)회",
+                    color: .ptWhite,
+                    weight: .bold
+                )
                     .foregroundStyle(.ptGray)
                     .fontWeight(.semibold)
                     .padding(.bottom, 8)

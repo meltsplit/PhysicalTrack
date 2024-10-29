@@ -121,9 +121,9 @@ fileprivate struct ReesultTitleView : View {
     
     var body: some View {
         PTColorText(
-            text: grade.title + " 입니다 " + emoji,
-            highlightText: grade.title,
-            highlightColor: higlightColor
+            grade.title + " 입니다 " + emoji,
+            at: grade.title,
+            color: higlightColor
         )
         .font(.system(size: 32, weight: .bold))
     }

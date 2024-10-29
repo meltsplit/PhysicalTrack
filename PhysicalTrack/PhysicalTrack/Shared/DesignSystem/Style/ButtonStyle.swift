@@ -41,7 +41,7 @@ enum PTButtonSizeStyle {
     var font: Font {
         switch self {
         case .large:
-            return .title3.bold()
+            return .headline.bold()
         case .medium:
             return .body.bold()
         }
