@@ -70,10 +70,8 @@ struct TimerFeature {
                         }
                     },
                     .run { send in
-                        for try await detected in proximityClient.start() {
-                            if detected {
-                                await send(.detected)
-                            }
+                        for await detected in proximityClient.start() {
+                            if detected { await send(.detected) }
                         }
                     }
                 ).cancellable(id: CancelID.workout)
