@@ -16,31 +16,65 @@ struct WorkoutView: View {
     var body: some View {
         NavigationStack {
             VStack {
+                Spacer()
+                HStack() {
+                    VStack(alignment: .leading, spacing: 14) {
+                        Text("회원님")
+                            .font(.title3.bold())
+                            .foregroundStyle(.gray)
+                        Text("지금 운동하시나요?")
+                            .font(.title.bold())
+                        
+                        Text("목표 등급을 선택하세요.")
+                            .font(.title.bold())
+                    }
+                    Spacer()
+                }
+                .padding(.horizontal, 20)
+                
                 Picker("grade",
                        selection: $store.grade.sending(\.gradeButtonTapped))
                 {
                     ForEach(store.grades, id: \.self) {
                         Text($0.title)
+                            .font(.title)
                     }
                 }
                 .pickerStyle(.wheel)
                 
                 
-                Text(store.criteria.description)
                 
-                Button("스타트")
-                {
+                
+                Spacer()
+                Text("2분 동안 \(store.criteria.value.lowerBound)회 이상 수행해야 해요.")
+                    .foregroundStyle(.ptGray)
+                    .fontWeight(.semibold)
+                    .padding(.bottom, 8)
+                
+                Button {
                     store.send(.startButtonTapped)
+                } label: {
+                    HStack(spacing: 12) {
+                        Image(systemName: "play.fill")
+                            .resizable()
+                            .frame(width: 14, height: 14)
+                        
+                        Text("운동 시작하기")
+                    }
                 }
-                .padding()
+                .ptBottomButtonStyle()
+                .padding(.horizontal, 20)
                 .fullScreenCover(
                     item: $store.scope(state: \.timer, action: \.timer)
                 ) { store in
                     TimerView(store: store)
                 }
+                
+                Spacer()
+                    .frame(height: 20)
             }
-            .navigationTitle("팔굽혀펴기")
         }
+        .background(Color.ptBackground)
         
     }
     

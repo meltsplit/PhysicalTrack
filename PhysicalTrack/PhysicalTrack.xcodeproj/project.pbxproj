@@ -17,7 +17,6 @@
 		8717B5E12CC1FA7B00542061 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8717B5E02CC1FA7B00542061 /* Preview Assets.xcassets */; };
 		8717B5E92CC1FABB00542061 /* ComposableArchitecture in Frameworks */ = {isa = PBXBuildFile; productRef = 8717B5E82CC1FABB00542061 /* ComposableArchitecture */; };
 		8717B5F42CC1FD6B00542061 /* WorkoutFeature.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8717B5F32CC1FD6B00542061 /* WorkoutFeature.swift */; };
-		8735D7192CC2014F00C7824C /* Colors.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8735D7182CC2014F00C7824C /* Colors.xcassets */; };
 		8735D7212CC20DCA00C7824C /* TimerFeature.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8735D7202CC20DCA00C7824C /* TimerFeature.swift */; };
 		8735D7232CC20DD200C7824C /* TimerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8735D7222CC20DD200C7824C /* TimerView.swift */; };
 		8735D7262CC21A8000C7824C /* Int+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8735D7252CC21A8000C7824C /* Int+.swift */; };
@@ -49,6 +48,8 @@
 		8735D7642CC3A1CA00C7824C /* RankingClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8735D7632CC3A1CA00C7824C /* RankingClient.swift */; };
 		8735D7672CC3A23400C7824C /* Networkable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8735D7662CC3A23400C7824C /* Networkable.swift */; };
 		8735D7692CC3A38700C7824C /* RankingResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8735D7682CC3A38700C7824C /* RankingResponse.swift */; };
+		873E9C832CD11A2B0015FB45 /* Color.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 873E9C822CD11A2B0015FB45 /* Color.xcassets */; };
+		873E9C872CD11F3D0015FB45 /* ButtonStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 873E9C862CD11F3D0015FB45 /* ButtonStyle.swift */; };
 		8754676D2CC3C57A00144BE3 /* HeaderTabFeature.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8754676C2CC3C57A00144BE3 /* HeaderTabFeature.swift */; };
 		87E1E9F92CC41D61006FAA24 /* ProximityClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87E1E9F82CC41D61006FAA24 /* ProximityClient.swift */; };
 		87E1E9FC2CC4C529006FAA24 /* HapticClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87E1E9FB2CC4C528006FAA24 /* HapticClient.swift */; };
@@ -65,7 +66,6 @@
 		8717B5DD2CC1FA7B00542061 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		8717B5E02CC1FA7B00542061 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		8717B5F32CC1FD6B00542061 /* WorkoutFeature.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkoutFeature.swift; sourceTree = "<group>"; };
-		8735D7182CC2014F00C7824C /* Colors.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Colors.xcassets; sourceTree = "<group>"; };
 		8735D7202CC20DCA00C7824C /* TimerFeature.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimerFeature.swift; sourceTree = "<group>"; };
 		8735D7222CC20DD200C7824C /* TimerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimerView.swift; sourceTree = "<group>"; };
 		8735D7252CC21A8000C7824C /* Int+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Int+.swift"; sourceTree = "<group>"; };
@@ -97,6 +97,9 @@
 		8735D7632CC3A1CA00C7824C /* RankingClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RankingClient.swift; sourceTree = "<group>"; };
 		8735D7662CC3A23400C7824C /* Networkable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Networkable.swift; sourceTree = "<group>"; };
 		8735D7682CC3A38700C7824C /* RankingResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RankingResponse.swift; sourceTree = "<group>"; };
+		873E9C822CD11A2B0015FB45 /* Color.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Color.xcassets; sourceTree = "<group>"; };
+		873E9C842CD11DE00015FB45 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
+		873E9C862CD11F3D0015FB45 /* ButtonStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ButtonStyle.swift; sourceTree = "<group>"; };
 		8754676C2CC3C57A00144BE3 /* HeaderTabFeature.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeaderTabFeature.swift; sourceTree = "<group>"; };
 		87E1E9F82CC41D61006FAA24 /* ProximityClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProximityClient.swift; sourceTree = "<group>"; };
 		87E1E9FB2CC4C528006FAA24 /* HapticClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HapticClient.swift; sourceTree = "<group>"; };
@@ -133,6 +136,7 @@
 		8717B5D82CC1FA7900542061 /* PhysicalTrack */ = {
 			isa = PBXGroup;
 			children = (
+				873E9C842CD11DE00015FB45 /* Info.plist */,
 				8717B5EA2CC1FAF600542061 /* App */,
 				8717B5EC2CC1FB0300542061 /* Domain */,
 				8717B5ED2CC1FB0900542061 /* Feature */,
@@ -243,18 +247,11 @@
 		8735D7172CC2012400C7824C /* DesignSystem */ = {
 			isa = PBXGroup;
 			children = (
-				8735D71B2CC2043100C7824C /* Font */,
+				873E9C852CD11F340015FB45 /* Style */,
 				8717B5DD2CC1FA7B00542061 /* Assets.xcassets */,
-				8735D7182CC2014F00C7824C /* Colors.xcassets */,
+				873E9C822CD11A2B0015FB45 /* Color.xcassets */,
 			);
 			path = DesignSystem;
-			sourceTree = "<group>";
-		};
-		8735D71B2CC2043100C7824C /* Font */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Font;
 			sourceTree = "<group>";
 		};
 		8735D71C2CC2044600C7824C /* Util */ = {
@@ -379,6 +376,14 @@
 			path = Foundation;
 			sourceTree = "<group>";
 		};
+		873E9C852CD11F340015FB45 /* Style */ = {
+			isa = PBXGroup;
+			children = (
+				873E9C862CD11F3D0015FB45 /* ButtonStyle.swift */,
+			);
+			path = Style;
+			sourceTree = "<group>";
+		};
 		8754676E2CC3DAAA00144BE3 /* HeaderTab */ = {
 			isa = PBXGroup;
 			children = (
@@ -462,8 +467,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				8717B5E12CC1FA7B00542061 /* Preview Assets.xcassets in Resources */,
-				8735D7192CC2014F00C7824C /* Colors.xcassets in Resources */,
 				8717B5DE2CC1FA7B00542061 /* Assets.xcassets in Resources */,
+				873E9C832CD11A2B0015FB45 /* Color.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -501,6 +506,7 @@
 				8735D7322CC2557B00C7824C /* Workout.swift in Sources */,
 				871059ED2CC3BBEE00C4362D /* HeaderTabView.swift in Sources */,
 				8735D74C2CC27C8C00C7824C /* MainFeature.swift in Sources */,
+				873E9C872CD11F3D0015FB45 /* ButtonStyle.swift in Sources */,
 				87E1E9FC2CC4C529006FAA24 /* HapticClient.swift in Sources */,
 				8735D7342CC25C6500C7824C /* PushUpRecord.swift in Sources */,
 				8735D7212CC20DCA00C7824C /* TimerFeature.swift in Sources */,
@@ -651,12 +657,15 @@
 				DEVELOPMENT_TEAM = T6DNHAHXG9;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = PhysicalTrack/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = "피지컬트랙";
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.healthcare-fitness";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
+				INFOPLIST_KEY_UIUserInterfaceStyle = Dark;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -684,12 +693,15 @@
 				DEVELOPMENT_TEAM = T6DNHAHXG9;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = PhysicalTrack/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = "피지컬트랙";
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.healthcare-fitness";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
+				INFOPLIST_KEY_UIUserInterfaceStyle = Dark;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",

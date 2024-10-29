@@ -19,10 +19,45 @@ struct WorkoutResultView: View {
                     ReesultTitleView(grade: store.record.grade)
                     
                     HStack {
-                        Text("시간: " + String(store.record.duration.components.seconds))
-                        Text("횟수: " + String(store.record.count))
-                        Text("페이스: " + String(format: "%0.2f", store.record.pace))
+                        Spacer()
+                        VStack {
+                            Text("시간")
+                                .foregroundStyle(.ptLightGray01)
+                            
+                            Spacer().frame(height: 14)
+                            
+                            Text(String(store.record.duration.components.seconds))
+                                .bold()
+                        }
+                        
+                        Spacer()
+                        VStack {
+                            Text("횟수")
+                                .foregroundStyle(.ptLightGray01)
+                            
+                            Spacer().frame(height: 14)
+                            
+                            Text(String(store.record.count))
+                                .bold()
+                        }
+                        Spacer()
+                        
+                        VStack {
+                            Text("페이스")
+                                .foregroundStyle(.ptLightGray01)
+                            
+                            Spacer().frame(height: 14)
+                            
+                            Text(String(format: "%0.2f", store.record.pace))
+                                .bold()
+                        }
+                        Spacer()
                     }
+                    .padding(.vertical, 20)
+                    .background(.ptDarkNavyGray)
+                    .clipShape(RoundedRectangle(cornerRadius: 10))
+                    .padding(.horizontal, 20)
+         
                     
                     LazyVStack {
                         ForEach(store.criterias, id: \.self) { criteria in
