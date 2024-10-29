@@ -89,6 +89,7 @@ struct TimerView: View {
                 }
             }
             .frame(maxWidth: .infinity, maxHeight: .infinity)
+            .blur(radius: store.presentResult ? 5 : 0)
             .onAppear {
                 store.send(.onAppear)
             }
@@ -120,20 +121,25 @@ struct TimerView: View {
                         }
                     }
                     .pickerStyle(.wheel)
+                    
                     Text("회")
                 }
                 .padding(.horizontal, 80)
                 
-                Button {
+                Button("완료") {
                     store.send(.doneButtonTapped)
-                } label: {
-                    Text("완료")
-                }
+                } 
+                .ptBottomButtonStyle()
+                .padding(.horizontal, 20)
+                
+                Spacer().frame(height: 44)
                 
             }
-            .background(.white)
+            .background(.ptDarkNavyGray)
             .frame(maxWidth: .infinity)
             .frame(height: 300)
+            .cornerRadius(20, corners: .topLeft)
+            .cornerRadius(20, corners: .topRight)
             .offset(y: isAnimation ? 0 : UIScreen.main.bounds.height)
             .animation(.easeInOut(duration: 0.3), value: isAnimation)
             
