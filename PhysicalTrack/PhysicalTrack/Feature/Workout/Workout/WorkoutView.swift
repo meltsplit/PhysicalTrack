@@ -28,11 +28,17 @@ struct WorkoutView: View {
                 
                 Text(store.criteria.description)
                 
-                Button("스타트")
-                {
+                Button {
                     store.send(.startButtonTapped)
+                } label: {
+                    Text("운동 시작하기")
+                        .foregroundStyle(.ptWhite)
+                        .frame(maxWidth: .infinity)
+                        .padding(.vertical , 14)
+                        .background(.ptPoint)
                 }
                 .padding()
+                .padding(.horizontal, 20)
                 .fullScreenCover(
                     item: $store.scope(state: \.timer, action: \.timer)
                 ) { store in
@@ -41,6 +47,7 @@ struct WorkoutView: View {
             }
             .navigationTitle("팔굽혀펴기")
         }
+        .background(Color.ptBackground)
         
     }
     
