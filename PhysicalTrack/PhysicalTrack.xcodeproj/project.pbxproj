@@ -162,8 +162,7 @@
 		8717B5EB2CC1FAFB00542061 /* Core */ = {
 			isa = PBXGroup;
 			children = (
-				87E1E9FA2CC4C51C006FAA24 /* Haptic */,
-				8735D71E2CC2053300C7824C /* Proximity */,
+				87E1EA142CC92074006FAA24 /* Client */,
 				8735D71D2CC2046200C7824C /* Network */,
 			);
 			path = Core;
@@ -275,14 +274,6 @@
 				8735D7632CC3A1CA00C7824C /* RankingClient.swift */,
 			);
 			path = Network;
-			sourceTree = "<group>";
-		};
-		8735D71E2CC2053300C7824C /* Proximity */ = {
-			isa = PBXGroup;
-			children = (
-				87E1E9F82CC41D61006FAA24 /* ProximityClient.swift */,
-			);
-			path = Proximity;
 			sourceTree = "<group>";
 		};
 		8735D71F2CC20DBF00C7824C /* Timer */ = {
@@ -397,12 +388,13 @@
 			path = HeaderTab;
 			sourceTree = "<group>";
 		};
-		87E1E9FA2CC4C51C006FAA24 /* Haptic */ = {
+		87E1EA142CC92074006FAA24 /* Client */ = {
 			isa = PBXGroup;
 			children = (
+				87E1E9F82CC41D61006FAA24 /* ProximityClient.swift */,
 				87E1E9FB2CC4C528006FAA24 /* HapticClient.swift */,
 			);
-			path = Haptic;
+			path = Client;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
