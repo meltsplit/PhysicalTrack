@@ -19,53 +19,77 @@ struct TimerView: View {
             ZStack {
                 VStack {
                     
-                    Circle()
-                        .frame(width: 60, height: 60)
-                        .foregroundColor(.blue)
-                        .overlay {
-                            Image(systemName: "nose")
-                                .renderingMode(.template)
-                                .resizable()
-                                .scaledToFit()
-                                .frame(width: 30, height: 30)
-                                .foregroundStyle(.white)
-                            
-                        }
-                        .overlay(
-                            Circle()
-                                .stroke(.blue)
-                                .frame(width: 60, height: 60)
-                                .scaleEffect(animationValue)
-                                .opacity(1 - (animationValue / 5))
-                                .animation(
-                                    .easeIn(duration: 1),
-                                    value: store.record.count
-                                )
-                        )
-                        .onChange(of: store.record.count) { _, _ in
-                            animationValue = 1
-                            withAnimation {
-                                animationValue = 5
+                    ZStack {
+                        Circle()
+                            .frame(width: 60, height: 60)
+                            .foregroundColor(.ptPoint)
+                            .overlay {
+                                Image(systemName: "nose")
+                                    .renderingMode(.template)
+                                    .resizable()
+                                    .scaledToFit()
+                                    .frame(width: 30, height: 30)
+                                    .foregroundStyle(.white)
+                                
+                            }
+                            .overlay(
+                                Circle()
+                                    .stroke(.blue)
+                                    .frame(width: 60, height: 60)
+                                    .scaleEffect(animationValue)
+                                    .opacity(1 - (animationValue / 5))
+                                    .animation(
+                                        .easeIn(duration: 1),
+                                        value: store.record.count
+                                    )
+                            )
+                            .onChange(of: store.record.count) { _, _ in
+                                animationValue = 1
+                                withAnimation {
+                                    animationValue = 5
+                                }
+                            }
+                        
+                        HStack {
+                            Spacer()
+                            VStack(spacing: 8) {
+                                Text("시간")
+                                    .foregroundStyle(.ptGray)
+                                
+                                Text(store.leftTime)
+                                    .font(.title3.bold())
+                                    
                             }
                         }
+                        .padding(.trailing, 20)
+                    }
                     
                     Spacer()
                 }
+                
                 VStack{
-                    Text("Timer")
-                    Text(store.leftTime)
-                        .font(.system(size: 40, weight: .bold))
+                    Spacer()
                     
                     Text(String(store.record.count) + "개")
-                        .font(.system(size: 40, weight: .bold))
+                        .font(.system(size: 60, weight: .bold))
+                        .contentTransition(.numericText(value: Double(store.record.count)))
+                        .animation(.snappy, value: store.record.count)
+                    
+                    Button("횟수 카운팅") {
+                        store.send(.detected)
+                    }
+                    
+                    Spacer()
                     
                     Button("종료") {
                         store.send(.quitButtonTapped)
                     }
+                    .foregroundStyle(.ptGray)
                     
                 }
             }
             .frame(maxWidth: .infinity, maxHeight: .infinity)
+            .blur(radius: store.presentResult ? 5 : 0)
             .onAppear {
                 store.send(.onAppear)
             }
@@ -97,20 +121,25 @@ struct TimerView: View {
                         }
                     }
                     .pickerStyle(.wheel)
+                    
                     Text("회")
                 }
                 .padding(.horizontal, 80)
                 
-                Button {
+                Button("완료") {
                     store.send(.doneButtonTapped)
-                } label: {
-                    Text("완료")
-                }
+                } 
+                .ptBottomButtonStyle()
+                .padding(.horizontal, 20)
+                
+                Spacer().frame(height: 44)
                 
             }
-            .background(.white)
+            .background(.ptDarkNavyGray)
             .frame(maxWidth: .infinity)
             .frame(height: 300)
+            .cornerRadius(20, corners: .topLeft)
+            .cornerRadius(20, corners: .topRight)
             .offset(y: isAnimation ? 0 : UIScreen.main.bounds.height)
             .animation(.easeInOut(duration: 0.3), value: isAnimation)
             

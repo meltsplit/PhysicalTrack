@@ -50,6 +50,7 @@
 		8735D7692CC3A38700C7824C /* RankingResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8735D7682CC3A38700C7824C /* RankingResponse.swift */; };
 		873E9C832CD11A2B0015FB45 /* Color.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 873E9C822CD11A2B0015FB45 /* Color.xcassets */; };
 		873E9C872CD11F3D0015FB45 /* ButtonStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 873E9C862CD11F3D0015FB45 /* ButtonStyle.swift */; };
+		873E9C892CD137A50015FB45 /* View+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 873E9C882CD137A50015FB45 /* View+.swift */; };
 		8754676D2CC3C57A00144BE3 /* HeaderTabFeature.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8754676C2CC3C57A00144BE3 /* HeaderTabFeature.swift */; };
 		87E1E9F92CC41D61006FAA24 /* ProximityClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87E1E9F82CC41D61006FAA24 /* ProximityClient.swift */; };
 		87E1E9FC2CC4C529006FAA24 /* HapticClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87E1E9FB2CC4C528006FAA24 /* HapticClient.swift */; };
@@ -100,6 +101,7 @@
 		873E9C822CD11A2B0015FB45 /* Color.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Color.xcassets; sourceTree = "<group>"; };
 		873E9C842CD11DE00015FB45 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 		873E9C862CD11F3D0015FB45 /* ButtonStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ButtonStyle.swift; sourceTree = "<group>"; };
+		873E9C882CD137A50015FB45 /* View+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "View+.swift"; sourceTree = "<group>"; };
 		8754676C2CC3C57A00144BE3 /* HeaderTabFeature.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeaderTabFeature.swift; sourceTree = "<group>"; };
 		87E1E9F82CC41D61006FAA24 /* ProximityClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProximityClient.swift; sourceTree = "<group>"; };
 		87E1E9FB2CC4C528006FAA24 /* HapticClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HapticClient.swift; sourceTree = "<group>"; };
@@ -286,6 +288,7 @@
 			isa = PBXGroup;
 			children = (
 				8735D7252CC21A8000C7824C /* Int+.swift */,
+				873E9C882CD137A50015FB45 /* View+.swift */,
 			);
 			path = Extension;
 			sourceTree = "<group>";
@@ -485,6 +488,7 @@
 				8735D7472CC27A4900C7824C /* StatisticsView.swift in Sources */,
 				87E1E9F92CC41D61006FAA24 /* ProximityClient.swift in Sources */,
 				8735D7262CC21A8000C7824C /* Int+.swift in Sources */,
+				873E9C892CD137A50015FB45 /* View+.swift in Sources */,
 				8735D7592CC371FA00C7824C /* RankingDetailFeature.swift in Sources */,
 				8735D7692CC3A38700C7824C /* RankingResponse.swift in Sources */,
 				8735D7452CC27A2200C7824C /* RankingView.swift in Sources */,
