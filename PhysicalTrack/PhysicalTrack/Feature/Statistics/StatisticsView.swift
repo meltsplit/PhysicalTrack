@@ -12,7 +12,8 @@ struct StatisticsView: View {
     let store : StoreOf<StatisticsFeature>
     
     var body: some View {
-        Text("Statistics")
+        SMWebView(url: "https://physical-t-p3n2.vercel.app")
+            
     }
 }
 
