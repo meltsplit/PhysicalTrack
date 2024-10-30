@@ -10,9 +10,19 @@ import ComposableArchitecture
 
 struct StatisticsView: View {
     let store : StoreOf<StatisticsFeature>
+    let webView = SMWebView(url: "https://physical-t-7jce.vercel.app")
     
     var body: some View {
-        SMWebView(url: "https://physical-t-p3n2.vercel.app")
+        VStack {
+            HStack {
+                Button("쿠키 확인") {
+                    webView.printCookie()
+                }
+            }
+            
+            webView
+            
+        }
             
     }
 }
