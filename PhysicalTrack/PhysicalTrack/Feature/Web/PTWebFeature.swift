@@ -7,15 +7,16 @@
 
 import Foundation
 import ComposableArchitecture
+import Combine
 
 @Reducer
 struct PTWebFeature {
-    
+
     @ObservableState
     struct State: Equatable {
         var url: String
-        var isLoading: Bool = false
-        var webViewController: PTWebViewController?
+        var webViewController: RepresentableWebView?
+        var canGoBack: Bool = false
         
         init(url: String) {
             self.url = url
@@ -24,24 +25,35 @@ struct PTWebFeature {
     
     enum Action: Equatable {
         case onAppear
-        case reload
         case setCookies
-        case goBack
+        case backButtonTapped
+        case canGoBackChanged(Bool)
     }
-    
+
     @Dependency(\.dismiss) var dismiss
+    
     var body: some ReducerOf<Self> {
         Reduce { state , action in
             switch action {
             case .onAppear:
-                state.webViewController = PTWebViewController()
-                return .concatenate(
+                if state.webViewController == nil {
+                    state.webViewController = RepresentableWebView()
+                }
+      
+                return .merge(
+                    .publisher {
+                        state.webViewController!.webView.publisher(for: \.canGoBack)
+                            .map { .canGoBackChanged($0) }
+                    },
+                    .concatenate(
+                        .send(.setCookies),
+                        .run { [url = state.url, webVC = state.webViewController] _ in
+                            guard let url = URL(string: url) else { return }
+                            await webVC?.load(with: url)
+                        }
+                    )
+                   
                     
-                    .send(.setCookies),
-                    .run { [url = state.url, webVC = state.webViewController] _ in
-                        guard let url = URL(string: url) else { return }
-                        await webVC?.load(with: url)
-                    }
                 )
                 
             case .setCookies:
@@ -66,18 +78,17 @@ struct PTWebFeature {
                     ].compactMap { HTTPCookie(properties: $0)}
                     await webVC?.setCookies(cookies)
                 }
-                
-            case .reload:
-                return .run { [webVC = state.webViewController] _ in
-                    await webVC?.webView.reload()
-                }
-                
-            case .goBack:
-                return .run { [webVC = state.webViewController] _ in
-                    guard await webVC?.webView.canGoBack ?? false
-                    else { return await dismiss() }
+
+            case let .canGoBackChanged(newValue):
+                state.canGoBack = newValue
+                return .none
+
+            case .backButtonTapped:
+                return .run { [webVC = state.webViewController, canGoBack = state.canGoBack] _ in
+                    guard canGoBack else { return await dismiss() }
                     await webVC?.webView.goBack()
-                    return 
+                    await webVC?.webView.reload()
+                    return
                     }
                
             }

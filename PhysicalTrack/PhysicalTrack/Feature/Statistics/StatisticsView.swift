@@ -13,8 +13,10 @@ struct StatisticsView: View {
     @Bindable var store: StoreOf<StatisticsFeature>
     
     var body: some View {
-        if let store = store.scope(state: \.web, action: \.web) {
-            PTWebView(store: store)
+        NavigationStack {
+            if let store = store.scope(state: \.web, action: \.web) {
+                PTWebView(store: store)
+            }
         }
     }
 }

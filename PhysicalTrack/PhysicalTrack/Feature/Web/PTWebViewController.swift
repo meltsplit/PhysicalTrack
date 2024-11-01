@@ -1,5 +1,5 @@
 //
-//  PTWebView.swift
+//  RepresentableWebView.swift
 //  PhysicalTrack
 //
 //  Created by 장석우 on 10/30/24.
@@ -10,7 +10,7 @@ import Foundation
 import WebKit
 import ComposableArchitecture
 
-struct PTWebViewController: UIViewRepresentable, Equatable {
+struct RepresentableWebView: UIViewRepresentable, Equatable {
     
     let webView: WKWebView = WKWebView()
     
@@ -33,10 +33,10 @@ struct PTWebViewController: UIViewRepresentable, Equatable {
         return webView
     }
     
-    func updateUIView(_ webView: WKWebView, context: UIViewRepresentableContext<PTWebViewController>) { }
+    func updateUIView(_ webView: WKWebView, context: UIViewRepresentableContext<RepresentableWebView>) { }
 }
 
-extension PTWebViewController {
+extension RepresentableWebView {
     func printCookie() {
         webView.configuration.websiteDataStore.httpCookieStore.getAllCookies { cookies in
             cookies.forEach { cookie in

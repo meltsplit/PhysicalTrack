@@ -11,11 +11,11 @@ import ComposableArchitecture
 struct PTWebView: View {
     let store : StoreOf<PTWebFeature>
     @Environment(\.presentationMode) var presentationMode
-    private var isOnNavigationStack: Bool { presentationMode.wrappedValue.isPresented }
+    private var isPresented: Bool { presentationMode.wrappedValue.isPresented }
     
     var backButton : some View {
             Button{
-                store.send(.goBack)
+                store.send(.backButtonTapped)
             } label: {
                 HStack {
                     Image(systemName: "chevron.left")
@@ -31,7 +31,7 @@ struct PTWebView: View {
             store.webViewController
         }
         .navigationBarBackButtonHidden(true)
-        .navigationBarItems(leading: isOnNavigationStack ? backButton : nil)
+        .navigationBarItems(leading: isPresented || store.canGoBack ? backButton : nil)
         .onAppear {
             store.send(.onAppear)
         }
