@@ -36,7 +36,7 @@ struct RankingFeature {
     @Reducer
     enum Path {
         case rankingDetail(RankingDetailFeature)
-        case statistics(StatisticsFeature)
+        case web(PTWebFeature)
     }
     
 
@@ -61,7 +61,7 @@ struct RankingFeature {
                 state.path.append(.rankingDetail(RankingDetailFeature.State(type, state.ranking)))
                 return .none
             case let .path(.element(id: _, action: .rankingDetail(.rankCellTapped(userID)))):
-                state.path.append(.statistics(StatisticsFeature.State(userID)))
+                state.path.append(.web(PTWebFeature.State(url: "https://physical-t-7jce.vercel.app")))
                 return .none
                 
             case let .rankingResponse(.success(response)):

@@ -23,12 +23,17 @@ struct RankingDetailView: View {
                 if let store = store.scope(state: \.consistency, action: \.consistency) {
                     LazyVStack {
                         ForEach(store.ranking, id: \.self) { data in
-                            HStack {
-                                Text(String(data.rank))
-                                Text(data.name)
-                                Spacer()
-                                Text(String(data.daysActive))
+                            Button {
+                                store.send(.rankCellTapped(1))
+                            } label: {
+                                HStack {
+                                    Text(String(data.rank))
+                                    Text(data.name)
+                                    Spacer()
+                                    Text(String(data.daysActive))
+                                }
                             }
+                            
                         }
                     }
                     .padding(.horizontal, 40)
@@ -38,12 +43,17 @@ struct RankingDetailView: View {
                 if let store = store.scope(state: \.pushUp, action: \.pushUp) {
                     LazyVStack {
                         ForEach(store.ranking, id: \.self) { data in
-                            HStack {
-                                Text(String(data.rank))
-                                Text(data.name)
-                                Spacer()
-                                Text(String(data.quantity))
+                            Button {
+                                store.send(.rankCellTapped(1))
+                            } label: {
+                                HStack {
+                                    Text(String(data.rank))
+                                    Text(data.name)
+                                    Spacer()
+                                    Text(String(data.quantity))
+                                }
                             }
+                
                         }
                     }
                     .padding(.horizontal, 40)
