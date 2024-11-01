@@ -2,35 +2,25 @@
 //  StatisticsView.swift
 //  PhysicalTrack
 //
-//  Created by 장석우 on 10/18/24.
+//  Created by 장석우 on 11/1/24.
 //
 
 import SwiftUI
 import ComposableArchitecture
 
 struct StatisticsView: View {
-    let store : StoreOf<StatisticsFeature>
-    let webView = SMWebView(url: "https://physical-t-7jce.vercel.app")
+    
+    @Bindable var store: StoreOf<StatisticsFeature>
     
     var body: some View {
-        VStack {
-            HStack {
-                Button("쿠키 확인") {
-                    webView.printCookie()
-                }
-            }
-            
-            webView
-            
+        if let store = store.scope(state: \.web, action: \.web) {
+            PTWebView(store: store)
         }
-            
     }
 }
 
 #Preview {
-    StatisticsView(
-        store: .init(initialState: StatisticsFeature.State()) {
-            StatisticsFeature()
-        }
-    )
+    StatisticsView(store: .init(initialState: StatisticsFeature.State(), reducer: {
+        StatisticsFeature()
+    }))
 }

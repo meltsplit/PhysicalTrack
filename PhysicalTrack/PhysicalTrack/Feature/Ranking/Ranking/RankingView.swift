@@ -66,12 +66,12 @@ struct RankingView: View {
             }
         } destination: { store in
             switch store.case {
-            case .statistics(let store):
-                StatisticsView(store: store)
-            case .rankingDetail(let store):
+            case let .rankingDetail(store):
                 RankingDetailView(store: store)
                     .navigationBarTitleDisplayMode(.inline)
                     .toolbar(.hidden, for: .tabBar)
+            case let .web(store):
+                PTWebView(store: store)
             }
         }
        
