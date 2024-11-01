@@ -11,11 +11,11 @@ import Combine
 
 @Reducer
 struct PTWebFeature {
-
+    
     @ObservableState
     struct State: Equatable {
         var url: String
-        var webViewController: RepresentableWebView?
+        var representableWebView: RepresentableWebView?
         var canGoBack: Bool = false
         
         init(url: String) {
@@ -29,35 +29,35 @@ struct PTWebFeature {
         case backButtonTapped
         case canGoBackChanged(Bool)
     }
-
+    
     @Dependency(\.dismiss) var dismiss
     
     var body: some ReducerOf<Self> {
         Reduce { state , action in
             switch action {
             case .onAppear:
-                if state.webViewController == nil {
-                    state.webViewController = RepresentableWebView()
+                if state.representableWebView == nil {
+                    state.representableWebView = RepresentableWebView()
                 }
-      
+                
                 return .merge(
                     .publisher {
-                        state.webViewController!.webView.publisher(for: \.canGoBack)
+                        state.representableWebView!.webView.publisher(for: \.canGoBack)
                             .map { .canGoBackChanged($0) }
                     },
                     .concatenate(
                         .send(.setCookies),
-                        .run { [url = state.url, webVC = state.webViewController] _ in
+                        .run { [url = state.url, representableWebView = state.representableWebView] _ in
                             guard let url = URL(string: url) else { return }
-                            await webVC?.load(with: url)
+                            await representableWebView?.load(with: url)
                         }
                     )
-                   
+                    
                     
                 )
                 
             case .setCookies:
-                return .run { [webVC = state.webViewController] _ in
+                return .run { [representableWebView = state.representableWebView] _ in
                     let cookies = [
                         [
                             HTTPCookiePropertyKey.domain: "physical-t-p3n2.vercel.app",
@@ -76,21 +76,21 @@ struct PTWebFeature {
                             HTTPCookiePropertyKey.expires: Date().addingTimeInterval(60 * 60 * 24 * 7)
                         ]
                     ].compactMap { HTTPCookie(properties: $0)}
-                    await webVC?.setCookies(cookies)
+                    await representableWebView?.setCookies(cookies)
                 }
-
+                
             case let .canGoBackChanged(newValue):
                 state.canGoBack = newValue
                 return .none
-
+                
             case .backButtonTapped:
-                return .run { [webVC = state.webViewController, canGoBack = state.canGoBack] _ in
+                return .run { [representableWebView = state.representableWebView, canGoBack = state.canGoBack] _ in
                     guard canGoBack else { return await dismiss() }
-                    await webVC?.webView.goBack()
-                    await webVC?.webView.reload()
+                    await representableWebView?.webView.goBack()
+                    await representableWebView?.webView.reload()
                     return
-                    }
-               
+                }
+                
             }
         }
     }
