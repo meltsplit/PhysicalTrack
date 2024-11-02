@@ -8,20 +8,26 @@
 import SwiftUI
 
 struct PTButtonColorStyle {
+    // Background
     let background: Color
-    let foreground: Color
     let pressedBackground: Color
-    let pressedForeground: Color
     let disabledBackground: Color
+    
+    // Foreground
+    let foreground: Color
+    let pressedForeground: Color
+    let disabledForeground: Color
 }
 
 extension PTButtonColorStyle {
     static let blue = PTButtonColorStyle(
         background: .ptPoint,
+        pressedBackground: .ptPointPressed,
+        disabledBackground: .ptPointDisabled,
         foreground: .ptWhite,
-        pressedBackground: .ptPointPressed, 
         pressedForeground: .ptWhitePressed,
-        disabledBackground: .ptGray
+        disabledForeground: .ptWhiteDisabled
+        
     )
 }
 
@@ -67,7 +73,7 @@ struct PTBottomButtonStyle: ButtonStyle {
             .frame(maxWidth: .infinity)
             .font(sizeStyle.font)
             .background(isEnabled ? configuration.isPressed ? colorStyle.pressedBackground : colorStyle.background : colorStyle.disabledBackground)
-            .foregroundStyle(configuration.isPressed ? colorStyle.pressedForeground : colorStyle.foreground)
+            .foregroundStyle(isEnabled ? configuration.isPressed ? colorStyle.pressedForeground : colorStyle.foreground : colorStyle.disabledForeground)
             .clipShape(RoundedRectangle(cornerRadius: 10))
     }
 }
