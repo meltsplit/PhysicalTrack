@@ -7,6 +7,12 @@
 
 import Foundation
 
+
+struct VoidDTO: Decodable {
+    let status: Int
+    let message: String
+}
+
 struct DTO<D: Decodable>: Decodable {
     let status: Int
     let message: String

@@ -12,15 +12,20 @@ struct RootView: View {
     let store: StoreOf<RootFeature>
     
     var body: some View {
-        switch store.state {
-        case .onboarding:
-            if let store = store.scope(state: \.onboarding, action: \.onboarding) {
-                OnboardingView(store: store)
+        Group {
+            switch store.state {
+            case .onboarding:
+                if let store = store.scope(state: \.onboarding, action: \.onboarding) {
+                    OnboardingView(store: store)
+                }
+            case .main:
+                if let store = store.scope(state: \.main, action: \.main) {
+                    MainTabView(store: store)
+                }
             }
-        case .main:
-            if let store = store.scope(state: \.main, action: \.main) {
-                MainTabView(store: store)
-            }
+        }
+        .onAppear {
+            store.send(.onAppear)
         }
     }
 }
