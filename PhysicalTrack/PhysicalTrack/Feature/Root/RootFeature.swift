@@ -24,7 +24,6 @@ struct RootFeature {
     enum Action {
         case onAppear
         case signInResponse(Result<Void,Error>)
-        case signUpResponse(Result<Void,Error>)
         
         case onboarding(OnboardingFeature.Action)
         case main(MainFeature.Action)
@@ -38,7 +37,8 @@ struct RootFeature {
             switch action {
             case .onAppear:
                 return .run { send in
-                    let deviceID = await appClient.deviceID()
+//                    let deviceID = await appClient.deviceID()
+                    let deviceID = UUID().uuidString
                     let request = SignInRequest(deviceId: deviceID)
                     await send(.signInResponse(Result { try await authClient.signIn(request: request) }))
                 }
@@ -46,18 +46,11 @@ struct RootFeature {
                 state = .main(.init())
                 return .none
             case .signInResponse(.failure(_)):
-                return .run { send in
-                    let deviceID = await appClient.deviceID()
-                    let request = SignUpRequest(deviceId: deviceID, name: "장석우", age: 14, gender: "male")
-                    await send(.signUpResponse(Result { try await authClient.signUp(request: request) }))
-                }
-            case .signUpResponse(.success(_)):
+                state = .onboarding(.init())
+                return .none
+            case .onboarding(.signUpResponse(.success(_))):
                 state = .main(.init())
                 return .none
-            case .signUpResponse(.failure(_)):
-                exit(0)
-                return .none
-                
             case .onboarding, .main:
                 return .none
             

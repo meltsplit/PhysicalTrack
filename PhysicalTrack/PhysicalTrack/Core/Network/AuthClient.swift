@@ -34,9 +34,10 @@ extension AuthClient: DependencyKey {
             
             let (data, response) = try await URLSession.shared.data(for: urlRequest)
             guard let httpResponse = response as? HTTPURLResponse else { throw AuthError.unknown }
+            let responseBody = try jsonDecoder.decode(VoidDTO.self, from: data)
+            print(responseBody)
             guard (200...300).contains(httpResponse.statusCode) else { throw AuthError.unauthorized }
-            
-            
+
             return
         }, signIn: { request in
             let url = URL(string: "http://3.36.72.104:8080/api/user/sign-in")!
@@ -51,8 +52,12 @@ extension AuthClient: DependencyKey {
             let responseData = try JSONDecoder().decode(VoidDTO.self, from: data)
             
             guard let httpResponse = response as? HTTPURLResponse else { throw AuthError.unknown }
-            guard (200...300).contains(httpResponse.statusCode) else { throw AuthError.unauthorized }
             
+            let responseBody = try jsonDecoder.decode(VoidDTO.self, from: data)
+            print(responseBody)
+            
+            guard (200...300).contains(httpResponse.statusCode) else { throw AuthError.unauthorized }
+
             return
         }
     )
