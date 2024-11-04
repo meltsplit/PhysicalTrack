@@ -52,8 +52,8 @@ struct OnboardingFeature {
     @Dependency(\.appClient) var appClient
     @Dependency(\.authClient) var authClient
     
-    @Shared(.appStorage("accessToken")) var accessToken: String = ""
-    @Shared(.appStorage("userID")) var userID: Int = 0
+    @Shared(.appStorage(.accessToken)) var accessToken: String = ""
+    @Shared(.appStorage(.userID)) var userID: Int = 0
     
     var body: some ReducerOf<Self> {
         Reduce { state , action in

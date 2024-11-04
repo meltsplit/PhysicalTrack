@@ -48,6 +48,8 @@
 		8735D7642CC3A1CA00C7824C /* RankingClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8735D7632CC3A1CA00C7824C /* RankingClient.swift */; };
 		8735D7672CC3A23400C7824C /* Networkable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8735D7662CC3A23400C7824C /* Networkable.swift */; };
 		8735D7692CC3A38700C7824C /* RankingResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8735D7682CC3A38700C7824C /* RankingResponse.swift */; };
+		873C81AD2CD92C700041F8FE /* PersistenceReaderKey+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 873C81AC2CD92C700041F8FE /* PersistenceReaderKey+.swift */; };
+		873C81B02CD92DB90041F8FE /* PTAppStorageKey.swift in Sources */ = {isa = PBXBuildFile; fileRef = 873C81AF2CD92DB90041F8FE /* PTAppStorageKey.swift */; };
 		873E9C832CD11A2B0015FB45 /* Color.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 873E9C822CD11A2B0015FB45 /* Color.xcassets */; };
 		873E9C872CD11F3D0015FB45 /* ButtonStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 873E9C862CD11F3D0015FB45 /* ButtonStyle.swift */; };
 		873E9C892CD137A50015FB45 /* View+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 873E9C882CD137A50015FB45 /* View+.swift */; };
@@ -118,6 +120,8 @@
 		8735D7632CC3A1CA00C7824C /* RankingClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RankingClient.swift; sourceTree = "<group>"; };
 		8735D7662CC3A23400C7824C /* Networkable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Networkable.swift; sourceTree = "<group>"; };
 		8735D7682CC3A38700C7824C /* RankingResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RankingResponse.swift; sourceTree = "<group>"; };
+		873C81AC2CD92C700041F8FE /* PersistenceReaderKey+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "PersistenceReaderKey+.swift"; sourceTree = "<group>"; };
+		873C81AF2CD92DB90041F8FE /* PTAppStorageKey.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PTAppStorageKey.swift; sourceTree = "<group>"; };
 		873E9C822CD11A2B0015FB45 /* Color.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Color.xcassets; sourceTree = "<group>"; };
 		873E9C842CD11DE00015FB45 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 		873E9C862CD11F3D0015FB45 /* ButtonStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ButtonStyle.swift; sourceTree = "<group>"; };
@@ -208,6 +212,7 @@
 		8717B5EB2CC1FAFB00542061 /* Core */ = {
 			isa = PBXGroup;
 			children = (
+				873C81AE2CD92DA30041F8FE /* Entity */,
 				87E1EA142CC92074006FAA24 /* Client */,
 				8735D71D2CC2046200C7824C /* NetworkClient */,
 			);
@@ -333,6 +338,7 @@
 			children = (
 				8735D7252CC21A8000C7824C /* Int+.swift */,
 				873E9C882CD137A50015FB45 /* View+.swift */,
+				873C81AC2CD92C700041F8FE /* PersistenceReaderKey+.swift */,
 			);
 			path = Extension;
 			sourceTree = "<group>";
@@ -423,6 +429,14 @@
 				8735D7662CC3A23400C7824C /* Networkable.swift */,
 			);
 			path = Foundation;
+			sourceTree = "<group>";
+		};
+		873C81AE2CD92DA30041F8FE /* Entity */ = {
+			isa = PBXGroup;
+			children = (
+				873C81AF2CD92DB90041F8FE /* PTAppStorageKey.swift */,
+			);
+			path = Entity;
 			sourceTree = "<group>";
 		};
 		873E9C852CD11F340015FB45 /* Style */ = {
@@ -604,6 +618,7 @@
 				8717B5F42CC1FD6B00542061 /* WorkoutFeature.swift in Sources */,
 				8735D7602CC39E8200C7824C /* DTO.swift in Sources */,
 				873E9C942CD210C10015FB45 /* PTWebFeature.swift in Sources */,
+				873C81AD2CD92C700041F8FE /* PersistenceReaderKey+.swift in Sources */,
 				8735D7572CC371F100C7824C /* RankingDetailView.swift in Sources */,
 				8735D73D2CC276F400C7824C /* StatisticsFeature.swift in Sources */,
 				8735D7512CC27EF800C7824C /* OnboardingFeature.swift in Sources */,
@@ -618,6 +633,7 @@
 				87FFBD732CD65C45001AB389 /* JWTDecoder.swift in Sources */,
 				87FFBD6B2CD54DA2001AB389 /* AuthClient.swift in Sources */,
 				873E9C962CD462E00015FB45 /* StatisticsView.swift in Sources */,
+				873C81B02CD92DB90041F8FE /* PTAppStorageKey.swift in Sources */,
 				8735D7322CC2557B00C7824C /* Workout.swift in Sources */,
 				871059ED2CC3BBEE00C4362D /* HeaderTabView.swift in Sources */,
 				8735D74C2CC27C8C00C7824C /* MainFeature.swift in Sources */,

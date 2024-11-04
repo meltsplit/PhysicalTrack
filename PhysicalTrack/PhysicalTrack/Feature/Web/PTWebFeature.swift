@@ -17,8 +17,8 @@ struct PTWebFeature {
         var url: URL
         var representableWebView: RepresentableWebView?
         var canGoBack: Bool = false
-        @Shared(.appStorage("userID")) var userID: Int = -1
-        @Shared(.appStorage("accessToken")) var accessToken: String = ""
+        @Shared(.appStorage(.userID)) var userID: Int = -1
+        @Shared(.appStorage(.accessToken)) var accessToken: String = ""
         
         init(url: String) {
             self.url = URL(string: url) ?? URL(string: "http://github.com")!
