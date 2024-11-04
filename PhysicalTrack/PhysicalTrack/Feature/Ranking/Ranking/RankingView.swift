@@ -37,7 +37,7 @@ struct RankingView: View {
                                 Text(data.name)
                                     .foregroundStyle(.ptWhite)
                                 Spacer()
-                                Text(String(data.daysActive) + "일째 운동 중")
+                                Text("\(data.daysActive)일째 운동 중")
                                     .foregroundStyle(.ptLightGray01)
                             }
                         }
@@ -84,7 +84,7 @@ struct RankingView: View {
                                     .foregroundStyle(.ptWhite)
                                 
                                 Spacer()
-                                Text(String(data.quantity) + "회")
+                                Text("\(data.quantity) 회")
                                     .foregroundStyle(.ptLightGray01)
                             }
                         }

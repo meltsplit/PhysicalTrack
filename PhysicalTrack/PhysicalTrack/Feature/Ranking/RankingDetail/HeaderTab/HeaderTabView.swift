@@ -20,9 +20,9 @@ struct HeaderTabView<Item: HeaderItemType>: View {
                         store.send(.selectItem(item))
                     } label: {
                         Text(item.title)
-                            .frame(maxWidth: .infinity)
-                            .foregroundColor(.white)
-                            .background(.black)
+                            .frame(maxWidth: .infinity, maxHeight: .infinity)
+                            .foregroundColor(.ptWhite)
+                            .background(.ptBackground)
                             .bold()
                             .frame(height: 40)
                     }
@@ -32,13 +32,13 @@ struct HeaderTabView<Item: HeaderItemType>: View {
             
             
             Rectangle()
-                .foregroundColor(.gray)
-                .frame(width: UIScreen.main.bounds.width / CGFloat(store.items.count), height: 4)
+                .foregroundColor(.ptPoint)
+                .frame(width: UIScreen.main.bounds.width / CGFloat(store.items.count), height: 3)
                 .offset(.init(width: CGFloat(store.selectedIndex) * UIScreen.main.bounds.width / CGFloat(store.items.count) , height: 0))
                 .animation(.easeInOut, value: store.selectedIndex)
         }
         
-        .background(.black)
+        .background(.ptBackground)
     }
 }
 
