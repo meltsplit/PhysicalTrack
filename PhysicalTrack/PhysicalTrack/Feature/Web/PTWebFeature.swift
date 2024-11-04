@@ -53,8 +53,6 @@ struct PTWebFeature {
                             await representableWebView?.load(with: url)
                         }
                     )
-                    
-                    
                 )
                 
             case .setCookies:
