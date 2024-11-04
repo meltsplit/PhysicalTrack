@@ -36,6 +36,9 @@ struct OnboardingFeature {
         var gender: Gender = .male
         var progress: Double = Double(Step.yearOfBirth.rawValue) / Double(Step.allCases.count)
         var currentStep: Step = .yearOfBirth
+        
+        @Shared(.appStorage(.accessToken)) var accessToken: String = ""
+        @Shared(.appStorage(.userID)) var userID: Int = 0
     }
     
     enum Action {
@@ -46,7 +49,7 @@ struct OnboardingFeature {
         case genderChanged(Gender)
         case continueButtonTapped
         case signUp
-        case signUpResponse(Result<Void, Error>)
+        case signUpResponse(Result<String, Error>)
     }
     
     @Dependency(\.appClient) var appClient
@@ -82,20 +85,22 @@ struct OnboardingFeature {
                 return .send(.stepChanged(nextStep))
                 
             case .signUp:
-                return .run { [
-                    name = state.name ,
-                    yearOfBirth = state.yearOfBirth,
-                    gender = state.gender] send in
+                return .run { [state = state] send in
                     let deviceID = await appClient.deviceID()
                     let request = SignUpRequest(
                         deviceId: deviceID,
-                        name: name,
-                        age: yearOfBirth,
-                        gender: gender.rawValue
+                        name: state.name,
+                        birthYear: state.yearOfBirth,
+                        gender: state.gender.rawValue
                     )
                     await send(.signUpResponse(Result { try await authClient.signUp(request: request) }))
                 }
-            case .signUpResponse(.success(_)):
+            case let .signUpResponse(.success(jwtToken)):
+                state.accessToken = jwtToken
+                guard let jwtWithoutBearer = jwtToken.split(separator: " ").last,
+                      let jwt = try? JWTDecoder.decode(String(jwtWithoutBearer))
+                else { return .send(.signUpResponse(.failure(AuthError.jwtDecodeFail)))}
+                state.userID = jwt.payload.userId
                 return .none
             case .signUpResponse(.failure(_)):
                 return .none

@@ -14,12 +14,14 @@ struct PTWebFeature {
     
     @ObservableState
     struct State: Equatable {
-        var url: String
+        var url: URL
         var representableWebView: RepresentableWebView?
         var canGoBack: Bool = false
+        @Shared(.appStorage(.userID)) var userID: Int = -1
+        @Shared(.appStorage(.accessToken)) var accessToken: String = ""
         
         init(url: String) {
-            self.url = url
+            self.url = URL(string: url) ?? URL(string: "http://github.com")!
         }
     }
     
@@ -48,35 +50,32 @@ struct PTWebFeature {
                     .concatenate(
                         .send(.setCookies),
                         .run { [url = state.url, representableWebView = state.representableWebView] _ in
-                            guard let url = URL(string: url) else { return }
                             await representableWebView?.load(with: url)
                         }
                     )
-                    
-                    
                 )
                 
             case .setCookies:
-                return .run { [representableWebView = state.representableWebView] _ in
+                return .run { [state = state] _ in
                     let cookies = [
                         [
-                            HTTPCookiePropertyKey.domain: "physical-t-p3n2.vercel.app",
+                            HTTPCookiePropertyKey.domain: state.url.host() ?? "",
                             HTTPCookiePropertyKey.name: "access_token",
                             HTTPCookiePropertyKey.path: "/",
-                            HTTPCookiePropertyKey.value: "stub_access_token",
+                            HTTPCookiePropertyKey.value: state.accessToken,
                             HTTPCookiePropertyKey.secure: "TRUE",
                             HTTPCookiePropertyKey.expires: Date().addingTimeInterval(60 * 60 * 24)
                         ],
                         [
-                            HTTPCookiePropertyKey.domain: "physical-t-p3n2.vercel.app",
+                            HTTPCookiePropertyKey.domain: state.url.host() ?? "",
                             HTTPCookiePropertyKey.name: "user_id",
                             HTTPCookiePropertyKey.path: "/",
-                            HTTPCookiePropertyKey.value: "stub_user_id",
+                            HTTPCookiePropertyKey.value: state.userID,
                             HTTPCookiePropertyKey.secure: "TRUE",
                             HTTPCookiePropertyKey.expires: Date().addingTimeInterval(60 * 60 * 24 * 7)
                         ]
                     ].compactMap { HTTPCookie(properties: $0)}
-                    await representableWebView?.setCookies(cookies)
+                    await state.representableWebView?.setCookies(cookies)
                 }
                 
             case let .canGoBackChanged(newValue):
@@ -84,10 +83,10 @@ struct PTWebFeature {
                 return .none
                 
             case .backButtonTapped:
-                return .run { [representableWebView = state.representableWebView, canGoBack = state.canGoBack] _ in
-                    guard canGoBack else { return await dismiss() }
-                    await representableWebView?.webView.goBack()
-                    await representableWebView?.webView.reload()
+                return .run { [state = state] _ in
+                    guard state.canGoBack else { return await dismiss() }
+                    await state.representableWebView?.webView.goBack()
+                    await state.representableWebView?.webView.reload()
                     return
                 }
                 
