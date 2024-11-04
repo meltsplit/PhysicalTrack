@@ -40,63 +40,8 @@ struct OnboardingView: View {
 
     }
     
-    var yearOfBirthView: some View {
-        VStack {
-            Text("출생 연도를 선택해 주세요.")
-                .font(.title)
-                .bold()
-                .padding(.top, 80)
-            
-            Text("연령대 맞춤 체력등급을 제공하는데 사용해요.")
-                .font(.headline)
-                .foregroundStyle(.gray)
-                .padding(.top, 20)
-            
-            Text(String(store.yearOfBirth))
-                .font(.title)
-                .bold()
-                .padding(.top, 40)
-                .contentTransition(.numericText(value: Double(store.yearOfBirth)))
-                .animation(.snappy, value: store.yearOfBirth)
-            
-            Spacer()
-            
-            Button("계속하기") {
-                store.send(.continueButtonTapped)
-            }
-            .ptBottomButtonStyle()
-            .padding(.horizontal, 20)
-            
-            Picker("", selection: $store.yearOfBirth.sending(\.yearOfBirthChanged)) {
-                ForEach((1950...2030), id: \.self) {
-                    Text(String($0))
-                        .font(.title2)
-                        .bold()
-                }
-            }
-            .pickerStyle(.wheel)
-            .frame(height: 200)
-            .frame(maxWidth: .infinity)
-            .backgroundStyle(.gray)
-        }
-        .background(.ptBackground)
-    }
-    
     var nameView: some View {
         VStack {
-            HStack {
-                Button {
-                    store.send(.backButtonTapped)
-                } label: {
-                    Image(systemName: "chevron.left")
-                        .resizable()
-                        .aspectRatio(contentMode: .fit)
-                        .frame(width: 20, height: 20)
-                        .foregroundStyle(.ptWhite)
-                }
-                Spacer()
-            }
-            .padding(.horizontal, 20)
             
             Text("어떻게 불러 드릴까요?")
                 .font(.title)
@@ -167,7 +112,7 @@ struct OnboardingView: View {
             
             Spacer()
             
-            Button("회원가입") {
+            Button("계속하기") {
                 store.send(.continueButtonTapped)
             }
             .ptBottomButtonStyle()
@@ -185,6 +130,63 @@ struct OnboardingView: View {
                 .frame(height: 200)
                 .frame(maxWidth: .infinity)
             }
+            .backgroundStyle(.gray)
+        }
+        .background(.ptBackground)
+    }
+    
+    var yearOfBirthView: some View {
+        VStack {
+            
+            HStack {
+                Button {
+                    store.send(.backButtonTapped)
+                } label: {
+                    Image(systemName: "chevron.left")
+                        .resizable()
+                        .aspectRatio(contentMode: .fit)
+                        .frame(width: 20, height: 20)
+                        .foregroundStyle(.ptWhite)
+                }
+                Spacer()
+            }
+            .padding(.horizontal, 20)
+            
+            Text("출생 연도를 선택해 주세요.")
+                .font(.title)
+                .bold()
+                .padding(.top, 80)
+            
+            Text("연령대 맞춤 체력등급을 제공하는데 사용해요.")
+                .font(.headline)
+                .foregroundStyle(.gray)
+                .padding(.top, 20)
+            
+            Text(String(store.yearOfBirth))
+                .font(.title)
+                .bold()
+                .padding(.top, 40)
+                .contentTransition(.numericText(value: Double(store.yearOfBirth)))
+                .animation(.snappy, value: store.yearOfBirth)
+            
+            Spacer()
+            
+            Button("회원가입") {
+                store.send(.continueButtonTapped)
+            }
+            .ptBottomButtonStyle()
+            .padding(.horizontal, 20)
+            
+            Picker("", selection: $store.yearOfBirth.sending(\.yearOfBirthChanged)) {
+                ForEach((1950...2030), id: \.self) {
+                    Text(String($0))
+                        .font(.title2)
+                        .bold()
+                }
+            }
+            .pickerStyle(.wheel)
+            .frame(height: 200)
+            .frame(maxWidth: .infinity)
             .backgroundStyle(.gray)
         }
         .background(.ptBackground)
