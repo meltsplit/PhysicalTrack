@@ -149,7 +149,7 @@ struct OnboardingView: View {
             }
             .padding(.horizontal, 20)
             
-            Text("성별 선택해 주세요.")
+            Text("성별을 선택해 주세요.")
                 .font(.title)
                 .bold()
                 .padding(.top, 60)

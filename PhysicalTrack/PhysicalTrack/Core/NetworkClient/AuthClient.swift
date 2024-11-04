@@ -52,7 +52,7 @@ extension AuthClient: DependencyKey {
             let responseData = try JSONDecoder().decode(VoidDTO.self, from: data)
             
             guard let httpResponse = response as? HTTPURLResponse else { throw AuthError.unknown }
-            
+            print(httpResponse)
             let responseBody = try jsonDecoder.decode(VoidDTO.self, from: data)
             print(responseBody)
             

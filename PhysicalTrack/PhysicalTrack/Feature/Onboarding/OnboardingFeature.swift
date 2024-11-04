@@ -90,7 +90,7 @@ struct OnboardingFeature {
                     let request = SignUpRequest(
                         deviceId: deviceID,
                         name: name,
-                        age: yearOfBirth,
+                        birthYear: yearOfBirth,
                         gender: gender.rawValue
                     )
                     await send(.signUpResponse(Result { try await authClient.signUp(request: request) }))

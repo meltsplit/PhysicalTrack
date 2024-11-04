@@ -10,6 +10,6 @@ import Foundation
 struct SignUpRequest: Encodable {
     let deviceId: String
     let name: String
-    let age: Int
+    let birthYear: Int
     let gender: String
 }
