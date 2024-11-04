@@ -34,6 +34,9 @@ extension AuthClient: DependencyKey {
             urlRequest.httpBody = body
             
             let (data, response) = try await URLSession.shared.data(for: urlRequest)
+            guard let responseBody = try? jsonDecoder.decode(VoidDTO.self, from: data)
+            else { throw AuthError.unknown }
+            print(responseBody)
             
             guard let httpResponse = response as? HTTPURLResponse else { throw AuthError.unknown }
             guard (200...300).contains(httpResponse.statusCode) else { throw AuthError.unauthorized }
@@ -53,6 +56,9 @@ extension AuthClient: DependencyKey {
             urlRequest.addValue("application/json", forHTTPHeaderField: "Content-Type")
             
             let (data, response) = try await URLSession.shared.data(for: urlRequest)
+            guard let responseBody = try? jsonDecoder.decode(VoidDTO.self, from: data)
+            else { throw AuthError.unknown }
+            print(responseBody)
             
             guard let httpResponse = response as? HTTPURLResponse else { throw AuthError.unknown }
             guard (200...300).contains(httpResponse.statusCode) else { throw AuthError.unauthorized }
