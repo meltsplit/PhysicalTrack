@@ -23,11 +23,14 @@ struct RootFeature {
     
     enum Action {
         case onAppear
-        case signInResponse(Result<Void,Error>)
+        case signInResponse(Result<String, Error>)
         
         case onboarding(OnboardingFeature.Action)
         case main(MainFeature.Action)
     }
+    
+    @Shared(.appStorage("accessToken")) var accessToken: String = ""
+    @Shared(.appStorage("userID")) var userID: Int = 0
     
     @Dependency(\.authClient) var authClient
     @Dependency(\.appClient) var appClient
@@ -42,7 +45,12 @@ struct RootFeature {
                     let request = SignInRequest(deviceId: deviceID)
                     await send(.signInResponse(Result { try await authClient.signIn(request: request) }))
                 }
-            case .signInResponse(.success(_)):
+            case let .signInResponse(.success(jwtToken)):
+                self.accessToken = jwtToken
+                guard let jwtWithoutBearer = jwtToken.split(separator: " ").last,
+                      let jwt = try? JWTDecoder.decode(String(jwtWithoutBearer))
+                else { return .send(.signInResponse(.failure(AuthError.jwtDecodeFail)))}
+                self.userID = jwt.payload.userId
                 state = .main(.init())
                 return .none
             case .signInResponse(.failure(_)):

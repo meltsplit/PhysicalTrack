@@ -46,11 +46,14 @@ struct OnboardingFeature {
         case genderChanged(Gender)
         case continueButtonTapped
         case signUp
-        case signUpResponse(Result<Void, Error>)
+        case signUpResponse(Result<String, Error>)
     }
     
     @Dependency(\.appClient) var appClient
     @Dependency(\.authClient) var authClient
+    
+    @Shared(.appStorage("accessToken")) var accessToken: String = ""
+    @Shared(.appStorage("userID")) var userID: Int = 0
     
     var body: some ReducerOf<Self> {
         Reduce { state , action in
@@ -95,7 +98,12 @@ struct OnboardingFeature {
                     )
                     await send(.signUpResponse(Result { try await authClient.signUp(request: request) }))
                 }
-            case .signUpResponse(.success(_)):
+            case let .signUpResponse(.success(jwtToken)):
+                self.accessToken = jwtToken
+                guard let jwtWithoutBearer = jwtToken.split(separator: " ").last,
+                      let jwt = try? JWTDecoder.decode(String(jwtWithoutBearer))
+                else { return .send(.signUpResponse(.failure(AuthError.jwtDecodeFail)))}
+                self.userID = jwt.payload.userId
                 return .none
             case .signUpResponse(.failure(_)):
                 return .none

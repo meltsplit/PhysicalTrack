@@ -14,6 +14,7 @@ struct OnboardingView: View {
     
     var body: some View {
         VStack {
+        
             ProgressView(value: store.progress)
                 .frame(height: 3)
                 .frame(maxWidth: .infinity)
