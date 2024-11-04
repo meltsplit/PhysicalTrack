@@ -41,7 +41,6 @@ struct RootFeature {
             case .onAppear:
                 return .run { send in
                     let deviceID = await appClient.deviceID()
-//                    let deviceID = UUID().uuidString
                     let request = SignInRequest(deviceId: deviceID)
                     await send(.signInResponse(Result { try await authClient.signIn(request: request) }))
                 }

@@ -24,18 +24,20 @@ enum Gender: String, CaseIterable {
 struct OnboardingFeature {
     
     enum Step: Int, CaseIterable {
-        case yearOfBirth = 1
-        case name = 2
-        case gender = 3
+        case name = 1
+        case gender = 2
+        case yearOfBirth = 3
     }
     
     @ObservableState
     struct State: Equatable {
-        var yearOfBirth: Int = 2000
+        
         var name: String = "홍길동"
         var gender: Gender = .male
-        var progress: Double = Double(Step.yearOfBirth.rawValue) / Double(Step.allCases.count)
-        var currentStep: Step = .yearOfBirth
+        var yearOfBirth: Int = 2000
+        
+        var currentStep: Step = .name
+        var progress: Double = Double(Step.name.rawValue) / Double(Step.allCases.count)
         
         @Shared(.appStorage(.accessToken)) var accessToken: String = ""
         @Shared(.appStorage(.userID)) var userID: Int = 0
@@ -63,7 +65,7 @@ struct OnboardingFeature {
                 state.progress = Double(step.rawValue) / Double(Step.allCases.count)
                 return .none
             case .backButtonTapped:
-                let prevStep = Step(rawValue: state.currentStep.rawValue - 1 ) ?? .yearOfBirth
+                let prevStep = Step(rawValue: state.currentStep.rawValue - 1 ) ?? .name
                 return .send(.stepChanged(prevStep))
           
             case let .yearOfBirthChanged(year):
@@ -81,7 +83,7 @@ struct OnboardingFeature {
             case .continueButtonTapped:
                 guard state.currentStep.rawValue < Step.allCases.count
                 else { return .send(.signUp)}
-                let nextStep = Step(rawValue: state.currentStep.rawValue + 1) ?? .gender
+                let nextStep = Step(rawValue: state.currentStep.rawValue + 1) ?? .yearOfBirth
                 return .send(.stepChanged(nextStep))
                 
             case .signUp:
