@@ -123,7 +123,7 @@ struct PushUpRankingView: View {
 
 #Preview {
     RankingDetailView(
-        store: .init(initialState: RankingDetailFeature.State(.consistency, .stub)) {
+        store: .init(initialState: RankingDetailFeature.State(.consistency, [.stub1, .stub2, .stub3], [.stub1, .stub2, .stub3])) {
             RankingDetailFeature()
         }
     )

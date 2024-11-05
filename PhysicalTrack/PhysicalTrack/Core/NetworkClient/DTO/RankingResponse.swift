@@ -7,14 +7,8 @@
 
 import Foundation
 
-struct RankingResponse: Decodable {
-    let consistencyRanking: [ConsistencyRankingResponse]
-    let pushUpRanking: [PushUpRankingResponse]
-    
-    enum CodingKeys: String, CodingKey {
-        case consistencyRanking = "consistency_ranking"
-        case pushUpRanking = "pushup_ranking_week"
-    }
+struct ConsistencyResponse: Decodable {
+    var consistencyRanking: [ConsistencyRankingResponse]
 }
 
 struct ConsistencyRankingResponse: Decodable, Hashable {
@@ -29,6 +23,9 @@ struct ConsistencyRankingResponse: Decodable, Hashable {
     }
     
 }
+struct PushUpResponse: Decodable {
+    var pushupRanking: [PushUpRankingResponse]
+}
 
 struct PushUpRankingResponse: Decodable, Hashable {
     let userId: Int
@@ -39,11 +36,6 @@ struct PushUpRankingResponse: Decodable, Hashable {
 
 
 // MARK: - Mock data
-
-extension RankingResponse {
-    static let empty = Self(consistencyRanking: [], pushUpRanking: [])
-    static let stub = Self(consistencyRanking: [.stub1,.stub2,.stub3, .stub4,.stub5,.stub6], pushUpRanking: [.stub1,.stub2,.stub3])
-}
 
 
 extension ConsistencyRankingResponse {

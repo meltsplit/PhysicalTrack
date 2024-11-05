@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import ComposableArchitecture
 
 protocol Networkable {
     static var jsonDecoder: JSONDecoder { get }

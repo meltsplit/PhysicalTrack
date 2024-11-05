@@ -13,17 +13,15 @@ struct RankingDetailFeature {
     
     @ObservableState
     struct State {
-        private var _ranking: RankingResponse = .empty
         var selectedTab: RankingType
         var consistency: ConsistencyRankingFeature.State? = .init()
         var pushUp: PushUpRankingFeature.State? = .init()
         var headerTab: HeaderTabFeature<RankingType>.State? = .init(selectedItem: .consistency)
         
-        init(_ selectedTab: RankingType, _ ranking: RankingResponse) {
-            self._ranking = ranking
+        init(_ selectedTab: RankingType, _ consistency: [ConsistencyRankingResponse], _ pushUp: [PushUpRankingResponse]) {
             self.selectedTab = selectedTab
-            self.consistency = ConsistencyRankingFeature.State(ranking: ranking.consistencyRanking)
-            self.pushUp = PushUpRankingFeature.State(ranking: ranking.pushUpRanking)
+            self.consistency = ConsistencyRankingFeature.State(ranking: consistency)
+            self.pushUp = PushUpRankingFeature.State(ranking: pushUp)
             self.headerTab = HeaderTabFeature<RankingType>.State(selectedItem: selectedTab)
         }
     }
