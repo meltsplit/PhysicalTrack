@@ -7,10 +7,6 @@
 
 import Foundation
 
-struct ConsistencyResponse: Decodable {
-    var consistencyRanking: [ConsistencyRankingResponse]
-}
-
 struct ConsistencyRankingResponse: Decodable, Hashable {
     let userId: Int
     let name: String
@@ -22,9 +18,6 @@ struct ConsistencyRankingResponse: Decodable, Hashable {
         case daysActive = "days_active"
     }
     
-}
-struct PushUpResponse: Decodable {
-    var pushupRanking: [PushUpRankingResponse]
 }
 
 struct PushUpRankingResponse: Decodable, Hashable {

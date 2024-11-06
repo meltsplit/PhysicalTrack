@@ -38,7 +38,7 @@ extension RankingClient: DependencyKey {
             
             let sdata = try? JSONSerialization.jsonObject(with: data, options: .fragmentsAllowed)
             print(sdata)
-            guard let responseBody = try? jsonDecoder.decode(DTO<ConsistencyResponse>.self, from: data)
+            guard let responseBody = try? jsonDecoder.decode(DTO<[ConsistencyRankingResponse]>.self, from: data)
             else { throw RankingError.decodeFail }
             
             print(responseBody)
@@ -47,7 +47,7 @@ extension RankingClient: DependencyKey {
             guard httpResponse.statusCode != 401 else { throw RankingError.unauthorized }
             guard (200...300).contains(httpResponse.statusCode) else { throw RankingError.unknown }
             
-            return responseBody.data.consistencyRanking
+            return responseBody.data
         },
         fetchPushUp: { accessToken in
             let url = URL(string: "http://3.36.72.104:8080/api/ranking/pushup")!
@@ -59,7 +59,7 @@ extension RankingClient: DependencyKey {
             let (data, response) = try await URLSession.shared.data(for: urlRequest)
             let sdata = try? JSONSerialization.jsonObject(with: data, options: .fragmentsAllowed)
             print(sdata)
-            guard let responseBody = try? jsonDecoder.decode(DTO<PushUpResponse>.self, from: data)
+            guard let responseBody = try? jsonDecoder.decode(DTO<[PushUpRankingResponse]>.self, from: data)
             else { throw RankingError.decodeFail }
             print("🙏🙏🙏🙏🙏🙏🙏🙏🙏🙏🙏🙏🙏🙏🙏")
             print(responseBody)
@@ -68,7 +68,7 @@ extension RankingClient: DependencyKey {
             guard httpResponse.statusCode != 401 else { throw RankingError.unauthorized }
             guard (200...300).contains(httpResponse.statusCode) else { throw RankingError.unknown }
             
-            return responseBody.data.pushupRanking
+            return responseBody.data
         }
         
     )
