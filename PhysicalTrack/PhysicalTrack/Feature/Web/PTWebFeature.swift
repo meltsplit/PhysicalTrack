@@ -14,14 +14,21 @@ struct PTWebFeature {
     
     @ObservableState
     struct State: Equatable {
+        @Shared(.appStorage(.userID))
+        fileprivate var userID: Int = -1
+        
+        @Shared(.appStorage(.accessToken))
+        fileprivate var accessToken: String = ""
+        
+        fileprivate var targetUserID: Int?
+        
         var url: URL
         var representableWebView: RepresentableWebView?
         var canGoBack: Bool = false
-        @Shared(.appStorage(.userID)) var userID: Int = -1
-        @Shared(.appStorage(.accessToken)) var accessToken: String = ""
         
-        init(url: String) {
+        init(url: String, targetUserID: Int? = nil) {
             self.url = URL(string: url) ?? URL(string: "http://github.com")!
+            self.targetUserID = targetUserID
         }
     }
     
@@ -70,7 +77,7 @@ struct PTWebFeature {
                             HTTPCookiePropertyKey.domain: state.url.host() ?? "",
                             HTTPCookiePropertyKey.name: "user_id",
                             HTTPCookiePropertyKey.path: "/",
-                            HTTPCookiePropertyKey.value: state.userID,
+                            HTTPCookiePropertyKey.value: String(state.targetUserID ?? state.userID),
                             HTTPCookiePropertyKey.secure: "TRUE",
                             HTTPCookiePropertyKey.expires: Date().addingTimeInterval(60 * 60 * 24 * 7)
                         ]

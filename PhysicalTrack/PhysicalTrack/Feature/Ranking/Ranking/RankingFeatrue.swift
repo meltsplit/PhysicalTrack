@@ -49,9 +49,10 @@ struct RankingFeature {
         Reduce { state , action in
             switch action {
             case .onAppear:
-                state.consistency = [.stub1, .stub2, .stub3, .stub4, .stub5, .stub6]
+                state.consistency = [.stub1, .stub2, .stub3, .stub4, .stub5, .stub6] //TODO: 꾸준함 랭킹 삭제
                 state.consistencyTop3 = state.consistency.prefix(3).map { $0 }
                 return .merge(
+                    //TODO: 꾸준함 랭킹 나오면 반영
 //                    .run { [state = state] send in
 //                        await send(.consistencyRankingResponse(Result { try await rankingClient.fetchConsistency(state.accessToken)}))
 //                    },
@@ -63,7 +64,7 @@ struct RankingFeature {
                 state.path.append(.rankingDetail(RankingDetailFeature.State(type, state.consistency, state.pushUp)))
                 return .none
             case let .path(.element(id: _, action: .rankingDetail(.rankCellTapped(userID)))):
-                state.path.append(.web(PTWebFeature.State(url: "https://physical-t-7jce.vercel.app")))
+                state.path.append(.web(PTWebFeature.State(url: "https://physical-t-7jce.vercel.app", targetUserID: userID)))
                 return .none
                 
             case let .pushUpRankingResponse(.success(response)):
