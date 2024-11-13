@@ -86,7 +86,7 @@ extension DependencyValues {
 extension RankingClient: TestDependencyKey {
     static let previewValue = Self(
         fetchConsistency: { _ in
-            [.stub1]
+            .stubs
         },
         fetchPushUp: { _ in
             [.stub1]

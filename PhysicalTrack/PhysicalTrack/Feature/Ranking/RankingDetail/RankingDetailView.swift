@@ -54,7 +54,7 @@ struct ConsistencyRankingView: View {
     let store: StoreOf<ConsistencyRankingFeature>
 
     var body: some View {
-        VStack {
+        ScrollView {
             LazyVStack(spacing: 6) {
                 ForEach(store.ranking, id: \.self) { data in
                     Button {
@@ -79,9 +79,9 @@ struct ConsistencyRankingView: View {
                     }
                 }
             }
-            Spacer()
+            .padding(.all, 20)
         }
-        .padding(.all, 20)
+        
     }
 }
 
@@ -89,7 +89,7 @@ struct PushUpRankingView: View {
     let store: StoreOf<PushUpRankingFeature>
 
     var body: some View {
-        VStack {
+        ScrollView {
             LazyVStack(spacing: 6) {
                 ForEach(store.ranking, id: \.self) { data in
                     Button {
@@ -114,9 +114,10 @@ struct PushUpRankingView: View {
                     }
                 }
             }
-            Spacer()
+            .padding(.all, 20)
+            
         }
-        .padding(.all, 20)
+        
         
     }
 }

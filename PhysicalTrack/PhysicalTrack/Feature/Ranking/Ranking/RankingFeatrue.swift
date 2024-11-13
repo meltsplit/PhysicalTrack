@@ -49,7 +49,7 @@ struct RankingFeature {
         Reduce { state , action in
             switch action {
             case .onAppear:
-                state.consistency = [.stub1, .stub2, .stub3, .stub4, .stub5, .stub6] //TODO: 꾸준함 랭킹 삭제
+                state.consistency = .stubs //TODO: 꾸준함 랭킹 삭제
                 state.consistencyTop3 = state.consistency.prefix(3).map { $0 }
                 return .merge(
                     //TODO: 꾸준함 랭킹 나오면 반영
