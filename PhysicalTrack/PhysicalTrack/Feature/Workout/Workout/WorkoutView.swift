@@ -33,7 +33,7 @@ struct WorkoutView: View {
                 .padding(.horizontal, 20)
                 
                 Picker("grade",
-                       selection: $store.grade.sending(\.gradeButtonTapped))
+                       selection: $store.grade.sending(\.gradeChanged))
                 {
                     ForEach(store.grades, id: \.self) {
                         Text($0.title)

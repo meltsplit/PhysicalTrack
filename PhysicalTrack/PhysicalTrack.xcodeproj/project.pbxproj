@@ -58,6 +58,7 @@
 		873E9C942CD210C10015FB45 /* PTWebFeature.swift in Sources */ = {isa = PBXBuildFile; fileRef = 873E9C932CD210C10015FB45 /* PTWebFeature.swift */; };
 		873E9C962CD462E00015FB45 /* StatisticsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 873E9C952CD462E00015FB45 /* StatisticsView.swift */; };
 		8754676D2CC3C57A00144BE3 /* HeaderTabFeature.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8754676C2CC3C57A00144BE3 /* HeaderTabFeature.swift */; };
+		87BE35202CE4695F0028BBC3 /* WorkoutFeatureTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87BE351F2CE4695F0028BBC3 /* WorkoutFeatureTests.swift */; };
 		87E1E9F92CC41D61006FAA24 /* ProximityClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87E1E9F82CC41D61006FAA24 /* ProximityClient.swift */; };
 		87E1E9FC2CC4C529006FAA24 /* HapticClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87E1E9FB2CC4C528006FAA24 /* HapticClient.swift */; };
 		87FFBD6B2CD54DA2001AB389 /* AuthClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87FFBD6A2CD54DA2001AB389 /* AuthClient.swift */; };
@@ -131,6 +132,7 @@
 		873E9C932CD210C10015FB45 /* PTWebFeature.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PTWebFeature.swift; sourceTree = "<group>"; };
 		873E9C952CD462E00015FB45 /* StatisticsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatisticsView.swift; sourceTree = "<group>"; };
 		8754676C2CC3C57A00144BE3 /* HeaderTabFeature.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeaderTabFeature.swift; sourceTree = "<group>"; };
+		87BE351F2CE4695F0028BBC3 /* WorkoutFeatureTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkoutFeatureTests.swift; sourceTree = "<group>"; };
 		87E1E9F82CC41D61006FAA24 /* ProximityClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProximityClient.swift; sourceTree = "<group>"; };
 		87E1E9FB2CC4C528006FAA24 /* HapticClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HapticClient.swift; sourceTree = "<group>"; };
 		87FFBD6A2CD54DA2001AB389 /* AuthClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthClient.swift; sourceTree = "<group>"; };
@@ -357,6 +359,7 @@
 			children = (
 				8717B5DB2CC1FA7900542061 /* WorkoutView.swift */,
 				8717B5F32CC1FD6B00542061 /* WorkoutFeature.swift */,
+				87BE351F2CE4695F0028BBC3 /* WorkoutFeatureTests.swift */,
 			);
 			path = Workout;
 			sourceTree = "<group>";
@@ -660,6 +663,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				87BE35202CE4695F0028BBC3 /* WorkoutFeatureTests.swift in Sources */,
 				87FFBD7B2CD660CE001AB389 /* JWTDecoderTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

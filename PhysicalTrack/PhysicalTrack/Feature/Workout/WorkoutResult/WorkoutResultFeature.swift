@@ -12,7 +12,7 @@ import ComposableArchitecture
 struct WorkoutResultFeature {
     
     @ObservableState
-    struct State {
+    struct State: Equatable {
         var record: PushUpRecord
         var criterias = PushUp.criteriaArray
         

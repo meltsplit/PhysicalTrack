@@ -12,7 +12,7 @@ import ComposableArchitecture
 struct TimerFeature {
     
     @ObservableState
-    struct State {
+    struct State: Equatable {
         var record: PushUpRecord
         var isTimerRunning = false
         fileprivate var _leftSeconds: Int
@@ -41,7 +41,7 @@ struct TimerFeature {
         case alert(PresentationAction<Alert>)
         
         @CasePathable
-        enum Alert {
+        enum Alert: Equatable {
             case quit
             case resume
         }
