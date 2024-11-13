@@ -91,7 +91,7 @@ struct RankingView: View {
                     }
                     
                     Button {
-                        store.send(.rankingDetailButtonTapped(.consistency))
+                        store.send(.rankingDetailButtonTapped(.pushUp))
                     } label: {
                         Text("순위 더보기")
                             .frame(maxWidth: .infinity)

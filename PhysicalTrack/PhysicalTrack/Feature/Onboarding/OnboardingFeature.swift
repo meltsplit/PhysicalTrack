@@ -89,6 +89,7 @@ struct OnboardingFeature {
             case .signUp:
                 return .run { [state = state] send in
                     let deviceID = await appClient.deviceID()
+//                    let deviceID = UUID().uuidString
                     let request = SignUpRequest(
                         deviceId: deviceID,
                         name: state.name,
