@@ -11,16 +11,21 @@ import ComposableArchitecture
 
 @DependencyClient
 struct ProximityClient {
-    let start: @Sendable () -> AsyncStream<Bool>
+    
+    var start: @Sendable () -> AsyncStream<Bool> = { .finished }
     var stop: @Sendable () -> Void
 }
 
 extension ProximityClient: TestDependencyKey {
     static let previewValue = Self(
         start: {
+            var clock = ContinuousClock()
             return AsyncStream<Bool> { continuation in
-                continuation.yield(true)
-                continuation.finish()
+                Task {
+                    for try await _ in clock.timer(interval: .seconds(2)) {
+                        continuation.yield(true)
+                    }
+                }
             }
         },
         stop: {
@@ -28,7 +33,11 @@ extension ProximityClient: TestDependencyKey {
         }
     )
     
-    static let testValue = previewValue
+    static let testValue = Self(
+        start: { AsyncStream<Bool> { _ in }},
+        stop: { }
+    )
+
 }
 
 extension DependencyValues {

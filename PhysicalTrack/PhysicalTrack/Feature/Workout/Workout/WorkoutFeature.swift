@@ -14,7 +14,7 @@ import ComposableArchitecture
 struct WorkoutFeature {
     
     @ObservableState
-    struct State {
+    struct State: Equatable {
         var grades: [Grade] = Grade.allCases.filter { $0 != .failed }
         var grade: Grade = .grade2
         var criteria: GradeCriteria<PushUp> { GradeCriteria<PushUp>(grade: grade) }
@@ -22,7 +22,7 @@ struct WorkoutFeature {
     }
     
     enum Action {
-        case gradeButtonTapped(Grade)
+        case gradeChanged(Grade)
         case startButtonTapped
         case timer(PresentationAction<TimerFeature.Action>)
     }
@@ -31,7 +31,7 @@ struct WorkoutFeature {
         Reduce { state, action in
             switch action {
                 
-            case let .gradeButtonTapped(grade):
+            case let .gradeChanged(grade):
                 state.grade = grade
                 return .none
                 
