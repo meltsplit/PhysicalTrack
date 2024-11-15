@@ -40,8 +40,9 @@ struct MainFeature {
     var body: some ReducerOf<Self> {
         Reduce { state , action in
             switch action {
-            case .selectTab:
+            case let .selectTab(newValue):
                 hapticClient.impact(.light)
+                state.selectedTab = newValue
                 return .none
             default:
                 return .none

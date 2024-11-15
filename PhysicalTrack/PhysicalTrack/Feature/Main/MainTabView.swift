@@ -17,22 +17,30 @@ struct MainTabView: View {
         ) {
             if let store = store.scope(state: \.workout, action: \.workout) {
                 WorkoutView(store: store)
+                    .tag(MainScene.workout)
                     .tabItem { TabBarItem(.workout) }
+                    
             }
             
             if let store = store.scope(state: \.statistics, action: \.statistics) {
                 StatisticsView(store: store)
+                    .tag(MainScene.statistics)
                     .tabItem { TabBarItem(.statistics) }
+                    
             }
             
             if let store = store.scope(state: \.ranking, action: \.ranking) {
                 RankingView(store: store)
+                    .tag(MainScene.ranking)
                     .tabItem { TabBarItem(.ranking) }
+                    
             }
             
             if let store = store.scope(state: \.setting, action: \.setting) {
                 SettingView(store: store)
+                    .tag(MainScene.setting)
                     .tabItem { TabBarItem(.setting) }
+                    
             }
         }
     }
