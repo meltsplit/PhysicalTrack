@@ -14,8 +14,7 @@ struct TimerFeature {
     @ObservableState
     struct State: Equatable {
         var record: PushUpRecord
-        var isTimerRunning = false
-        fileprivate var _leftSeconds: Int
+        var _leftSeconds: Int
         var leftTime: String { _leftSeconds.to_mmss }
         var presentResult: Bool = false
         var path = StackState<WorkoutResultFeature.State>()
@@ -58,13 +57,11 @@ struct TimerFeature {
         Reduce { state, action in
             switch action {
             case .onAppear:
-                state.isTimerRunning = true
                 return .send(.start)
                 
             case .start:
                 return .merge(
-                    .run { [isTimerRunning = state.isTimerRunning] send in
-                        guard isTimerRunning else { return }
+                    .run { send in
                         for await _ in self.clock.timer(interval: .seconds(1)) {
                             await send(.timerTick)
                         }
