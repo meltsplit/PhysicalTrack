@@ -29,8 +29,8 @@ struct RootFeature {
         case main(MainFeature.Action)
     }
     
-    @Shared(.appStorage(.accessToken)) var accessToken: String = ""
-    @Shared(.appStorage(.userID)) var userID: Int = 0
+    @Shared(.appStorage(key: .accessToken)) var accessToken: String = ""
+    @Shared(.appStorage(key: .userID)) var userID: Int = 0
     
     @Dependency(\.authClient) var authClient
     @Dependency(\.appClient) var appClient

@@ -13,7 +13,7 @@ struct RankingFeature {
 
     @ObservableState
     struct State {
-        @Shared(.appStorage(.accessToken)) var accessToken = ""
+        @Shared(.appStorage(key: .accessToken)) var accessToken = ""
         var path = StackState<Path.State>()
         var consistency: [ConsistencyRankingResponse] = []
         var pushUp: [PushUpRankingResponse] = []

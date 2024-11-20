@@ -10,37 +10,36 @@ import ComposableArchitecture
 
 
 extension PersistenceReaderKey {
-    public static func appStorage(_ key: PTAppStorageKey) -> Self
+    public static func appStorage(key: PTAppStorageKey) -> Self
     where Self == AppStorageKey<Bool>
     {
         return .appStorage(key.rawValue)
     }
-    
-    public static func appStorage(_ key: PTAppStorageKey) -> Self
+    public static func appStorage(key: PTAppStorageKey) -> Self
     where Self == AppStorageKey<String>
     {
         return .appStorage(key.rawValue)
     }
     
-    public static func appStorage(_ key: PTAppStorageKey) -> Self
+    public static func appStorage(key: PTAppStorageKey) -> Self
     where Self == AppStorageKey<Int>
     {
         return .appStorage(key.rawValue)
     }
     
-    public static func appStorage(_ key: PTAppStorageKey) -> Self
+    public static func appStorage(key: PTAppStorageKey) -> Self
     where Self == AppStorageKey<Double>
     {
         return .appStorage(key.rawValue)
     }
     
-    public static func appStorage(_ key: PTAppStorageKey) -> Self
+    public static func appStorage(key: PTAppStorageKey) -> Self
     where Self == AppStorageKey<URL>
     {
         return .appStorage(key.rawValue)
     }
     
-    public static func appStorage(_ key: PTAppStorageKey) -> Self
+    public static func appStorage(key: PTAppStorageKey) -> Self
     where Self == AppStorageKey<Data>
     {
         return .appStorage(key.rawValue)

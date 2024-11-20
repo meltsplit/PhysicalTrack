@@ -62,6 +62,8 @@
 		87D49E482CE6003700B880DE /* TimerFeatureTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87D49E472CE6003700B880DE /* TimerFeatureTests.swift */; };
 		87E1E9F92CC41D61006FAA24 /* ProximityClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87E1E9F82CC41D61006FAA24 /* ProximityClient.swift */; };
 		87E1E9FC2CC4C529006FAA24 /* HapticClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87E1E9FB2CC4C528006FAA24 /* HapticClient.swift */; };
+		87E96B792CEDAE300053E39E /* WorkoutClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87E96B782CEDAE300053E39E /* WorkoutClient.swift */; };
+		87E96B7B2CEDC0840053E39E /* PushUpRecordDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87E96B7A2CEDC0840053E39E /* PushUpRecordDTO.swift */; };
 		87FFBD6B2CD54DA2001AB389 /* AuthClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87FFBD6A2CD54DA2001AB389 /* AuthClient.swift */; };
 		87FFBD6D2CD54E02001AB389 /* SignInRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87FFBD6C2CD54E02001AB389 /* SignInRequest.swift */; };
 		87FFBD6F2CD54EA9001AB389 /* SignUp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87FFBD6E2CD54EA9001AB389 /* SignUp.swift */; };
@@ -137,6 +139,8 @@
 		87D49E472CE6003700B880DE /* TimerFeatureTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimerFeatureTests.swift; sourceTree = "<group>"; };
 		87E1E9F82CC41D61006FAA24 /* ProximityClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProximityClient.swift; sourceTree = "<group>"; };
 		87E1E9FB2CC4C528006FAA24 /* HapticClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HapticClient.swift; sourceTree = "<group>"; };
+		87E96B782CEDAE300053E39E /* WorkoutClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkoutClient.swift; sourceTree = "<group>"; };
+		87E96B7A2CEDC0840053E39E /* PushUpRecordDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PushUpRecordDTO.swift; sourceTree = "<group>"; };
 		87FFBD6A2CD54DA2001AB389 /* AuthClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthClient.swift; sourceTree = "<group>"; };
 		87FFBD6C2CD54E02001AB389 /* SignInRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInRequest.swift; sourceTree = "<group>"; };
 		87FFBD6E2CD54EA9001AB389 /* SignUp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUp.swift; sourceTree = "<group>"; };
@@ -324,6 +328,7 @@
 				8735D75C2CC398E500C7824C /* StatisticsClient.swift */,
 				8735D7632CC3A1CA00C7824C /* RankingClient.swift */,
 				87FFBD6A2CD54DA2001AB389 /* AuthClient.swift */,
+				87E96B782CEDAE300053E39E /* WorkoutClient.swift */,
 			);
 			path = NetworkClient;
 			sourceTree = "<group>";
@@ -368,8 +373,8 @@
 		8735D7372CC2766900C7824C /* Root */ = {
 			isa = PBXGroup;
 			children = (
-				8735D7382CC2767000C7824C /* RootFeature.swift */,
 				8735D73A2CC2767600C7824C /* RootView.swift */,
+				8735D7382CC2767000C7824C /* RootFeature.swift */,
 			);
 			path = Root;
 			sourceTree = "<group>";
@@ -423,6 +428,7 @@
 				8735D7682CC3A38700C7824C /* RankingResponse.swift */,
 				87FFBD6C2CD54E02001AB389 /* SignInRequest.swift */,
 				87FFBD6E2CD54EA9001AB389 /* SignUp.swift */,
+				87E96B7A2CEDC0840053E39E /* PushUpRecordDTO.swift */,
 			);
 			path = DTO;
 			sourceTree = "<group>";
@@ -612,6 +618,7 @@
 				8735D74A2CC27C7E00C7824C /* MainTabView.swift in Sources */,
 				8735D7472CC27A4900C7824C /* PTWebView.swift in Sources */,
 				87FFBD6D2CD54E02001AB389 /* SignInRequest.swift in Sources */,
+				87E96B792CEDAE300053E39E /* WorkoutClient.swift in Sources */,
 				87E1E9F92CC41D61006FAA24 /* ProximityClient.swift in Sources */,
 				8735D7262CC21A8000C7824C /* Int+.swift in Sources */,
 				873E9C892CD137A50015FB45 /* View+.swift in Sources */,
@@ -655,6 +662,7 @@
 				8735D7302CC254C800C7824C /* Grade.swift in Sources */,
 				8735D75B2CC38D6F00C7824C /* GradeCriteria.swift in Sources */,
 				8735D7622CC39E9800C7824C /* StatisticsResponse.swift in Sources */,
+				87E96B7B2CEDC0840053E39E /* PushUpRecordDTO.swift in Sources */,
 				8735D7292CC230BD00C7824C /* WorkoutResultFeature.swift in Sources */,
 				8735D74E2CC27CD800C7824C /* MainScene.swift in Sources */,
 				8735D72E2CC242CD00C7824C /* WorkoutResultView.swift in Sources */,
