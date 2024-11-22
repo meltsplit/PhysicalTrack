@@ -18,7 +18,7 @@ enum RankingError: Error {
 // MARK: - API client interface
 
 @DependencyClient
-struct RankingClient: Networkable {
+struct RankingClient: NetworkRequestable {
     var fetchConsistency: @Sendable (_ accessToken: String) async throws -> [ConsistencyRankingResponse]
     var fetchPushUp: @Sendable (_ accessToken: String) async throws -> [PushUpRankingResponse]
 }
@@ -50,25 +50,17 @@ extension RankingClient: DependencyKey {
             return responseBody.data
         },
         fetchPushUp: { accessToken in
-            let url = URL(string: "http://3.36.72.104:8080/api/ranking/pushup")!
-            var urlRequest = URLRequest(url: url)
-            urlRequest.httpMethod = "GET"
-            urlRequest.addValue("application/json", forHTTPHeaderField: "Content-Type")
-            urlRequest.addValue(accessToken, forHTTPHeaderField: "Authorization")
             
-            let (data, response) = try await URLSession.shared.data(for: urlRequest)
-            let sdata = try? JSONSerialization.jsonObject(with: data, options: .fragmentsAllowed)
-            print(sdata)
-            guard let responseBody = try? jsonDecoder.decode(DTO<[PushUpRankingResponse]>.self, from: data)
-            else { throw RankingError.decodeFail }
-            print("🙏🙏🙏🙏🙏🙏🙏🙏🙏🙏🙏🙏🙏🙏🙏")
-            print(responseBody)
+            @Shared(.appStorage(key: .accessToken)) var accessToken = ""
+            guard !accessToken.isEmpty else { throw NetworkError.unauthorized }
             
-            guard let httpResponse = response as? HTTPURLResponse else { throw RankingError.unknown }
-            guard httpResponse.statusCode != 401 else { throw RankingError.unauthorized }
-            guard (200...300).contains(httpResponse.statusCode) else { throw RankingError.unknown }
+            let urlRequest: URLRequest = try .init(
+                path: "/ranking/pushup",
+                method: .get,
+                headers: ["Authorization": accessToken]
+            )
             
-            return responseBody.data
+            return try await request(for: urlRequest, dto: [PushUpRankingResponse].self)
         }
         
     )
@@ -86,7 +78,7 @@ extension DependencyValues {
 extension RankingClient: TestDependencyKey {
     static let previewValue = Self(
         fetchConsistency: { _ in
-            .stubs
+                .stubs
         },
         fetchPushUp: { _ in
             [.stub1]
