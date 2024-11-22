@@ -19,7 +19,7 @@ struct WorkoutView: View {
                 Spacer()
                 HStack() {
                     VStack(alignment: .leading, spacing: 14) {
-                        Text("회원님")
+                        Text("\(store.username)님")
                             .font(.title3.bold())
                             .foregroundStyle(.gray)
                         Text("지금 운동하시나요?")

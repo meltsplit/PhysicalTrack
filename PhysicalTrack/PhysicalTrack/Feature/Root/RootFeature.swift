@@ -31,6 +31,7 @@ struct RootFeature {
     
     @Shared(.appStorage(key: .accessToken)) var accessToken: String = ""
     @Shared(.appStorage(key: .userID)) var userID: Int = 0
+    @Shared(.appStorage(key: .username)) var username: String = ""
     
     @Dependency(\.authClient) var authClient
     @Dependency(\.appClient) var appClient
@@ -41,7 +42,6 @@ struct RootFeature {
             case .onAppear:
                 return .run { send in
                     let deviceID = await appClient.deviceID()
-//                    let deviceID = UUID().uuidString
                     let request = SignInRequest(deviceId: deviceID)
                     await send(.signInResponse(Result { try await authClient.signIn(request: request) }))
                 }
@@ -51,6 +51,7 @@ struct RootFeature {
                       let jwt = try? JWTDecoder.decode(String(jwtWithoutBearer))
                 else { return .send(.signInResponse(.failure(AuthError.jwtDecodeFail)))}
                 self.userID = jwt.payload.userId
+                self.username = jwt.payload.name
                 state = .main(.init())
                 return .none
             case .signInResponse(.failure(_)):

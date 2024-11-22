@@ -10,4 +10,6 @@ import Foundation
 public enum PTAppStorageKey: String {
     case accessToken
     case userID
+    case isMute
+    case username
 }
