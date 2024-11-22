@@ -11,7 +11,6 @@ import ComposableArchitecture
 
 @DependencyClient
 struct ProximityClient {
-    
     var start: @Sendable () -> AsyncStream<Bool> = { .finished }
     var stop: @Sendable () -> Void
 }

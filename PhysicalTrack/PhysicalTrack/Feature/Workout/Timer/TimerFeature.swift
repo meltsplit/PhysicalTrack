@@ -14,6 +14,7 @@ struct TimerFeature {
     @ObservableState
     struct State: Equatable {
         var record: PushUpRecord
+        var isMute: Bool = false
         var _leftSeconds: Int
         var leftTime: String { _leftSeconds.to_mmss }
         var presentResult: Bool = false
@@ -30,9 +31,11 @@ struct TimerFeature {
         case onAppear
         case start
         case timerTick
+        case targetTimerTick
         case pause
         case finish
         case detected
+        case muteButtonTapped
         case quitButtonTapped
         case selectCount(Int)
         case doneButtonTapped
@@ -50,6 +53,7 @@ struct TimerFeature {
     
     @Dependency(\.continuousClock) var clock
     @Dependency(\.proximityClient) var proximityClient
+    @Dependency(\.audioClient) var audioClient
     @Dependency(\.hapticClient) var hapticClient
     @Dependency(\.dismiss) var dismiss
     
@@ -66,6 +70,12 @@ struct TimerFeature {
                             await send(.timerTick)
                         }
                     },
+                    .run { [state] send in
+                        let interval = state.record.duration / Double(state.record.targetCount)
+                        for await _ in self.clock.timer(interval: interval) {
+                            await send(.targetTimerTick)
+                        }
+                    },
                     .run { send in
                         for await detected in proximityClient.start() {
                             if detected { await send(.detected) }
@@ -79,6 +89,10 @@ struct TimerFeature {
                 else { return .send(.finish) }
                 
                 state._leftSeconds -= 1
+                return .none
+            case .targetTimerTick:
+                guard !state.isMute else { return .none }
+                audioClient.play()
                 return .none
                 
             case .pause:
@@ -95,7 +109,9 @@ struct TimerFeature {
                 state.record.count += 1
                 
                 return .none
-                
+            case .muteButtonTapped:
+                state.isMute.toggle()
+                return .none
             case .quitButtonTapped:
                 state.alert = AlertState(
                     title: { TextState("운동을 종료하시겠습니까?") },

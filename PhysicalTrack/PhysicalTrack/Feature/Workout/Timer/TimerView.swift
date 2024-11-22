@@ -51,6 +51,18 @@ struct TimerView: View {
                             }
                         
                         HStack {
+                            Button {
+                                store.send(.muteButtonTapped)
+                            } label: {
+                                Image(systemName: store.isMute
+                                      ? "speaker.slash.fill"
+                                      : "speaker.fill"
+                                )
+                                .resizable()
+                                .scaledToFit()
+                                .frame(width: 18, height: 18)
+                                .foregroundStyle(.ptGray)
+                            }
                             Spacer()
                             VStack(spacing: 8) {
                                 Text("시간")
@@ -61,7 +73,7 @@ struct TimerView: View {
                                     
                             }
                         }
-                        .padding(.trailing, 20)
+                        .padding(.horizontal, 20)
                     }
                     
                     Spacer()
