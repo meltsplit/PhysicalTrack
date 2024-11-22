@@ -30,6 +30,7 @@ struct TimerFeature {
         case onAppear
         case start
         case timerTick
+        case targetTimerTick
         case pause
         case finish
         case detected
@@ -50,6 +51,7 @@ struct TimerFeature {
     
     @Dependency(\.continuousClock) var clock
     @Dependency(\.proximityClient) var proximityClient
+    @Dependency(\.audioClient) var audioClient
     @Dependency(\.hapticClient) var hapticClient
     @Dependency(\.dismiss) var dismiss
     
@@ -66,6 +68,12 @@ struct TimerFeature {
                             await send(.timerTick)
                         }
                     },
+                    .run { [state] send in
+                        let interval = state.record.duration / Double(state.record.targetCount)
+                        for await _ in self.clock.timer(interval: interval) {
+                            await send(.targetTimerTick)
+                        }
+                    },
                     .run { send in
                         for await detected in proximityClient.start() {
                             if detected { await send(.detected) }
@@ -79,6 +87,9 @@ struct TimerFeature {
                 else { return .send(.finish) }
                 
                 state._leftSeconds -= 1
+                return .none
+            case .targetTimerTick:
+                audioClient.play()
                 return .none
                 
             case .pause:
