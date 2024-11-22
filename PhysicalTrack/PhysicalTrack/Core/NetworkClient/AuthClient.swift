@@ -16,7 +16,7 @@ enum AuthError: Error {
 // MARK: - API client interface
 
 @DependencyClient
-struct AuthClient: Networkable {
+struct AuthClient: NetworkRequestable {
     var signUp: @Sendable (_ request: SignUpRequest) async throws -> String
     var signIn: @Sendable (_ request: SignInRequest) async throws -> String
 }

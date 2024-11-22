@@ -9,7 +9,7 @@ import Foundation
 
 struct PushUpRecordDTO: Encodable {
     let workoutId: Int
-    let workoutDetail: PushUpRecordDetailDTO
+    let workoutDetail: String
 }
 
 struct PushUpRecordDetailDTO: Encodable {
@@ -19,7 +19,7 @@ struct PushUpRecordDetailDTO: Encodable {
 
 extension PushUpRecordDTO {
     static func withEntity(_ entity: PushUpRecord) -> Self {
-        Self(workoutId: 1, workoutDetail: .init(quantity: entity.count))
+        Self(workoutId: 1, workoutDetail: "{\"quantity\": \(entity.count)}")
     }
 }
 

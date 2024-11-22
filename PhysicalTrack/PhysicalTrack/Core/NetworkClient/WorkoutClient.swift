@@ -9,9 +9,8 @@ import Foundation
 import ComposableArchitecture
 import Combine
 
-struct WorkoutClient: Networkable {
+struct WorkoutClient: NetworkRequestable {
     var postPushUp: @Sendable (_ request: PushUpRecordDTO) async throws -> Void
-
 }
 
 extension DependencyValues {
@@ -21,14 +20,6 @@ extension DependencyValues {
     }
 }
 
-extension WorkoutClient {
-    static let previewValue: WorkoutClient = Self(
-        postPushUp: { _ in return }
-    )
-    
-    static let testValue: WorkoutClient = previewValue
-}
-
 extension WorkoutClient: DependencyKey {
     
     static let liveValue: WorkoutClient = Self(
@@ -36,13 +27,22 @@ extension WorkoutClient: DependencyKey {
             @Shared(.appStorage(key: .accessToken)) var accessToken = ""
             guard !accessToken.isEmpty else { throw NetworkError.unauthorized }
             
-            let urlRequest = try makeURLRequest(
+            let urlRequest: URLRequest = try .init(
                 path: "/record/pushup",
                 method: .post,
                 headers: ["Authorization": accessToken],
-                body: dto)
+                body: dto
+            )
             
             return try await request(for: urlRequest)
         }
     )
+}
+
+extension WorkoutClient {
+    static let previewValue: WorkoutClient = Self(
+        postPushUp: { _ in return }
+    )
+    
+    static let testValue: WorkoutClient = previewValue
 }

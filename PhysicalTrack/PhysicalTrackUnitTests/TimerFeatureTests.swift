@@ -146,13 +146,16 @@ struct TimerFeatureTests {
     func test_종료버튼을_누르면_ProximityClient를_cancel한다() async {
         let clock = TestClock()
         let proximityStream = AsyncStream.makeStream(of: Bool.self)
+        let stubProximityStream = ProximityClient(
+            start: {@Sendable in proximityStream.stream },
+            stop: { @Sendable in proximityStream.continuation.finish() }
+        )
         let store = TestStore(initialState: TimerFeature.State(
-            PushUpRecord(duration: .seconds(10), targetCount: 10)
-        )) {
+            PushUpRecord(duration: .seconds(10), targetCount: 10))
+        ) {
             TimerFeature()
         } withDependencies: {
-            $0.proximityClient.start = { @Sendable in proximityStream.stream }
-            $0.proximityClient.stop = { @Sendable in proximityStream.continuation.finish() }
+            $0.proximityClient = stubProximityStream
             $0.continuousClock = clock
         }
         store.exhaustivity = .off

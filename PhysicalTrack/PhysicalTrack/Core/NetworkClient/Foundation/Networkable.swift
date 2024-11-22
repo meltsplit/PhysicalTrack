@@ -6,49 +6,24 @@
 //
 
 import Foundation
-import ComposableArchitecture
 
-enum NetworkError: Error {
-    case invalidURL
-    case encodeFail
-    case decodeFail
-    case unknown
-    case unauthorized
-}
-
-enum HTTPMethod: String {
-    case post = "POST"
-    case put = "PUT"
-    case delete = "DELETE"
-    case patch = "PATCH"
-    case get = "GET"
-}
-
-protocol Networkable {
+protocol NetworkRequestable {
     static var jsonDecoder: JSONDecoder { get }
-    
-    static func makeURLRequest<B: Encodable>(
-        baseURL: String,
-        path: String,
-        method: HTTPMethod,
-        headers: [String: String],
-        body: B?
-    ) throws -> URLRequest
-    
+
     static func request<T: Decodable>(
         session: URLSession,
-        for: URLRequest,
+        for: URLRequestConvertible,
         dto: T.Type
     ) async throws -> T
     
     static func request(
         session: URLSession,
-        for: URLRequest
+        for: URLRequestConvertible
     ) async throws -> Void
 }
 
 
-extension Networkable {
+extension NetworkRequestable {
     static var jsonDecoder: JSONDecoder {
         let decoder = JSONDecoder()
         let formatter = DateFormatter()
@@ -59,43 +34,12 @@ extension Networkable {
         return decoder
     }
     
-    static func makeURLRequest<B: Encodable>(
-        baseURL: String = "http://3.36.72.104:8080/api",
-        path: String,
-        method: HTTPMethod,
-        headers: [String: String],
-        body: B?
-    ) throws -> URLRequest {
-        var headers = headers
-        
-        guard let url = URL(string: baseURL + path)
-        else { throw NetworkError.invalidURL }
-        
-        var urlRequest = URLRequest(url: url)
-        urlRequest.httpMethod = method.rawValue
-    
-        if !headers.keys.contains("Content-Type") {
-            headers["Content-Type"] = "application/json"
-        }
-        
-        for header in headers {
-            urlRequest.addValue(header.value, forHTTPHeaderField: header.key)
-        }
-        
-        if let body {
-            guard let data = try? JSONEncoder().encode(body)
-            else { throw NetworkError.encodeFail }
-            urlRequest.httpBody = data
-        }
-        
-        return urlRequest
-    }
-    
     static func request<T: Decodable>(
         session: URLSession = .shared,
-        for urlRequest: URLRequest,
+        for urlRequest: URLRequestConvertible,
         dto: T.Type
     ) async throws -> T {
+        let urlRequest = try urlRequest.asURLRequest()
         let (data, response) = try await session.data(for: urlRequest)
         
         let sdata = try? JSONSerialization.jsonObject(with: data, options: .fragmentsAllowed)
@@ -113,8 +57,9 @@ extension Networkable {
     
     static func request(
         session: URLSession = .shared,
-        for urlRequest: URLRequest
+        for urlRequest: URLRequestConvertible
     ) async throws -> Void {
+        let urlRequest = try urlRequest.asURLRequest()
         let (data, response) = try await session.data(for: urlRequest)
         
         let sdata = try? JSONSerialization.jsonObject(with: data, options: .fragmentsAllowed)
