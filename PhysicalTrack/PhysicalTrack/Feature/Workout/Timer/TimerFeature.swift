@@ -15,22 +15,24 @@ struct TimerFeature {
     struct State: Equatable {
         var record: PushUpRecord
         var isMute: Bool = false
-        var _leftSeconds: Int
-        var leftTime: String { _leftSeconds.to_mmss }
+        var workoutLeftSeconds: Int
+        var readyLeftSeconds: Int = 3
         var presentResult: Bool = false
         var path = StackState<WorkoutResultFeature.State>()
         @Presents var alert: AlertState<Action.Alert>?
         
         init(_ record: PushUpRecord) {
             self.record = record
-            self._leftSeconds = Int(record.duration.components.seconds)
+            self.workoutLeftSeconds = Int(record.duration.components.seconds)
         }
     }
     
     enum Action {
         case onAppear
+        case ready
         case start
         case timerTick
+        case readyTimerTick
         case targetTimerTick
         case pause
         case finish
@@ -49,7 +51,10 @@ struct TimerFeature {
         }
     }
     
-    enum CancelID { case workout }
+    enum CancelID {
+        case ready
+        case workout
+    }
     
     @Dependency(\.continuousClock) var clock
     @Dependency(\.proximityClient) var proximityClient
@@ -61,7 +66,21 @@ struct TimerFeature {
         Reduce { state, action in
             switch action {
             case .onAppear:
-                return .send(.start)
+                return .send(.ready)
+                
+            case .ready:
+                state.readyLeftSeconds = 3
+                return .run { send in
+                    for await _ in self.clock.timer(interval: .seconds(1)) {
+                        await send(.readyTimerTick)
+                    }
+                }.cancellable(id: CancelID.ready)
+            case .readyTimerTick:
+                guard state.readyLeftSeconds > 0
+                else { return .merge(.cancel(id: CancelID.ready), .send(.start)) }
+                
+                state.readyLeftSeconds -= 1
+                return .none
                 
             case .start:
                 return .merge(
@@ -85,10 +104,10 @@ struct TimerFeature {
                 
             case .timerTick:
                 
-                guard state._leftSeconds > 0
+                guard state.workoutLeftSeconds > 0
                 else { return .send(.finish) }
                 
-                state._leftSeconds -= 1
+                state.workoutLeftSeconds -= 1
                 return .none
             case .targetTimerTick:
                 guard !state.isMute else { return .none }
@@ -138,7 +157,7 @@ struct TimerFeature {
                 return .run { _ in await dismiss() }
                 
             case .alert(.presented(.resume)):
-                return .send(.start)
+                return .send(.ready)
                 
             case .path(.element(id: _, action: .goStatisticsButtonTapped)):
                 return .run { _ in await dismiss()}

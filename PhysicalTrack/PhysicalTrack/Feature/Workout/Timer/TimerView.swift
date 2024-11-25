@@ -68,7 +68,7 @@ struct TimerView: View {
                                 Text("시간")
                                     .foregroundStyle(.ptGray)
                                 
-                                Text(store.leftTime)
+                                Text(store.workoutLeftSeconds.to_mmss)
                                     .font(.title3.bold())
                                     
                             }
@@ -108,6 +108,17 @@ struct TimerView: View {
             .overlay {
                 if store.presentResult {
                     resultView
+                }
+            }
+            .overlay {
+                if store.readyLeftSeconds > 0 {
+                    VStack {
+                        Text("\(store.readyLeftSeconds)")
+                            .font(.largeTitle)
+                            .bold()
+                    }
+                    .frame(maxWidth: .infinity, maxHeight: .infinity)
+                    .background(.black.opacity(0.8))
                 }
             }
             .alert($store.scope(state: \.alert, action: \.alert))

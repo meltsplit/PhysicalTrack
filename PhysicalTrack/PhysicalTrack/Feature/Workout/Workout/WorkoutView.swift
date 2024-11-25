@@ -19,7 +19,7 @@ struct WorkoutView: View {
                 Spacer()
                 HStack() {
                     VStack(alignment: .leading, spacing: 14) {
-                        Text("회원님")
+                        Text("\(store.username)님")
                             .font(.title3.bold())
                             .foregroundStyle(.gray)
                         Text("지금 운동하시나요?")
@@ -69,6 +69,12 @@ struct WorkoutView: View {
                 }
                 .ptBottomButtonStyle()
                 .padding(.horizontal, 20)
+                .sheet(
+                    item: $store.scope(state: \.tutorial, action: \.tutorial)
+                ) { store in
+                    TutorialView(store: store)
+                        .presentationDetents([.medium])
+                }
                 .fullScreenCover(
                     item: $store.scope(state: \.timer, action: \.timer)
                 ) { store in
@@ -78,8 +84,9 @@ struct WorkoutView: View {
                 Spacer()
                     .frame(height: 20)
             }
+            .background(Color.ptBackground)
         }
-        .background(Color.ptBackground)
+        
         
     }
     

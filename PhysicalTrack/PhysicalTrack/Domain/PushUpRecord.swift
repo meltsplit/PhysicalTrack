@@ -21,7 +21,7 @@ struct PushUpRecord: Equatable {
     }
     
     init(for grade: Grade) {
-        self.duration = .seconds(30)
+        self.duration = .seconds(120)
         self.targetCount = PushUp.criteriaDict[grade]!.lowerBound
         self.count = 0
     }

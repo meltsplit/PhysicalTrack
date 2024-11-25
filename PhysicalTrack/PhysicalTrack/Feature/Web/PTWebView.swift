@@ -30,6 +30,7 @@ struct PTWebView: View {
         VStack {
             store.representableWebView
         }
+        .background(.ptBackground)
         .navigationBarBackButtonHidden(true)
         .navigationBarItems(leading: isPresented || store.canGoBack ? backButton : nil)
         .onAppear {

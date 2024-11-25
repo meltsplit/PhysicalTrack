@@ -41,6 +41,7 @@ struct OnboardingFeature {
         
         @Shared(.appStorage(key: .accessToken)) var accessToken: String = ""
         @Shared(.appStorage(key: .userID)) var userID: Int = 0
+        @Shared(.appStorage(key: .username)) var username: String = "홍길동"
     }
     
     enum Action {
@@ -87,9 +88,8 @@ struct OnboardingFeature {
                 return .send(.stepChanged(nextStep))
                 
             case .signUp:
-                return .run { [state = state] send in
+                return .run { [state] send in
                     let deviceID = await appClient.deviceID()
-//                    let deviceID = UUID().uuidString
                     let request = SignUpRequest(
                         deviceId: deviceID,
                         name: state.name,
@@ -104,6 +104,7 @@ struct OnboardingFeature {
                       let jwt = try? JWTDecoder.decode(String(jwtWithoutBearer))
                 else { return .send(.signUpResponse(.failure(AuthError.jwtDecodeFail)))}
                 state.userID = jwt.payload.userId
+                state.username = jwt.payload.name
                 return .none
             case .signUpResponse(.failure(_)):
                 return .none
