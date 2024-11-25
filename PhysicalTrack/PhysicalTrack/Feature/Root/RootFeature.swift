@@ -34,8 +34,10 @@ struct RootFeature {
     @Shared(.appStorage(key: .userID)) var userID: Int = 0
     @Shared(.appStorage(key: .username)) var username: String = ""
     
+    @Dependency(\.continuousClock) var clock
     @Dependency(\.authClient) var authClient
     @Dependency(\.appClient) var appClient
+    
     
     var body: some ReducerOf<Self> {
         Reduce { state , action in
@@ -44,7 +46,10 @@ struct RootFeature {
                 return .run { send in
                     let deviceID = await appClient.deviceID()
                     let request = SignInRequest(deviceId: deviceID)
-                    await send(.signInResponse(Result { try await authClient.signIn(request: request) }))
+                    async let timer: Void = clock.sleep(for: .seconds(2))
+                    async let signInResult = Result { try await authClient.signIn(request: request) }
+                    let (_, result) = try await (timer, signInResult)
+                    await send(.signInResponse(result))
                 }
             case let .signInResponse(.success(jwtToken)):
                 self.accessToken = jwtToken
