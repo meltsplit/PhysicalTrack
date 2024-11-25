@@ -28,6 +28,8 @@ struct RootView: View {
             store.send(.onAppear)
         }
     }
+    
+    
 }
 
 #Preview {

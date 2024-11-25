@@ -78,8 +78,9 @@ struct WorkoutView: View {
                 Spacer()
                     .frame(height: 20)
             }
+            .background(Color.ptBackground)
         }
-        .background(Color.ptBackground)
+        
         
     }
     

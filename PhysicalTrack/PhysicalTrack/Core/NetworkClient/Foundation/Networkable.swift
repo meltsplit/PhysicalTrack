@@ -8,8 +8,6 @@
 import Foundation
 
 protocol NetworkRequestable {
-    static var jsonDecoder: JSONDecoder { get }
-
     static func request<T: Decodable>(
         session: URLSession,
         for: URLRequestConvertible,
