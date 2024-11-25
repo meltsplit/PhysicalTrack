@@ -14,6 +14,8 @@ struct RootView: View {
     var body: some View {
         Group {
             switch store.state {
+            case .splash:
+                splashView
             case .onboarding:
                 if let store = store.scope(state: \.onboarding, action: \.onboarding) {
                     OnboardingView(store: store)
@@ -27,6 +29,28 @@ struct RootView: View {
         .onAppear {
             store.send(.onAppear)
         }
+    }
+    
+    var splashView: some View {
+        VStack(spacing: 18) {
+            Spacer()
+                .frame(height: 200)
+            
+            GIFView(gifName: "pushup")
+                .frame(width: 250, height: 80)
+            
+            Text("피지컬 트랙")
+                .font(.largeTitle.bold())
+            
+            Text("국군 장병을 위한\n체력 검정 루틴 관리 앱")
+                .font(.title3.bold())
+                .foregroundStyle(.ptGray)
+                .multilineTextAlignment(.center)
+            
+            Spacer()
+        }
+        .frame(maxWidth: .infinity)
+        .background(.ptBackground)
     }
     
     

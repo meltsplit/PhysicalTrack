@@ -13,11 +13,12 @@ struct RootFeature {
     
     @ObservableState
     enum State {
+        case splash
         case onboarding(OnboardingFeature.State)
         case main(MainFeature.State)
         
         init() {
-            self = .onboarding(.init())
+            self = .splash
         }
     }
     

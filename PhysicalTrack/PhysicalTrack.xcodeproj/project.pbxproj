@@ -62,6 +62,8 @@
 		874ED6112CEDD8CB0033972E /* URLRequestConvertible.swift in Sources */ = {isa = PBXBuildFile; fileRef = 874ED6102CEDD8CB0033972E /* URLRequestConvertible.swift */; };
 		874ED6132CF0A3360033972E /* AudioClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 874ED6122CF0A3360033972E /* AudioClient.swift */; };
 		874ED6202CF0B4870033972E /* beep.wav in Resources */ = {isa = PBXBuildFile; fileRef = 874ED61F2CF0B4870033972E /* beep.wav */; };
+		874ED6222CF46B110033972E /* GIFView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 874ED6212CF46B110033972E /* GIFView.swift */; };
+		874ED6272CF46D410033972E /* pushup.gif in Resources */ = {isa = PBXBuildFile; fileRef = 874ED6262CF46D410033972E /* pushup.gif */; };
 		8754676D2CC3C57A00144BE3 /* HeaderTabFeature.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8754676C2CC3C57A00144BE3 /* HeaderTabFeature.swift */; };
 		87D49E482CE6003700B880DE /* TimerFeatureTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87D49E472CE6003700B880DE /* TimerFeatureTests.swift */; };
 		87E1E9F92CC41D61006FAA24 /* ProximityClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87E1E9F82CC41D61006FAA24 /* ProximityClient.swift */; };
@@ -143,6 +145,8 @@
 		874ED6102CEDD8CB0033972E /* URLRequestConvertible.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = URLRequestConvertible.swift; sourceTree = "<group>"; };
 		874ED6122CF0A3360033972E /* AudioClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioClient.swift; sourceTree = "<group>"; };
 		874ED61F2CF0B4870033972E /* beep.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = beep.wav; sourceTree = "<group>"; };
+		874ED6212CF46B110033972E /* GIFView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GIFView.swift; sourceTree = "<group>"; };
+		874ED6262CF46D410033972E /* pushup.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = pushup.gif; sourceTree = "<group>"; };
 		8754676C2CC3C57A00144BE3 /* HeaderTabFeature.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeaderTabFeature.swift; sourceTree = "<group>"; };
 		87D49E472CE6003700B880DE /* TimerFeatureTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimerFeatureTests.swift; sourceTree = "<group>"; };
 		87E1E9F82CC41D61006FAA24 /* ProximityClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProximityClient.swift; sourceTree = "<group>"; };
@@ -265,6 +269,7 @@
 		8717B5EE2CC1FB1000542061 /* Shared */ = {
 			isa = PBXGroup;
 			children = (
+				874ED6232CF46B1F0033972E /* GIF */,
 				874ED6142CF0AC520033972E /* Audio */,
 				8735D71C2CC2044600C7824C /* Util */,
 				8735D7172CC2012400C7824C /* DesignSystem */,
@@ -325,6 +330,7 @@
 			children = (
 				8735D7242CC21A7500C7824C /* Extension */,
 				87FFBD722CD65C45001AB389 /* JWTDecoder.swift */,
+				874ED6212CF46B110033972E /* GIFView.swift */,
 			);
 			path = Util;
 			sourceTree = "<group>";
@@ -494,6 +500,14 @@
 			path = Audio;
 			sourceTree = "<group>";
 		};
+		874ED6232CF46B1F0033972E /* GIF */ = {
+			isa = PBXGroup;
+			children = (
+				874ED6262CF46D410033972E /* pushup.gif */,
+			);
+			path = GIF;
+			sourceTree = "<group>";
+		};
 		8754676E2CC3DAAA00144BE3 /* HeaderTab */ = {
 			isa = PBXGroup;
 			children = (
@@ -613,6 +627,7 @@
 			files = (
 				874ED6202CF0B4870033972E /* beep.wav in Resources */,
 				8717B5E12CC1FA7B00542061 /* Preview Assets.xcassets in Resources */,
+				874ED6272CF46D410033972E /* pushup.gif in Resources */,
 				8717B5DE2CC1FA7B00542061 /* Assets.xcassets in Resources */,
 				873E9C832CD11A2B0015FB45 /* Color.xcassets in Resources */,
 			);
@@ -657,6 +672,7 @@
 				8735D7572CC371F100C7824C /* RankingDetailView.swift in Sources */,
 				8735D73D2CC276F400C7824C /* StatisticsFeature.swift in Sources */,
 				8735D7512CC27EF800C7824C /* OnboardingFeature.swift in Sources */,
+				874ED6222CF46B110033972E /* GIFView.swift in Sources */,
 				871059E92CC3B1FD00C4362D /* PushUpRankingFeature.swift in Sources */,
 				8754676D2CC3C57A00144BE3 /* HeaderTabFeature.swift in Sources */,
 				87FFBD712CD55198001AB389 /* AppClient.swift in Sources */,
