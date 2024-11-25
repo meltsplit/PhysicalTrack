@@ -69,6 +69,12 @@ struct WorkoutView: View {
                 }
                 .ptBottomButtonStyle()
                 .padding(.horizontal, 20)
+                .sheet(
+                    item: $store.scope(state: \.tutorial, action: \.tutorial)
+                ) { store in
+                    TutorialView(store: store)
+                        .presentationDetents([.medium])
+                }
                 .fullScreenCover(
                     item: $store.scope(state: \.timer, action: \.timer)
                 ) { store in

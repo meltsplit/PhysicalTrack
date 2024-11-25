@@ -28,7 +28,7 @@ struct RepresentableWebView: UIViewRepresentable, Equatable {
     
     func makeUIView(context: Context) -> WKWebView {
         webView.backgroundColor = .black
-        webView.scrollView.backgroundColor = .black
+        webView.scrollView.backgroundColor = .ptBackground
         webView.isOpaque = false
         return webView
     }

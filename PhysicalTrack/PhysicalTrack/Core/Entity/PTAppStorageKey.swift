@@ -12,4 +12,5 @@ public enum PTAppStorageKey: String {
     case userID
     case isMute
     case username
+    case shouldShowTutorial
 }
