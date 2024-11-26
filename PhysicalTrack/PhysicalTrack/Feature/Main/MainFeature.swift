@@ -44,6 +44,14 @@ struct MainFeature {
                 hapticClient.impact(.light)
                 state.selectedTab = newValue
                 return .none
+            case .workout(.timer(.presented(.path(.element(id: _, action: .goStatisticsButtonTapped))))):
+                hapticClient.impact(.light)
+                state.selectedTab = .statistics
+                return .none
+            case .ranking(.workoutButtonTapped):
+                hapticClient.impact(.light)
+                state.selectedTab = .workout
+                return .none
             default:
                 return .none
             }
