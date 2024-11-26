@@ -24,6 +24,7 @@ struct RankingFeature {
     
     enum Action {
         case onAppear
+        case workoutButtonTapped
         case pushUpRankingResponse(Result<[PushUpRankingResponse], Error>)
         case consistencyRankingResponse(Result<[ConsistencyRankingResponse], Error>)
         case path(StackActionOf<Path>)
@@ -41,7 +42,6 @@ struct RankingFeature {
         case rankingDetail(RankingDetailFeature)
         case web(PTWebFeature)
     }
-   
     
     @Dependency(\.rankingClient) private var rankingClient
     
@@ -52,12 +52,14 @@ struct RankingFeature {
                 
                 return .merge(
                     .run { [state = state] send in
-                        await send(.consistencyRankingResponse(Result { try await rankingClient.fetchConsistency(state.accessToken)}))
+                        await send(.consistencyRankingResponse(Result { try await rankingClient.fetchConsistency()}))
                     },
                     .run { [state = state] send in
-                        await send(.pushUpRankingResponse(Result { try await rankingClient.fetchPushUp(state.accessToken)}))
+                        await send(.pushUpRankingResponse(Result { try await rankingClient.fetchPushUp()}))
                     }
                 )
+            case .workoutButtonTapped:
+                return .none
             case let .rankingDetailButtonTapped(type):
                 state.path.append(.rankingDetail(RankingDetailFeature.State(type, state.consistency, state.pushUp)))
                 return .none

@@ -19,15 +19,15 @@ enum RankingError: Error {
 
 @DependencyClient
 struct RankingClient: NetworkRequestable {
-    var fetchConsistency: @Sendable (_ accessToken: String) async throws -> [ConsistencyRankingResponse]
-    var fetchPushUp: @Sendable (_ accessToken: String) async throws -> [PushUpRankingResponse]
+    var fetchConsistency: @Sendable () async throws -> [ConsistencyRankingResponse]
+    var fetchPushUp: @Sendable () async throws -> [PushUpRankingResponse]
 }
 
 // MARK: - Live API implementation
 
 extension RankingClient: DependencyKey {
     static let liveValue = RankingClient(
-        fetchConsistency: { accessToken in
+        fetchConsistency: {
             
             @Shared(.appStorage(key: .accessToken)) var accessToken = ""
             guard !accessToken.isEmpty else { throw NetworkError.unauthorized }
@@ -40,7 +40,7 @@ extension RankingClient: DependencyKey {
             
             return try await request(for: urlRequest, dto: [ConsistencyRankingResponse].self)
         },
-        fetchPushUp: { accessToken in
+        fetchPushUp: {
             
             @Shared(.appStorage(key: .accessToken)) var accessToken = ""
             guard !accessToken.isEmpty else { throw NetworkError.unauthorized }

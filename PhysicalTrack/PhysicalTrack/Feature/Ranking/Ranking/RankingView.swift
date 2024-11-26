@@ -14,22 +14,24 @@ struct RankingView: View {
     
     var body: some View {
         NavigationStack(path: $store.scope(state: \.path, action: \.path)) {
-            
-            ScrollView {
-                
-                RankingTop3View(store: store,
-                                type: .consistency,
-                                description: "일째 운동 중",
-                                rankings: store.consistencyTop3)
-                
-                
-                Spacer().frame(height: 14)
-                
-                RankingTop3View(store: store,
-                                type: .pushUp,
-                                description: "회",
-                                rankings: store.pushUpTop3)
-                
+            Group {
+                if store.pushUpTop3.isEmpty {
+                    emptyView
+                } else {
+                    ScrollView {
+                        RankingTop3View(store: store,
+                                        type: .consistency,
+                                        description: "일째 운동 중",
+                                        rankings: store.consistencyTop3)
+                        
+                        Spacer().frame(height: 14)
+                        
+                        RankingTop3View(store: store,
+                                        type: .pushUp,
+                                        description: "회",
+                                        rankings: store.pushUpTop3)
+                    }
+                }
             }
             .background(.ptBackground)
             .alert($store.scope(state: \.alert, action: \.alert))
@@ -48,9 +50,34 @@ struct RankingView: View {
                 PTWebView(store: store)
             }
         }
-       
         
-        
+    }
+    
+    var emptyView: some View {
+        VStack(spacing: 18) {
+            
+            Spacer()
+                .frame(height: 170)
+            
+            Text("아직 순위에 등록된 유저가 없어요")
+                .font(.title2)
+                .multilineTextAlignment(.center)
+                .bold()
+            
+            Text("지금 운동하면 1위를 차지할 수 있어요!")
+                .font(.headline)
+                .foregroundStyle(.ptGray)
+                .multilineTextAlignment(.center)
+                .lineLimit(2)
+            
+            Button("운동 하러가기") {
+                store.send(.workoutButtonTapped)
+            }
+            .ptBottomButtonStyle()
+            
+            Spacer()
+        }
+        .padding(.horizontal, 20)
     }
 }
 
