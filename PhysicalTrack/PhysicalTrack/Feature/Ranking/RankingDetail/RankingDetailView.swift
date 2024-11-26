@@ -21,12 +21,12 @@ struct RankingDetailView: View {
             TabView(selection: $store.selectedTab.sending(\.selectTab)) {
                 
                 if let store = store.scope(state: \.consistency, action: \.consistency) {
-                    ConsistencyRankingView(store: store)
+                    RankingDetailListView(store: store, description: "일째 운동 중")
                         .tag(RankingType.consistency)
                 }
                 
                 if let store = store.scope(state: \.pushUp, action: \.pushUp) {
-                    PushUpRankingView(store: store)
+                    RankingDetailListView(store: store, description: "회")
                         .tag(RankingType.pushUp)
                 }
             }
@@ -47,78 +47,6 @@ struct RankingDetailView: View {
                 
             }
         }
-    }
-}
-
-struct ConsistencyRankingView: View {
-    let store: StoreOf<ConsistencyRankingFeature>
-
-    var body: some View {
-        ScrollView {
-            LazyVStack(spacing: 6) {
-                ForEach(store.ranking, id: \.self) { data in
-                    Button {
-                        store.send(.rankCellTapped(data.userID))
-                    } label: {
-                        HStack {
-                            Text(String(data.rank))
-                                .foregroundStyle(.ptLightGray01)
-                                .fontWeight(.semibold)
-                            
-                            Text(data.name)
-                                .foregroundStyle(.ptWhite)
-                            
-                            Spacer()
-                            
-                            Text("\(data.value)일째 운동 중")
-                                .foregroundStyle(.ptLightGray01)
-                        }
-                        .padding(12)
-                        .background(.ptDarkNavyGray)
-                        .clipShape(RoundedRectangle(cornerRadius: 4))
-                    }
-                }
-            }
-            .padding(.all, 20)
-        }
-        
-    }
-}
-
-struct PushUpRankingView: View {
-    let store: StoreOf<PushUpRankingFeature>
-
-    var body: some View {
-        ScrollView {
-            LazyVStack(spacing: 6) {
-                ForEach(store.ranking, id: \.self) { data in
-                    Button {
-                        store.send(.rankCellTapped(data.userID))
-                    } label: {
-                        HStack {
-                            Text(String(data.rank))
-                                .foregroundStyle(.ptLightGray01)
-                                .fontWeight(.semibold)
-                            
-                            Text(data.name)
-                                .foregroundStyle(.ptWhite)
-                            
-                            Spacer()
-                            
-                            Text("\(data.value)회")
-                                .foregroundStyle(.ptLightGray01)
-                        }
-                        .padding(12)
-                        .background(.ptDarkNavyGray)
-                        .clipShape(RoundedRectangle(cornerRadius: 4))
-                    }
-                }
-            }
-            .padding(.all, 20)
-            
-        }
-        
-        
     }
 }
 

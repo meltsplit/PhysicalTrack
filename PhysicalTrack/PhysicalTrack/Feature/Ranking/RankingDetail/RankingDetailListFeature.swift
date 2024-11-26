@@ -1,5 +1,5 @@
 //
-//  ConsistencyRankingFeature.swift
+//  RankingDetailListFeature.swift
 //  PhysicalTrack
 //
 //  Created by 장석우 on 10/19/24.
@@ -9,11 +9,11 @@ import Foundation
 import ComposableArchitecture
 
 @Reducer
-struct ConsistencyRankingFeature {
+struct RankingDetailListFeature {
     
     @ObservableState
     struct State {
-        var ranking: [ConsistencyRankingResponse] = []
+        var ranking: [any RankingRepresentable] = []
     }
     
     enum Action {

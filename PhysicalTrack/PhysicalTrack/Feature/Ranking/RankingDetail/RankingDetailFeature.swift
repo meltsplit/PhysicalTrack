@@ -14,22 +14,22 @@ struct RankingDetailFeature {
     @ObservableState
     struct State {
         var selectedTab: RankingType
-        var consistency: ConsistencyRankingFeature.State? = .init()
-        var pushUp: PushUpRankingFeature.State? = .init()
+        var consistency: RankingDetailListFeature.State? = .init()
+        var pushUp: RankingDetailListFeature.State? = .init()
         var headerTab: HeaderTabFeature<RankingType>.State? = .init(selectedItem: .consistency)
         
         init(_ selectedTab: RankingType, _ consistency: [ConsistencyRankingResponse], _ pushUp: [PushUpRankingResponse]) {
             self.selectedTab = selectedTab
-            self.consistency = ConsistencyRankingFeature.State(ranking: consistency)
-            self.pushUp = PushUpRankingFeature.State(ranking: pushUp)
+            self.consistency = RankingDetailListFeature.State(ranking: consistency)
+            self.pushUp = RankingDetailListFeature.State(ranking: pushUp)
             self.headerTab = HeaderTabFeature<RankingType>.State(selectedItem: selectedTab)
         }
     }
     
     enum Action {
         case selectTab(RankingType)
-        case consistency(ConsistencyRankingFeature.Action)
-        case pushUp(PushUpRankingFeature.Action)
+        case consistency(RankingDetailListFeature.Action)
+        case pushUp(RankingDetailListFeature.Action)
         case headerTab(HeaderTabFeature<RankingType>.Action)
         case rankCellTapped(Int)
         case path
@@ -54,10 +54,10 @@ struct RankingDetailFeature {
             }
         }
         .ifLet(\.consistency, action: \.consistency) {
-            ConsistencyRankingFeature()
+            RankingDetailListFeature()
         }
         .ifLet(\.pushUp, action: \.pushUp) {
-            PushUpRankingFeature()
+            RankingDetailListFeature()
         }
         .ifLet(\.headerTab, action: \.headerTab) {
             HeaderTabFeature<RankingType>()
