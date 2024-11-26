@@ -28,26 +28,17 @@ struct RankingClient: NetworkRequestable {
 extension RankingClient: DependencyKey {
     static let liveValue = RankingClient(
         fetchConsistency: { accessToken in
-            let url = URL(string: "http://3.36.72.104:8080/api/ranking/consistency")!
-            var urlRequest = URLRequest(url: url)
-            urlRequest.httpMethod = "GET"
-            urlRequest.addValue("application/json", forHTTPHeaderField: "Content-Type")
-            urlRequest.addValue(accessToken, forHTTPHeaderField: "Authorization")
             
-            let (data, response) = try await URLSession.shared.data(for: urlRequest)
+            @Shared(.appStorage(key: .accessToken)) var accessToken = ""
+            guard !accessToken.isEmpty else { throw NetworkError.unauthorized }
             
-            let sdata = try? JSONSerialization.jsonObject(with: data, options: .fragmentsAllowed)
-            print(sdata)
-            guard let responseBody = try? jsonDecoder.decode(DTO<[ConsistencyRankingResponse]>.self, from: data)
-            else { throw RankingError.decodeFail }
+            let urlRequest: URLRequest = try .init(
+                path: "/ranking/consistency",
+                method: .get,
+                headers: ["Authorization": accessToken]
+            )
             
-            print(responseBody)
-            
-            guard let httpResponse = response as? HTTPURLResponse else { throw RankingError.unknown }
-            guard httpResponse.statusCode != 401 else { throw RankingError.unauthorized }
-            guard (200...300).contains(httpResponse.statusCode) else { throw RankingError.unknown }
-            
-            return responseBody.data
+            return try await request(for: urlRequest, dto: [ConsistencyRankingResponse].self)
         },
         fetchPushUp: { accessToken in
             
@@ -78,7 +69,7 @@ extension DependencyValues {
 extension RankingClient: TestDependencyKey {
     static let previewValue = Self(
         fetchConsistency: { _ in
-                .stubs
+            [.stub1]
         },
         fetchPushUp: { _ in
             [.stub1]

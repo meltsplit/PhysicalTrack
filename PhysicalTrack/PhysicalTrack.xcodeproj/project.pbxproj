@@ -236,9 +236,8 @@
 		8717B5EB2CC1FAFB00542061 /* Core */ = {
 			isa = PBXGroup;
 			children = (
-				873C81AE2CD92DA30041F8FE /* Entity */,
 				87E1EA142CC92074006FAA24 /* Client */,
-				8735D71D2CC2046200C7824C /* NetworkClient */,
+				8735D71D2CC2046200C7824C /* Network */,
 			);
 			path = Core;
 			sourceTree = "<group>";
@@ -251,6 +250,7 @@
 				8735D75A2CC38D6F00C7824C /* GradeCriteria.swift */,
 				8735D7352CC25C7A00C7824C /* PushUp.swift */,
 				8735D7332CC25C6500C7824C /* PushUpRecord.swift */,
+				873C81AF2CD92DB90041F8FE /* PTAppStorageKey.swift */,
 			);
 			path = Domain;
 			sourceTree = "<group>";
@@ -340,7 +340,7 @@
 			path = Util;
 			sourceTree = "<group>";
 		};
-		8735D71D2CC2046200C7824C /* NetworkClient */ = {
+		8735D71D2CC2046200C7824C /* Network */ = {
 			isa = PBXGroup;
 			children = (
 				8735D7652CC3A20F00C7824C /* Foundation */,
@@ -349,7 +349,7 @@
 				87FFBD6A2CD54DA2001AB389 /* AuthClient.swift */,
 				87E96B782CEDAE300053E39E /* WorkoutClient.swift */,
 			);
-			path = NetworkClient;
+			path = Network;
 			sourceTree = "<group>";
 		};
 		8735D71F2CC20DBF00C7824C /* Timer */ = {
@@ -461,14 +461,6 @@
 				874ED6102CEDD8CB0033972E /* URLRequestConvertible.swift */,
 			);
 			path = Foundation;
-			sourceTree = "<group>";
-		};
-		873C81AE2CD92DA30041F8FE /* Entity */ = {
-			isa = PBXGroup;
-			children = (
-				873C81AF2CD92DB90041F8FE /* PTAppStorageKey.swift */,
-			);
-			path = Entity;
 			sourceTree = "<group>";
 		};
 		873E9C852CD11F340015FB45 /* Style */ = {
