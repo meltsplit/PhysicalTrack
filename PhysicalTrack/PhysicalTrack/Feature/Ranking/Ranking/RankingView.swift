@@ -14,100 +14,24 @@ struct RankingView: View {
     
     var body: some View {
         NavigationStack(path: $store.scope(state: \.path, action: \.path)) {
-            
-            ScrollView {
-                
-                VStack {
-                    HStack {
-                        Text("꾸준함 Top3")
-                            .foregroundStyle(.ptWhite)
-                            .bold()
-                            .padding(.bottom, 20)
+            Group {
+                if store.pushUpTop3.isEmpty {
+                    emptyView
+                } else {
+                    ScrollView {
+                        RankingTop3View(store: store,
+                                        type: .consistency,
+                                        description: "일째 운동 중",
+                                        rankings: store.consistencyTop3)
                         
-                        Spacer()
-                    }
-                    
-                    LazyVStack(spacing: 20) {
-                        ForEach(store.consistencyTop3, id: \.self) { data in
-                            HStack {
-                                Text(String(data.rank))
-                                    .foregroundStyle(.ptLightGray01)
-                                    .fontWeight(.semibold)
-                                
-                                Text(data.name)
-                                    .foregroundStyle(.ptWhite)
-                                Spacer()
-                                Text("\(data.daysActive)일째 운동 중")
-                                    .foregroundStyle(.ptLightGray01)
-                            }
-                        }
-                    }
-                    
-                    Button {
-                        store.send(.rankingDetailButtonTapped(.consistency))
-                    } label: {
-                        Text("순위 더보기")
-                            .frame(maxWidth: .infinity)
-                            .frame(height: 44)
-                            .foregroundStyle(.ptWhite)
-                            .background(.ptDarkGray02)
-                            .clipShape(RoundedRectangle(cornerRadius: 4))
-                    }
-                    .padding(.top, 20)
-                }
-                .padding(18)
-                .background(.ptDarkNavyGray)
-                .clipShape(RoundedRectangle(cornerRadius: 4))
-                .padding(.horizontal, 20)
-                .padding(.top, 20)
-                
-                Spacer().frame(height: 14)
-                
-                VStack {
-                    HStack {
-                        Text("팔굽혀펴기 Top3")
-                            .foregroundStyle(.ptWhite)
-                            .bold()
-                            .padding(.bottom, 20)
+                        Spacer().frame(height: 14)
                         
-                        Spacer()
+                        RankingTop3View(store: store,
+                                        type: .pushUp,
+                                        description: "회",
+                                        rankings: store.pushUpTop3)
                     }
-                    
-                    LazyVStack(spacing: 20) {
-                        ForEach(store.pushUpTop3, id: \.self) { data in
-                            HStack {
-                                Text(String(data.rank))
-                                    .foregroundStyle(.ptLightGray01)
-                                    .fontWeight(.semibold)
-                                
-                                Text(data.name)
-                                    .foregroundStyle(.ptWhite)
-                                
-                                Spacer()
-                                Text("\(data.quantity) 회")
-                                    .foregroundStyle(.ptLightGray01)
-                            }
-                        }
-                    }
-                    
-                    Button {
-                        store.send(.rankingDetailButtonTapped(.pushUp))
-                    } label: {
-                        Text("순위 더보기")
-                            .frame(maxWidth: .infinity)
-                            .frame(height: 44)
-                            .foregroundStyle(.ptWhite)
-                            .background(.ptDarkGray02)
-                            .clipShape(RoundedRectangle(cornerRadius: 4))
-                    }
-                    .padding(.top, 20)
                 }
-                .padding(18)
-                .background(.ptDarkNavyGray)
-                .clipShape(RoundedRectangle(cornerRadius: 4))
-                .padding(.horizontal, 20)
-                .padding(.top, 20)
-                
             }
             .background(.ptBackground)
             .alert($store.scope(state: \.alert, action: \.alert))
@@ -126,13 +50,121 @@ struct RankingView: View {
                 PTWebView(store: store)
             }
         }
-       
         
-        
+    }
+    
+    var emptyView: some View {
+        VStack(spacing: 18) {
+            
+            Spacer()
+                .frame(height: 170)
+            
+            Text("아직 순위에 등록된 유저가 없어요")
+                .font(.title2)
+                .multilineTextAlignment(.center)
+                .bold()
+            
+            Text("지금 운동하면 1위를 차지할 수 있어요!")
+                .font(.headline)
+                .foregroundStyle(.ptGray)
+                .multilineTextAlignment(.center)
+                .lineLimit(2)
+            
+            Button("운동 하러가기") {
+                store.send(.workoutButtonTapped)
+            }
+            .ptBottomButtonStyle()
+            
+            Spacer()
+        }
+        .padding(.horizontal, 20)
     }
 }
 
-
+fileprivate struct RankingTop3View: View {
+    
+    let store: StoreOf<RankingFeature>
+    let type: RankingType
+    let description: String
+    let rankings: [any RankingRepresentable]
+    
+    var body: some View {
+        VStack {
+            HStack {
+                Text("\(type.title) Top 3")
+                    .font(.title3)
+                    .bold()
+                    .foregroundStyle(.ptWhite)
+                    .padding(.bottom, 20)
+                
+                Spacer()
+            }
+            
+            if rankings.isEmpty {
+                emptyView
+            } else {
+                LazyVStack(spacing: 20) {
+                    ForEach(rankings, id: \.userID) { data in
+                        HStack {
+                            Text(String(data.rank))
+                                .foregroundStyle(.ptLightGray01)
+                                .fontWeight(.semibold)
+                            
+                            Text(data.name)
+                                .foregroundStyle(.ptWhite)
+                            Spacer()
+                            Text("\(data.value)\(description)")
+                                .foregroundStyle(.ptLightGray01)
+                        }
+                    }
+                }
+                
+                Button {
+                    store.send(.rankingDetailButtonTapped(type))
+                } label: {
+                    Text("순위 더보기")
+                        .font(.body.bold())
+                        .frame(maxWidth: .infinity)
+                        .frame(height: 44)
+                        .foregroundStyle(.ptWhite)
+                        .background(.ptDarkGray02)
+                        .clipShape(RoundedRectangle(cornerRadius: 4))
+                }
+                .padding(.top, 20)
+            }
+        }
+        .padding(18)
+        .background(.ptDarkNavyGray)
+        .clipShape(RoundedRectangle(cornerRadius: 4))
+        .padding(.horizontal, 20)
+        .padding(.top, 20)
+    }
+    
+    var emptyView: some View {
+        VStack(spacing: 12) {
+            
+            Text("아직 순위에 등록된 유저가 없어요")
+                .font(.headline)
+                .multilineTextAlignment(.center)
+                .bold()
+            
+            Text("지금 운동하면 1위를 차지할 수 있어요!")
+                .font(.subheadline)
+                .foregroundStyle(.ptGray)
+                .multilineTextAlignment(.center)
+                .lineLimit(2)
+            
+            Button("운동 하러가기") {
+                store.send(.workoutButtonTapped)
+            }
+            .ptBottomButtonStyle(.blue, .custom(height: 48, font: .body.bold()))
+            .frame(width: 160)
+            
+            Spacer()
+        }
+        .padding(.horizontal, 20)
+    }
+}
 
 #Preview {
     RankingView(

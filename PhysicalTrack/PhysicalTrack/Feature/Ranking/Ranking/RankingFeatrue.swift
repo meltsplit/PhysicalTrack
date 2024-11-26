@@ -13,7 +13,6 @@ struct RankingFeature {
 
     @ObservableState
     struct State {
-        @Shared(.appStorage(key: .accessToken)) var accessToken = ""
         var path = StackState<Path.State>()
         var consistency: [ConsistencyRankingResponse] = []
         var pushUp: [PushUpRankingResponse] = []
@@ -24,6 +23,7 @@ struct RankingFeature {
     
     enum Action {
         case onAppear
+        case workoutButtonTapped
         case pushUpRankingResponse(Result<[PushUpRankingResponse], Error>)
         case consistencyRankingResponse(Result<[ConsistencyRankingResponse], Error>)
         case path(StackActionOf<Path>)
@@ -41,7 +41,6 @@ struct RankingFeature {
         case rankingDetail(RankingDetailFeature)
         case web(PTWebFeature)
     }
-   
     
     @Dependency(\.rankingClient) private var rankingClient
     
@@ -49,17 +48,17 @@ struct RankingFeature {
         Reduce { state , action in
             switch action {
             case .onAppear:
-                state.consistency = .stubs //TODO: 꾸준함 랭킹 삭제
-                state.consistencyTop3 = state.consistency.prefix(3).map { $0 }
+                
                 return .merge(
-                    //TODO: 꾸준함 랭킹 나오면 반영
-//                    .run { [state = state] send in
-//                        await send(.consistencyRankingResponse(Result { try await rankingClient.fetchConsistency(state.accessToken)}))
-//                    },
-                    .run { [state = state] send in
-                        await send(.pushUpRankingResponse(Result { try await rankingClient.fetchPushUp(state.accessToken)}))
+                    .run { send in
+                        await send(.consistencyRankingResponse(Result { try await rankingClient.fetchConsistency()}))
+                    },
+                    .run { send in
+                        await send(.pushUpRankingResponse(Result { try await rankingClient.fetchPushUp()}))
                     }
                 )
+            case .workoutButtonTapped:
+                return .none
             case let .rankingDetailButtonTapped(type):
                 state.path.append(.rankingDetail(RankingDetailFeature.State(type, state.consistency, state.pushUp)))
                 return .none
