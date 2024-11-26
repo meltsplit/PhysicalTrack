@@ -34,13 +34,16 @@ extension PTButtonColorStyle {
 enum PTButtonSizeStyle {
     case large
     case medium
+    case custom(height: CGFloat, font: Font)
     
     var height: CGFloat {
         switch self {
         case .large:
-            52
+            return 52
         case .medium:
-            52
+            return 52
+        case let .custom(height, _):
+            return height
         }
     }
     
@@ -50,6 +53,8 @@ enum PTButtonSizeStyle {
             return .headline.bold()
         case .medium:
             return .body.bold()
+        case let .custom(_, font):
+            return font
         }
     }
 }

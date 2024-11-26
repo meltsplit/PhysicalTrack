@@ -38,7 +38,7 @@ extension RankingClient: DependencyKey {
                 headers: ["Authorization": accessToken]
             )
             
-            return try await request(for: urlRequest, dto: [ConsistencyRankingResponse].self)
+            return try await request(for: urlRequest, dto: [ConsistencyRankingResponse].self).filter { $0.value > 0}
         },
         fetchPushUp: {
             
@@ -68,10 +68,10 @@ extension DependencyValues {
 
 extension RankingClient: TestDependencyKey {
     static let previewValue = Self(
-        fetchConsistency: { _ in
-            [.stub1]
+        fetchConsistency: {
+            []
         },
-        fetchPushUp: { _ in
+        fetchPushUp: {
             [.stub1]
         }
     )

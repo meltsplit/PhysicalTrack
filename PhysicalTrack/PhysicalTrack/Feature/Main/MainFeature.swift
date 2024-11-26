@@ -48,7 +48,10 @@ struct MainFeature {
                 hapticClient.impact(.light)
                 state.selectedTab = .statistics
                 return .none
-            case .ranking(.workoutButtonTapped):
+                
+            case .ranking(.workoutButtonTapped),
+                    .ranking(.path(.element(id: _, action: .rankingDetail(.consistency(.workoutButtonTapped))))),
+                    .ranking(.path(.element(id: _, action: .rankingDetail(.pushUp(.workoutButtonTapped))))):
                 hapticClient.impact(.light)
                 state.selectedTab = .workout
                 return .none

@@ -13,34 +13,65 @@ struct RankingDetailListView: View {
     let description: String
 
     var body: some View {
-        ScrollView {
-            LazyVStack(spacing: 6) {
-                ForEach(store.ranking, id: \.userID) { data in
-                    Button {
-                        store.send(.rankCellTapped(data.userID))
-                    } label: {
-                        HStack {
-                            Text(String(data.rank))
-                                .foregroundStyle(.ptLightGray01)
-                                .fontWeight(.semibold)
-                            
-                            Text(data.name)
-                                .foregroundStyle(.ptWhite)
-                            
-                            Spacer()
-                            
-                            Text("\(data.value)\(description)")
-                                .foregroundStyle(.ptLightGray01)
+        if store.ranking.isEmpty {
+            emptyView
+        } else {
+            ScrollView {
+                LazyVStack(spacing: 6) {
+                    ForEach(store.ranking, id: \.userID) { data in
+                        Button {
+                            store.send(.rankCellTapped(data.userID))
+                        } label: {
+                            HStack {
+                                Text(String(data.rank))
+                                    .foregroundStyle(.ptLightGray01)
+                                    .fontWeight(.semibold)
+                                
+                                Text(data.name)
+                                    .foregroundStyle(.ptWhite)
+                                
+                                Spacer()
+                                
+                                Text("\(data.value)\(description)")
+                                    .foregroundStyle(.ptLightGray01)
+                            }
+                            .padding(12)
+                            .background(.ptDarkNavyGray)
+                            .clipShape(RoundedRectangle(cornerRadius: 4))
                         }
-                        .padding(12)
-                        .background(.ptDarkNavyGray)
-                        .clipShape(RoundedRectangle(cornerRadius: 4))
                     }
                 }
+                .padding(.all, 20)
             }
-            .padding(.all, 20)
         }
         
+    }
+    
+    var emptyView: some View {
+        VStack(spacing: 18) {
+            
+            Spacer()
+                .frame(height: 170)
+            
+            Text("아직 순위에 등록된 유저가 없어요")
+                .font(.title2)
+                .multilineTextAlignment(.center)
+                .bold()
+            
+            Text("지금 운동하면 1위를 차지할 수 있어요!")
+                .font(.headline)
+                .foregroundStyle(.ptGray)
+                .multilineTextAlignment(.center)
+                .lineLimit(2)
+            
+            Button("운동 하러가기") {
+                store.send(.workoutButtonTapped)
+            }
+            .ptBottomButtonStyle()
+            
+            Spacer()
+        }
+        .padding(.horizontal, 20)
     }
 }
 

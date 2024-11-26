@@ -18,11 +18,20 @@ struct RankingDetailListFeature {
     
     enum Action {
         case rankCellTapped(Int)
+        case workoutButtonTapped
     }
+    
+    @Dependency(\.dismiss) var dismiss
     
     var body: some ReducerOf<Self> {
         Reduce { state , action in
-            return .none
+            switch action {
+            case .rankCellTapped:
+                return .none
+            case .workoutButtonTapped:
+                return .run { _ in await dismiss()}
+            }
+            
         }
     }
 }

@@ -13,7 +13,6 @@ struct RankingFeature {
 
     @ObservableState
     struct State {
-        @Shared(.appStorage(key: .accessToken)) var accessToken = ""
         var path = StackState<Path.State>()
         var consistency: [ConsistencyRankingResponse] = []
         var pushUp: [PushUpRankingResponse] = []
@@ -51,10 +50,10 @@ struct RankingFeature {
             case .onAppear:
                 
                 return .merge(
-                    .run { [state = state] send in
+                    .run { send in
                         await send(.consistencyRankingResponse(Result { try await rankingClient.fetchConsistency()}))
                     },
-                    .run { [state = state] send in
+                    .run { send in
                         await send(.pushUpRankingResponse(Result { try await rankingClient.fetchPushUp()}))
                     }
                 )
