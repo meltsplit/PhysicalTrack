@@ -17,96 +17,18 @@ struct RankingView: View {
             
             ScrollView {
                 
-                VStack {
-                    HStack {
-                        Text("꾸준함 Top3")
-                            .foregroundStyle(.ptWhite)
-                            .bold()
-                            .padding(.bottom, 20)
-                        
-                        Spacer()
-                    }
-                    
-                    LazyVStack(spacing: 20) {
-                        ForEach(store.consistencyTop3, id: \.self) { data in
-                            HStack {
-                                Text(String(data.rank))
-                                    .foregroundStyle(.ptLightGray01)
-                                    .fontWeight(.semibold)
-                                
-                                Text(data.name)
-                                    .foregroundStyle(.ptWhite)
-                                Spacer()
-                                Text("\(data.value)일째 운동 중")
-                                    .foregroundStyle(.ptLightGray01)
-                            }
-                        }
-                    }
-                    
-                    Button {
-                        store.send(.rankingDetailButtonTapped(.consistency))
-                    } label: {
-                        Text("순위 더보기")
-                            .frame(maxWidth: .infinity)
-                            .frame(height: 44)
-                            .foregroundStyle(.ptWhite)
-                            .background(.ptDarkGray02)
-                            .clipShape(RoundedRectangle(cornerRadius: 4))
-                    }
-                    .padding(.top, 20)
-                }
-                .padding(18)
-                .background(.ptDarkNavyGray)
-                .clipShape(RoundedRectangle(cornerRadius: 4))
-                .padding(.horizontal, 20)
-                .padding(.top, 20)
+                RankingTop3View(store: store,
+                                type: .consistency,
+                                description: "일째 운동 중",
+                                rankings: store.consistencyTop3)
+                
                 
                 Spacer().frame(height: 14)
                 
-                VStack {
-                    HStack {
-                        Text("팔굽혀펴기 Top3")
-                            .foregroundStyle(.ptWhite)
-                            .bold()
-                            .padding(.bottom, 20)
-                        
-                        Spacer()
-                    }
-                    
-                    LazyVStack(spacing: 20) {
-                        ForEach(store.pushUpTop3, id: \.self) { data in
-                            HStack {
-                                Text(String(data.rank))
-                                    .foregroundStyle(.ptLightGray01)
-                                    .fontWeight(.semibold)
-                                
-                                Text(data.name)
-                                    .foregroundStyle(.ptWhite)
-                                
-                                Spacer()
-                                Text("\(data.value) 회")
-                                    .foregroundStyle(.ptLightGray01)
-                            }
-                        }
-                    }
-                    
-                    Button {
-                        store.send(.rankingDetailButtonTapped(.pushUp))
-                    } label: {
-                        Text("순위 더보기")
-                            .frame(maxWidth: .infinity)
-                            .frame(height: 44)
-                            .foregroundStyle(.ptWhite)
-                            .background(.ptDarkGray02)
-                            .clipShape(RoundedRectangle(cornerRadius: 4))
-                    }
-                    .padding(.top, 20)
-                }
-                .padding(18)
-                .background(.ptDarkNavyGray)
-                .clipShape(RoundedRectangle(cornerRadius: 4))
-                .padding(.horizontal, 20)
-                .padding(.top, 20)
+                RankingTop3View(store: store,
+                                type: .pushUp,
+                                description: "회",
+                                rankings: store.pushUpTop3)
                 
             }
             .background(.ptBackground)
@@ -132,9 +54,59 @@ struct RankingView: View {
     }
 }
 
-
-
-
+fileprivate struct RankingTop3View: View {
+    
+    let store: StoreOf<RankingFeature>
+    let type: RankingType
+    let description: String
+    let rankings: [any RankingRepresentable]
+    
+    var body: some View {
+        VStack {
+            HStack {
+                Text("\(type.title) Top 3")
+                    .foregroundStyle(.ptWhite)
+                    .bold()
+                    .padding(.bottom, 20)
+                
+                Spacer()
+            }
+            
+            LazyVStack(spacing: 20) {
+                ForEach(rankings, id: \.userID) { data in
+                    HStack {
+                        Text(String(data.rank))
+                            .foregroundStyle(.ptLightGray01)
+                            .fontWeight(.semibold)
+                        
+                        Text(data.name)
+                            .foregroundStyle(.ptWhite)
+                        Spacer()
+                        Text("\(data.value)\(description)")
+                            .foregroundStyle(.ptLightGray01)
+                    }
+                }
+            }
+            
+            Button {
+                store.send(.rankingDetailButtonTapped(type))
+            } label: {
+                Text("순위 더보기")
+                    .frame(maxWidth: .infinity)
+                    .frame(height: 44)
+                    .foregroundStyle(.ptWhite)
+                    .background(.ptDarkGray02)
+                    .clipShape(RoundedRectangle(cornerRadius: 4))
+            }
+            .padding(.top, 20)
+        }
+        .padding(18)
+        .background(.ptDarkNavyGray)
+        .clipShape(RoundedRectangle(cornerRadius: 4))
+        .padding(.horizontal, 20)
+        .padding(.top, 20)
+    }
+}
 
 #Preview {
     RankingView(
