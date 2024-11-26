@@ -58,7 +58,7 @@ struct ConsistencyRankingView: View {
             LazyVStack(spacing: 6) {
                 ForEach(store.ranking, id: \.self) { data in
                     Button {
-                        store.send(.rankCellTapped(data.userId))
+                        store.send(.rankCellTapped(data.userID))
                     } label: {
                         HStack {
                             Text(String(data.rank))
@@ -70,7 +70,7 @@ struct ConsistencyRankingView: View {
                             
                             Spacer()
                             
-                            Text("\(data.streakCount)일째 운동 중")
+                            Text("\(data.value)일째 운동 중")
                                 .foregroundStyle(.ptLightGray01)
                         }
                         .padding(12)
@@ -93,7 +93,7 @@ struct PushUpRankingView: View {
             LazyVStack(spacing: 6) {
                 ForEach(store.ranking, id: \.self) { data in
                     Button {
-                        store.send(.rankCellTapped(data.userId))
+                        store.send(.rankCellTapped(data.userID))
                     } label: {
                         HStack {
                             Text(String(data.rank))
@@ -105,7 +105,7 @@ struct PushUpRankingView: View {
                             
                             Spacer()
                             
-                            Text("\(data.quantity)회")
+                            Text("\(data.value)회")
                                 .foregroundStyle(.ptLightGray01)
                         }
                         .padding(12)
