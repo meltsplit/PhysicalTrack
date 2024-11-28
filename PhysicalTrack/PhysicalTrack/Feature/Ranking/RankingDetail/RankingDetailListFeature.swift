@@ -17,7 +17,7 @@ struct RankingDetailListFeature {
     }
     
     enum Action {
-        case rankCellTapped(Int)
+        case rankCellTapped(any RankingRepresentable)
         case workoutButtonTapped
     }
     

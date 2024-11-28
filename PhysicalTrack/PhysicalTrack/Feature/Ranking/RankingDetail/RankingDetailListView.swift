@@ -20,7 +20,7 @@ struct RankingDetailListView: View {
                 LazyVStack(spacing: 6) {
                     ForEach(store.ranking, id: \.userID) { data in
                         Button {
-                            store.send(.rankCellTapped(data.userID))
+                            store.send(.rankCellTapped(data))
                         } label: {
                             HStack {
                                 Text(String(data.rank))
