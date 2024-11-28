@@ -62,8 +62,11 @@ struct RankingFeature {
             case let .rankingDetailButtonTapped(type):
                 state.path.append(.rankingDetail(RankingDetailFeature.State(type, state.consistency, state.pushUp)))
                 return .none
-            case let .path(.element(id: _, action: .rankingDetail(.rankCellTapped(userID)))):
-                state.path.append(.web(PTWebFeature.State(url: "https://physical-t-7jce.vercel.app", targetUserID: userID)))
+            case let .path(.element(id: _, action: .rankingDetail(.rankCellTapped(data)))):
+                state.path.append(.web(PTWebFeature.State(url: "https://physical-t-7jce.vercel.app",
+                                                          targetUserID: data.userID,
+                                                          targetUsername: data.name)
+                ))
                 return .none
                 
             case let .pushUpRankingResponse(.success(response)):

@@ -31,7 +31,7 @@ struct RankingDetailFeature {
         case consistency(RankingDetailListFeature.Action)
         case pushUp(RankingDetailListFeature.Action)
         case headerTab(HeaderTabFeature<RankingType>.Action)
-        case rankCellTapped(Int)
+        case rankCellTapped(any RankingRepresentable)
         case path
     }
     
