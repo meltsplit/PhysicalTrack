@@ -51,21 +51,32 @@ struct TimerView: View {
                             }
                         
                         HStack {
-                            Button {
-                                store.send(.muteButtonTapped)
-                            } label: {
-                                Image(systemName: store.isMute
-                                      ? "speaker.slash.fill"
-                                      : "speaker.fill"
-                                )
-                                .resizable()
-                                .scaledToFit()
-                                .frame(width: 18, height: 18)
-                                .foregroundStyle(.ptGray)
-                            }
-                            Spacer()
                             VStack(spacing: 8) {
+                                
+                                Text("페이스")
+                                    .bold()
+                                    .foregroundStyle(.ptGray)
+                                
+                                Button {
+                                    store.send(.muteButtonTapped)
+                                } label: {
+                                    Image(systemName: store.isMute
+                                          ? "speaker.slash.fill"
+                                          : "speaker.fill"
+                                    )
+                                    .resizable()
+                                    .scaledToFit()
+                                    .frame(width: 18, height: 18)
+                                    .foregroundStyle(.ptWhite)
+                                }
+                            }
+                            
+                            Spacer()
+                            
+                            VStack(spacing: 8) {
+                                
                                 Text("시간")
+                                    .bold()
                                     .foregroundStyle(.ptGray)
                                 
                                 Text(store.workoutLeftSeconds.to_mmss)
@@ -86,10 +97,6 @@ struct TimerView: View {
                         .font(.system(size: 60, weight: .bold))
                         .contentTransition(.numericText(value: Double(store.record.count)))
                         .animation(.snappy, value: store.record.count)
-                    
-                    Button("횟수 카운팅") {
-                        store.send(.detected)
-                    }
                     
                     Spacer()
                     
