@@ -8,18 +8,13 @@
 import Foundation
 
 struct PushUpRecordDTO: Encodable {
-    let workoutId: Int
-    let workoutDetail: String
-}
-
-struct PushUpRecordDetailDTO: Encodable {
     let quantity: Int
+    let tempo: [Double]
 }
-
 
 extension PushUpRecordDTO {
-    static func withEntity(_ entity: PushUpRecord) -> Self {
-        Self(workoutId: 1, workoutDetail: "{\"quantity\": \(entity.count)}")
+    static func toDTO(with entity: PushUpRecord) -> Self {
+        return PushUpRecordDTO(quantity: entity.count, tempo: entity.tempo)
     }
 }
 

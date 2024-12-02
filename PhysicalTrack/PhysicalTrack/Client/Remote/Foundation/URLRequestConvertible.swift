@@ -23,7 +23,7 @@ extension URLRequest: URLRequestConvertible {
 extension URLRequest {
     
     init<B: Encodable>(
-        baseURL: String = "http://3.36.72.104:8080/api",
+        baseURL: String = "https://physical-track.site/api",
         path: String,
         method: HTTPMethod,
         headers: [String: String],
@@ -51,7 +51,7 @@ extension URLRequest {
     }
     
     init(
-        baseURL: String = "http://3.36.72.104:8080/api",
+        baseURL: String = "https://physical-track.site/api",
         path: String,
         method: HTTPMethod,
         headers: [String: String]

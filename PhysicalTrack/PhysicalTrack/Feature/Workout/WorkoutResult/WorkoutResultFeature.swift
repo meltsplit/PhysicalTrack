@@ -35,7 +35,9 @@ struct WorkoutResultFeature {
             switch action {
             case .onAppear:
                 return .run { [state] send in
-                    await send( .postPushUpResponse(Result { try await workoutClient.postPushUp(.withEntity(state.record)) }))
+                    let dto: PushUpRecordDTO = .toDTO(with: state.record)
+                    let result = await Result { try await workoutClient.postPushUp(dto) }
+                    await send(.postPushUpResponse(result))
                 }
             case .goStatisticsButtonTapped:
                 return .none

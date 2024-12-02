@@ -15,6 +15,7 @@ struct TimerFeature {
     struct State: Equatable {
         var record: PushUpRecord
         var isMute: Bool = false
+        fileprivate var currentWorkoutSeconds: Int { Int(record.duration.components.seconds) - workoutLeftSeconds}
         var workoutLeftSeconds: Int
         var readyLeftSeconds: Int = 3
         var presentResult: Bool = false
@@ -126,8 +127,9 @@ struct TimerFeature {
             case .detected:
                 hapticClient.impact(.heavy)
                 state.record.count += 1
-                
+                state.record.tempo.append(Double(state.currentWorkoutSeconds))
                 return .none
+                
             case .muteButtonTapped:
                 state.isMute.toggle()
                 return .none

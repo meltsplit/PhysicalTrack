@@ -274,10 +274,11 @@
 		8717B5EE2CC1FB1000542061 /* Shared */ = {
 			isa = PBXGroup;
 			children = (
-				874ED6232CF46B1F0033972E /* GIF */,
-				874ED6142CF0AC520033972E /* Audio */,
+				8735D7242CC21A7500C7824C /* Extension */,
+				873E9C8A2CD13D510015FB45 /* View */,
+				873E9C852CD11F340015FB45 /* Style */,
 				8735D71C2CC2044600C7824C /* Util */,
-				8735D7172CC2012400C7824C /* DesignSystem */,
+				8735D7172CC2012400C7824C /* Resources */,
 			);
 			path = Shared;
 			sourceTree = "<group>";
@@ -320,23 +321,21 @@
 			path = Setting;
 			sourceTree = "<group>";
 		};
-		8735D7172CC2012400C7824C /* DesignSystem */ = {
+		8735D7172CC2012400C7824C /* Resources */ = {
 			isa = PBXGroup;
 			children = (
-				873E9C8A2CD13D510015FB45 /* View */,
-				873E9C852CD11F340015FB45 /* Style */,
+				874ED6142CF0AC520033972E /* Audio */,
+				874ED6232CF46B1F0033972E /* GIF */,
 				8717B5DD2CC1FA7B00542061 /* Assets.xcassets */,
 				873E9C822CD11A2B0015FB45 /* Color.xcassets */,
 			);
-			path = DesignSystem;
+			path = Resources;
 			sourceTree = "<group>";
 		};
 		8735D71C2CC2044600C7824C /* Util */ = {
 			isa = PBXGroup;
 			children = (
-				8735D7242CC21A7500C7824C /* Extension */,
 				87FFBD722CD65C45001AB389 /* JWTDecoder.swift */,
-				874ED6212CF46B110033972E /* GIFView.swift */,
 			);
 			path = Util;
 			sourceTree = "<group>";
@@ -474,6 +473,7 @@
 		873E9C8A2CD13D510015FB45 /* View */ = {
 			isa = PBXGroup;
 			children = (
+				874ED6212CF46B110033972E /* GIFView.swift */,
 				873E9C8B2CD13D710015FB45 /* PTColorText.swift */,
 			);
 			path = View;
