@@ -137,7 +137,6 @@ struct OnboardingView: View {
     
     var yearOfBirthView: some View {
         VStack {
-            
             HStack {
                 Button {
                     store.send(.backButtonTapped)

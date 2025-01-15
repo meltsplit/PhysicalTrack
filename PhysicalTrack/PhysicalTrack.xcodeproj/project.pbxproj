@@ -70,6 +70,15 @@
 		87D49E482CE6003700B880DE /* TimerFeatureTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87D49E472CE6003700B880DE /* TimerFeatureTests.swift */; };
 		87E1E9F92CC41D61006FAA24 /* ProximityClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87E1E9F82CC41D61006FAA24 /* ProximityClient.swift */; };
 		87E1E9FC2CC4C529006FAA24 /* HapticClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87E1E9FB2CC4C528006FAA24 /* HapticClient.swift */; };
+		87E43A7E2D37A2B1005512ED /* Setting.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87E43A7D2D37A2B1005512ED /* Setting.swift */; };
+		87E43A822D37C375005512ED /* UserInfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87E43A812D37C375005512ED /* UserInfoView.swift */; };
+		87E43A842D37C37A005512ED /* UserInfoFeature.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87E43A832D37C37A005512ED /* UserInfoFeature.swift */; };
+		87E43A862D37D432005512ED /* EditNicknameView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87E43A852D37D432005512ED /* EditNicknameView.swift */; };
+		87E43A882D37D4D3005512ED /* EditNicknameFeature.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87E43A872D37D4D3005512ED /* EditNicknameFeature.swift */; };
+		87E43A8A2D37DC2D005512ED /* EditGenderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87E43A892D37DC2D005512ED /* EditGenderView.swift */; };
+		87E43A8C2D37DC35005512ED /* EditGenderFeature.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87E43A8B2D37DC35005512ED /* EditGenderFeature.swift */; };
+		87E43A8E2D37DC74005512ED /* EditBirthView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87E43A8D2D37DC74005512ED /* EditBirthView.swift */; };
+		87E43A902D37DC7C005512ED /* EditBirthFeature.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87E43A8F2D37DC7C005512ED /* EditBirthFeature.swift */; };
 		87E96B792CEDAE300053E39E /* WorkoutClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87E96B782CEDAE300053E39E /* WorkoutClient.swift */; };
 		87E96B7B2CEDC0840053E39E /* WorkoutDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87E96B7A2CEDC0840053E39E /* WorkoutDTO.swift */; };
 		87FFBD6B2CD54DA2001AB389 /* AuthClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87FFBD6A2CD54DA2001AB389 /* AuthClient.swift */; };
@@ -155,6 +164,15 @@
 		87D49E472CE6003700B880DE /* TimerFeatureTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimerFeatureTests.swift; sourceTree = "<group>"; };
 		87E1E9F82CC41D61006FAA24 /* ProximityClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProximityClient.swift; sourceTree = "<group>"; };
 		87E1E9FB2CC4C528006FAA24 /* HapticClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HapticClient.swift; sourceTree = "<group>"; };
+		87E43A7D2D37A2B1005512ED /* Setting.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Setting.swift; sourceTree = "<group>"; };
+		87E43A812D37C375005512ED /* UserInfoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserInfoView.swift; sourceTree = "<group>"; };
+		87E43A832D37C37A005512ED /* UserInfoFeature.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserInfoFeature.swift; sourceTree = "<group>"; };
+		87E43A852D37D432005512ED /* EditNicknameView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditNicknameView.swift; sourceTree = "<group>"; };
+		87E43A872D37D4D3005512ED /* EditNicknameFeature.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditNicknameFeature.swift; sourceTree = "<group>"; };
+		87E43A892D37DC2D005512ED /* EditGenderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditGenderView.swift; sourceTree = "<group>"; };
+		87E43A8B2D37DC35005512ED /* EditGenderFeature.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditGenderFeature.swift; sourceTree = "<group>"; };
+		87E43A8D2D37DC74005512ED /* EditBirthView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditBirthView.swift; sourceTree = "<group>"; };
+		87E43A8F2D37DC7C005512ED /* EditBirthFeature.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditBirthFeature.swift; sourceTree = "<group>"; };
 		87E96B782CEDAE300053E39E /* WorkoutClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkoutClient.swift; sourceTree = "<group>"; };
 		87E96B7A2CEDC0840053E39E /* WorkoutDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkoutDTO.swift; sourceTree = "<group>"; };
 		87FFBD6A2CD54DA2001AB389 /* AuthClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthClient.swift; sourceTree = "<group>"; };
@@ -252,6 +270,7 @@
 				8735D7332CC25C6500C7824C /* PushUpRecord.swift */,
 				873C81AF2CD92DB90041F8FE /* PTAppStorageKey.swift */,
 				87B492C92CF5BAF600628A6E /* RankingRepresentable.swift */,
+				87E43A7D2D37A2B1005512ED /* Setting.swift */,
 			);
 			path = Domain;
 			sourceTree = "<group>";
@@ -315,8 +334,8 @@
 		8717B5F22CC1FB4900542061 /* Setting */ = {
 			isa = PBXGroup;
 			children = (
-				8735D7402CC2779600C7824C /* SettingFeature.swift */,
-				8735D7422CC279DA00C7824C /* SettingView.swift */,
+				87E43A802D37C369005512ED /* Setting */,
+				87E43A7F2D37C364005512ED /* UserInfo */,
 			);
 			path = Setting;
 			sourceTree = "<group>";
@@ -534,6 +553,62 @@
 			path = Local;
 			sourceTree = "<group>";
 		};
+		87E43A7F2D37C364005512ED /* UserInfo */ = {
+			isa = PBXGroup;
+			children = (
+				87E43A942D37DDBD005512ED /* UserInfo */,
+				87E43A912D37DD93005512ED /* EditNickname */,
+				87E43A922D37DD9F005512ED /* EditGender */,
+				87E43A932D37DDAA005512ED /* EditBirth */,
+			);
+			path = UserInfo;
+			sourceTree = "<group>";
+		};
+		87E43A802D37C369005512ED /* Setting */ = {
+			isa = PBXGroup;
+			children = (
+				8735D7422CC279DA00C7824C /* SettingView.swift */,
+				8735D7402CC2779600C7824C /* SettingFeature.swift */,
+			);
+			path = Setting;
+			sourceTree = "<group>";
+		};
+		87E43A912D37DD93005512ED /* EditNickname */ = {
+			isa = PBXGroup;
+			children = (
+				87E43A852D37D432005512ED /* EditNicknameView.swift */,
+				87E43A872D37D4D3005512ED /* EditNicknameFeature.swift */,
+			);
+			path = EditNickname;
+			sourceTree = "<group>";
+		};
+		87E43A922D37DD9F005512ED /* EditGender */ = {
+			isa = PBXGroup;
+			children = (
+				87E43A892D37DC2D005512ED /* EditGenderView.swift */,
+				87E43A8B2D37DC35005512ED /* EditGenderFeature.swift */,
+			);
+			path = EditGender;
+			sourceTree = "<group>";
+		};
+		87E43A932D37DDAA005512ED /* EditBirth */ = {
+			isa = PBXGroup;
+			children = (
+				87E43A8D2D37DC74005512ED /* EditBirthView.swift */,
+				87E43A8F2D37DC7C005512ED /* EditBirthFeature.swift */,
+			);
+			path = EditBirth;
+			sourceTree = "<group>";
+		};
+		87E43A942D37DDBD005512ED /* UserInfo */ = {
+			isa = PBXGroup;
+			children = (
+				87E43A812D37C375005512ED /* UserInfoView.swift */,
+				87E43A832D37C37A005512ED /* UserInfoFeature.swift */,
+			);
+			path = UserInfo;
+			sourceTree = "<group>";
+		};
 		87FFBD792CD660CE001AB389 /* PhysicalTrackUnitTests */ = {
 			isa = PBXGroup;
 			children = (
@@ -657,6 +732,7 @@
 				874ED60D2CEDD6430033972E /* NetworkError.swift in Sources */,
 				873E9C8C2CD13D710015FB45 /* PTColorText.swift in Sources */,
 				8735D7362CC25C7A00C7824C /* PushUp.swift in Sources */,
+				87E43A862D37D432005512ED /* EditNicknameView.swift in Sources */,
 				8735D74A2CC27C7E00C7824C /* MainTabView.swift in Sources */,
 				8735D7472CC27A4900C7824C /* PTWebView.swift in Sources */,
 				87FFBD6D2CD54E02001AB389 /* SignInDTO.swift in Sources */,
@@ -665,15 +741,19 @@
 				8735D7262CC21A8000C7824C /* Int+.swift in Sources */,
 				873E9C892CD137A50015FB45 /* View+.swift in Sources */,
 				8735D7592CC371FA00C7824C /* RankingDetailFeature.swift in Sources */,
+				87E43A8C2D37DC35005512ED /* EditGenderFeature.swift in Sources */,
 				8735D7692CC3A38700C7824C /* RankingDTO.swift in Sources */,
 				8735D7452CC27A2200C7824C /* RankingView.swift in Sources */,
 				8735D7232CC20DD200C7824C /* TimerView.swift in Sources */,
+				87E43A842D37C37A005512ED /* UserInfoFeature.swift in Sources */,
 				8735D7672CC3A23400C7824C /* Networkable.swift in Sources */,
 				8735D7432CC279DA00C7824C /* SettingView.swift in Sources */,
 				8717B5F42CC1FD6B00542061 /* WorkoutFeature.swift in Sources */,
 				8735D7602CC39E8200C7824C /* DTO.swift in Sources */,
+				87E43A8A2D37DC2D005512ED /* EditGenderView.swift in Sources */,
 				873E9C942CD210C10015FB45 /* PTWebFeature.swift in Sources */,
 				873C81AD2CD92C700041F8FE /* PersistenceReaderKey+.swift in Sources */,
+				87E43A882D37D4D3005512ED /* EditNicknameFeature.swift in Sources */,
 				8735D7572CC371F100C7824C /* RankingDetailView.swift in Sources */,
 				8735D73D2CC276F400C7824C /* StatisticsFeature.swift in Sources */,
 				8735D7512CC27EF800C7824C /* OnboardingFeature.swift in Sources */,
@@ -696,16 +776,20 @@
 				874ED6132CF0A3360033972E /* AudioClient.swift in Sources */,
 				871059ED2CC3BBEE00C4362D /* HeaderTabView.swift in Sources */,
 				874ED60F2CEDD6540033972E /* HTTPMethod.swift in Sources */,
+				87E43A902D37DC7C005512ED /* EditBirthFeature.swift in Sources */,
 				8735D74C2CC27C8C00C7824C /* MainFeature.swift in Sources */,
 				873E9C872CD11F3D0015FB45 /* ButtonStyle.swift in Sources */,
+				87E43A8E2D37DC74005512ED /* EditBirthView.swift in Sources */,
 				87E1E9FC2CC4C529006FAA24 /* HapticClient.swift in Sources */,
 				8735D7342CC25C6500C7824C /* PushUpRecord.swift in Sources */,
 				874ED62C2CF475A20033972E /* TutorialView.swift in Sources */,
 				8735D7212CC20DCA00C7824C /* TimerFeature.swift in Sources */,
 				8717B5DC2CC1FA7900542061 /* WorkoutView.swift in Sources */,
 				8735D7532CC27EFE00C7824C /* OnboardingView.swift in Sources */,
+				87E43A822D37C375005512ED /* UserInfoView.swift in Sources */,
 				8735D7642CC3A1CA00C7824C /* RankingClient.swift in Sources */,
 				8735D7412CC2779600C7824C /* SettingFeature.swift in Sources */,
+				87E43A7E2D37A2B1005512ED /* Setting.swift in Sources */,
 				8717B5DA2CC1FA7900542061 /* PhysicalTrackApp.swift in Sources */,
 				8735D7302CC254C800C7824C /* Grade.swift in Sources */,
 				8735D75B2CC38D6F00C7824C /* GradeCriteria.swift in Sources */,

@@ -32,7 +32,6 @@ struct RankingDetailFeature {
         case pushUp(RankingDetailListFeature.Action)
         case headerTab(HeaderTabFeature<RankingType>.Action)
         case rankCellTapped(any RankingRepresentable)
-        case path
     }
     
     var body: some ReducerOf<Self> {
