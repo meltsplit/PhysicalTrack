@@ -26,7 +26,7 @@ struct AuthClient: NetworkRequestable {
 extension AuthClient: DependencyKey {
     static let liveValue = AuthClient(
         signUp: { request in
-            let url = URL(string: "http://3.36.72.104:8080/api/user/sign-up")!
+            let url = URL(string: "https://physical-track.site/api/user/sign-up")!
             var urlRequest = URLRequest(url: url)
             urlRequest.httpMethod = "POST"
             urlRequest.addValue("application/json", forHTTPHeaderField: "Content-Type")
@@ -47,7 +47,7 @@ extension AuthClient: DependencyKey {
             return jwtString
             
         }, signIn: { request in
-            let url = URL(string: "http://3.36.72.104:8080/api/user/sign-in")!
+            let url = URL(string: "https://physical-track.site/api/user/sign-in")!
             var urlRequest = URLRequest(url: url)
             urlRequest.httpMethod = "POST"
             
