@@ -35,13 +35,12 @@ struct MainTabView: View {
                     .tabItem { TabBarItem(.ranking) }
                     
             }
-            
-//            if let store = store.scope(state: \.setting, action: \.setting) {
-//                SettingView(store: store)
-//                    .tag(MainScene.setting)
-//                    .tabItem { TabBarItem(.setting) }
-//                    
-//            }
+            if let store = store.scope(state: \.setting, action: \.setting) {
+                SettingView(store: store)
+                    .tag(MainScene.setting)
+                    .tabItem { TabBarItem(.setting) }
+                    
+            }
         }
     }
 }

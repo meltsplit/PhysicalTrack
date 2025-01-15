@@ -1,15 +1,14 @@
 //
-//  SettingFeature.swift
+//  UserInfoFeature.swift
 //  PhysicalTrack
 //
-//  Created by 장석우 on 10/18/24.
+//  Created by 장석우 on 1/15/25.
 //
 
-import Foundation
 import ComposableArchitecture
 
 @Reducer
-struct SettingFeature {
+struct UserInfoFeature {
     
     @ObservableState
     struct State: Equatable {
@@ -20,9 +19,13 @@ struct SettingFeature {
         
     }
     
+    
     var body: some ReducerOf<Self> {
-        Reduce { state , action in
+        Reduce { state, action in
+            
             return .none
         }
+        
     }
+    
 }

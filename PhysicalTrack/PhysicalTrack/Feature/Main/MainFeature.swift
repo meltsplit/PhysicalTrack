@@ -55,6 +55,9 @@ struct MainFeature {
                 hapticClient.impact(.light)
                 state.selectedTab = .workout
                 return .none
+            case .setting(.tutorial(.presented(.confirmButtonTapped))):
+                state.selectedTab = .workout
+                return .none
             default:
                 return .none
             }
