@@ -15,38 +15,35 @@ struct SettingView: View {
         NavigationStack(
             path: $store.scope(state: \.path, action: \.path)
         ) {
-            
             ScrollView {
-                VStack {
+                VStack(spacing: 0) {
                     Button {
                         store.send(.userInfoTapped)
                     } label: {
-                        VStack {
-                            HStack {
-                                
-                                Image(systemName: "person.fill")
-                                    .resizable()
-                                    .scaledToFit()
-                                    .padding(.all, 10)
-                                    .frame(width: 60, height: 60)
-                                    .background(.ptPoint)
-                                    .tint(.ptLightGray01)
-                                    .clipShape(Circle())
-                                
-                                Text("장석우님")
-                                    .font(.title2)
-                                    .bold()
-                                    .padding(.leading, 16)
-                                
-                                Spacer()
-                                
-                                Image(systemName: "chevron.right")
-                                    .resizable()
-                                    .scaledToFit()
-                                    .frame(width: 20, height: 20)
-                                
-                            }
+                        HStack {
+                            Image(systemName: "person.fill")
+                                .resizable()
+                                .scaledToFit()
+                                .padding(.all, 10)
+                                .frame(width: 60, height: 60)
+                                .background(.ptPoint)
+                                .tint(.ptLightGray01)
+                                .clipShape(Circle())
+                            
+                            Text("장석우님")
+                                .font(.title2)
+                                .bold()
+                                .padding(.leading, 16)
+                            
+                            Spacer()
+                            
+                            Image(systemName: "chevron.right")
+                                .resizable()
+                                .scaledToFit()
+                                .frame(width: 20, height: 20)
+                            
                         }
+                        
                         .padding(.vertical, 36)
                         .foregroundStyle(.ptWhite)
                         .padding(.horizontal, 28)
@@ -54,7 +51,7 @@ struct SettingView: View {
                     }
                     
                     Spacer()
-                        .frame(height: 4)
+                        .frame(height: 1)
                     
                     VStack(spacing: 0) {
                         ForEach(store.list, id: \.self) { type in
@@ -83,11 +80,8 @@ struct SettingView: View {
                     }
                     .buttonStyle(.plain)
                     
-                    Spacer()
-                    
-                    
                 }
-                .background(.black)
+                .background(.ptTab)
                 
             }
             .background(.ptBackground)
