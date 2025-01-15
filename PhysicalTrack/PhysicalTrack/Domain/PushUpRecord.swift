@@ -8,8 +8,8 @@
 import Foundation
 
 struct PushUpRecord: Equatable {
-    var duration: Duration
-    var targetCount: Int
+    let duration: Duration
+    let targetCount: Int
     var count: Int = 0
     var tempo : [Double] = []
     
@@ -22,7 +22,7 @@ struct PushUpRecord: Equatable {
     }
     
     init(for grade: Grade) {
-        self.duration = .seconds(10)
+        self.duration = .seconds(120)
         self.targetCount = PushUp.criteriaDict[grade]!.lowerBound
     }
     
