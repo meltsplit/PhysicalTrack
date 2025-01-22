@@ -34,7 +34,7 @@ struct EditUserInfoFeature {
         }
     }
     
-    @Dependency(\.userClient.updateUserInfo) var update
+    @Dependency(\.userClient.update) var update
     @Dependency(\.dismiss) var dismiss
     
     var body: some ReducerOf<Self> {

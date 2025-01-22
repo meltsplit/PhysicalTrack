@@ -53,8 +53,8 @@ struct RootFeature {
                 }
             case let .signInResponse(.success(jwtToken)):
                 self.accessToken = jwtToken
-                guard let jwtWithoutBearer = jwtToken.split(separator: " ").last,
-                      let jwt = try? JWTDecoder.decode(String(jwtWithoutBearer))
+                guard let jwtWithoutBearer = jwtToken.components(separatedBy: " ").last,
+                      let jwt = try? JWTDecoder.decode(jwtWithoutBearer)
                 else { return .send(.signInResponse(.failure(AuthError.jwtDecodeFail)))}
                 self.userID = jwt.payload.userId
                 self.username = jwt.payload.name
@@ -66,8 +66,14 @@ struct RootFeature {
             case .onboarding(.signUpResponse(.success(_))):
                 state = .main(.init())
                 return .none
+                
+            case .main(.setting(.path(.element(id: _, action: .userInfo(.delegate(.withdrawCompleted)))))):
+                state = .splash
+                return .none
+
             case .onboarding, .main:
                 return .none
+            
             
             }
         

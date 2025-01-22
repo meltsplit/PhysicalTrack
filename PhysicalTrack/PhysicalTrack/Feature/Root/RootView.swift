@@ -16,6 +16,9 @@ struct RootView: View {
             switch store.state {
             case .splash:
                 splashView
+                    .onAppear {
+                        store.send(.onAppear)
+                    }
             case .onboarding:
                 if let store = store.scope(state: \.onboarding, action: \.onboarding) {
                     OnboardingView(store: store)
@@ -25,9 +28,6 @@ struct RootView: View {
                     MainTabView(store: store)
                 }
             }
-        }
-        .onAppear {
-            store.send(.onAppear)
         }
     }
     

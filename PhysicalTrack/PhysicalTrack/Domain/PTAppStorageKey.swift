@@ -7,7 +7,7 @@
 
 import Foundation
 
-public enum PTAppStorageKey: String {
+public enum PTAppStorageKey: String, CaseIterable {
     case accessToken
     case userID
     case isMute

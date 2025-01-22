@@ -17,13 +17,25 @@ struct UserInfoFeature {
     }
     
     enum Action {
+        // View
         case onAppear
-        case userInfoResponse(Result<UserInfoResponse, Error>)
         case editNicknameButtonTapped
         case editGenderButtonTapped
         case editBirthButtonTapped
         case withdrawButtonTapped
+        
+        // Effect
+        case userInfoResponse(Result<UserInfoResponse, Error>)
+        case withdrawResponse(Result<Void, Error>)
+        
+        // Navigation
         case destination(PresentationAction<Destination.Action>)
+        
+        case delegate(Delegate)
+        
+        enum Delegate {
+            case withdrawCompleted
+        }
     }
     
     @Reducer
@@ -33,22 +45,19 @@ struct UserInfoFeature {
         case editBirth(EditUserInfoFeature)
     }
     
-    @Dependency(\.userClient.fetchUserInfo) private var fetch
+    @Dependency(\.userClient.fetch) private var fetch
+    @Dependency(\.userClient.withdraw) private var withdraw
+    @Dependency(\.defaultAppStorage) var appStorage
     
     var body: some ReducerOf<Self> {
         Reduce { state, action in
             switch action {
+                // View
             case .onAppear:
                 return .run { send in
                     let result = await Result { try await fetch() }
                     await send(.userInfoResponse(result))
                 }
-            case .userInfoResponse(.success(let dto)):
-                state.userInfo = dto.toDomain()
-                return .none
-                
-            case .userInfoResponse(.failure(_)):
-                return .none
             case .editNicknameButtonTapped:
                 state.destination = .editNickname(.init(userInfo: state.userInfo))
                 return .none
@@ -59,7 +68,28 @@ struct UserInfoFeature {
                 state.destination = .editBirth(.init(userInfo: state.userInfo))
                 return .none
             case .withdrawButtonTapped:
+                return .run { send in
+                    let result = await Result { try await withdraw() }
+                    await send(.withdrawResponse(result))
+                }
+                
+                // Effect
+            case .userInfoResponse(.success(let dto)):
+                state.userInfo = dto.toDomain()
                 return .none
+                
+            case .userInfoResponse(.failure(_)):
+                return .none
+                
+            case .withdrawResponse(.success):
+                type(of: appStorage).resetStandardUserDefaults()
+                return .send(.delegate(.withdrawCompleted))
+            case .withdrawResponse(.failure):
+                
+                return .none
+  
+                
+            // Navigation
             case .destination(.presented(.editNickname(.delegate(.updateCompleted(let userInfo))))):
                 state.userInfo = userInfo
                 return .none
@@ -71,6 +101,10 @@ struct UserInfoFeature {
                 state.userInfo = userInfo
                 return .none
             case .destination:
+                return .none
+                
+            // Delegate
+            case .delegate:
                 return .none
             }
         }

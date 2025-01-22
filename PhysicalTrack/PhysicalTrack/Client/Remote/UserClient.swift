@@ -11,8 +11,9 @@ import ComposableArchitecture
 @DependencyClient
 struct UserClient: NetworkRequestable {
     @Shared(.appStorage(key: .accessToken)) private static var accessToken: String = ""
-    var fetchUserInfo: @Sendable () async throws -> UserInfoResponse
-    var updateUserInfo: @Sendable (_ body: UserInfo) async throws -> Void
+    var fetch: @Sendable () async throws -> UserInfoResponse
+    var update: @Sendable (_ body: UserInfo) async throws -> Void
+    var withdraw: @Sendable () async throws -> Void
 }
 
 extension UserClient: TestDependencyKey {
@@ -21,8 +22,9 @@ extension UserClient: TestDependencyKey {
     }
     static var testValue: Self {
         return Self(
-            fetchUserInfo: unimplemented("UserClient.fetchUserInfo"),
-            updateUserInfo: unimplemented("UserClient.updateUserInfo")
+            fetch: unimplemented("UserClient.fetch"),
+            update: unimplemented("UserClient.update"),
+            withdraw: unimplemented("UserClient.withdraw")
         )
     }
 }
@@ -30,7 +32,7 @@ extension UserClient: TestDependencyKey {
 extension UserClient: DependencyKey {
     static var liveValue: Self {
         Self(
-            fetchUserInfo: {
+            fetch: {
                 
                 let urlRequest = try URLRequest(
                     path: "/account",
@@ -40,7 +42,7 @@ extension UserClient: DependencyKey {
                 
                 return try await request(for: urlRequest, dto: UserInfoResponse.self)
             },
-            updateUserInfo: { body in
+            update: { body in
                 
                 let urlRequest = try URLRequest(
                     path: "/account",
@@ -49,6 +51,14 @@ extension UserClient: DependencyKey {
                     body: body.toData()
                 )
                 
+                return try await request(for: urlRequest)
+            },
+            withdraw: {
+                let urlRequest = try URLRequest(
+                    path: "/account",
+                    method: .delete,
+                    headers: ["Authorization": accessToken]
+                )
                 return try await request(for: urlRequest)
             }
         )
