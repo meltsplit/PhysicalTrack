@@ -13,6 +13,7 @@ struct EditUserInfoFeature {
     @ObservableState
     struct State: Equatable {
         var userInfo: UserInfo
+        var isLoading: Bool = false
         
         init(userInfo: UserInfo) {
             self.userInfo = userInfo
@@ -51,6 +52,7 @@ struct EditUserInfoFeature {
                 state.userInfo.yearOfBirth = birth
                 return .none
             case .doneButtonTapped:
+                state.isLoading = true
                 return .run { [state] send in
                     let result = await Result { try await update(state.userInfo) }
                     await send(.updateResponse(result))
@@ -62,6 +64,7 @@ struct EditUserInfoFeature {
                     .run { _ in await dismiss() }
                 )
             case .updateResponse(.failure(_)):
+                state.isLoading = false
                 return .none
             case .delegate:
                 return .none

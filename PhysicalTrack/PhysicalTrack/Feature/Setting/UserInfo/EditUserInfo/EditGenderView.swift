@@ -36,10 +36,10 @@ struct EditGenderView: View {
             
             Spacer()
             
-            Button("완료") {
+            PTButton("완료") {
                 store.send(.doneButtonTapped)
             }
-            .ptBottomButtonStyle()
+            .loading(store.isLoading)
             
             Group {
                 Picker("", selection: $store.userInfo.gender.sending(\.genderChanged)) {
@@ -68,9 +68,9 @@ struct EditGenderView: View {
                         .aspectRatio(contentMode: .fit)
                         .foregroundStyle(.ptWhite)
                 }
-                
             }
         }
+        .disabled(store.isLoading)
     }
 }
 

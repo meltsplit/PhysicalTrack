@@ -21,7 +21,7 @@ struct TutorialView: View {
             }
             .tabViewStyle(.page)
             
-            Button {
+            PTButton {
                 store.send(.confirmButtonTapped)
             } label: {
                 HStack(spacing: 12) {
@@ -32,7 +32,6 @@ struct TutorialView: View {
                     Text("운동 시작하기")
                 }
             }
-            .ptBottomButtonStyle()
             .opacity(store.selectedTab == .third
                      ? 1
                      : 0

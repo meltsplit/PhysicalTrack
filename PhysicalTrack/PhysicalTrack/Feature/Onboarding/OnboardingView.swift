@@ -63,10 +63,9 @@ struct OnboardingView: View {
             
             Spacer()
             
-            Button("계속하기") {
+            PTButton("계속하기") {
                 store.send(.continueButtonTapped)
             }
-            .ptBottomButtonStyle()
             .disabled(store.name.isEmpty)
             .padding(.horizontal, 20)
             .padding(.bottom, 20)
@@ -112,10 +111,9 @@ struct OnboardingView: View {
             
             Spacer()
             
-            Button("계속하기") {
+            PTButton("계속하기") {
                 store.send(.continueButtonTapped)
             }
-            .ptBottomButtonStyle()
             .padding(.horizontal, 20)
             
             Group {
@@ -170,10 +168,10 @@ struct OnboardingView: View {
             
             Spacer()
             
-            Button("회원가입") {
+            PTButton("회원가입") {
                 store.send(.continueButtonTapped)
             }
-            .ptBottomButtonStyle()
+            .loading(store.isLoading)
             .padding(.horizontal, 20)
             
             Picker("", selection: $store.yearOfBirth.sending(\.yearOfBirthChanged)) {
@@ -189,6 +187,7 @@ struct OnboardingView: View {
             .backgroundStyle(.gray)
         }
         .background(.ptBackground)
+        .disabled(store.isLoading)
     }
 }
 

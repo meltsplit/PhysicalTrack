@@ -64,10 +64,9 @@ struct RankingDetailListView: View {
                 .multilineTextAlignment(.center)
                 .lineLimit(2)
             
-            Button("운동 하러가기") {
+            PTButton("운동 하러가기") {
                 store.send(.workoutButtonTapped)
             }
-            .ptBottomButtonStyle()
             
             Spacer()
         }

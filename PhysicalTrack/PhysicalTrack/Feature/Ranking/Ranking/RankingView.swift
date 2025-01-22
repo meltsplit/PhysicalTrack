@@ -70,10 +70,9 @@ struct RankingView: View {
                 .multilineTextAlignment(.center)
                 .lineLimit(2)
             
-            Button("운동 하러가기") {
+            PTButton("운동 하러가기") {
                 store.send(.workoutButtonTapped)
             }
-            .ptBottomButtonStyle()
             
             Spacer()
         }
@@ -154,10 +153,13 @@ fileprivate struct RankingTop3View: View {
                 .multilineTextAlignment(.center)
                 .lineLimit(2)
             
-            Button("운동 하러가기") {
+            PTButton("운동 하러가기") {
                 store.send(.workoutButtonTapped)
             }
-            .ptBottomButtonStyle(.blue, .custom(height: 48, font: .body.bold()))
+            .buttonStyle(
+                .blue,
+                .init(height: 48, font: .body.bold())
+            )
             .frame(width: 160)
             
             Spacer()

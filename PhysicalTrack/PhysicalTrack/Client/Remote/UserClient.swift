@@ -11,14 +11,23 @@ import ComposableArchitecture
 @DependencyClient
 struct UserClient: NetworkRequestable {
     @Shared(.appStorage(key: .accessToken)) private static var accessToken: String = ""
-    var fetch: @Sendable () async throws -> UserInfoResponse
+    var fetch: @Sendable () async throws -> UserInfo
     var update: @Sendable (_ body: UserInfo) async throws -> Void
     var withdraw: @Sendable () async throws -> Void
 }
 
 extension UserClient: TestDependencyKey {
     static var previewValue: Self {
-        return liveValue
+        return Self(
+            fetch: {
+                .stub
+            },
+            update: { _ in
+                _ = try await Task.sleep(for: .seconds(2))
+                throw AuthError.jwtDecodeFail
+            },
+            withdraw: unimplemented("UserClient.withdraw")
+        )
     }
     static var testValue: Self {
         return Self(
@@ -40,7 +49,7 @@ extension UserClient: DependencyKey {
                     headers: ["Authorization": accessToken]
                 )
                 
-                return try await request(for: urlRequest, dto: UserInfoResponse.self)
+                return try await request(for: urlRequest, dto: UserInfoResponse.self).toDomain()
             },
             update: { body in
                 
