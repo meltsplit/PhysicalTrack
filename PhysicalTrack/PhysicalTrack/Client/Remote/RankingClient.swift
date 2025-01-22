@@ -42,7 +42,6 @@ extension RankingClient: DependencyKey {
         fetchPushUp: {
             
             @Shared(.appStorage(key: .accessToken)) var accessToken = ""
-            guard !accessToken.isEmpty else { throw NetworkError.unauthorized }
             
             let urlRequest: URLRequest = try .init(
                 path: "/ranking/pushup",
