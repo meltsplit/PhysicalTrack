@@ -10,8 +10,9 @@ import ComposableArchitecture
 
 @DependencyClient
 struct UserClient: NetworkRequestable {
-    @Shared(.appStorage(key: .accessToken)) static var accessToken: String = ""
+    @Shared(.appStorage(key: .accessToken)) private static var accessToken: String = ""
     var fetchUserInfo: @Sendable () async throws -> UserInfoResponse
+    var updateUserInfo: @Sendable (_ body: UserInfo) async throws -> Void
 }
 
 extension UserClient: TestDependencyKey {
@@ -19,7 +20,10 @@ extension UserClient: TestDependencyKey {
         return liveValue
     }
     static var testValue: Self {
-        return Self(fetchUserInfo: unimplemented())
+        return Self(
+            fetchUserInfo: unimplemented("UserClient.fetchUserInfo"),
+            updateUserInfo: unimplemented("UserClient.updateUserInfo")
+        )
     }
 }
 
@@ -35,6 +39,17 @@ extension UserClient: DependencyKey {
                 )
                 
                 return try await request(for: urlRequest, dto: UserInfoResponse.self)
+            },
+            updateUserInfo: { body in
+                
+                let urlRequest = try URLRequest(
+                    path: "/account",
+                    method: .put,
+                    headers: ["Authorization": accessToken],
+                    body: body.toData()
+                )
+                
+                return try await request(for: urlRequest)
             }
         )
     }

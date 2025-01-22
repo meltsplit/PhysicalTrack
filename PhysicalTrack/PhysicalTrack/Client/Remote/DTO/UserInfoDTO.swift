@@ -7,7 +7,11 @@
 
 import Foundation
 
-
+struct UserInfoRequest: Encodable {
+    var name: String
+    var gender: GenderDTO
+    var birthYear: Int
+}
 
 struct UserInfoResponse: Decodable {
     var userID: Int
@@ -18,6 +22,18 @@ struct UserInfoResponse: Decodable {
     enum CodingKeys: String, CodingKey {
         case userID = "userId"
         case gender, name, birthYear
+    }
+}
+
+//MARK: - Mapper
+
+extension UserInfo {
+    func toData() -> UserInfoRequest {
+        .init(
+            name: name,
+            gender: gender.toData(),
+            birthYear: yearOfBirth
+        )
     }
 }
 

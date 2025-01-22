@@ -18,7 +18,7 @@ struct UserInfoFeature {
     
     enum Action {
         case onAppear
-        case fetchUserInfo(Result<UserInfoResponse, Error>)
+        case userInfoResponse(Result<UserInfoResponse, Error>)
         case editNicknameButtonTapped
         case editGenderButtonTapped
         case editBirthButtonTapped
@@ -28,37 +28,47 @@ struct UserInfoFeature {
     
     @Reducer
     enum Destination {
-        case editNickname(EditNicknameFeature)
-        case editGender(EditGenderFeature)
-        case editBirth(EditBirthFeature)
+        case editNickname(EditUserInfoFeature)
+        case editGender(EditUserInfoFeature)
+        case editBirth(EditUserInfoFeature)
     }
     
-    @Dependency(\.userClient.fetchUserInfo) private var fetchUserInfo
+    @Dependency(\.userClient.fetchUserInfo) private var fetch
     
     var body: some ReducerOf<Self> {
         Reduce { state, action in
             switch action {
             case .onAppear:
                 return .run { send in
-                    let result = await Result { try await fetchUserInfo() }
-                    await send(.fetchUserInfo(result))
+                    let result = await Result { try await fetch() }
+                    await send(.userInfoResponse(result))
                 }
-            case .fetchUserInfo(.success(let dto)):
+            case .userInfoResponse(.success(let dto)):
                 state.userInfo = dto.toDomain()
                 return .none
                 
-            case .fetchUserInfo(.failure(let error)):
+            case .userInfoResponse(.failure(_)):
                 return .none
             case .editNicknameButtonTapped:
-                state.destination = .editNickname(.init())
+                state.destination = .editNickname(.init(userInfo: state.userInfo))
                 return .none
             case .editGenderButtonTapped:
-                state.destination = .editGender(.init())
+                state.destination = .editGender(.init(userInfo: state.userInfo))
                 return .none
             case .editBirthButtonTapped:
-                state.destination = .editBirth(.init())
+                state.destination = .editBirth(.init(userInfo: state.userInfo))
                 return .none
             case .withdrawButtonTapped:
+                return .none
+            case .destination(.presented(.editNickname(.delegate(.updateCompleted(let userInfo))))):
+                state.userInfo = userInfo
+                return .none
+            case .destination(.presented(.editBirth(.delegate(.updateCompleted(let userInfo))))):
+                state.userInfo = userInfo
+                return .none
+                
+            case .destination(.presented(.editGender(.delegate(.updateCompleted(let userInfo))))):
+                state.userInfo = userInfo
                 return .none
             case .destination:
                 return .none

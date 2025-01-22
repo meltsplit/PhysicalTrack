@@ -10,7 +10,7 @@ import ComposableArchitecture
 
 struct EditNicknameView: View {
     
-    @Bindable var store: StoreOf<EditNicknameFeature>
+    @Bindable var store: StoreOf<EditUserInfoFeature>
     @Environment(\.dismiss) var dismiss
     @FocusState var nameTextFieldFocused: Bool
     
@@ -31,7 +31,7 @@ struct EditNicknameView: View {
                 .frame(maxWidth: .infinity, alignment: .leading)
                 
             
-            TextField("닉네임", text: $store.name.sending(\.nameChanged))
+            TextField("닉네임", text: $store.userInfo.name .sending(\.nameChanged))
                 .font(.title)
                 .bold()
                 .multilineTextAlignment(.center)
@@ -49,7 +49,7 @@ struct EditNicknameView: View {
                 store.send(.doneButtonTapped)
             }
             .ptBottomButtonStyle()
-            .disabled(store.name.isEmpty)
+            .disabled(store.userInfo.name.isEmpty)
             .padding(.bottom, 20)
             .onAppear {
                 nameTextFieldFocused = true
@@ -76,8 +76,8 @@ struct EditNicknameView: View {
 
 #Preview {
     NavigationStack {
-        EditNicknameView(store: .init(initialState: .init(), reducer: {
-            EditNicknameFeature()
+        EditNicknameView(store: .init(initialState: .init(userInfo: .stub), reducer: {
+            EditUserInfoFeature()
         }))
     }
 }

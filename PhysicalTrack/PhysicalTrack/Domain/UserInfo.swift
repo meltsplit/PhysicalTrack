@@ -7,8 +7,13 @@
 
 import Foundation
 
-struct UserInfo {
+struct UserInfo: Equatable {
     var name: String
     var gender: Gender
     var yearOfBirth: Int
+}
+
+
+extension UserInfo {
+    static let stub: Self = .init(name: "스텁", gender: .male, yearOfBirth: 1111)
 }
