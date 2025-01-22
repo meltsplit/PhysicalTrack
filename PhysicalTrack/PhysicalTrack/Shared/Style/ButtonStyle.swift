@@ -31,32 +31,14 @@ extension PTButtonColorStyle {
     )
 }
 
-enum PTButtonSizeStyle {
-    case large
-    case medium
-    case custom(height: CGFloat, font: Font)
-    
-    var height: CGFloat {
-        switch self {
-        case .large:
-            return 52
-        case .medium:
-            return 52
-        case let .custom(height, _):
-            return height
-        }
-    }
-    
-    var font: Font {
-        switch self {
-        case .large:
-            return .headline.bold()
-        case .medium:
-            return .body.bold()
-        case let .custom(_, font):
-            return font
-        }
-    }
+struct PTButtonSizeStyle {
+    let height: CGFloat
+    let font: Font
+}
+
+extension PTButtonSizeStyle {
+    static let large: Self = .init(height: 52, font: .headline.bold())
+    static let medium: Self = .init(height: 52, font: .body.bold())
 }
 
 
