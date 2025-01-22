@@ -48,6 +48,7 @@ struct EditNicknameView: View {
             PTButton("완료") {
                 store.send(.doneButtonTapped)
             }
+            .loading(store.isLoading)
             .disabled(store.userInfo.name.isEmpty)
             .padding(.bottom, 20)
             .onAppear {
@@ -70,6 +71,7 @@ struct EditNicknameView: View {
                 
             }
         }
+        .disabled(store.isLoading)
     }
 }
 

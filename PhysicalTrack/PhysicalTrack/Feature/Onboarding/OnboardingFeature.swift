@@ -24,6 +24,7 @@ struct OnboardingFeature {
         var gender: Gender = .male
         var yearOfBirth: Int = 2000
         
+        var isLoading: Bool = false
         var currentStep: Step = .name
         var progress: Double = Double(Step.name.rawValue) / Double(Step.allCases.count)
         
@@ -76,6 +77,7 @@ struct OnboardingFeature {
                 return .send(.stepChanged(nextStep))
                 
             case .signUp:
+                state.isLoading = true
                 return .run { [state] send in
                     let deviceID = await appClient.deviceID()
                     let request = SignUpRequest(
@@ -84,7 +86,8 @@ struct OnboardingFeature {
                         birthYear: state.yearOfBirth,
                         gender: state.gender.toData()
                     )
-                    await send(.signUpResponse(Result { try await authClient.signUp(request: request) }))
+                    let response = await Result { try await authClient.signUp(request: request) }
+                    await send(.signUpResponse(response))
                 }
             case let .signUpResponse(.success(jwtToken)):
                 state.accessToken = jwtToken
@@ -95,6 +98,7 @@ struct OnboardingFeature {
                 state.username = jwt.payload.name
                 return .none
             case .signUpResponse(.failure(_)):
+                state.isLoading = false
                 return .none
             }
         }

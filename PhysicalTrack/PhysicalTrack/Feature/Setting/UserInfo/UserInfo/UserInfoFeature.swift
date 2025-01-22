@@ -25,7 +25,7 @@ struct UserInfoFeature {
         case withdrawButtonTapped
         
         // Effect
-        case userInfoResponse(Result<UserInfoResponse, Error>)
+        case userInfoResponse(Result<UserInfo, Error>)
         case withdrawResponse(Result<Void, Error>)
         
         // Navigation
@@ -75,7 +75,7 @@ struct UserInfoFeature {
                 
                 // Effect
             case .userInfoResponse(.success(let dto)):
-                state.userInfo = dto.toDomain()
+                state.userInfo = dto
                 return .none
                 
             case .userInfoResponse(.failure(_)):

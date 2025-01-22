@@ -171,6 +171,7 @@ struct OnboardingView: View {
             PTButton("회원가입") {
                 store.send(.continueButtonTapped)
             }
+            .loading(store.isLoading)
             .padding(.horizontal, 20)
             
             Picker("", selection: $store.yearOfBirth.sending(\.yearOfBirthChanged)) {
@@ -186,6 +187,7 @@ struct OnboardingView: View {
             .backgroundStyle(.gray)
         }
         .background(.ptBackground)
+        .disabled(store.isLoading)
     }
 }
 

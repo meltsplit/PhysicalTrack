@@ -42,6 +42,7 @@ struct EditBirthView: View {
             PTButton("완료") {
                 store.send(.doneButtonTapped)
             }
+            .loading(store.isLoading)
             
             Picker("", selection: $store.userInfo.yearOfBirth.sending(\.yearOfBirthChanged)) {
                 ForEach((1950...2030), id: \.self) {
@@ -71,6 +72,7 @@ struct EditBirthView: View {
                 
             }
         }
+        .disabled(store.isLoading)
     }
 }
 
