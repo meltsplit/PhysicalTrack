@@ -11,5 +11,5 @@ struct SignUpRequest: Encodable {
     let deviceId: String
     let name: String
     let birthYear: Int
-    let gender: String
+    let gender: GenderDTO
 }

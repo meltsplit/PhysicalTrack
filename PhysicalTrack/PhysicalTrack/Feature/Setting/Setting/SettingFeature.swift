@@ -13,6 +13,7 @@ struct SettingFeature {
     
     @ObservableState
     struct State {
+        @Shared(.appStorage(key: .username)) var name = "회원"
         let list: [SettingType] = [.사용법, .문의하기]
         var path = StackState<Path.State>()
         @Presents var tutorial: TutorialFeature.State?

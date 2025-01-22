@@ -30,7 +30,7 @@ struct SettingView: View {
                                 .tint(.ptLightGray01)
                                 .clipShape(Circle())
                             
-                            Text("장석우님")
+                            Text("\(store.name)님")
                                 .font(.title2)
                                 .bold()
                                 .padding(.leading, 16)

@@ -30,7 +30,6 @@ extension RankingClient: DependencyKey {
         fetchConsistency: {
             
             @Shared(.appStorage(key: .accessToken)) var accessToken = ""
-            guard !accessToken.isEmpty else { throw NetworkError.unauthorized }
             
             let urlRequest: URLRequest = try .init(
                 path: "/ranking/consistency",
@@ -38,12 +37,11 @@ extension RankingClient: DependencyKey {
                 headers: ["Authorization": accessToken]
             )
             
-            return try await request(for: urlRequest, dto: [ConsistencyRankingResponse].self).filter { $0.value > 0}
+            return try await request(for: urlRequest, dto: [ConsistencyRankingResponse].self).filter { $0.value > 0 }
         },
         fetchPushUp: {
             
             @Shared(.appStorage(key: .accessToken)) var accessToken = ""
-            guard !accessToken.isEmpty else { throw NetworkError.unauthorized }
             
             let urlRequest: URLRequest = try .init(
                 path: "/ranking/pushup",

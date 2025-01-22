@@ -1,5 +1,5 @@
 //
-//  EditBirthView.swift
+//  EditGenderView.swift
 //  PhysicalTrack
 //
 //  Created by 장석우 on 1/15/25.
@@ -8,34 +8,31 @@
 import SwiftUI
 import ComposableArchitecture
 
-struct EditBirthView: View {
+struct EditGenderView: View {
     
-    @Bindable var store: StoreOf<EditBirthFeature>
+    @Bindable var store: StoreOf<EditUserInfoFeature>
     @Environment(\.dismiss) var dismiss
     
     var body: some View {
         VStack {
-
-            Text("출생연도 수정하기")
+            
+            Text("성별 수정하기")
                 .font(.title)
                 .bold()
                 .padding(.top, 40)
                 .frame(maxWidth: .infinity, alignment: .leading)
                 
             
-            Text("연령대 맞춤 체력등급을 제공하는데 사용해요.")
+            Text("성별 맞춤 체력등급을 제공하는데 사용해요.")
                 .font(.title3)
                 .foregroundStyle(.gray)
                 .padding(.top, 14)
                 .frame(maxWidth: .infinity, alignment: .leading)
-
             
-            Text(String(store.yearOfBirth))
+            Text(store.userInfo.gender.title)
                 .font(.title)
                 .bold()
                 .padding(.top, 40)
-                .contentTransition(.numericText(value: Double(store.yearOfBirth)))
-                .animation(.snappy, value: store.yearOfBirth)
             
             Spacer()
             
@@ -44,16 +41,18 @@ struct EditBirthView: View {
             }
             .ptBottomButtonStyle()
             
-            Picker("", selection: $store.yearOfBirth.sending(\.yearOfBirthChanged)) {
-                ForEach((1950...2030), id: \.self) {
-                    Text(String($0))
-                        .font(.title2)
-                        .bold()
+            Group {
+                Picker("", selection: $store.userInfo.gender.sending(\.genderChanged)) {
+                    ForEach((Gender.allCases), id: \.self) {
+                        Text(String($0.title))
+                            .font(.title2)
+                            .bold()
+                    }
                 }
+                .pickerStyle(.wheel)
+                .frame(height: 200)
+                .frame(maxWidth: .infinity)
             }
-            .pickerStyle(.wheel)
-            .frame(height: 200)
-            .frame(maxWidth: .infinity)
             .backgroundStyle(.gray)
         }
         .background(.ptBackground)
@@ -77,14 +76,9 @@ struct EditBirthView: View {
 
 #Preview {
     NavigationStack {
-        EditGenderView(store: .init(initialState: .init(), reducer: {
-            EditGenderFeature()
+        EditGenderView(store: .init(initialState: .init(userInfo: .stub), reducer: {
+            EditUserInfoFeature()
         }))
     }
 }
-
-
-
-
-
 

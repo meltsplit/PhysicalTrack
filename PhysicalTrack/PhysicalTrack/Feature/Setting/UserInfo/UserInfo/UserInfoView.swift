@@ -18,15 +18,15 @@ struct UserInfoView: View {
         ScrollView {
             VStack {
                 
-                SectionView(key: "닉네임", value: store.name) {
+                SectionView(key: "닉네임", value: store.userInfo.name) {
                     store.send(.editNicknameButtonTapped)
                 }
                 
-                SectionView(key: "성별", value: store.gender.title) {
+                SectionView(key: "성별", value: store.userInfo.gender.title) {
                     store.send(.editGenderButtonTapped)
                 }
                 
-                SectionView(key: "출생연도", value: String(store.yearOfBirth)) {
+                SectionView(key: "출생연도", value: String(store.userInfo.yearOfBirth)) {
                     store.send(.editBirthButtonTapped)
                 }
                 .padding(.top, 3)
@@ -79,6 +79,9 @@ struct UserInfoView: View {
         ) { store in
             EditBirthView(store: store)
         }
+        .onAppear {
+            store.send(.onAppear)
+        }
     }
 }
 
@@ -88,7 +91,7 @@ fileprivate struct SectionView: View {
     let value: String
     var action: (() -> Void)
     
-    init(key: String, value: String, action: @escaping (() -> Void)) {
+    fileprivate init(key: String, value: String, action: @escaping (() -> Void)) {
         self.key = key
         self.value = value
         self.action = action
