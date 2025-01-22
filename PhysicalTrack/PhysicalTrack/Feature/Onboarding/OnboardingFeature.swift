@@ -8,18 +8,6 @@
 import Foundation
 import ComposableArchitecture
 
-enum Gender: String, CaseIterable {
-    case male
-    case female
-    
-    var title: String {
-        switch self {
-        case .male: "남자"
-        case .female: "여자"
-        }
-    }
-}
-
 @Reducer
 struct OnboardingFeature {
     
@@ -94,7 +82,7 @@ struct OnboardingFeature {
                         deviceId: deviceID,
                         name: state.name,
                         birthYear: state.yearOfBirth,
-                        gender: state.gender.rawValue
+                        gender: state.gender
                     )
                     await send(.signUpResponse(Result { try await authClient.signUp(request: request) }))
                 }

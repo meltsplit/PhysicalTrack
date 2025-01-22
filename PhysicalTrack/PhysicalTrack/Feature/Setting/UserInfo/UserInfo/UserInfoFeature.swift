@@ -12,13 +12,15 @@ struct UserInfoFeature {
     
     @ObservableState
     struct State {
-        var name: String = "홍길동"
-        var gender: Gender = .male
-        var yearOfBirth: Int = 2000
+        var name: String = "11"
+        var gender: Gender = .female
+        var yearOfBirth: Int = 2220
         @Presents var destination: Destination.State?
     }
     
     enum Action {
+        case onAppear
+        case fetchUserInfo(Result<UserInfoResponse, Error>)
         case editNicknameButtonTapped
         case editGenderButtonTapped
         case editBirthButtonTapped
@@ -33,9 +35,24 @@ struct UserInfoFeature {
         case editBirth(EditBirthFeature)
     }
     
+    @Dependency(\.userClient.fetchUserInfo) private var fetchUserInfo
+    
     var body: some ReducerOf<Self> {
         Reduce { state, action in
             switch action {
+            case .onAppear:
+                return .run { send in
+                    let result = await Result { try await fetchUserInfo() }
+                    await send(.fetchUserInfo(result))
+                }
+            case .fetchUserInfo(.success(let dto)):
+                state.name = dto.name
+                state.gender = dto.gender
+                state.yearOfBirth = dto.birthYear
+                return .none
+                
+            case .fetchUserInfo(.failure(let error)):
+                return .none
             case .editNicknameButtonTapped:
                 state.destination = .editNickname(.init())
                 return .none

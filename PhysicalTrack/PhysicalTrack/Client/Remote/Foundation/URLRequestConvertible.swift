@@ -57,7 +57,7 @@ extension URLRequest {
         headers: [String: String]
     ) throws {
         var headers = headers
-        
+                
         guard let url = URL(string: baseURL + path)
         else { throw NetworkError.invalidURL }
         self.init(url: url)
@@ -66,6 +66,10 @@ extension URLRequest {
     
         if !headers.keys.contains("Content-Type") {
             headers["Content-Type"] = "application/json"
+        }
+        
+        if let accessToken = headers["Authorization"] {
+            if accessToken.isEmpty { throw NetworkError.unauthorized }
         }
         
         for header in headers {

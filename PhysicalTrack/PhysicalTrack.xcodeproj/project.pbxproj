@@ -46,6 +46,9 @@
 		8735D7642CC3A1CA00C7824C /* RankingClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8735D7632CC3A1CA00C7824C /* RankingClient.swift */; };
 		8735D7672CC3A23400C7824C /* Networkable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8735D7662CC3A23400C7824C /* Networkable.swift */; };
 		8735D7692CC3A38700C7824C /* RankingDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8735D7682CC3A38700C7824C /* RankingDTO.swift */; };
+		873BB61A2D409D6A00B8854E /* UserClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 873BB6192D409D6A00B8854E /* UserClient.swift */; };
+		873BB61C2D409DDD00B8854E /* UserInfoDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 873BB61B2D409DDD00B8854E /* UserInfoDTO.swift */; };
+		873BB61E2D409E6400B8854E /* Gender.swift in Sources */ = {isa = PBXBuildFile; fileRef = 873BB61D2D409E6400B8854E /* Gender.swift */; };
 		873C81AD2CD92C700041F8FE /* PersistenceReaderKey+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 873C81AC2CD92C700041F8FE /* PersistenceReaderKey+.swift */; };
 		873C81B02CD92DB90041F8FE /* PTAppStorageKey.swift in Sources */ = {isa = PBXBuildFile; fileRef = 873C81AF2CD92DB90041F8FE /* PTAppStorageKey.swift */; };
 		873E9C832CD11A2B0015FB45 /* Color.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 873E9C822CD11A2B0015FB45 /* Color.xcassets */; };
@@ -139,6 +142,9 @@
 		8735D7632CC3A1CA00C7824C /* RankingClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RankingClient.swift; sourceTree = "<group>"; };
 		8735D7662CC3A23400C7824C /* Networkable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Networkable.swift; sourceTree = "<group>"; };
 		8735D7682CC3A38700C7824C /* RankingDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RankingDTO.swift; sourceTree = "<group>"; };
+		873BB6192D409D6A00B8854E /* UserClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserClient.swift; sourceTree = "<group>"; };
+		873BB61B2D409DDD00B8854E /* UserInfoDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserInfoDTO.swift; sourceTree = "<group>"; };
+		873BB61D2D409E6400B8854E /* Gender.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Gender.swift; sourceTree = "<group>"; };
 		873C81AC2CD92C700041F8FE /* PersistenceReaderKey+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "PersistenceReaderKey+.swift"; sourceTree = "<group>"; };
 		873C81AF2CD92DB90041F8FE /* PTAppStorageKey.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PTAppStorageKey.swift; sourceTree = "<group>"; };
 		873E9C822CD11A2B0015FB45 /* Color.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Color.xcassets; sourceTree = "<group>"; };
@@ -271,6 +277,7 @@
 				873C81AF2CD92DB90041F8FE /* PTAppStorageKey.swift */,
 				87B492C92CF5BAF600628A6E /* RankingRepresentable.swift */,
 				87E43A7D2D37A2B1005512ED /* Setting.swift */,
+				873BB61D2D409E6400B8854E /* Gender.swift */,
 			);
 			path = Domain;
 			sourceTree = "<group>";
@@ -367,6 +374,7 @@
 				87FFBD6A2CD54DA2001AB389 /* AuthClient.swift */,
 				87E96B782CEDAE300053E39E /* WorkoutClient.swift */,
 				8735D7632CC3A1CA00C7824C /* RankingClient.swift */,
+				873BB6192D409D6A00B8854E /* UserClient.swift */,
 			);
 			path = Remote;
 			sourceTree = "<group>";
@@ -466,6 +474,7 @@
 				87FFBD6E2CD54EA9001AB389 /* SignUpDTO.swift */,
 				87E96B7A2CEDC0840053E39E /* WorkoutDTO.swift */,
 				8735D7682CC3A38700C7824C /* RankingDTO.swift */,
+				873BB61B2D409DDD00B8854E /* UserInfoDTO.swift */,
 			);
 			path = DTO;
 			sourceTree = "<group>";
@@ -748,11 +757,13 @@
 				87E43A842D37C37A005512ED /* UserInfoFeature.swift in Sources */,
 				8735D7672CC3A23400C7824C /* Networkable.swift in Sources */,
 				8735D7432CC279DA00C7824C /* SettingView.swift in Sources */,
+				873BB61C2D409DDD00B8854E /* UserInfoDTO.swift in Sources */,
 				8717B5F42CC1FD6B00542061 /* WorkoutFeature.swift in Sources */,
 				8735D7602CC39E8200C7824C /* DTO.swift in Sources */,
 				87E43A8A2D37DC2D005512ED /* EditGenderView.swift in Sources */,
 				873E9C942CD210C10015FB45 /* PTWebFeature.swift in Sources */,
 				873C81AD2CD92C700041F8FE /* PersistenceReaderKey+.swift in Sources */,
+				873BB61A2D409D6A00B8854E /* UserClient.swift in Sources */,
 				87E43A882D37D4D3005512ED /* EditNicknameFeature.swift in Sources */,
 				8735D7572CC371F100C7824C /* RankingDetailView.swift in Sources */,
 				8735D73D2CC276F400C7824C /* StatisticsFeature.swift in Sources */,
@@ -786,6 +797,7 @@
 				8735D7212CC20DCA00C7824C /* TimerFeature.swift in Sources */,
 				8717B5DC2CC1FA7900542061 /* WorkoutView.swift in Sources */,
 				8735D7532CC27EFE00C7824C /* OnboardingView.swift in Sources */,
+				873BB61E2D409E6400B8854E /* Gender.swift in Sources */,
 				87E43A822D37C375005512ED /* UserInfoView.swift in Sources */,
 				8735D7642CC3A1CA00C7824C /* RankingClient.swift in Sources */,
 				8735D7412CC2779600C7824C /* SettingFeature.swift in Sources */,

@@ -79,6 +79,9 @@ struct UserInfoView: View {
         ) { store in
             EditBirthView(store: store)
         }
+        .onAppear {
+            store.send(.onAppear)
+        }
     }
 }
 
@@ -88,7 +91,7 @@ fileprivate struct SectionView: View {
     let value: String
     var action: (() -> Void)
     
-    init(key: String, value: String, action: @escaping (() -> Void)) {
+    fileprivate init(key: String, value: String, action: @escaping (() -> Void)) {
         self.key = key
         self.value = value
         self.action = action
