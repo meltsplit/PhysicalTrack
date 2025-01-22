@@ -18,15 +18,15 @@ struct UserInfoView: View {
         ScrollView {
             VStack {
                 
-                SectionView(key: "닉네임", value: store.name) {
+                SectionView(key: "닉네임", value: store.userInfo.name) {
                     store.send(.editNicknameButtonTapped)
                 }
                 
-                SectionView(key: "성별", value: store.gender.title) {
+                SectionView(key: "성별", value: store.userInfo.gender.title) {
                     store.send(.editGenderButtonTapped)
                 }
                 
-                SectionView(key: "출생연도", value: String(store.yearOfBirth)) {
+                SectionView(key: "출생연도", value: String(store.userInfo.yearOfBirth)) {
                     store.send(.editBirthButtonTapped)
                 }
                 .padding(.top, 3)

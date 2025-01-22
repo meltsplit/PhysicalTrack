@@ -82,7 +82,7 @@ struct OnboardingFeature {
                         deviceId: deviceID,
                         name: state.name,
                         birthYear: state.yearOfBirth,
-                        gender: state.gender
+                        gender: state.gender.toData()
                     )
                     await send(.signUpResponse(Result { try await authClient.signUp(request: request) }))
                 }

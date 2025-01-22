@@ -12,9 +12,7 @@ struct UserInfoFeature {
     
     @ObservableState
     struct State {
-        var name: String = "11"
-        var gender: Gender = .female
-        var yearOfBirth: Int = 2220
+        var userInfo: UserInfo = .init(name: "", gender: .male, yearOfBirth: 2000)
         @Presents var destination: Destination.State?
     }
     
@@ -46,9 +44,7 @@ struct UserInfoFeature {
                     await send(.fetchUserInfo(result))
                 }
             case .fetchUserInfo(.success(let dto)):
-                state.name = dto.name
-                state.gender = dto.gender
-                state.yearOfBirth = dto.birthYear
+                state.userInfo = dto.toDomain()
                 return .none
                 
             case .fetchUserInfo(.failure(let error)):

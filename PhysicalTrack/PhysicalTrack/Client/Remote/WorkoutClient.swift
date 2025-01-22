@@ -10,7 +10,7 @@ import ComposableArchitecture
 import Combine
 
 struct WorkoutClient: NetworkRequestable {
-    var postPushUp: @Sendable (_ request: PushUpRecordDTO) async throws -> Void
+    var postPushUp: @Sendable (_ request: PushUpRecordRequest) async throws -> Void
 }
 
 extension DependencyValues {
@@ -25,7 +25,6 @@ extension WorkoutClient: DependencyKey {
     static let liveValue: WorkoutClient = Self(
         postPushUp: { dto in
             @Shared(.appStorage(key: .accessToken)) var accessToken = ""
-            guard !accessToken.isEmpty else { throw NetworkError.unauthorized }
             
             let urlRequest: URLRequest = try .init(
                 path: "/record/pushup",

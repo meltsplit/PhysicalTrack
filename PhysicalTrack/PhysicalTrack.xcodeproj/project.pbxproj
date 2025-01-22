@@ -49,6 +49,8 @@
 		873BB61A2D409D6A00B8854E /* UserClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 873BB6192D409D6A00B8854E /* UserClient.swift */; };
 		873BB61C2D409DDD00B8854E /* UserInfoDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 873BB61B2D409DDD00B8854E /* UserInfoDTO.swift */; };
 		873BB61E2D409E6400B8854E /* Gender.swift in Sources */ = {isa = PBXBuildFile; fileRef = 873BB61D2D409E6400B8854E /* Gender.swift */; };
+		873BB6222D40ABE600B8854E /* UserInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 873BB6212D40ABE600B8854E /* UserInfo.swift */; };
+		873BB6242D40AD0100B8854E /* GenderDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 873BB6232D40AD0100B8854E /* GenderDTO.swift */; };
 		873C81AD2CD92C700041F8FE /* PersistenceReaderKey+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 873C81AC2CD92C700041F8FE /* PersistenceReaderKey+.swift */; };
 		873C81B02CD92DB90041F8FE /* PTAppStorageKey.swift in Sources */ = {isa = PBXBuildFile; fileRef = 873C81AF2CD92DB90041F8FE /* PTAppStorageKey.swift */; };
 		873E9C832CD11A2B0015FB45 /* Color.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 873E9C822CD11A2B0015FB45 /* Color.xcassets */; };
@@ -145,6 +147,8 @@
 		873BB6192D409D6A00B8854E /* UserClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserClient.swift; sourceTree = "<group>"; };
 		873BB61B2D409DDD00B8854E /* UserInfoDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserInfoDTO.swift; sourceTree = "<group>"; };
 		873BB61D2D409E6400B8854E /* Gender.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Gender.swift; sourceTree = "<group>"; };
+		873BB6212D40ABE600B8854E /* UserInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserInfo.swift; sourceTree = "<group>"; };
+		873BB6232D40AD0100B8854E /* GenderDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GenderDTO.swift; sourceTree = "<group>"; };
 		873C81AC2CD92C700041F8FE /* PersistenceReaderKey+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "PersistenceReaderKey+.swift"; sourceTree = "<group>"; };
 		873C81AF2CD92DB90041F8FE /* PTAppStorageKey.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PTAppStorageKey.swift; sourceTree = "<group>"; };
 		873E9C822CD11A2B0015FB45 /* Color.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Color.xcassets; sourceTree = "<group>"; };
@@ -278,6 +282,7 @@
 				87B492C92CF5BAF600628A6E /* RankingRepresentable.swift */,
 				87E43A7D2D37A2B1005512ED /* Setting.swift */,
 				873BB61D2D409E6400B8854E /* Gender.swift */,
+				873BB6212D40ABE600B8854E /* UserInfo.swift */,
 			);
 			path = Domain;
 			sourceTree = "<group>";
@@ -475,6 +480,7 @@
 				87E96B7A2CEDC0840053E39E /* WorkoutDTO.swift */,
 				8735D7682CC3A38700C7824C /* RankingDTO.swift */,
 				873BB61B2D409DDD00B8854E /* UserInfoDTO.swift */,
+				873BB6232D40AD0100B8854E /* GenderDTO.swift */,
 			);
 			path = DTO;
 			sourceTree = "<group>";
@@ -765,6 +771,7 @@
 				873C81AD2CD92C700041F8FE /* PersistenceReaderKey+.swift in Sources */,
 				873BB61A2D409D6A00B8854E /* UserClient.swift in Sources */,
 				87E43A882D37D4D3005512ED /* EditNicknameFeature.swift in Sources */,
+				873BB6222D40ABE600B8854E /* UserInfo.swift in Sources */,
 				8735D7572CC371F100C7824C /* RankingDetailView.swift in Sources */,
 				8735D73D2CC276F400C7824C /* StatisticsFeature.swift in Sources */,
 				8735D7512CC27EF800C7824C /* OnboardingFeature.swift in Sources */,
@@ -798,6 +805,7 @@
 				8717B5DC2CC1FA7900542061 /* WorkoutView.swift in Sources */,
 				8735D7532CC27EFE00C7824C /* OnboardingView.swift in Sources */,
 				873BB61E2D409E6400B8854E /* Gender.swift in Sources */,
+				873BB6242D40AD0100B8854E /* GenderDTO.swift in Sources */,
 				87E43A822D37C375005512ED /* UserInfoView.swift in Sources */,
 				8735D7642CC3A1CA00C7824C /* RankingClient.swift in Sources */,
 				8735D7412CC2779600C7824C /* SettingFeature.swift in Sources */,

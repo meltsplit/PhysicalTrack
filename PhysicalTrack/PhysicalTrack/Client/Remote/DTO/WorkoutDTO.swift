@@ -7,14 +7,14 @@
 
 import Foundation
 
-struct PushUpRecordDTO: Encodable {
+struct PushUpRecordRequest: Encodable {
     let quantity: Int
     let tempo: [Double]
 }
 
-extension PushUpRecordDTO {
-    static func toDTO(with entity: PushUpRecord) -> Self {
-        return PushUpRecordDTO(quantity: entity.count, tempo: entity.tempo)
+extension PushUpRecord {
+    func toData() -> PushUpRecordRequest {
+        return .init(quantity: count, tempo: tempo)
     }
 }
 
