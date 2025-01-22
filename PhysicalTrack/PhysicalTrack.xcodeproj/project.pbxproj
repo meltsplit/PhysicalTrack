@@ -74,6 +74,7 @@
 		87B492CE2CF5C4D800628A6E /* RankingDetailListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87B492CD2CF5C4D800628A6E /* RankingDetailListView.swift */; };
 		87C59EF82D40E904009B96FA /* AnyPTButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87C59EF72D40E904009B96FA /* AnyPTButton.swift */; };
 		87C59EFB2D40EC25009B96FA /* PTButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87C59EFA2D40EC25009B96FA /* PTButton.swift */; };
+		87C59EFD2D40EF83009B96FA /* AnyPTButton+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87C59EFC2D40EF83009B96FA /* AnyPTButton+.swift */; };
 		87D49E482CE6003700B880DE /* TimerFeatureTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87D49E472CE6003700B880DE /* TimerFeatureTests.swift */; };
 		87E1E9F92CC41D61006FAA24 /* ProximityClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87E1E9F82CC41D61006FAA24 /* ProximityClient.swift */; };
 		87E1E9FC2CC4C529006FAA24 /* HapticClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87E1E9FB2CC4C528006FAA24 /* HapticClient.swift */; };
@@ -86,6 +87,7 @@
 		87E43A8E2D37DC74005512ED /* EditBirthView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87E43A8D2D37DC74005512ED /* EditBirthView.swift */; };
 		87E96B792CEDAE300053E39E /* WorkoutClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87E96B782CEDAE300053E39E /* WorkoutClient.swift */; };
 		87E96B7B2CEDC0840053E39E /* WorkoutDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87E96B7A2CEDC0840053E39E /* WorkoutDTO.swift */; };
+		87F6DEBD2D411CCE0033534F /* IsLoading.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87F6DEBC2D411CCE0033534F /* IsLoading.swift */; };
 		87FFBD6B2CD54DA2001AB389 /* AuthClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87FFBD6A2CD54DA2001AB389 /* AuthClient.swift */; };
 		87FFBD6D2CD54E02001AB389 /* SignInDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87FFBD6C2CD54E02001AB389 /* SignInDTO.swift */; };
 		87FFBD6F2CD54EA9001AB389 /* SignUpDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87FFBD6E2CD54EA9001AB389 /* SignUpDTO.swift */; };
@@ -173,6 +175,7 @@
 		87B492CD2CF5C4D800628A6E /* RankingDetailListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RankingDetailListView.swift; sourceTree = "<group>"; };
 		87C59EF72D40E904009B96FA /* AnyPTButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnyPTButton.swift; sourceTree = "<group>"; };
 		87C59EFA2D40EC25009B96FA /* PTButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PTButton.swift; sourceTree = "<group>"; };
+		87C59EFC2D40EF83009B96FA /* AnyPTButton+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AnyPTButton+.swift"; sourceTree = "<group>"; };
 		87D49E472CE6003700B880DE /* TimerFeatureTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimerFeatureTests.swift; sourceTree = "<group>"; };
 		87E1E9F82CC41D61006FAA24 /* ProximityClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProximityClient.swift; sourceTree = "<group>"; };
 		87E1E9FB2CC4C528006FAA24 /* HapticClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HapticClient.swift; sourceTree = "<group>"; };
@@ -185,6 +188,7 @@
 		87E43A8D2D37DC74005512ED /* EditBirthView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditBirthView.swift; sourceTree = "<group>"; };
 		87E96B782CEDAE300053E39E /* WorkoutClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkoutClient.swift; sourceTree = "<group>"; };
 		87E96B7A2CEDC0840053E39E /* WorkoutDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkoutDTO.swift; sourceTree = "<group>"; };
+		87F6DEBC2D411CCE0033534F /* IsLoading.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IsLoading.swift; sourceTree = "<group>"; };
 		87FFBD6A2CD54DA2001AB389 /* AuthClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthClient.swift; sourceTree = "<group>"; };
 		87FFBD6C2CD54E02001AB389 /* SignInDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInDTO.swift; sourceTree = "<group>"; };
 		87FFBD6E2CD54EA9001AB389 /* SignUpDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpDTO.swift; sourceTree = "<group>"; };
@@ -305,6 +309,7 @@
 		8717B5EE2CC1FB1000542061 /* Shared */ = {
 			isa = PBXGroup;
 			children = (
+				87F6DEBB2D411CC60033534F /* Environment */,
 				8735D7242CC21A7500C7824C /* Extension */,
 				873E9C8A2CD13D510015FB45 /* View */,
 				873E9C852CD11F340015FB45 /* Style */,
@@ -510,9 +515,7 @@
 		873E9C852CD11F340015FB45 /* Style */ = {
 			isa = PBXGroup;
 			children = (
-				873E9C862CD11F3D0015FB45 /* PTButtonStyle.swift */,
-				87C59EF72D40E904009B96FA /* AnyPTButton.swift */,
-				87C59EFA2D40EC25009B96FA /* PTButton.swift */,
+				87F6DEBE2D41207D0033534F /* PTButton */,
 			);
 			path = Style;
 			sourceTree = "<group>";
@@ -606,6 +609,25 @@
 				87E43A832D37C37A005512ED /* UserInfoFeature.swift */,
 			);
 			path = UserInfo;
+			sourceTree = "<group>";
+		};
+		87F6DEBB2D411CC60033534F /* Environment */ = {
+			isa = PBXGroup;
+			children = (
+				87F6DEBC2D411CCE0033534F /* IsLoading.swift */,
+			);
+			path = Environment;
+			sourceTree = "<group>";
+		};
+		87F6DEBE2D41207D0033534F /* PTButton */ = {
+			isa = PBXGroup;
+			children = (
+				87C59EFA2D40EC25009B96FA /* PTButton.swift */,
+				873E9C862CD11F3D0015FB45 /* PTButtonStyle.swift */,
+				87C59EF72D40E904009B96FA /* AnyPTButton.swift */,
+				87C59EFC2D40EF83009B96FA /* AnyPTButton+.swift */,
+			);
+			path = PTButton;
 			sourceTree = "<group>";
 		};
 		87FFBD792CD660CE001AB389 /* PhysicalTrackUnitTests */ = {
@@ -761,6 +783,7 @@
 				8735D73D2CC276F400C7824C /* StatisticsFeature.swift in Sources */,
 				8735D7512CC27EF800C7824C /* OnboardingFeature.swift in Sources */,
 				874ED6222CF46B110033972E /* GIFView.swift in Sources */,
+				87C59EFD2D40EF83009B96FA /* AnyPTButton+.swift in Sources */,
 				871059E92CC3B1FD00C4362D /* RankingDetailListFeature.swift in Sources */,
 				87B492CE2CF5C4D800628A6E /* RankingDetailListView.swift in Sources */,
 				8754676D2CC3C57A00144BE3 /* HeaderTabFeature.swift in Sources */,
@@ -792,6 +815,7 @@
 				873BB6242D40AD0100B8854E /* GenderDTO.swift in Sources */,
 				87E43A822D37C375005512ED /* UserInfoView.swift in Sources */,
 				8735D7642CC3A1CA00C7824C /* RankingClient.swift in Sources */,
+				87F6DEBD2D411CCE0033534F /* IsLoading.swift in Sources */,
 				8735D7412CC2779600C7824C /* SettingFeature.swift in Sources */,
 				87E43A7E2D37A2B1005512ED /* Setting.swift in Sources */,
 				8717B5DA2CC1FA7900542061 /* PhysicalTrackApp.swift in Sources */,

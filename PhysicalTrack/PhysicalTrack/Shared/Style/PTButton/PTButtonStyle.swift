@@ -31,6 +31,28 @@ extension PTButtonColorStyle {
     )
 }
 
+struct PTButtonColorFactory {
+    struct Background {
+        static func create(
+            with style: PTButtonColorStyle,
+            _ isEnabled: Bool,
+            _ isPressed: Bool
+        ) -> Color {
+            isEnabled ? isPressed ? style.pressedBackground : style.background : style.disabledBackground
+        }
+    }
+    
+    struct Foreground {
+        static func create(
+            with style: PTButtonColorStyle,
+            _ isEnabled: Bool,
+            _ isPressed: Bool
+        ) -> Color {
+            isEnabled ? isPressed ? style.pressedForeground : style.foreground : style.disabledForeground
+        }
+    }
+}
+
 struct PTButtonSizeStyle {
     let height: CGFloat
     let font: Font
@@ -45,6 +67,7 @@ extension PTButtonSizeStyle {
 struct PTButtonStyle: ButtonStyle {
     
     @Environment(\.isEnabled) private var isEnabled: Bool
+    @Environment(\.isLoading) private var isLoading: Bool
     
     private let colorStyle: PTButtonColorStyle
     private let sizeStyle: PTButtonSizeStyle
@@ -53,14 +76,22 @@ struct PTButtonStyle: ButtonStyle {
         self.colorStyle = colorStyle
         self.sizeStyle = sizeStyle
     }
-
+    
     func makeBody(configuration: Self.Configuration) -> some View {
         configuration.label
             .frame(height: sizeStyle.height)
             .frame(maxWidth: .infinity)
             .font(sizeStyle.font)
-            .background(isEnabled ? configuration.isPressed ? colorStyle.pressedBackground : colorStyle.background : colorStyle.disabledBackground)
-            .foregroundStyle(isEnabled ? configuration.isPressed ? colorStyle.pressedForeground : colorStyle.foreground : colorStyle.disabledForeground)
+            .background(PTButtonColorFactory.Background.create(with: colorStyle, isEnabled, configuration.isPressed))
+            .foregroundStyle(PTButtonColorFactory.Foreground.create(with: colorStyle, isEnabled, configuration.isPressed))
+            .disabled(isLoading ? true : !isEnabled)
+            .overlay {
+                if isLoading {
+                    colorStyle.disabledBackground
+                    ProgressView()
+                }
+            }
             .clipShape(RoundedRectangle(cornerRadius: 10))
+        
     }
 }

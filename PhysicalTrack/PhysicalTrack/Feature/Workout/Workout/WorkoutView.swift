@@ -12,11 +12,12 @@ struct WorkoutView: View {
     
     @Bindable var store: StoreOf<WorkoutFeature>
     
-    
     var body: some View {
         NavigationStack {
             VStack {
+                
                 Spacer()
+                
                 HStack() {
                     VStack(alignment: .leading, spacing: 14) {
                         Text("\(store.username)님")
@@ -42,21 +43,20 @@ struct WorkoutView: View {
                 }
                 .pickerStyle(.wheel)
                 
-                
-                
-                
                 Spacer()
+                
                 PTColorText(
                     "2분 동안 \(store.criteria.value.lowerBound)회 이상 수행해야 해요.",
                     at: "\(store.criteria.value.lowerBound)회",
                     color: .ptWhite,
                     weight: .bold
                 )
-                    .foregroundStyle(.ptGray)
-                    .fontWeight(.semibold)
-                    .padding(.bottom, 8)
+                .foregroundStyle(.ptGray)
+                .fontWeight(.semibold)
+                .padding(.bottom, 8)
                 
-                PTButton {
+                
+                PTButton{
                     store.send(.startButtonTapped)
                 } label: {
                     HStack(spacing: 12) {
@@ -67,23 +67,25 @@ struct WorkoutView: View {
                         Text("운동 시작하기")
                     }
                 }
+                .frame(maxWidth: .infinity)
                 .padding(.horizontal, 20)
-                .sheet(
-                    item: $store.scope(state: \.tutorial, action: \.tutorial)
-                ) { store in
-                    TutorialView(store: store)
-                        .presentationDetents([.medium])
-                }
-                .fullScreenCover(
-                    item: $store.scope(state: \.timer, action: \.timer)
-                ) { store in
-                    TimerView(store: store)
-                }
+                
                 
                 Spacer()
                     .frame(height: 20)
             }
             .background(Color.ptBackground)
+            .sheet(
+                item: $store.scope(state: \.tutorial, action: \.tutorial)
+            ) { store in
+                TutorialView(store: store)
+                    .presentationDetents([.medium])
+            }
+            .fullScreenCover(
+                item: $store.scope(state: \.timer, action: \.timer)
+            ) { store in
+                TimerView(store: store)
+            }
         }
         
         

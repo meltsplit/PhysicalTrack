@@ -1,21 +1,11 @@
 //
-//  AnyPTButton.swift
+//  PTButtonModifier.swift
 //  PhysicalTrack
 //
 //  Created by 장석우 on 1/22/25.
 //
 
 import SwiftUI
-
-protocol AnyPTButton: View { }
-
-struct AnyPTButtonWrapper<Wrapped: View>: AnyPTButton {
-    let base: () -> Wrapped
-    
-    var body: some View {
-        base()
-    }
-}
 
 extension AnyPTButton {
     func buttonStyle(
@@ -24,6 +14,14 @@ extension AnyPTButton {
     ) -> some AnyPTButton {
         AnyPTButtonWrapper {
             self.buttonStyle(PTButtonStyle(colorStyle, sizeStyle))
+        }
+    }
+}
+
+extension AnyPTButton {
+    func loading(_ isLoading: Bool) -> some AnyPTButton {
+        AnyPTButtonWrapper {
+            environment(\.isLoading, isLoading)
         }
     }
 }
