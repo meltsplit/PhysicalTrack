@@ -42,7 +42,7 @@ extension PTButtonSizeStyle {
 }
 
 
-struct PTBottomButtonStyle: ButtonStyle {
+struct PTButtonStyle: ButtonStyle {
     
     @Environment(\.isEnabled) private var isEnabled: Bool
     
@@ -62,11 +62,5 @@ struct PTBottomButtonStyle: ButtonStyle {
             .background(isEnabled ? configuration.isPressed ? colorStyle.pressedBackground : colorStyle.background : colorStyle.disabledBackground)
             .foregroundStyle(isEnabled ? configuration.isPressed ? colorStyle.pressedForeground : colorStyle.foreground : colorStyle.disabledForeground)
             .clipShape(RoundedRectangle(cornerRadius: 10))
-    }
-}
-
-extension View {
-    func ptBottomButtonStyle(_ colorStyle: PTButtonColorStyle = .blue, _ sizeStyle: PTButtonSizeStyle = .large) -> some View {
-        self.buttonStyle(PTBottomButtonStyle(colorStyle, sizeStyle))
     }
 }

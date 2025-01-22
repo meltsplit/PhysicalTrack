@@ -94,10 +94,9 @@ struct WorkoutResultView: View {
             }
             Spacer()
             
-            Button("기록 확인하기") {
+            PTButton("기록 확인하기") {
                 store.send(.goStatisticsButtonTapped)
-            }
-            .ptBottomButtonStyle()
+            } 
             .padding(.horizontal, 20)
         }
         .frame(maxWidth: .infinity, maxHeight: .infinity)

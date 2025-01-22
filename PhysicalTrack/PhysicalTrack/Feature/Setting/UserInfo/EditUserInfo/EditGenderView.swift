@@ -36,10 +36,9 @@ struct EditGenderView: View {
             
             Spacer()
             
-            Button("완료") {
+            PTButton("완료") {
                 store.send(.doneButtonTapped)
             }
-            .ptBottomButtonStyle()
             
             Group {
                 Picker("", selection: $store.userInfo.gender.sending(\.genderChanged)) {

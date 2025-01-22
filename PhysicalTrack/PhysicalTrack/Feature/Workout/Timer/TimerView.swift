@@ -156,10 +156,9 @@ struct TimerView: View {
                 }
                 .padding(.horizontal, 80)
                 
-                Button("완료") {
+                PTButton("완료") {
                     store.send(.doneButtonTapped)
                 } 
-                .ptBottomButtonStyle()
                 .padding(.horizontal, 20)
                 
                 Spacer().frame(height: 44)

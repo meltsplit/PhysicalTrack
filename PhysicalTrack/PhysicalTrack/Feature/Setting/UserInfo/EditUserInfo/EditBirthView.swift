@@ -39,10 +39,9 @@ struct EditBirthView: View {
             
             Spacer()
             
-            Button("완료") {
+            PTButton("완료") {
                 store.send(.doneButtonTapped)
             }
-            .ptBottomButtonStyle()
             
             Picker("", selection: $store.userInfo.yearOfBirth.sending(\.yearOfBirthChanged)) {
                 ForEach((1950...2030), id: \.self) {

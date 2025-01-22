@@ -56,7 +56,7 @@ struct WorkoutView: View {
                     .fontWeight(.semibold)
                     .padding(.bottom, 8)
                 
-                Button {
+                PTButton {
                     store.send(.startButtonTapped)
                 } label: {
                     HStack(spacing: 12) {
@@ -67,7 +67,6 @@ struct WorkoutView: View {
                         Text("운동 시작하기")
                     }
                 }
-                .ptBottomButtonStyle()
                 .padding(.horizontal, 20)
                 .sheet(
                     item: $store.scope(state: \.tutorial, action: \.tutorial)
