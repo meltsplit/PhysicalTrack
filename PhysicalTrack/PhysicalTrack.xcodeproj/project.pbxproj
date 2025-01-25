@@ -176,6 +176,7 @@
 		87C59EF72D40E904009B96FA /* AnyPTButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnyPTButton.swift; sourceTree = "<group>"; };
 		87C59EFA2D40EC25009B96FA /* PTButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PTButton.swift; sourceTree = "<group>"; };
 		87C59EFC2D40EF83009B96FA /* AnyPTButton+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AnyPTButton+.swift"; sourceTree = "<group>"; };
+		87CC1C612D44CFD300483A88 /* ci_post_clone.sh */ = {isa = PBXFileReference; lastKnownFileType = text.script.sh; path = ci_post_clone.sh; sourceTree = "<group>"; };
 		87D49E472CE6003700B880DE /* TimerFeatureTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimerFeatureTests.swift; sourceTree = "<group>"; };
 		87E1E9F82CC41D61006FAA24 /* ProximityClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProximityClient.swift; sourceTree = "<group>"; };
 		87E1E9FB2CC4C528006FAA24 /* HapticClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HapticClient.swift; sourceTree = "<group>"; };
@@ -577,6 +578,7 @@
 		87CC1C602D44CC3700483A88 /* ci_scripts */ = {
 			isa = PBXGroup;
 			children = (
+				87CC1C612D44CFD300483A88 /* ci_post_clone.sh */,
 			);
 			path = ci_scripts;
 			sourceTree = "<group>";
