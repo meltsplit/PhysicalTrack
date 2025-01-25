@@ -7,12 +7,13 @@
 
 import Foundation
 import ComposableArchitecture
+import Combine
 
 @Reducer
 struct WorkoutResultFeature {
     
     @ObservableState
-    struct State {
+    struct State: Equatable {
         var record: PushUpRecord
         var criterias = PushUp.criteriaArray
         
@@ -23,15 +24,26 @@ struct WorkoutResultFeature {
     
     enum Action {
         case onAppear
+        case postPushUpResponse(Result<Void, Error>)
         case goStatisticsButtonTapped
     }
+    
+    @Dependency(\.workoutClient) var workoutClient
     
     var body: some ReducerOf<Self> {
         Reduce { state, action in
             switch action {
             case .onAppear:
-                return .none
+                return .run { [state] send in
+                    let dto: PushUpRecordRequest = state.record.toData()
+                    let result = await Result { try await workoutClient.postPushUp(dto) }
+                    await send(.postPushUpResponse(result))
+                }
             case .goStatisticsButtonTapped:
+                return .none
+            case .postPushUpResponse(.success):
+                return .none
+            case .postPushUpResponse(.failure(_)):
                 return .none
             }
         }

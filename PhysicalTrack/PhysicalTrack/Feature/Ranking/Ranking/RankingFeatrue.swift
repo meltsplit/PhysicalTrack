@@ -14,7 +14,8 @@ struct RankingFeature {
     @ObservableState
     struct State {
         var path = StackState<Path.State>()
-        var ranking : RankingResponse = .empty
+        var consistency: [ConsistencyRankingResponse] = []
+        var pushUp: [PushUpRankingResponse] = []
         var consistencyTop3: [ConsistencyRankingResponse] = []
         var pushUpTop3: [PushUpRankingResponse] = []
         @Presents var alert: AlertState<Action.Alert>?
@@ -22,7 +23,9 @@ struct RankingFeature {
     
     enum Action {
         case onAppear
-        case rankingResponse(Result<RankingResponse, Error>)
+        case workoutButtonTapped
+        case pushUpRankingResponse(Result<[PushUpRankingResponse], Error>)
+        case consistencyRankingResponse(Result<[ConsistencyRankingResponse], Error>)
         case path(StackActionOf<Path>)
         case rankingDetailButtonTapped(RankingType)
         case alert(PresentationAction<Alert>)
@@ -36,12 +39,8 @@ struct RankingFeature {
     @Reducer
     enum Path {
         case rankingDetail(RankingDetailFeature)
-        case statistics(StatisticsFeature)
+        case web(PTWebFeature)
     }
-    
-
-    
-   
     
     @Dependency(\.rankingClient) private var rankingClient
     
@@ -49,28 +48,37 @@ struct RankingFeature {
         Reduce { state , action in
             switch action {
             case .onAppear:
-                return .run { send in
-                    await send(
-                        .rankingResponse(Result {
-                            try await rankingClient.fetch().data
-                        })
-                    )
-                    
-                }
+                
+                return .merge(
+                    .run { send in
+                        await send(.consistencyRankingResponse(Result { try await rankingClient.fetchConsistency()}))
+                    },
+                    .run { send in
+                        await send(.pushUpRankingResponse(Result { try await rankingClient.fetchPushUp()}))
+                    }
+                )
+            case .workoutButtonTapped:
+                return .none
             case let .rankingDetailButtonTapped(type):
-                state.path.append(.rankingDetail(RankingDetailFeature.State(type, state.ranking)))
+                state.path.append(.rankingDetail(RankingDetailFeature.State(type, state.consistency, state.pushUp)))
                 return .none
-            case let .path(.element(id: _, action: .rankingDetail(.rankCellTapped(userID)))):
-                state.path.append(.statistics(StatisticsFeature.State(userID)))
-                return .none
-                
-            case let .rankingResponse(.success(response)):
-                state.ranking = response
-                state.consistencyTop3 = Array(response.consistencyRanking.prefix(3))
-                state.pushUpTop3 = Array(response.pushUpRanking.prefix(3))
+            case let .path(.element(id: _, action: .rankingDetail(.rankCellTapped(data)))):
+                state.path.append(.web(PTWebFeature.State(url: "https://physical-t-7jce.vercel.app",
+                                                          targetUserID: data.userID,
+                                                          targetUsername: data.name)
+                ))
                 return .none
                 
-            case .rankingResponse(.failure):
+            case let .pushUpRankingResponse(.success(response)):
+                state.pushUp = response
+                state.pushUpTop3 = Array(response.prefix(3))
+                return .none
+            case let .consistencyRankingResponse(.success(response)):
+                state.consistency = response
+                state.consistencyTop3 = Array(response.prefix(3))
+                return .none
+                
+            case .pushUpRankingResponse(.failure), .consistencyRankingResponse(.failure):
                 state.alert = AlertState(
                     title: { TextState("서버 오류가 발생했습니다.") },
                     actions: { 

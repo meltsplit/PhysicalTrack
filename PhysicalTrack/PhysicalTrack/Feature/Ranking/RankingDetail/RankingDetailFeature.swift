@@ -13,27 +13,25 @@ struct RankingDetailFeature {
     
     @ObservableState
     struct State {
-        private var _ranking: RankingResponse = .empty
         var selectedTab: RankingType
-        var consistency: ConsistencyRankingFeature.State? = .init()
-        var pushUp: PushUpRankingFeature.State? = .init()
+        var consistency: RankingDetailListFeature.State? = .init()
+        var pushUp: RankingDetailListFeature.State? = .init()
         var headerTab: HeaderTabFeature<RankingType>.State? = .init(selectedItem: .consistency)
         
-        init(_ selectedTab: RankingType, _ ranking: RankingResponse) {
-            self._ranking = ranking
+        init(_ selectedTab: RankingType, _ consistency: [ConsistencyRankingResponse], _ pushUp: [PushUpRankingResponse]) {
             self.selectedTab = selectedTab
-            self.consistency = ConsistencyRankingFeature.State(ranking: ranking.consistencyRanking)
-            self.pushUp = PushUpRankingFeature.State(ranking: ranking.pushUpRanking)
+            self.consistency = RankingDetailListFeature.State(ranking: consistency)
+            self.pushUp = RankingDetailListFeature.State(ranking: pushUp)
             self.headerTab = HeaderTabFeature<RankingType>.State(selectedItem: selectedTab)
         }
     }
     
     enum Action {
         case selectTab(RankingType)
-        case consistency(ConsistencyRankingFeature.Action)
-        case pushUp(PushUpRankingFeature.Action)
+        case consistency(RankingDetailListFeature.Action)
+        case pushUp(RankingDetailListFeature.Action)
         case headerTab(HeaderTabFeature<RankingType>.Action)
-        case rankCellTapped(Int)
+        case rankCellTapped(any RankingRepresentable)
     }
     
     var body: some ReducerOf<Self> {
@@ -55,10 +53,10 @@ struct RankingDetailFeature {
             }
         }
         .ifLet(\.consistency, action: \.consistency) {
-            ConsistencyRankingFeature()
+            RankingDetailListFeature()
         }
         .ifLet(\.pushUp, action: \.pushUp) {
-            PushUpRankingFeature()
+            RankingDetailListFeature()
         }
         .ifLet(\.headerTab, action: \.headerTab) {
             HeaderTabFeature<RankingType>()

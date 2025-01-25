@@ -20,6 +20,6 @@ struct GradeCriteria<W: Workout>: Equatable, Hashable {
         guard value.upperBound != Int.max
         else { return String(value.lowerBound) + " 이상" }
         
-        return String(value.lowerBound) + " - " + String(value.upperBound)
+        return String(value.lowerBound) + " ~ " + String(value.upperBound)
     }
 }
