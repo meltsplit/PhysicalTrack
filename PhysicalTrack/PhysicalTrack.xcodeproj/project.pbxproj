@@ -220,6 +220,7 @@
 		8717B5CD2CC1FA7900542061 = {
 			isa = PBXGroup;
 			children = (
+				87CC1C602D44CC3700483A88 /* ci_scripts */,
 				8717B5D82CC1FA7900542061 /* PhysicalTrack */,
 				87FFBD792CD660CE001AB389 /* PhysicalTrackUnitTests */,
 				8717B5D72CC1FA7900542061 /* Products */,
@@ -571,6 +572,13 @@
 				8754676C2CC3C57A00144BE3 /* HeaderTabFeature.swift */,
 			);
 			path = HeaderTab;
+			sourceTree = "<group>";
+		};
+		87CC1C602D44CC3700483A88 /* ci_scripts */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = ci_scripts;
 			sourceTree = "<group>";
 		};
 		87E1EA142CC92074006FAA24 /* Local */ = {
