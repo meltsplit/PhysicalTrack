@@ -82,7 +82,10 @@ struct UserInfoFeature {
                 return .none
                 
             case .withdrawResponse(.success):
-                type(of: appStorage).resetStandardUserDefaults()
+                PTAppStorageKey.allCases.forEach {
+                    appStorage.removeObject(forKey: $0.rawValue)
+                }
+                
                 return .send(.delegate(.withdrawCompleted))
             case .withdrawResponse(.failure):
                 

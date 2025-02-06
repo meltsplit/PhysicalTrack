@@ -32,3 +32,9 @@ extension AudioClient: DependencyKey {
         })
 }
 
+extension AudioClient: TestDependencyKey {
+    static var previewValue: AudioClient = liveValue
+    static var testValue: AudioClient = Self(
+        play: {}
+    )
+}
