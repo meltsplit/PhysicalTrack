@@ -1,0 +1,24 @@
+{
+  "configurations" : [
+    {
+      "id" : "1175F7AB-AF0E-4564-B4F1-2B32B35C69AC",
+      "name" : "Configuration 1",
+      "options" : {
+
+      }
+    }
+  ],
+  "defaultOptions" : {
+
+  },
+  "testTargets" : [
+    {
+      "target" : {
+        "containerPath" : "container:PhysicalTrack.xcodeproj",
+        "identifier" : "87FFBD772CD660CE001AB389",
+        "name" : "PhysicalTrackUnitTests"
+      }
+    }
+  ],
+  "version" : 1
+}
