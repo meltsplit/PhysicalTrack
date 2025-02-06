@@ -1,0 +1,25 @@
+{
+  "configurations" : [
+    {
+      "id" : "86E55CC8-4B55-4E01-A16C-07ED8E60A407",
+      "name" : "Test Scheme Action",
+      "options" : {
+
+      }
+    }
+  ],
+  "defaultOptions" : {
+
+  },
+  "testTargets" : [
+    {
+      "parallelizable" : true,
+      "target" : {
+        "containerPath" : "container:PhysicalTrack.xcodeproj",
+        "identifier" : "87FFBD772CD660CE001AB389",
+        "name" : "PhysicalTrackUnitTests"
+      }
+    }
+  ],
+  "version" : 1
+}
