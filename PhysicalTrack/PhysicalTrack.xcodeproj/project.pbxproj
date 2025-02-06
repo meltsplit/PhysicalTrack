@@ -171,6 +171,7 @@
 		874ED6282CF475280033972E /* TutorialFeature.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TutorialFeature.swift; sourceTree = "<group>"; };
 		874ED62B2CF475A20033972E /* TutorialView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TutorialView.swift; sourceTree = "<group>"; };
 		8754676C2CC3C57A00144BE3 /* HeaderTabFeature.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeaderTabFeature.swift; sourceTree = "<group>"; };
+		8789F1102D5538C800C46132 /* PhysicalTrackUnitTests.xctestplan */ = {isa = PBXFileReference; lastKnownFileType = text; path = PhysicalTrackUnitTests.xctestplan; sourceTree = "<group>"; };
 		87B492C92CF5BAF600628A6E /* RankingRepresentable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RankingRepresentable.swift; sourceTree = "<group>"; };
 		87B492CD2CF5C4D800628A6E /* RankingDetailListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RankingDetailListView.swift; sourceTree = "<group>"; };
 		87C59EF72D40E904009B96FA /* AnyPTButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnyPTButton.swift; sourceTree = "<group>"; };
@@ -643,6 +644,7 @@
 		87FFBD792CD660CE001AB389 /* PhysicalTrackUnitTests */ = {
 			isa = PBXGroup;
 			children = (
+				8789F1102D5538C800C46132 /* PhysicalTrackUnitTests.xctestplan */,
 				87FFBD7A2CD660CE001AB389 /* JWTDecoderTests.swift */,
 				872F5F382CE4733700887565 /* WorkoutFeatureTests.swift */,
 				87D49E472CE6003700B880DE /* TimerFeatureTests.swift */,
