@@ -10,7 +10,7 @@ import Foundation
 extension Int {
     
     var to_mmss: String {
-        let hours = Int(self) / 3600
+//        let _ = Int(self) / 3600 // hours
         let minutes = Int(self) / 60 % 60
         let seconds = Int(self) % 60
         return String(format: "%02i:%02i", minutes, seconds)
