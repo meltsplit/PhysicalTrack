@@ -51,7 +51,7 @@
 		873BB61E2D409E6400B8854E /* Gender.swift in Sources */ = {isa = PBXBuildFile; fileRef = 873BB61D2D409E6400B8854E /* Gender.swift */; };
 		873BB6222D40ABE600B8854E /* UserInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 873BB6212D40ABE600B8854E /* UserInfo.swift */; };
 		873BB6242D40AD0100B8854E /* GenderDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 873BB6232D40AD0100B8854E /* GenderDTO.swift */; };
-		873C81AD2CD92C700041F8FE /* PersistenceReaderKey+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 873C81AC2CD92C700041F8FE /* PersistenceReaderKey+.swift */; };
+		873C81AD2CD92C700041F8FE /* SharedReaderKey+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 873C81AC2CD92C700041F8FE /* SharedReaderKey+.swift */; };
 		873C81B02CD92DB90041F8FE /* PTAppStorageKey.swift in Sources */ = {isa = PBXBuildFile; fileRef = 873C81AF2CD92DB90041F8FE /* PTAppStorageKey.swift */; };
 		873E9C832CD11A2B0015FB45 /* Color.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 873E9C822CD11A2B0015FB45 /* Color.xcassets */; };
 		873E9C872CD11F3D0015FB45 /* PTButtonStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 873E9C862CD11F3D0015FB45 /* PTButtonStyle.swift */; };
@@ -151,7 +151,7 @@
 		873BB61D2D409E6400B8854E /* Gender.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Gender.swift; sourceTree = "<group>"; };
 		873BB6212D40ABE600B8854E /* UserInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserInfo.swift; sourceTree = "<group>"; };
 		873BB6232D40AD0100B8854E /* GenderDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GenderDTO.swift; sourceTree = "<group>"; };
-		873C81AC2CD92C700041F8FE /* PersistenceReaderKey+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "PersistenceReaderKey+.swift"; sourceTree = "<group>"; };
+		873C81AC2CD92C700041F8FE /* SharedReaderKey+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "SharedReaderKey+.swift"; sourceTree = "<group>"; };
 		873C81AF2CD92DB90041F8FE /* PTAppStorageKey.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PTAppStorageKey.swift; sourceTree = "<group>"; };
 		873E9C822CD11A2B0015FB45 /* Color.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Color.xcassets; sourceTree = "<group>"; };
 		873E9C842CD11DE00015FB45 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
@@ -406,7 +406,7 @@
 			children = (
 				8735D7252CC21A8000C7824C /* Int+.swift */,
 				873E9C882CD137A50015FB45 /* View+.swift */,
-				873C81AC2CD92C700041F8FE /* PersistenceReaderKey+.swift */,
+				873C81AC2CD92C700041F8FE /* SharedReaderKey+.swift */,
 			);
 			path = Extension;
 			sourceTree = "<group>";
@@ -786,7 +786,7 @@
 				8735D7602CC39E8200C7824C /* DTO.swift in Sources */,
 				87E43A8A2D37DC2D005512ED /* EditGenderView.swift in Sources */,
 				873E9C942CD210C10015FB45 /* PTWebFeature.swift in Sources */,
-				873C81AD2CD92C700041F8FE /* PersistenceReaderKey+.swift in Sources */,
+				873C81AD2CD92C700041F8FE /* SharedReaderKey+.swift in Sources */,
 				873BB61A2D409D6A00B8854E /* UserClient.swift in Sources */,
 				87E43A882D37D4D3005512ED /* EditUserInfoFeature.swift in Sources */,
 				873BB6222D40ABE600B8854E /* UserInfo.swift in Sources */,
@@ -988,6 +988,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"PhysicalTrack/Preview Content\"";
 				DEVELOPMENT_TEAM = T6DNHAHXG9;
 				ENABLE_PREVIEWS = YES;
@@ -1024,6 +1025,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"PhysicalTrack/Preview Content\"";
 				DEVELOPMENT_TEAM = T6DNHAHXG9;
 				ENABLE_PREVIEWS = YES;

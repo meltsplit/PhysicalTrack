@@ -52,12 +52,13 @@ struct RootFeature {
                     await send(.signInResponse(result))
                 }
             case let .signInResponse(.success(jwtToken)):
-                self.accessToken = jwtToken
+                self.$accessToken.withLock{ $0 = jwtToken }
                 guard let jwtWithoutBearer = jwtToken.components(separatedBy: " ").last,
                       let jwt = try? JWTDecoder.decode(jwtWithoutBearer)
                 else { return .send(.signInResponse(.failure(AuthError.jwtDecodeFail)))}
-                self.userID = jwt.payload.userId
-                self.username = jwt.payload.name
+                
+                self.$userID.withLock{ $0 = jwt.payload.userId }
+                self.$username.withLock { $0 = jwt.payload.name }
                 state = .main(.init())
                 return .none
             case .signInResponse(.failure(_)):

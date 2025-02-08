@@ -42,6 +42,15 @@
       debugDocumentVersioning = "YES"
       debugServiceExtension = "internal"
       allowLocationSimulation = "YES">
+      <MacroExpansion>
+         <BuildableReference
+            BuildableIdentifier = "primary"
+            BlueprintIdentifier = "8717B5D52CC1FA7900542061"
+            BuildableName = "PhysicalTrack.app"
+            BlueprintName = "PhysicalTrack"
+            ReferencedContainer = "container:PhysicalTrack.xcodeproj">
+         </BuildableReference>
+      </MacroExpansion>
    </LaunchAction>
    <ProfileAction
       buildConfiguration = "Release"

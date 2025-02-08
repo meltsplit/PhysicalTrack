@@ -46,7 +46,7 @@ struct WorkoutFeature {
                 return .none
                 
             case .tutorial(.presented(.confirmButtonTapped)):
-                state.shouldShowTutorial = false
+                state.$shouldShowTutorial.withLock { $0 = false } 
                 state.timer = TimerFeature.State(PushUpRecord(for: state.grade))
                 return .none
             case .tutorial:

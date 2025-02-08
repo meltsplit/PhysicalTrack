@@ -58,7 +58,7 @@ struct EditUserInfoFeature {
                     await send(.updateResponse(result))
                 }
             case .updateResponse(.success):
-                state.username = state.userInfo.name
+                state.$username.withLock { $0 = state.userInfo.name }
                 return .concatenate(
                     .send(.delegate(.updateCompleted(state.userInfo))),
                     .run { _ in await dismiss() }

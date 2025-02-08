@@ -1,5 +1,5 @@
 //
-//  PersistenceReaderKey+.swift
+//  SharedReaderKey+.swift
 //  PhysicalTrack
 //
 //  Created by 장석우 on 11/5/24.
@@ -9,7 +9,7 @@ import Foundation
 import ComposableArchitecture
 
 
-extension PersistenceReaderKey {
+extension SharedReaderKey {
     public static func appStorage(key: PTAppStorageKey) -> Self
     where Self == AppStorageKey<Bool>
     {
