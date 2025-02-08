@@ -9,7 +9,7 @@ import Foundation
 import ComposableArchitecture
 
 
-extension PersistenceReaderKey {
+extension SharedReaderKey {
     public static func appStorage(key: PTAppStorageKey) -> Self
     where Self == AppStorageKey<Bool>
     {
