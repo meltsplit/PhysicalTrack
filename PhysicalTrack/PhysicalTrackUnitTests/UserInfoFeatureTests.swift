@@ -17,7 +17,7 @@ struct UserInfoFeatureTest {
     @Test
     func 회원탈퇴_성공시_로컬스토리지가_초기화된다() async {
         let mockStorage = UserDefaults(suiteName: "test")!
-        mockStorage.set("value1", forKey: PTAppStorageKey.accessToken.rawValue)
+        mockStorage.set("value1", forKey: "key1")
         
         let store = TestStore(
             initialState: UserInfoFeature.State.init()
@@ -30,7 +30,7 @@ struct UserInfoFeatureTest {
         await store.send(.withdrawResponse(.success(())))
         await store.skipReceivedActions()
         
-        #expect(mockStorage.string(forKey: PTAppStorageKey.accessToken.rawValue) != "value1")
+        #expect(mockStorage.string(forKey: "key1") != "value1")
     }
 }
 

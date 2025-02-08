@@ -82,8 +82,8 @@ struct UserInfoFeature {
                 return .none
                 
             case .withdrawResponse(.success):
-                PTAppStorageKey.allCases.forEach {
-                    appStorage.removeObject(forKey: $0.rawValue)
+                appStorage.dictionaryRepresentation().keys.forEach {
+                    appStorage.removeObject(forKey: $0)
                 }
                 return .send(.delegate(.withdrawCompleted))
             case .withdrawResponse(.failure):
