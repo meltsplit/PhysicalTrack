@@ -90,12 +90,12 @@ struct OnboardingFeature {
                     await send(.signUpResponse(response))
                 }
             case let .signUpResponse(.success(jwtToken)):
-                state.accessToken = jwtToken
+                state.$accessToken.withLock{ $0 = jwtToken }
                 guard let jwtWithoutBearer = jwtToken.split(separator: " ").last,
                       let jwt = try? JWTDecoder.decode(String(jwtWithoutBearer))
                 else { return .send(.signUpResponse(.failure(AuthError.jwtDecodeFail)))}
-                state.userID = jwt.payload.userId
-                state.username = jwt.payload.name
+                state.$userID.withLock{ $0 = jwt.payload.userId }
+                state.$username.withLock { $0 = jwt.payload.name }
                 return .none
             case .signUpResponse(.failure(_)):
                 state.isLoading = false
