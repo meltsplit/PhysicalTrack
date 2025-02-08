@@ -10,8 +10,15 @@ import ComposableArchitecture
 @Reducer
 struct UserInfoFeature {
     
+    @Reducer(state: .equatable)
+    enum Destination {
+        case editNickname(EditUserInfoFeature)
+        case editGender(EditUserInfoFeature)
+        case editBirth(EditUserInfoFeature)
+    }
+    
     @ObservableState
-    struct State {
+    struct State: Equatable {
         var userInfo: UserInfo = .init(name: "", gender: .male, yearOfBirth: 2000)
         @Presents var destination: Destination.State?
     }
@@ -38,16 +45,9 @@ struct UserInfoFeature {
         }
     }
     
-    @Reducer
-    enum Destination {
-        case editNickname(EditUserInfoFeature)
-        case editGender(EditUserInfoFeature)
-        case editBirth(EditUserInfoFeature)
-    }
-    
     @Dependency(\.userClient.fetch) private var fetch
     @Dependency(\.userClient.withdraw) private var withdraw
-    @Dependency(\.defaultAppStorage) var appStorage
+    @Dependency(\.defaultAppStorage) private var appStorage
     
     var body: some ReducerOf<Self> {
         Reduce { state, action in
@@ -82,12 +82,12 @@ struct UserInfoFeature {
                 return .none
                 
             case .withdrawResponse(.success):
-                type(of: appStorage).resetStandardUserDefaults()
+                appStorage.dictionaryRepresentation().keys.forEach {
+                    appStorage.removeObject(forKey: $0)
+                }
                 return .send(.delegate(.withdrawCompleted))
             case .withdrawResponse(.failure):
-                
                 return .none
-  
                 
             // Navigation
             case .destination(.presented(.editNickname(.delegate(.updateCompleted(let userInfo))))):
