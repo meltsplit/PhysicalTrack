@@ -7,15 +7,23 @@
 
 import SwiftUI
 import ComposableArchitecture
+import CoreLocation
 
 @main
 struct PhysicalTrackApp: App {
     let store = Store(initialState: RootFeature.State()) {
         RootFeature()
     }
+
     var body: some Scene {
         WindowGroup {
-            RootView(store: store)
+            if TestContext.current == nil {
+//                RootView(store: store)
+                RunningView(store: Store(initialState: RunningFeature.State(), reducer: {
+                    RunningFeature()
+                }))
+            }
         }
+        
     }
 }

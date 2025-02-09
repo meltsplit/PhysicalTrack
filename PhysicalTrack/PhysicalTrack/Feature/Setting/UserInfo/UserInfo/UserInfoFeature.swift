@@ -7,10 +7,12 @@
 
 import ComposableArchitecture
 
+extension UserInfoFeature.Destination.State: Equatable {}
+
 @Reducer
 struct UserInfoFeature {
     
-    @Reducer(state: .equatable)
+    @Reducer
     enum Destination {
         case editNickname(EditUserInfoFeature)
         case editGender(EditUserInfoFeature)
@@ -113,3 +115,5 @@ struct UserInfoFeature {
     }
     
 }
+
+//extension UserInfoFeature.Destination.State: Equatable {}
