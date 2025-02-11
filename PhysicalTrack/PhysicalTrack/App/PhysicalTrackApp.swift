@@ -18,10 +18,7 @@ struct PhysicalTrackApp: App {
     var body: some Scene {
         WindowGroup {
             if TestContext.current == nil {
-//                RootView(store: store)
-                RunningView(store: Store(initialState: RunningFeature.State(), reducer: {
-                    RunningFeature()
-                }))
+                RootView(store: store)
             }
         }
         

@@ -8,7 +8,6 @@
 import CoreLocation
 
 struct LocationUpdate: Equatable {
-    
 //    var speed: Double
 //    var speedAccuracy: Double
 //    var timestamp: Date

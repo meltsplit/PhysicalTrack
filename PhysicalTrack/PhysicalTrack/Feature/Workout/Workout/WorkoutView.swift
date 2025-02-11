@@ -57,7 +57,7 @@ struct WorkoutView: View {
                 
                 
                 PTButton{
-                    store.send(.startButtonTapped)
+                    store.send(.startRunningButtonTapped)
                 } label: {
                     HStack(spacing: 12) {
                         Image(systemName: "play.fill")
@@ -86,6 +86,12 @@ struct WorkoutView: View {
             ) { store in
                 TimerView(store: store)
             }
+            .fullScreenCover(
+                item: $store.scope(state: \.running, action: \.running)
+            ) { store in
+                RunningView(store: store)
+            }
+            .alert($store.scope(state: \.alert, action: \.alert))
         }
         
         

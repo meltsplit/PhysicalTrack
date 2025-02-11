@@ -10,7 +10,7 @@ import ComposableArchitecture
 
 @testable import PhysicalTrack
 @MainActor
-struct TimerFeatureTests {
+struct TimerFeatureTest {
     
     @Test
     func test_timer가_2분으로_설정되었는가() async {

@@ -9,13 +9,10 @@ import SwiftUI
 import ComposableArchitecture
 
 struct RunningView: View {
-    let store: StoreOf<RunningFeature>
+    @Bindable var store: StoreOf<RunningFeature>
     
     var body: some View {
         VStack {
-            Button("권한요청") {
-                store.send(.tapped)
-            }
             Button("시작") {
                 store.send(.start)
             }
