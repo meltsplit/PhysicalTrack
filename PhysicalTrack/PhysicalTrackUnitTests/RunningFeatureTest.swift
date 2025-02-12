@@ -6,12 +6,10 @@
 //
 
 import Testing
+import Foundation
 
 @testable import PhysicalTrack
 import ComposableArchitecture
-import CoreLocation
-
-
 
 @MainActor
 struct RunningFeatureTest {
@@ -26,9 +24,9 @@ extension RunningFeatureTest.Running {
     @Test
     func 첫_업데이트에선_totalDistance가_갱신되지_않는다() async {
         let location1: Location = .stub(
-            speed: 4.0,
-            timestamp: .init(timeIntervalSince1970: 1),
-            distance: { _ in 5 }
+            speed: 0,
+            timestamp: .init(),
+            distance: { _ in 0 }
         )
         
         let store = TestStore(
@@ -100,12 +98,43 @@ extension RunningFeatureTest.Running {
         
         await store.send(.locationUpdated(location1))
         
-        await store.send(.locationUpdated(location2)) {
-            var index = 4 / RunningFeature.Policy.unitDistance
-            index = min(index, store.state.timeIntervals.count - 1)
-            $0.timeIntervals[index] = 10
+        await store.send(.locationUpdated(location2))
+        await store.receive(\.updateTimeInterval) {
+            let index = 4 / RunningFeature.Policy.unitDistance
+            #expect($0.timeIntervals[index] == 10)
         }
         
+        
+        await store.finish()
+    }
+    
+    @Test
+    func 거리_3km를_처음으로_넘긴_위치가_타임스탬프에_적용된다() async {
+        let location1: Location = .stub(
+            speed: 0,
+            timestamp: .init(timeIntervalSince1970: 0),
+            distance: { _ in 0 }
+        )
+        
+        let location2: Location = .stub(
+            speed: 0,
+            timestamp: .init(timeIntervalSince1970: 1000),
+            distance: { _ in 3001 }
+        )
+        
+        let store = TestStore(
+            initialState: RunningFeature.State()
+        ) {
+            RunningFeature()
+        }
+        
+        store.exhaustivity = .off
+        
+        await store.send(.locationUpdated(location1))
+        await store.send(.locationUpdated(location2))
+        await store.receive(\.updateTimeInterval) {
+            #expect($0.timeIntervals.last == 1000)
+        }
         await store.finish()
     }
     
@@ -142,6 +171,5 @@ extension RunningFeatureTest.Running {
         await store.send(.locationUpdated(location3))
         await store.receive(\.finish)
         await store.finish()
-        
     }
 }

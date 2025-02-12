@@ -63,7 +63,7 @@ struct RunningView: View {
                 VStack{
                     Spacer()
                     
-                    Text(String("\(Int(store.totalDistance * 1000)) m"))
+                    Text(String("\(Int(store.totalDistance)) m"))
                         .font(.system(size: 60, weight: .bold))
                         .contentTransition(.numericText(value: store.totalDistance))
                         .animation(.snappy, value: store.totalDistance)

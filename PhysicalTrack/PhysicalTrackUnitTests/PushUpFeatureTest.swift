@@ -1,5 +1,5 @@
 //
-//  TimerFeatureTests.swift
+//  PushUpFeatureTests.swift
 //  PhysicalTrackUnitTests
 //
 //  Created by 장석우 on 11/13/24.
@@ -10,7 +10,7 @@ import ComposableArchitecture
 
 @testable import PhysicalTrack
 @MainActor
-struct TimerFeatureTest {
+struct PushUpFeatureTest {
     
     @Test
     func test_timer가_2분으로_설정되었는가() async {

@@ -42,6 +42,7 @@ struct RunningFeature {
         case timerTick
         case readyTimerTick
         case locationUpdated(Location)
+        case updateTimeInterval(Array.Index, TimeInterval)
         case muteButtonTapped
         case pauseButtonTapped
         case path(StackAction<WorkoutResultFeature.State, WorkoutResultFeature.Action>)
@@ -105,17 +106,19 @@ struct RunningFeature {
                     state.locations.append(newValue)
                     return .none
                 }
+                
                 state.locations.append(newValue)
                 let distance = newValue.distance(latestValue)
-                let timeInterval = newValue.timestamp.timeIntervalSince(latestValue.timestamp)
+                print("distance", distance)
                 state.totalDistance += distance
-                var index = Int(state.totalDistance) / Policy.unitDistance
-                index = min(index, state.timeIntervals.count - 1)
-                state.timeIntervals[index] += timeInterval
-                
-                if index == state.timeIntervals.count - 1 {
-                    return .run { send in await send(.finish) }
-                }
+                let timeInterval = newValue.timestamp.timeIntervalSince(latestValue.timestamp)
+                let index = Int(state.totalDistance) / Policy.unitDistance
+                return .send(.updateTimeInterval(index, timeInterval))
+            case let .updateTimeInterval(index, timeInterval):
+                let safeIndex = min(index, state.timeIntervals.count - 1)
+                state.timeIntervals[safeIndex] += timeInterval
+                guard index < state.timeIntervals.count
+                else { return .send(.finish) }
                 return .none
                 
             case .pause:
@@ -140,7 +143,7 @@ struct RunningFeature {
                 return .send(.pause)
             case .finish:
                 print("수고했어")
-                return .none
+                return .cancel(id: CancelID.running)
             case .path(.element(id: _, action: .goStatisticsButtonTapped)):
                 return .run { _ in await dismiss() }
             case .path:
