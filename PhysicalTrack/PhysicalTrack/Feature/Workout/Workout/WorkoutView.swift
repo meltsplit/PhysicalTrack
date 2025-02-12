@@ -84,7 +84,7 @@ struct WorkoutView: View {
             .fullScreenCover(
                 item: $store.scope(state: \.timer, action: \.timer)
             ) { store in
-                TimerView(store: store)
+                PushUpView(store: store)
             }
             .fullScreenCover(
                 item: $store.scope(state: \.running, action: \.running)

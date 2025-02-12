@@ -19,7 +19,7 @@ struct WorkoutFeature {
         @Shared(.appStorage(key: .username)) var username = "회원"
         @Shared(.appStorage(key: .shouldShowTutorial)) var shouldShowTutorial = true
         @Presents var tutorial: TutorialFeature.State?
-        @Presents var timer: TimerFeature.State?
+        @Presents var timer: PushUpFeature.State?
         @Presents var running: RunningFeature.State?
         @Presents var alert: AlertState<Action.Alert>?
     }
@@ -29,7 +29,7 @@ struct WorkoutFeature {
         case startButtonTapped
         case startRunningButtonTapped
         case tutorial(PresentationAction<TutorialFeature.Action>)
-        case timer(PresentationAction<TimerFeature.Action>)
+        case timer(PresentationAction<PushUpFeature.Action>)
         case running(PresentationAction<RunningFeature.Action>)
         case alert(PresentationAction<Alert>)
         
@@ -56,7 +56,7 @@ struct WorkoutFeature {
                 if state.shouldShowTutorial {
                     state.tutorial = TutorialFeature.State()
                 } else {
-                    state.timer = TimerFeature.State(PushUpRecord(for: state.grade))
+                    state.timer = PushUpFeature.State(PushUpRecord(for: state.grade))
                 }
                 return .none
             case .startRunningButtonTapped:
@@ -89,7 +89,7 @@ struct WorkoutFeature {
                 
             case .tutorial(.presented(.confirmButtonTapped)):
                 state.$shouldShowTutorial.withLock { $0 = false } 
-                state.timer = TimerFeature.State(PushUpRecord(for: state.grade))
+                state.timer = PushUpFeature.State(PushUpRecord(for: state.grade))
                 return .none
             case .tutorial:
                 return .none
@@ -111,7 +111,7 @@ struct WorkoutFeature {
             TutorialFeature()
         }
         .ifLet(\.$timer, action: \.timer) {
-            TimerFeature()
+            PushUpFeature()
         }
         .ifLet(\.$running, action: \.running) {
             RunningFeature()

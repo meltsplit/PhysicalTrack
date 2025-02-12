@@ -1,5 +1,5 @@
 //
-//  RankingFeatrue.swift
+//  RankingFeature.swift
 //  PhysicalTrack
 //
 //  Created by 장석우 on 10/18/24.
