@@ -1,5 +1,5 @@
 //
-//  TimerStore.swift
+//  PushUpFeature.swift
 //  PhysicalTrack
 //
 //  Created by 장석우 on 10/18/24.
@@ -9,7 +9,7 @@ import Foundation
 import ComposableArchitecture
 
 @Reducer
-struct TimerFeature {
+struct PushUpFeature {
     
     @ObservableState
     struct State: Equatable {
@@ -46,7 +46,7 @@ struct TimerFeature {
         case alert(PresentationAction<Alert>)
         
         @CasePathable
-        enum Alert: Equatable {
+        enum Alert {
             case quit
             case resume
         }
@@ -104,7 +104,6 @@ struct TimerFeature {
                 ).cancellable(id: CancelID.workout)
                 
             case .timerTick:
-                
                 guard state.workoutLeftSeconds > 0
                 else { return .send(.finish) }
                 
@@ -173,7 +172,7 @@ struct TimerFeature {
         .forEach(\.path, action: \.path) {
             WorkoutResultFeature()
         }
-        .ifLet(\.alert, action: \.alert)
+        .ifLet(\.$alert, action: \.alert)
     }
     
 }

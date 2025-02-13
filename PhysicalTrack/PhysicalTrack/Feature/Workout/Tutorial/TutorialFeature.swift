@@ -22,7 +22,7 @@ struct TutorialFeature {
         var selectedTab: Step = .first
     }
     
-    enum Action {
+    enum Action: Equatable {
         case tabChanged(Step)
         case confirmButtonTapped
     }

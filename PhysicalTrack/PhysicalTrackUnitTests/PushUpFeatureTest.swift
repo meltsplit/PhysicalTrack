@@ -1,5 +1,5 @@
 //
-//  TimerFeatureTests.swift
+//  PushUpFeatureTests.swift
 //  PhysicalTrackUnitTests
 //
 //  Created by 장석우 on 11/13/24.
@@ -10,7 +10,7 @@ import ComposableArchitecture
 
 @testable import PhysicalTrack
 @MainActor
-struct TimerFeatureTests {
+struct PushUpFeatureTest {
     
     @Test
     func test_timer가_2분으로_설정되었는가() async {
@@ -21,10 +21,10 @@ struct TimerFeatureTests {
     func test_when_onAppear_then_ready_3초후_시작() async {
         let clock = ImmediateClock()
         
-        let store = TestStore(initialState: TimerFeature.State(
+        let store = TestStore(initialState: PushUpFeature.State(
             .init(duration: .seconds(120), targetCount: 72)
         )) {
-            TimerFeature()
+            PushUpFeature()
         } withDependencies: {
             $0.continuousClock = clock
         }
@@ -44,10 +44,10 @@ struct TimerFeatureTests {
     @Test
     func test_종료버튼을누르면_타이머가_중단된다() async {
         let clock = TestClock()
-        let store = TestStore(initialState: TimerFeature.State(
+        let store = TestStore(initialState: PushUpFeature.State(
             PushUpRecord(duration: .seconds(10), targetCount: 10)
         )) {
-            TimerFeature()
+            PushUpFeature()
         } withDependencies: {
             $0.proximityClient = .testValue
             $0.continuousClock = clock
@@ -74,10 +74,10 @@ struct TimerFeatureTests {
             start: {@Sendable in proximityStream.stream },
             stop: { @Sendable in proximityStream.continuation.finish() }
         )
-        let store = TestStore(initialState: TimerFeature.State(
+        let store = TestStore(initialState: PushUpFeature.State(
             PushUpRecord(duration: .seconds(10), targetCount: 10))
         ) {
-            TimerFeature()
+            PushUpFeature()
         } withDependencies: {
             $0.proximityClient = stubProximityStream
             $0.continuousClock = clock

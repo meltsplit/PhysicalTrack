@@ -8,9 +8,9 @@
 import SwiftUI
 import ComposableArchitecture
 
-struct TimerView: View {
+struct PushUpView: View {
     
-    @Bindable var store: StoreOf<TimerFeature>
+    @Bindable var store: StoreOf<PushUpFeature>
     @State private var animationValue = 1.0
     
     var body: some View {
@@ -183,8 +183,8 @@ struct TimerView: View {
 }
 
 #Preview {
-    TimerView(store: .init(initialState: TimerFeature.State(.init(for: .grade1)), reducer: {
-        TimerFeature()
+    PushUpView(store: .init(initialState: PushUpFeature.State(.init(for: .grade1)), reducer: {
+        PushUpFeature()
     }))
 }
 
