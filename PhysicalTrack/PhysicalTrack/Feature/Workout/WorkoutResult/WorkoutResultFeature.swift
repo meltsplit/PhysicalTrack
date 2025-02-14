@@ -14,17 +14,21 @@ struct WorkoutResultFeature {
     
     @ObservableState
     struct State: Equatable {
-        var record: PushUpRecord
-        var criterias = PushUp.criteriaArray
+        var record: Record
+        var criterias: [CriteriaModel]
         
-        init(record: PushUpRecord) {
+        init(record: Record) {
             self.record = record
+            self.criterias = CriteriaFactory.create(for: record).models
         }
     }
     
     enum Action {
         case onAppear
+        case pushUp(PushUpRecord)
+        case running(RunningRecord)
         case postPushUpResponse(Result<Void, Error>)
+        case postRunningResponse(Result<Void, Error>)
         case goStatisticsButtonTapped
     }
     
@@ -34,17 +38,31 @@ struct WorkoutResultFeature {
         Reduce { state, action in
             switch action {
             case .onAppear:
-                return .run { [state] send in
-                    let dto: PushUpRecordRequest = state.record.toData()
+                switch state.record {
+                case .pushUp(let record):
+                    return .send(.pushUp(record))
+                case .running(let record):
+                    return .send(.running(record))
+                }
+               
+            case .pushUp(let record):
+                return .run { send in
+                    let dto: PushUpRecordRequest = record.toData()
                     let result = await Result { try await workoutClient.postPushUp(dto) }
                     await send(.postPushUpResponse(result))
                 }
+            case .running(let record):
+                return .run { send in
+//                    let result = await Result { try await workoutClient.postPushUp(dto) }
+//                    await send(.postPushUpResponse())
+                }
             case .goStatisticsButtonTapped:
                 return .none
-            case .postPushUpResponse(.success):
+            case .postPushUpResponse(.success), .postRunningResponse(.success):
                 return .none
-            case .postPushUpResponse(.failure(_)):
+            case .postPushUpResponse(.failure), .postRunningResponse(.failure):
                 return .none
+
             }
         }
     }

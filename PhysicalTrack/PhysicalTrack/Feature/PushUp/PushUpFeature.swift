@@ -151,7 +151,8 @@ struct PushUpFeature {
                 return .none
                 
             case .doneButtonTapped:
-                state.path.append(.init(record: state.record))
+                let workoutResultFeature = WorkoutResultFeature.State(record: .pushUp(state.record))
+                state.path.append(workoutResultFeature)
                 return .none
                 
             case.alert(.presented(.quit)):

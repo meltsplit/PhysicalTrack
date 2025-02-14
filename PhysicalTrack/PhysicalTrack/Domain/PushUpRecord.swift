@@ -32,3 +32,15 @@ struct PushUpRecord: Equatable {
         self.count = 0
     }
 }
+
+extension PushUpRecord: RecordConvertible {
+    func asRecord() -> Record {
+        return .pushUp(self)
+    }
+}
+
+extension PushUpRecord: Evaluatable {
+    func evaluate() -> Grade {
+        Criteria.pushUp.table.first { $0.value.contains(.pushUp(count)) }?.key ?? .failed
+    }
+}

@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct GradeCriteria<W: Workout>: Equatable, Hashable {
+struct GradeCriteria<W: Workout>: Hashable {
     let grade: Grade
     var value: ClosedRange<Int> {
         W.criteriaDict[grade]!
