@@ -261,7 +261,7 @@
 				8717B5EA2CC1FAF600542061 /* App */,
 				8717B5EC2CC1FB0300542061 /* Domain */,
 				8717B5ED2CC1FB0900542061 /* Feature */,
-				8717B5EB2CC1FAFB00542061 /* Dependencies */,
+				8717B5EB2CC1FAFB00542061 /* Dependency */,
 				8717B5EE2CC1FB1000542061 /* Shared */,
 				8717B5DF2CC1FA7B00542061 /* Preview Content */,
 			);
@@ -284,13 +284,13 @@
 			path = App;
 			sourceTree = "<group>";
 		};
-		8717B5EB2CC1FAFB00542061 /* Dependencies */ = {
+		8717B5EB2CC1FAFB00542061 /* Dependency */ = {
 			isa = PBXGroup;
 			children = (
 				87E1EA142CC92074006FAA24 /* Local */,
 				8735D71D2CC2046200C7824C /* Remote */,
 			);
-			path = Dependencies;
+			path = Dependency;
 			sourceTree = "<group>";
 		};
 		8717B5EC2CC1FB0300542061 /* Domain */ = {
