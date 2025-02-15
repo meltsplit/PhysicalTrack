@@ -15,7 +15,7 @@ struct WorkoutFeature {
     struct State: Equatable {
         var grades: [Grade] = Grade.allCases.filter { $0 != .failed }
         var grade: Grade = .grade2
-        var criteria: GradeCriteria<PushUp> { GradeCriteria<PushUp>(grade: grade) }
+        var criteria: Criteria = .pushUp
         @Shared(.appStorage(key: .username)) var username = "회원"
         @Shared(.appStorage(key: .shouldShowTutorial)) var shouldShowTutorial = true
         @Presents var tutorial: TutorialFeature.State?

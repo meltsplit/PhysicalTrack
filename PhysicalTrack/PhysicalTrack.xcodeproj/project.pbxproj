@@ -302,6 +302,7 @@
 		8717B5EC2CC1FB0300542061 /* Domain */ = {
 			isa = PBXGroup;
 			children = (
+				87C01C752D5FBB69000871B6 /* Legacy */,
 				87C01C702D5E39D1000871B6 /* Workout */,
 				8735D72F2CC254C800C7824C /* Grade.swift */,
 				8735D75A2CC38D6F00C7824C /* GradeCriteria.swift */,
@@ -620,6 +621,13 @@
 				87C01C712D5E3A28000871B6 /* Exercise.swift */,
 			);
 			path = Workout;
+			sourceTree = "<group>";
+		};
+		87C01C752D5FBB69000871B6 /* Legacy */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Legacy;
 			sourceTree = "<group>";
 		};
 		87CC1C602D44CC3700483A88 /* ci_scripts */ = {

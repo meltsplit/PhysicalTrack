@@ -70,8 +70,32 @@ extension RunningRecord: RecordConvertible {
     }
 }
 
-
 struct CriteriaModel: Hashable, Identifiable {
+    var id: Self { self }
+    let grade: Grade
+    let lowerBound: String?
+    let upperBound: String?
+}
+
+extension CriteriaModel {
+    static func pushUp(grade: Grade, range: ClosedRange<Int>) -> Self {
+        .init(
+            grade: grade,
+            lowerBound: grade != .failed ? String(range.lowerBound) : nil,
+            upperBound: grade != .elite ?  String(range.upperBound) : nil
+        )
+    }
+    
+    static func running(grade: Grade, range: ClosedRange<Int>) -> Self {
+        .init(
+            grade: grade,
+            lowerBound: grade == .elite ? nil : String(range.lowerBound),
+            upperBound: grade != .failed ?  String(range.upperBound) : nil
+        )
+    }
+}
+
+struct CriteriaModel2: Hashable, Identifiable {
     var id: Self { self }
     let grade: Grade
     let value: ClosedRange<WorkoutValue>
@@ -104,7 +128,7 @@ struct CriteriaModel: Hashable, Identifiable {
     }
 }
 
-extension CriteriaModel: ExerciseIdentifiable {
+extension CriteriaModel2: ExerciseIdentifiable {
     var type: Exercise {
         switch value.lowerBound {
         case .pushUp: return .pushUp
@@ -139,12 +163,25 @@ enum Criteria: Equatable {
     }
     
     var models: [CriteriaModel] {
-        Grade.allCases.map { CriteriaModel(grade: $0, value: table[$0]!)}
+        return table.sorted(by: { $0.key < $1.key}).map { grade, range in
+            switch range. {
+            
+            case .pushUp(<#T##Int#>)
+            }
+        }
+        
+        switch values.upperBound {
+        case .pushUp(let data):
+            Grade.allCases.map { }
+            
+            case .
+            }
+            Grade.allCases.map { CriteriaModel.pushUp(grade: $0, range: <#T##ClosedRange<Int>#>)}
+        case .running:
+        }
+        
     }
 }
-
-
-
 
 
 enum WorkoutValue: Comparable, Hashable {
