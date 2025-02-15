@@ -13,7 +13,7 @@ struct MainFeature {
 
     @ObservableState
     struct State {
-        @Shared(.inMemory("selectedTab")) var selectedTab: MainScene = .workout
+        @Shared(.selectedMainScene) var selectedTab: MainScene = .workout
         
         var workout: WorkoutFeature.State? = .init()
         var statistics: StatisticsFeature.State? = .init()

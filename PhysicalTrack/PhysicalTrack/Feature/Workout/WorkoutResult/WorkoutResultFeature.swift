@@ -40,7 +40,7 @@ struct WorkoutResultFeature {
     }
     
     @Dependency(\.workoutClient) var workoutClient
-    @Shared(.inMemory("selectedTab")) var selectedTab: MainScene = .workout
+    @Shared(.selectedMainScene) var selectedTab: MainScene = .workout
     
     var body: some ReducerOf<Self> {
         Reduce { state, action in
@@ -52,7 +52,6 @@ struct WorkoutResultFeature {
             case .running:
                 return .none
             case .goStatisticsButtonTapped:
-                
                 $selectedTab.withLock { $0 = .statistics }
                 return .none
             }

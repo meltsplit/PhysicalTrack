@@ -84,6 +84,7 @@
 		87C01C7D2D60C456000871B6 /* PushUpCriteria.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87C01C7C2D60C456000871B6 /* PushUpCriteria.swift */; };
 		87C01C7F2D60C46A000871B6 /* RunningCriteria.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87C01C7E2D60C46A000871B6 /* RunningCriteria.swift */; };
 		87C01C812D60C4B4000871B6 /* CriteriaModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87C01C802D60C4B4000871B6 /* CriteriaModel.swift */; };
+		87C01C842D60D00C000871B6 /* SharedReaderKey+InMemory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87C01C832D60D00C000871B6 /* SharedReaderKey+InMemory.swift */; };
 		87C59EF82D40E904009B96FA /* AnyPTButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87C59EF72D40E904009B96FA /* AnyPTButton.swift */; };
 		87C59EFB2D40EC25009B96FA /* PTButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87C59EFA2D40EC25009B96FA /* PTButton.swift */; };
 		87C59EFD2D40EF83009B96FA /* AnyPTButton+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87C59EFC2D40EF83009B96FA /* AnyPTButton+.swift */; };
@@ -198,6 +199,7 @@
 		87C01C7C2D60C456000871B6 /* PushUpCriteria.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PushUpCriteria.swift; sourceTree = "<group>"; };
 		87C01C7E2D60C46A000871B6 /* RunningCriteria.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RunningCriteria.swift; sourceTree = "<group>"; };
 		87C01C802D60C4B4000871B6 /* CriteriaModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CriteriaModel.swift; sourceTree = "<group>"; };
+		87C01C832D60D00C000871B6 /* SharedReaderKey+InMemory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "SharedReaderKey+InMemory.swift"; sourceTree = "<group>"; };
 		87C59EF72D40E904009B96FA /* AnyPTButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnyPTButton.swift; sourceTree = "<group>"; };
 		87C59EFA2D40EC25009B96FA /* PTButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PTButton.swift; sourceTree = "<group>"; };
 		87C59EFC2D40EF83009B96FA /* AnyPTButton+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AnyPTButton+.swift"; sourceTree = "<group>"; };
@@ -637,6 +639,7 @@
 		87C01C822D60CFD5000871B6 /* Sharing */ = {
 			isa = PBXGroup;
 			children = (
+				87C01C832D60D00C000871B6 /* SharedReaderKey+InMemory.swift */,
 			);
 			path = Sharing;
 			sourceTree = "<group>";
@@ -891,6 +894,7 @@
 				8735D74C2CC27C8C00C7824C /* MainFeature.swift in Sources */,
 				873E9C872CD11F3D0015FB45 /* PTButtonStyle.swift in Sources */,
 				87A479E42D58860000A5BFDC /* RunningView.swift in Sources */,
+				87C01C842D60D00C000871B6 /* SharedReaderKey+InMemory.swift in Sources */,
 				87E43A8E2D37DC74005512ED /* EditBirthView.swift in Sources */,
 				87E1E9FC2CC4C529006FAA24 /* HapticClient.swift in Sources */,
 				8735D7342CC25C6500C7824C /* PushUpRecord.swift in Sources */,

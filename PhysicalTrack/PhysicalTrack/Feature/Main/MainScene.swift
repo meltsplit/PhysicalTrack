@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-public enum MainScene: Hashable {
+public enum MainScene: Hashable, Sendable {
     case workout
     case statistics
     case ranking
