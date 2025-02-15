@@ -13,56 +13,48 @@ import Combine
 struct WorkoutResultFeature {
     
     @ObservableState
-    struct State: Equatable {
-        var record: Record
-        var criterias: [CriteriaModel]
+    enum State: Equatable {
+        case pushUp(PushUpResultFeature.State)
+        case running(RunningResultFeature.State)
         
-        init(record: Record) {
-            self.record = record
-            self.criterias = CriteriaFactory.create(for: record).models
+        var grade: Grade {
+            switch self {
+            case .pushUp(let state): return state.record.evaluate()
+            case .running(let state): return state.record.evaluate()
+            }
+        }
+        
+        var criterias: [CriteriaModel] {
+            switch self {
+            case .pushUp(let state): return state.criterias
+            case .running(let state): return state.criterias
+            }
         }
     }
     
     enum Action {
         case onAppear
-        case pushUp(PushUpRecord)
-        case running(RunningRecord)
-        case postPushUpResponse(Result<Void, Error>)
-        case postRunningResponse(Result<Void, Error>)
+        case pushUp(PushUpResultFeature.Action)
+        case running(RunningResultFeature.Action)
         case goStatisticsButtonTapped
     }
     
     @Dependency(\.workoutClient) var workoutClient
+    @Shared(.inMemory("selectedTab")) var selectedTab: MainScene = .workout
     
     var body: some ReducerOf<Self> {
         Reduce { state, action in
             switch action {
             case .onAppear:
-                switch state.record {
-                case .pushUp(let record):
-                    return .send(.pushUp(record))
-                case .running(let record):
-                    return .send(.running(record))
-                }
-               
-            case .pushUp(let record):
-                return .run { send in
-                    let dto: PushUpRecordRequest = record.toData()
-                    let result = await Result { try await workoutClient.postPushUp(dto) }
-                    await send(.postPushUpResponse(result))
-                }
-            case .running(let record):
-                return .run { send in
-//                    let result = await Result { try await workoutClient.postPushUp(dto) }
-//                    await send(.postPushUpResponse())
-                }
+                return .none
+            case .pushUp:
+                return .none
+            case .running:
+                return .none
             case .goStatisticsButtonTapped:
+                
+                $selectedTab.withLock { $0 = .statistics }
                 return .none
-            case .postPushUpResponse(.success), .postRunningResponse(.success):
-                return .none
-            case .postPushUpResponse(.failure), .postRunningResponse(.failure):
-                return .none
-
             }
         }
     }

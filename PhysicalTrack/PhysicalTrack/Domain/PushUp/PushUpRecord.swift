@@ -19,7 +19,7 @@ struct PushUpRecord: Equatable {
     
     init(for grade: Grade) {
         self.duration = .seconds(120)
-        self.targetCount = Criteria.pushUp.table[grade]!.lowerBound
+        self.targetCount = PushUpCriteria.table[grade]?.lowerBound ?? 0
     }
     
     init(duration: Duration, targetCount: Int) {
@@ -29,14 +29,8 @@ struct PushUpRecord: Equatable {
     }
 }
 
-extension PushUpRecord: RecordConvertible {
-    func asRecord() -> Record {
-        return .pushUp(self)
-    }
-}
-
-extension PushUpRecord: Evaluatable {
+extension PushUpRecord {
     func evaluate() -> Grade {
-        Criteria.pushUp.table.first { $0.value.contains(.pushUp(count)) }?.key ?? .failed
+        PushUpCriteria.evaluate(count)
     }
 }

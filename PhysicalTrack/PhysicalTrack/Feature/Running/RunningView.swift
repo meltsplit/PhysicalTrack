@@ -49,7 +49,7 @@ struct RunningView: View {
                                     .bold()
                                     .foregroundStyle(.ptGray)
                                 
-                                Text(store.currentSeconds.to_mmss)
+                                Text(store.record.currentSeconds.to_mmss)
                                     .font(.title3.bold())
                                 
                             }
@@ -63,10 +63,10 @@ struct RunningView: View {
                 VStack{
                     Spacer()
                     
-                    Text(String("\(Int(store.totalDistance)) m"))
+                    Text(String("\(Int(store.record.currentDistance)) m"))
                         .font(.system(size: 60, weight: .bold))
-                        .contentTransition(.numericText(value: store.totalDistance))
-                        .animation(.snappy, value: store.totalDistance)
+                        .contentTransition(.numericText(value: store.record.currentDistance))
+                        .animation(.snappy, value: store.record.currentDistance)
                     
                     Spacer()
                     
@@ -103,7 +103,7 @@ struct RunningView: View {
 
 #Preview {
     RunningView(store: .init(
-        initialState: RunningFeature.State(), reducer: {
+        initialState: RunningFeature.State(record: .init(for: .elite)), reducer: {
             RunningFeature()
         }))
 }

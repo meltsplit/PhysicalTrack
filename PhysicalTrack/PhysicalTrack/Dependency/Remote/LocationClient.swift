@@ -38,7 +38,7 @@ extension CLLocationUpdate {
 struct LocationClient {
     var authorizationStatus: @Sendable () -> AuthorizationStatus = { .unauthorized }
     var requestAuthorization: @Sendable () -> Void
-    var liveUpdates: @Sendable () -> CLLocationUpdate.Updates = {  CLLocationUpdate.liveUpdates() }
+    var liveUpdates: @Sendable () -> AsyncStream<Location> = { .finished }
 }
 
 extension LocationClient: DependencyKey {
@@ -47,13 +47,41 @@ extension LocationClient: DependencyKey {
         return LocationClient(
             authorizationStatus: { CLLocationManager().authorizationStatus.toDomain() },
             requestAuthorization: { CLLocationManager().requestWhenInUseAuthorization() },
-            liveUpdates: { CLLocationUpdate.liveUpdates(.fitness) }
+            liveUpdates: {
+                return AsyncStream<Location> { continuation in
+                    Task {
+                        for try await clLocation in CLLocationUpdate.liveUpdates() {
+                            guard let location = try? clLocation.toDomain() else { continue }
+                            continuation.yield(location)
+                        }
+                    }
+                }
+            }
         )
     }()
 }
 
 extension LocationClient: TestDependencyKey {
-    static var previewValue: LocationClient = Self()
+    static var previewValue: LocationClient = Self(
+        authorizationStatus: { .authorized },
+        requestAuthorization: { },
+        liveUpdates: {
+            let (stream, continuation) = AsyncStream.makeStream(of: Location.self)
+            Task {
+                continuation.yield(.stub(distance: { _ in 0 }))
+                sleep(2)
+                continuation.yield(.stub(distance: { _ in 1000 }))
+                sleep(1)
+                continuation.yield(.stub(distance: { _ in 1000 }))
+                sleep(1)
+                continuation.yield(.stub(distance: { _ in 999 }))
+                sleep(1)
+                continuation.yield(.stub(distance: { _ in 3 }))
+                
+            }
+            return stream
+        }
+    )
     static var testValue: LocationClient = Self()
 }
 

@@ -33,6 +33,16 @@ struct WorkoutView: View {
                 }
                 .padding(.horizontal, 20)
                 
+                Picker("exercise",
+                       selection: $store.selectedExercise.sending(\.exerciseChanged))
+                {
+                    ForEach(Exercise.allCases, id: \.self) {
+                        Text($0.title)
+                            .font(.title)
+                    }
+                }
+                .pickerStyle(.wheel)
+                
                 Picker("grade",
                        selection: $store.grade.sending(\.gradeChanged))
                 {
@@ -45,19 +55,19 @@ struct WorkoutView: View {
                 
                 Spacer()
                 
-                PTColorText(
-                    "2분 동안 \(store.criteria.value.lowerBound)회 이상 수행해야 해요.",
-                    at: "\(store.criteria.value.lowerBound)회",
-                    color: .ptWhite,
-                    weight: .bold
-                )
-                .foregroundStyle(.ptGray)
-                .fontWeight(.semibold)
-                .padding(.bottom, 8)
+//                PTColorText(
+//                    "2분 동안 \(store.criteria.value.lowerBound)회 이상 수행해야 해요.",
+//                    at: "\(store.criteria.value.lowerBound)회",
+//                    color: .ptWhite,
+//                    weight: .bold
+//                )
+//                .foregroundStyle(.ptGray)
+//                .fontWeight(.semibold)
+//                .padding(.bottom, 8)
                 
                 
                 PTButton{
-                    store.send(.startRunningButtonTapped)
+                    store.send(.startButtonTapped)
                 } label: {
                     HStack(spacing: 12) {
                         Image(systemName: "play.fill")
@@ -82,7 +92,7 @@ struct WorkoutView: View {
                     .presentationDetents([.medium])
             }
             .fullScreenCover(
-                item: $store.scope(state: \.timer, action: \.timer)
+                item: $store.scope(state: \.pushUp, action: \.pushUp)
             ) { store in
                 PushUpView(store: store)
             }

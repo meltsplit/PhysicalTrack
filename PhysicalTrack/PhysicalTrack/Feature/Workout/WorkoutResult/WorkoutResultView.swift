@@ -16,17 +16,16 @@ struct WorkoutResultView: View {
         VStack {
             ScrollView {
                 VStack {
-                    ResultTitleView(grade: store.record.evaluate())
+                    ResultTitleView(grade: store.grade)
                         .padding(.vertical, 40)
                     
                     HStack {
-                        switch store.record {
-                        case .pushUp(let record):
-                            ResultPushUpView(record: record)
-                        case .running(let record):
-                            ResultRunningView(record: record)
+                        switch store.state {
+                        case .pushUp(let state):
+                            ResultPushUpView(record: state.record)
+                        case .running(let state):
+                            ResultRunningView(record: state.record)
                         }
-                        
                     }
                     .padding(.vertical, 20)
                     .background(.ptDarkNavyGray)
@@ -52,7 +51,7 @@ struct WorkoutResultView: View {
                                 Text(criteria.description)
                             }
                             .padding(.vertical, 10)
-                            .foregroundStyle(store.record.evaluate() == criteria.grade ? .ptPoint : .ptLightGray01)
+                            .foregroundStyle(store.grade == criteria.grade ? .ptPoint : .ptLightGray01)
                         }
                         .padding(.horizontal, 8)
                     }
@@ -118,7 +117,7 @@ fileprivate struct ResultRunningView: View {
             
             Spacer().frame(height: 14)
             
-            Text(record.totalSeconds.formatted(.time(pattern: .minuteSecond)))
+            Text(record.currentDuration.formatted(.time(pattern: .minuteSecond)))
                 .bold()
         }
         
@@ -197,9 +196,7 @@ fileprivate struct ResultPushUpView: View {
     NavigationStack {
         WorkoutResultView(
             store: Store(
-                initialState: WorkoutResultFeature.State(
-                    record: .running(.init(for: .elite))
-                )
+                initialState: WorkoutResultFeature.State.pushUp(.init(record: .init(for: .elite)))
             ) {
                 WorkoutResultFeature()
             }

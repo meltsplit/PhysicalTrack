@@ -13,16 +13,12 @@ struct MainFeature {
 
     @ObservableState
     struct State {
-        var selectedTab: MainScene
+        @Shared(.inMemory("selectedTab")) var selectedTab: MainScene = .workout
         
         var workout: WorkoutFeature.State? = .init()
         var statistics: StatisticsFeature.State? = .init()
         var ranking: RankingFeature.State? = .init()
         var setting: SettingFeature.State? = .init()
-        
-        init(_ selectedTab: MainScene = .workout) {
-            self.selectedTab = selectedTab
-        }
     }
     
     enum Action {
@@ -42,21 +38,16 @@ struct MainFeature {
             switch action {
             case let .selectTab(newValue):
                 hapticClient.impact(.light)
-                state.selectedTab = newValue
+                state.$selectedTab.withLock{ $0 = newValue }
                 return .none
-            case .workout(.timer(.presented(.path(.element(id: _, action: .goStatisticsButtonTapped))))):
-                hapticClient.impact(.light)
-                state.selectedTab = .statistics
-                return .none
-                
             case .ranking(.workoutButtonTapped),
                     .ranking(.path(.element(id: _, action: .rankingDetail(.consistency(.workoutButtonTapped))))),
                     .ranking(.path(.element(id: _, action: .rankingDetail(.pushUp(.workoutButtonTapped))))):
                 hapticClient.impact(.light)
-                state.selectedTab = .workout
+                state.$selectedTab.withLock{ $0 = .workout }
                 return .none
             case .setting(.tutorial(.presented(.confirmButtonTapped))):
-                state.selectedTab = .workout
+                state.$selectedTab.withLock{ $0 = .workout }
                 return .none
             default:
                 return .none
