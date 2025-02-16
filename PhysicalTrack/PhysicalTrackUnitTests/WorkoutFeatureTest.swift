@@ -50,7 +50,7 @@ extension WorkoutFeatureTest.LocationAuthorization {
         
         store.exhaustivity = .off
         
-        await store.send(.startRunningButtonTapped)
+        await store.send(.startRunning)
         await store.finish()
         
         #expect(isCalled.value)
@@ -68,8 +68,8 @@ extension WorkoutFeatureTest.LocationAuthorization {
             $0.locationClient.requestAuthorization = { }
         }
         
-        await store.send(.startRunningButtonTapped) {
-            $0.running = RunningFeature.State()
+        await store.send(.startRunning) {
+            $0.running = RunningFeature.State(record: RunningRecord(for: .elite))
         }
         
         await store.finish()
@@ -87,13 +87,10 @@ extension WorkoutFeatureTest.LocationAuthorization {
         
         store.exhaustivity = .off
         
-        await store.send(.startRunningButtonTapped)
+        await store.send(.startRunning)
         await store.finish()
         
         #expect(store.state.alert != nil)
     }
-    
-
-
 }
 

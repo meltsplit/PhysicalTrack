@@ -10,6 +10,7 @@ import Foundation
 
 @Reducer
 struct RunningFeature {
+    
     @ObservableState
     struct State: Equatable {
         var record: RunningRecord

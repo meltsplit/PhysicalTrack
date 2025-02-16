@@ -24,10 +24,7 @@ struct RunningRecord: Equatable {
     // 3km를 100m로 나누면 구간 30개가 나온다.
     // seconds 기준으로 기록된다.
     var timeIntervals: [TimeInterval] = Array(repeating: 0, count: RunningPolicy.totalDistance / RunningPolicy.unitDistance)
-    
-    
-    
-    
+
     var speed: Double {
         let hours = Double(currentSeconds) / 60
         let km: Double = Double(targetDistance) / 1000
