@@ -7,7 +7,6 @@
 
 import SwiftUI
 import ComposableArchitecture
-import CoreLocation
 
 @main
 struct PhysicalTrackApp: App {
