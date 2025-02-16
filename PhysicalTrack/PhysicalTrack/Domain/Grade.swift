@@ -7,7 +7,11 @@
 
 import Foundation
 
-enum Grade: Int, Hashable, CaseIterable {
+enum Grade: Int, Hashable, CaseIterable, Comparable {
+    static func < (lhs: Grade, rhs: Grade) -> Bool {
+        lhs.rawValue < rhs.rawValue
+    }
+    
     case elite
     case grade1
     case grade2

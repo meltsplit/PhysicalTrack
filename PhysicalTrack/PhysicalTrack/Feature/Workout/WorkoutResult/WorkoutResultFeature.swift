@@ -13,37 +13,46 @@ import Combine
 struct WorkoutResultFeature {
     
     @ObservableState
-    struct State: Equatable {
-        var record: PushUpRecord
-        var criterias = PushUp.criteriaArray
+    enum State: Equatable {
+        case pushUp(PushUpResultFeature.State)
+        case running(RunningResultFeature.State)
         
-        init(record: PushUpRecord) {
-            self.record = record
+        var grade: Grade {
+            switch self {
+            case .pushUp(let state): return state.record.evaluate()
+            case .running(let state): return state.record.evaluate()
+            }
+        }
+        
+        var criterias: [CriteriaModel] {
+            switch self {
+            case .pushUp(let state): return state.criterias
+            case .running(let state): return state.criterias
+            }
         }
     }
     
     enum Action {
         case onAppear
-        case postPushUpResponse(Result<Void, Error>)
+        case pushUp(PushUpResultFeature.Action)
+        case running(RunningResultFeature.Action)
         case goStatisticsButtonTapped
     }
     
     @Dependency(\.workoutClient) var workoutClient
+    @Shared(.selectedMainScene) var selectedTab: MainScene = .workout
     
     var body: some ReducerOf<Self> {
         Reduce { state, action in
             switch action {
             case .onAppear:
-                return .run { [state] send in
-                    let dto: PushUpRecordRequest = state.record.toData()
-                    let result = await Result { try await workoutClient.postPushUp(dto) }
-                    await send(.postPushUpResponse(result))
-                }
+                return .none
+            case .pushUp:
+                return .none
+            case .running:
+                return .none
             case .goStatisticsButtonTapped:
-                return .none
-            case .postPushUpResponse(.success):
-                return .none
-            case .postPushUpResponse(.failure(_)):
+                $selectedTab.withLock { $0 = .statistics }
                 return .none
             }
         }

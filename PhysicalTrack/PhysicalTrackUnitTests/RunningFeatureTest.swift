@@ -30,14 +30,14 @@ extension RunningFeatureTest.Running {
         )
         
         let store = TestStore(
-            initialState: RunningFeature.State()
+            initialState: RunningFeature.State(record: RunningRecord(for: .elite))
         ) {
             RunningFeature()
         }
         
         await store.send(.locationUpdated(location1)) {
-            $0.locations = [location1]
-            $0.totalDistance = 0
+            $0.record.locations = [location1]
+            $0.record.currentDistance = 0
         }
         await store.finish()
     }
@@ -57,7 +57,7 @@ extension RunningFeatureTest.Running {
         )
         
         let store = TestStore(
-            initialState: RunningFeature.State()
+            initialState: RunningFeature.State(record: RunningRecord(for: .elite))
         ) {
             RunningFeature()
         }
@@ -67,8 +67,8 @@ extension RunningFeatureTest.Running {
         await store.send(.locationUpdated(location1))
         
         await store.send(.locationUpdated(location2)) {
-            $0.locations = [location1, location2]
-            $0.totalDistance = 777
+            $0.record.locations = [location1, location2]
+            $0.record.currentDistance = 777
         }
         
         await store.finish()
@@ -89,7 +89,7 @@ extension RunningFeatureTest.Running {
         )
         
         let store = TestStore(
-            initialState: RunningFeature.State()
+            initialState: RunningFeature.State(record: RunningRecord(for: .elite))
         ) {
             RunningFeature()
         }
@@ -100,8 +100,8 @@ extension RunningFeatureTest.Running {
         
         await store.send(.locationUpdated(location2))
         await store.receive(\.updateTimeInterval) {
-            let index = 4 / RunningFeature.Policy.unitDistance
-            #expect($0.timeIntervals[index] == 10)
+            let index = 4 / RunningPolicy.unitDistance
+            #expect($0.record.timeIntervals[index] == 10)
         }
         
         
@@ -123,7 +123,7 @@ extension RunningFeatureTest.Running {
         )
         
         let store = TestStore(
-            initialState: RunningFeature.State()
+            initialState: RunningFeature.State(record: RunningRecord(for: .elite))
         ) {
             RunningFeature()
         }
@@ -133,7 +133,7 @@ extension RunningFeatureTest.Running {
         await store.send(.locationUpdated(location1))
         await store.send(.locationUpdated(location2))
         await store.receive(\.updateTimeInterval) {
-            #expect($0.timeIntervals.last == 1000)
+            #expect($0.record.timeIntervals.last == 1000)
         }
         await store.finish()
     }
@@ -159,7 +159,7 @@ extension RunningFeatureTest.Running {
         )
         
         let store = TestStore(
-            initialState: RunningFeature.State()
+            initialState: RunningFeature.State(record: RunningRecord(for: .elite))
         ) {
             RunningFeature()
         }

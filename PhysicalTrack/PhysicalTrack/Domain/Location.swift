@@ -47,9 +47,9 @@ extension Location {
     }
     
     static func stub(
-        speed: Double,
-        timestamp: Date,
-        distance: @escaping ((Self) -> Double)
+        speed: Double = 0,
+        timestamp: Date = .now,
+        distance: @escaping ((Self) -> Double) = { _ in 0 }
     ) -> Self {
         self.init(
             rawValue: .init(),

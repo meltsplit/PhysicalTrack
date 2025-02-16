@@ -16,49 +16,22 @@ struct WorkoutResultView: View {
         VStack {
             ScrollView {
                 VStack {
-                    ReesultTitleView(grade: store.record.grade)
+                    ResultTitleView(grade: store.grade)
                         .padding(.vertical, 40)
                     
                     HStack {
-                        Spacer()
-                        VStack {
-                            Text("시간")
-                                .foregroundStyle(.ptLightGray01)
-                            
-                            Spacer().frame(height: 14)
-                            
-                            Text(String(store.record.duration.components.seconds))
-                                .bold()
+                        switch store.state {
+                        case .pushUp(let state):
+                            ResultPushUpView(record: state.record)
+                        case .running(let state):
+                            ResultRunningView(record: state.record)
                         }
-                        
-                        Spacer()
-                        VStack {
-                            Text("횟수")
-                                .foregroundStyle(.ptLightGray01)
-                            
-                            Spacer().frame(height: 14)
-                            
-                            Text(String(store.record.count))
-                                .bold()
-                        }
-                        Spacer()
-                        
-                        VStack {
-                            Text("페이스")
-                                .foregroundStyle(.ptLightGray01)
-                            
-                            Spacer().frame(height: 14)
-                            
-                            Text(String(format: "%0.2f", store.record.pace))
-                                .bold()
-                        }
-                        Spacer()
                     }
                     .padding(.vertical, 20)
                     .background(.ptDarkNavyGray)
                     .clipShape(RoundedRectangle(cornerRadius: 10))
                     .padding(.horizontal, 20)
-         
+                    
                     Spacer().frame(height: 24)
                     
                     LazyVStack {
@@ -71,14 +44,14 @@ struct WorkoutResultView: View {
                         }
                         .padding(.bottom, 14)
                         
-                        ForEach(store.criterias, id: \.self) { criteria in
+                        ForEach(store.criterias) { criteria in
                             HStack {
                                 Text(criteria.grade.title)
                                 Spacer()
                                 Text(criteria.description)
                             }
                             .padding(.vertical, 10)
-                            .foregroundStyle(store.record.grade == criteria.grade ? .ptPoint : .ptLightGray01)
+                            .foregroundStyle(store.grade == criteria.grade ? .ptPoint : .ptLightGray01)
                         }
                         .padding(.horizontal, 8)
                     }
@@ -96,7 +69,7 @@ struct WorkoutResultView: View {
             
             PTButton("기록 확인하기") {
                 store.send(.goStatisticsButtonTapped)
-            } 
+            }
             .padding(.horizontal, 20)
         }
         .frame(maxWidth: .infinity, maxHeight: .infinity)
@@ -108,11 +81,11 @@ struct WorkoutResultView: View {
     }
 }
 
-fileprivate struct ReesultTitleView : View {
+fileprivate struct ResultTitleView : View {
     
     private let grade: Grade
     private var emoji: String { grade == .failed ? "😅" : "🎉" }
-    private var higlightColor: Color { grade == .failed ? .ptRed : .ptPoint }
+    private var highlightColor: Color { grade == .failed ? .ptRed : .ptPoint }
     
     init(grade: Grade) {
         self.grade = grade
@@ -122,20 +95,109 @@ fileprivate struct ReesultTitleView : View {
         PTColorText(
             grade.title + " 입니다 " + emoji,
             at: grade.title,
-            color: higlightColor
+            color: highlightColor
         )
         .font(.system(size: 32, weight: .bold))
     }
 }
 
+fileprivate struct ResultRunningView: View {
+    private let record: RunningRecord
+    
+    init(record: RunningRecord) {
+        self.record = record
+    }
+    
+    var body: some View {
+        
+        Spacer()
+        VStack {
+            Text("시간")
+                .foregroundStyle(.ptLightGray01)
+            
+            Spacer().frame(height: 14)
+            
+            Text(record.currentDuration.formatted(.time(pattern: .minuteSecond)))
+                .bold()
+        }
+        
+        Spacer()
+        VStack {
+            Text("거리")
+                .foregroundStyle(.ptLightGray01)
+            
+            Spacer().frame(height: 14)
+            
+            Text("\(Int(record.targetDistance / 1000)) km")
+                .bold()
+        }
+        Spacer()
+        
+        VStack {
+            Text("속도")
+                .foregroundStyle(.ptLightGray01)
+            
+            Spacer().frame(height: 14)
+            
+            Text(String(format: "%0.2f", record.speed))
+                .bold()
+        }
+        Spacer()
+    }
+}
 
-
+fileprivate struct ResultPushUpView: View {
+    private let record: PushUpRecord
+    
+    init(record: PushUpRecord) {
+        self.record = record
+    }
+    
+    var body: some View {
+        
+        Spacer()
+        VStack {
+            Text("시간")
+                .foregroundStyle(.ptLightGray01)
+            
+            Spacer().frame(height: 14)
+            
+            Text(String(record.duration.components.seconds))
+                .bold()
+        }
+        
+        Spacer()
+        VStack {
+            Text("횟수")
+                .foregroundStyle(.ptLightGray01)
+            
+            Spacer().frame(height: 14)
+            
+            Text(String(record.count))
+                .bold()
+        }
+        Spacer()
+        
+        VStack {
+            Text("페이스")
+                .foregroundStyle(.ptLightGray01)
+            
+            Spacer().frame(height: 14)
+            
+            Text(String(format: "%0.2f", record.pace))
+                .bold()
+        }
+        Spacer()
+    }
+}
 
 
 #Preview {
     NavigationStack {
         WorkoutResultView(
-            store: .init(initialState: WorkoutResultFeature.State(record: .init(for: .grade1))) {
+            store: Store(
+                initialState: WorkoutResultFeature.State.pushUp(.init(record: .init(for: .elite)))
+            ) {
                 WorkoutResultFeature()
             }
         )

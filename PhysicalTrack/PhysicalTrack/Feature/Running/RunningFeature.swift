@@ -11,26 +11,17 @@ import Foundation
 @Reducer
 struct RunningFeature {
     
-    enum Policy {
-        static let totalDistance = 3000
-        static let unitDistance = 100
-    }
-    
     @ObservableState
     struct State: Equatable {
-        var locations: [Location] = []
-        var currentSeconds: Int = 0
-        // m단위
-        var totalDistance: Double = 0.0
-        
-        // 3km를 100m로 나누면 구간 30개가 나온다.
-        // seconds 기준으로 기록된다.
-        var timeIntervals: [TimeInterval] = Array(repeating: 0, count: Policy.totalDistance / Policy.unitDistance)
-        
+        var record: RunningRecord
         var isMute: Bool = false
         var readyLeftSeconds: Int = 3
         var path = StackState<WorkoutResultFeature.State>()
         @Presents var alert: AlertState<Action.Alert>?
+        
+        init(record: RunningRecord) {
+            self.record = record
+        }
     }
     
     enum Action {
@@ -91,33 +82,30 @@ struct RunningFeature {
                         }
                     },
                     .run { send in
-                        for try await clLocation in liveUpdates() {
-                            guard let location: Location = try? clLocation.toDomain()
-                            else { return }
+                        for try await location in liveUpdates() {
                             await send(.locationUpdated(location))
                         }
                     }
                 ).cancellable(id: CancelID.running)
             case .timerTick:
-                state.currentSeconds += 1
+                state.record.currentDuration += .seconds(1)
                 return .none
             case .locationUpdated(let newValue):
-                guard let latestValue = state.locations.last else {
-                    state.locations.append(newValue)
+                guard let latestValue = state.record.locations.last else {
+                    state.record.locations.append(newValue)
                     return .none
                 }
                 
-                state.locations.append(newValue)
+                state.record.locations.append(newValue)
                 let distance = newValue.distance(latestValue)
-                print("distance", distance)
-                state.totalDistance += distance
+                state.record.currentDistance += distance
                 let timeInterval = newValue.timestamp.timeIntervalSince(latestValue.timestamp)
-                let index = Int(state.totalDistance) / Policy.unitDistance
+                let index = Int(state.record.currentDistance) / RunningPolicy.unitDistance
                 return .send(.updateTimeInterval(index, timeInterval))
             case let .updateTimeInterval(index, timeInterval):
-                let safeIndex = min(index, state.timeIntervals.count - 1)
-                state.timeIntervals[safeIndex] += timeInterval
-                guard index < state.timeIntervals.count
+                let safeIndex = min(index, state.record.timeIntervals.count - 1)
+                state.record.timeIntervals[safeIndex] += timeInterval
+                guard index < state.record.timeIntervals.count
                 else { return .send(.finish) }
                 return .none
                 
@@ -142,7 +130,8 @@ struct RunningFeature {
                 )
                 return .send(.pause)
             case .finish:
-                print("수고했어")
+                let workoutResult = WorkoutResultFeature.State.running(.init(record: state.record))
+                state.path.append(workoutResult)
                 return .cancel(id: CancelID.running)
             case .path(.element(id: _, action: .goStatisticsButtonTapped)):
                 return .run { _ in await dismiss() }
