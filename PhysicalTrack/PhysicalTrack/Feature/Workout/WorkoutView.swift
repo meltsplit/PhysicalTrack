@@ -18,52 +18,56 @@ struct WorkoutView: View {
                 
                 Spacer()
                 
-                HStack() {
-                    VStack(alignment: .leading, spacing: 14) {
-                        Text("\(store.username)님")
-                            .font(.title3.bold())
-                            .foregroundStyle(.gray)
-                        Text("지금 운동하시나요?")
-                            .font(.title.bold())
-                        
-                        Text("목표 등급을 선택하세요.")
-                            .font(.title.bold())
-                    }
-                    Spacer()
+                Text("\(store.username)님")
+                    .font(.title3.bold())
+                    .foregroundStyle(.gray)
+                    .frame(maxWidth: .infinity, alignment: .leading)
+                    .padding(.horizontal, 20)
+                    .padding(.bottom, 10)
+                
+                
+                TitleView(
+                    step: store.step,
+                    selectedExercise: store.selectedExercise
+                ) {
+                    store.send(.resetButtonTapped)
                 }
                 .padding(.horizontal, 20)
                 
-                Picker("exercise",
-                       selection: $store.selectedExercise.sending(\.exerciseChanged))
-                {
-                    ForEach(Exercise.allCases, id: \.self) {
-                        Text($0.title)
-                            .font(.title)
+                switch store.step {
+                case .workout:
+                    Picker("workout",
+                           selection: $store.selectedExercise.sending(\.exerciseChanged))
+                    {
+                        ForEach(Exercise.allCases, id: \.self) {
+                            Text($0.title)
+                                .font(.title)
+                        }
                     }
-                }
-                .pickerStyle(.wheel)
-                
-                Picker("grade",
-                       selection: $store.grade.sending(\.gradeChanged))
-                {
-                    ForEach(store.grades, id: \.self) {
-                        Text($0.title)
-                            .font(.title)
+                    .pickerStyle(.wheel)
+                case .grade:
+                    Picker("grade",
+                           selection: $store.grade.sending(\.gradeChanged))
+                    {
+                        ForEach(store.grades, id: \.self) {
+                            Text($0.title)
+                                .font(.title)
+                        }
                     }
+                    .pickerStyle(.wheel)
                 }
-                .pickerStyle(.wheel)
                 
                 Spacer()
                 
-//                PTColorText(
-//                    "2분 동안 \(store.criteria.value.lowerBound)회 이상 수행해야 해요.",
-//                    at: "\(store.criteria.value.lowerBound)회",
-//                    color: .ptWhite,
-//                    weight: .bold
-//                )
-//                .foregroundStyle(.ptGray)
-//                .fontWeight(.semibold)
-//                .padding(.bottom, 8)
+                //                PTColorText(
+                //                    "2분 동안 \(store.criteria.value.lowerBound)회 이상 수행해야 해요.",
+                //                    at: "\(store.criteria.value.lowerBound)회",
+                //                    color: .ptWhite,
+                //                    weight: .bold
+                //                )
+                //                .foregroundStyle(.ptGray)
+                //                .fontWeight(.semibold)
+                //                .padding(.bottom, 8)
                 
                 
                 PTButton{
@@ -73,8 +77,9 @@ struct WorkoutView: View {
                         Image(systemName: "play.fill")
                             .resizable()
                             .frame(width: 14, height: 14)
+                            .opacity(store.step == .workout ? 0 : 1)
                         
-                        Text("운동 시작하기")
+                        Text(store.step == .workout ? "완료" : "\(store.selectedExercise.title) 시작하기")
                     }
                 }
                 .frame(maxWidth: .infinity)
@@ -84,6 +89,7 @@ struct WorkoutView: View {
                 Spacer()
                     .frame(height: 20)
             }
+            .frame(maxWidth: .infinity)
             .background(Color.ptBackground)
             .sheet(
                 item: $store.scope(state: \.tutorial, action: \.tutorial)
@@ -106,6 +112,77 @@ struct WorkoutView: View {
         
         
     }
+    
+}
+
+fileprivate struct TitleView: View {
+    
+    private let step: WorkoutFeature.State.SelectStep
+    private let exercise: Exercise
+    private var reset: (() -> Void)
+    
+    var title: String {
+        switch step {
+        case .workout:
+            "지금 운동하시나요?"
+        case .grade:
+            "\(exercise.title)"
+        }
+    }
+    
+    var description: String {
+        switch step {
+        case .workout:
+            "운동을 선택하세요."
+        case .grade:
+            "목표 등급을 선택하세요."
+        }
+    }
+    
+    init(
+        step: WorkoutFeature.State.SelectStep,
+        selectedExercise: Exercise,
+        reset: @escaping (() -> Void)
+    ) {
+        self.step = step
+        self.exercise = selectedExercise
+        self.reset = reset
+    }
+    
+    var body: some View {
+        
+        VStack(alignment: .leading, spacing: 14) {
+            
+            HStack(spacing: 20) {
+                Text(title)
+                    .font(.title.bold())
+                    .animation(.easeInOut(duration:0.7))
+                    .contentTransition(.opacity)
+                
+                Spacer()
+                
+                if step == .grade {
+                    Button {
+                        reset()
+                    } label: {
+                        Text("다시 선택")
+                            .font(.headline)
+                            .foregroundStyle(.ptPoint)
+                    }
+                }
+                
+                
+            }
+            
+            Text(description)
+                .font(.title.bold())
+                .animation(.easeInOut(duration:0.7))
+                .contentTransition(.opacity)
+            
+            
+        }
+    }
+    
     
 }
 
