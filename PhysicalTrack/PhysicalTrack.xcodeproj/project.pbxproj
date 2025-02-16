@@ -269,8 +269,8 @@
 			children = (
 				873E9C842CD11DE00015FB45 /* Info.plist */,
 				8717B5EA2CC1FAF600542061 /* App */,
-				8717B5EC2CC1FB0300542061 /* Domain */,
 				8717B5ED2CC1FB0900542061 /* Feature */,
+				8717B5EC2CC1FB0300542061 /* Entity */,
 				8717B5EB2CC1FAFB00542061 /* Dependency */,
 				8717B5EE2CC1FB1000542061 /* Shared */,
 				8717B5DF2CC1FA7B00542061 /* Preview Content */,
@@ -303,7 +303,7 @@
 			path = Dependency;
 			sourceTree = "<group>";
 		};
-		8717B5EC2CC1FB0300542061 /* Domain */ = {
+		8717B5EC2CC1FB0300542061 /* Entity */ = {
 			isa = PBXGroup;
 			children = (
 				87C01C7B2D60C43A000871B6 /* Running */,
@@ -319,22 +319,22 @@
 				87957D1D2D5B993600F70FDB /* AuthorizationStatus.swift */,
 				87C01C802D60C4B4000871B6 /* CriteriaModel.swift */,
 			);
-			path = Domain;
+			path = Entity;
 			sourceTree = "<group>";
 		};
 		8717B5ED2CC1FB0900542061 /* Feature */ = {
 			isa = PBXGroup;
 			children = (
-				87957D1F2D5C565200F70FDB /* PushUp */,
-				87A479E22D5885F900A5BFDC /* Running */,
 				8735D7372CC2766900C7824C /* Root */,
 				8735D74F2CC27EE600C7824C /* Onboarding */,
 				8735D7482CC27C7600C7824C /* Main */,
-				8717B5EF2CC1FB2900542061 /* Workout */,
+				8735D72C2CC2429800C7824C /* Workout */,
+				8735D7272CC230A100C7824C /* WorkoutResult */,
+				87957D1F2D5C565200F70FDB /* PushUp */,
+				87A479E22D5885F900A5BFDC /* Running */,
 				8717B5F02CC1FB3000542061 /* Statistics */,
 				8717B5F12CC1FB3D00542061 /* Ranking */,
 				8717B5F22CC1FB4900542061 /* Setting */,
-				873E9C902CD14A7A0015FB45 /* Web */,
 			);
 			path = Feature;
 			sourceTree = "<group>";
@@ -342,6 +342,7 @@
 		8717B5EE2CC1FB1000542061 /* Shared */ = {
 			isa = PBXGroup;
 			children = (
+				873E9C902CD14A7A0015FB45 /* Web */,
 				87C01C822D60CFD5000871B6 /* Sharing */,
 				87F6DEBB2D411CC60033534F /* Environment */,
 				8735D7242CC21A7500C7824C /* Extension */,
@@ -351,16 +352,6 @@
 				8735D7172CC2012400C7824C /* Resources */,
 			);
 			path = Shared;
-			sourceTree = "<group>";
-		};
-		8717B5EF2CC1FB2900542061 /* Workout */ = {
-			isa = PBXGroup;
-			children = (
-				874ED62A2CF475930033972E /* Tutorial */,
-				8735D72C2CC2429800C7824C /* Workout */,
-				8735D7272CC230A100C7824C /* WorkoutResult */,
-			);
-			path = Workout;
 			sourceTree = "<group>";
 		};
 		8717B5F02CC1FB3000542061 /* Statistics */ = {
@@ -603,6 +594,7 @@
 		87957D1F2D5C565200F70FDB /* PushUp */ = {
 			isa = PBXGroup;
 			children = (
+				874ED62A2CF475930033972E /* Tutorial */,
 				8735D7222CC20DD200C7824C /* PushUpView.swift */,
 				87957D202D5C5A9C00F70FDB /* PushUpFeature.swift */,
 			);
