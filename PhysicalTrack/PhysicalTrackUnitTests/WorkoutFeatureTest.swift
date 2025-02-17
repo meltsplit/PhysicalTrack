@@ -21,17 +21,50 @@ struct WorkoutFeatureTest {
 extension WorkoutFeatureTest {
     
     @Test
-    func gradeChanged_criteriaIsUpdated() async {
-        
-        let store = TestStore(initialState: WorkoutFeature.State()) {
+    func 홈화면_진입시_첫번째_단계는_운동선택이다() async throws {
+        let store = TestStore(
+            initialState: WorkoutFeature.State()
+        ) {
             WorkoutFeature()
         }
         
-        await store.send(.gradeChanged(.grade1)) {
-            $0.grade = .grade1
+        #expect(store.state.phase == WorkoutFeature.State.Phase.selectWorkout)
+    }
+    
+    @Test
+    func 운동선택_단계에서_완료버튼을_누르면_등급선택_단계로_변경된다() async throws {
+        let store = TestStore(
+            initialState: WorkoutFeature.State()
+        ) {
+            WorkoutFeature()
         }
         
+        store.exhaustivity = .off
+        await store.send(.doneButtonTapped) {
+            $0.phase = .selectGrade
+        }
     }
+    
+    @Test
+    func 등급선택_단계에서_리셋버튼을_누르면_운동선택_단계로_변경된다() async throws {
+        let store = TestStore(
+            initialState: WorkoutFeature.State()
+        ) {
+            WorkoutFeature()
+        }
+        
+        store.exhaustivity = .off
+        
+        await store.send(.doneButtonTapped) {
+            $0.phase = .selectGrade
+        }
+        
+        await store.send(.resetButtonTapped) {
+            $0.phase = .selectWorkout
+        }
+    }
+
+
 }
 
 extension WorkoutFeatureTest.LocationAuthorization {
@@ -51,7 +84,6 @@ extension WorkoutFeatureTest.LocationAuthorization {
         store.exhaustivity = .off
         
         await store.send(.startRunning)
-        await store.finish()
         
         #expect(isCalled.value)
     }

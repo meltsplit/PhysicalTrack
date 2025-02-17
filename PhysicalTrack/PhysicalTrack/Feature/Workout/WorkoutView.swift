@@ -27,15 +27,15 @@ struct WorkoutView: View {
                 
                 
                 TitleView(
-                    step: store.step,
-                    selectedExercise: store.selectedExercise
+                    at: store.phase,
+                    with: store.selectedExercise
                 ) {
                     store.send(.resetButtonTapped)
                 }
                 .padding(.horizontal, 20)
                 
-                switch store.step {
-                case .workout:
+                switch store.phase {
+                case .selectWorkout:
                     Picker("workout",
                            selection: $store.selectedExercise.sending(\.exerciseChanged))
                     {
@@ -45,7 +45,7 @@ struct WorkoutView: View {
                         }
                     }
                     .pickerStyle(.wheel)
-                case .grade:
+                case .selectGrade:
                     Picker("grade",
                            selection: $store.grade.sending(\.gradeChanged))
                     {
@@ -71,15 +71,21 @@ struct WorkoutView: View {
                 
                 
                 PTButton{
-                    store.send(.startButtonTapped)
+                    store.send(.doneButtonTapped)
                 } label: {
                     HStack(spacing: 12) {
                         Image(systemName: "play.fill")
                             .resizable()
                             .frame(width: 14, height: 14)
-                            .opacity(store.step == .workout ? 0 : 1)
+                            .opacity(store.phase == .selectWorkout
+                                     ? 0
+                                     : 1
+                            )
                         
-                        Text(store.step == .workout ? "완료" : "\(store.selectedExercise.title) 시작하기")
+                        Text(store.phase == .selectWorkout
+                             ? "완료"
+                             : "\(store.selectedExercise.title) 시작하기"
+                        )
                     }
                 }
                 .frame(maxWidth: .infinity)
@@ -117,36 +123,36 @@ struct WorkoutView: View {
 
 fileprivate struct TitleView: View {
     
-    private let step: WorkoutFeature.State.SelectStep
+    private let phase: WorkoutFeature.State.Phase
     private let exercise: Exercise
-    private var reset: (() -> Void)
+    private let resetAction: (() -> Void)
     
     var title: String {
-        switch step {
-        case .workout:
+        switch phase {
+        case .selectWorkout:
             "지금 운동하시나요?"
-        case .grade:
+        case .selectGrade:
             "\(exercise.title)"
         }
     }
     
     var description: String {
-        switch step {
-        case .workout:
+        switch phase {
+        case .selectWorkout:
             "운동을 선택하세요."
-        case .grade:
+        case .selectGrade:
             "목표 등급을 선택하세요."
         }
     }
     
     init(
-        step: WorkoutFeature.State.SelectStep,
-        selectedExercise: Exercise,
-        reset: @escaping (() -> Void)
+        at phase: WorkoutFeature.State.Phase,
+        with exercise: Exercise,
+        _ resetAction: @escaping (() -> Void)
     ) {
-        self.step = step
-        self.exercise = selectedExercise
-        self.reset = reset
+        self.phase = phase
+        self.exercise = exercise
+        self.resetAction = resetAction
     }
     
     var body: some View {
@@ -161,9 +167,9 @@ fileprivate struct TitleView: View {
                 
                 Spacer()
                 
-                if step == .grade {
+                if phase == .selectGrade {
                     Button {
-                        reset()
+                        resetAction()
                     } label: {
                         Text("다시 선택")
                             .font(.headline)

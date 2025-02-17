@@ -13,7 +13,7 @@ struct WorkoutFeature {
     
     @ObservableState
     struct State: Equatable {
-        var step: SelectStep = .workout
+        var phase: Phase = Phase()
         var selectedExercise: Exercise = .pushUp
         var grades: [Grade] = Grade.allCases.filter { $0 != .failed }
         var grade: Grade = .elite
@@ -24,9 +24,13 @@ struct WorkoutFeature {
         @Presents var running: RunningFeature.State?
         @Presents var alert: AlertState<Action.Alert>?
         
-        enum SelectStep {
-            case workout
-            case grade
+        enum Phase {
+            case selectWorkout
+            case selectGrade
+            
+            init() {
+                self = .selectWorkout
+            }
         }
     }
     
@@ -34,7 +38,7 @@ struct WorkoutFeature {
         case exerciseChanged(Exercise)
         case gradeChanged(Grade)
         case resetButtonTapped
-        case startButtonTapped
+        case doneButtonTapped
         case startRunning
         case startPushUp
         case tutorial(PresentationAction<TutorialFeature.Action>)
@@ -63,14 +67,14 @@ struct WorkoutFeature {
                 state.grade = grade
                 return .none
             case .resetButtonTapped:
-                state.step = .workout
+                state.phase = .selectWorkout
                 return .none
-            case .startButtonTapped:
-                switch state.step {
-                case .workout:
-                    state.step = .grade
+            case .doneButtonTapped:
+                switch state.phase {
+                case .selectWorkout:
+                    state.phase = .selectGrade
                     return .none
-                case .grade:
+                case .selectGrade:
                     switch state.selectedExercise {
                     case .pushUp: return .send(.startPushUp)
                     case .running: return .send(.startRunning)
