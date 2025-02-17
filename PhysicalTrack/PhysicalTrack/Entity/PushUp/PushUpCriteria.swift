@@ -33,4 +33,18 @@ struct PushUpCriteria {
                 return CriteriaModel(grade: grade, description: description)
             }
     }
+    
+    static func toDescription(for grade: Grade) -> CriteriaDescription {
+        guard grade != .failed,
+              let minCount = table[grade]?.lowerBound
+        else { return CriteriaDescription(
+            description: "2분 동안 47회 미만 수행 시 불합격이에요.",
+            highlight: "47회"
+        ) }
+
+        return CriteriaDescription(
+            description: "2분 동안 \(minCount)회 이상 수행해야 해요.",
+            highlight: "\(minCount)회"
+        )
+    }
 }

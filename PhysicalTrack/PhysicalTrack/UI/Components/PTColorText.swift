@@ -13,9 +13,9 @@ struct PTColorText: View {
     let highlightColor: Color
     let highlightWeight: Font.Weight?
     
-    init(_ text: String, at highlightText: String, color highlightColor: Color, weight highlightWeight: Font.Weight? = nil) {
+    init(_ text: String, at highlightText: String?, color highlightColor: Color, weight highlightWeight: Font.Weight? = nil) {
         self.text = text
-        self.highlightText = highlightText
+        self.highlightText = highlightText ?? ""
         self.highlightColor = highlightColor
         self.highlightWeight = highlightWeight
     }

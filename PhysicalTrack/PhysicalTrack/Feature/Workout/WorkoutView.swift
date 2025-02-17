@@ -59,16 +59,19 @@ struct WorkoutView: View {
                 
                 Spacer()
                 
-                //                PTColorText(
-                //                    "2분 동안 \(store.criteria.value.lowerBound)회 이상 수행해야 해요.",
-                //                    at: "\(store.criteria.value.lowerBound)회",
-                //                    color: .ptWhite,
-                //                    weight: .bold
-                //                )
-                //                .foregroundStyle(.ptGray)
-                //                .fontWeight(.semibold)
-                //                .padding(.bottom, 8)
-                
+                PTColorText(
+                    store.description.description,
+                    at: store.description.highlight,
+                    color: .ptWhite,
+                    weight: .bold
+                )
+                .foregroundStyle(.ptGray)
+                .fontWeight(.semibold)
+                .padding(.bottom, 8)
+                .opacity(store.phase == .selectGrade
+                         ? 1
+                         : 0
+                )
                 
                 PTButton{
                     store.send(.doneButtonTapped)
@@ -114,6 +117,9 @@ struct WorkoutView: View {
                 RunningView(store: store)
             }
             .alert($store.scope(state: \.alert, action: \.alert))
+            .onAppear {
+                store.send(.onAppear)
+            }
         }
         
         

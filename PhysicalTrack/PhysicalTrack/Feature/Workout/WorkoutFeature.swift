@@ -17,6 +17,7 @@ struct WorkoutFeature {
         var selectedExercise: Exercise = .pushUp
         var grades: [Grade] = Grade.allCases.filter { $0 != .failed }
         var grade: Grade = .elite
+        var description: CriteriaDescription = .init(description: "", highlight: "")
         @Shared(.appStorage(key: .username)) var username = "회원"
         @Shared(.appStorage(key: .shouldShowTutorial)) var shouldShowTutorial = true
         @Presents var tutorial: TutorialFeature.State?
@@ -35,8 +36,10 @@ struct WorkoutFeature {
     }
     
     enum Action {
+        case onAppear
         case exerciseChanged(Exercise)
         case gradeChanged(Grade)
+        case changeDescription
         case resetButtonTapped
         case doneButtonTapped
         case startRunning
@@ -60,11 +63,21 @@ struct WorkoutFeature {
     var body: some ReducerOf<Self> {
         Reduce { state, action in
             switch action {
+            case .onAppear:
+                return .send(.changeDescription)
             case .exerciseChanged(let newValue):
                 state.selectedExercise = newValue
-                return .none
-            case let .gradeChanged(grade):
-                state.grade = grade
+                return .send(.changeDescription)
+            case .gradeChanged(let newValue):
+                state.grade = newValue
+                return .send(.changeDescription)
+            case .changeDescription:
+                switch state.selectedExercise {
+                case .pushUp:
+                    state.description = PushUpCriteria.toDescription(for: state.grade)
+                case .running:
+                    state.description = RunningCriteria.toDescription(for: state.grade)
+                }
                 return .none
             case .resetButtonTapped:
                 state.phase = .selectWorkout

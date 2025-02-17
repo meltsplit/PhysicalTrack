@@ -11,7 +11,7 @@ import ComposableArchitecture
 @main
 struct PhysicalTrackApp: App {
     let store = Store(initialState: RootFeature.State()) {
-        RootFeature()
+        RootFeature()._printChanges()
     }
 
     var body: some Scene {
