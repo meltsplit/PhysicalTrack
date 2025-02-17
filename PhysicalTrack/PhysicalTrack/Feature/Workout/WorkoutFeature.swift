@@ -81,7 +81,7 @@ struct WorkoutFeature {
                 return .none
             case .resetButtonTapped:
                 state.phase = .selectWorkout
-                return .none
+                return .send(.changeDescription)
             case .doneButtonTapped:
                 switch state.phase {
                 case .selectWorkout:
