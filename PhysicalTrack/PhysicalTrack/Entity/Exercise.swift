@@ -6,7 +6,6 @@
 //
 
 import Foundation
-import CasePaths
 
 enum Exercise: CaseIterable {
     case pushUp

@@ -13,21 +13,35 @@ struct WorkoutFeature {
     
     @ObservableState
     struct State: Equatable {
+        var phase: Phase = Phase()
         var selectedExercise: Exercise = .pushUp
         var grades: [Grade] = Grade.allCases.filter { $0 != .failed }
         var grade: Grade = .elite
+        var description: CriteriaDescription = .init(description: "", highlight: "")
         @Shared(.appStorage(key: .username)) var username = "회원"
         @Shared(.appStorage(key: .shouldShowTutorial)) var shouldShowTutorial = true
         @Presents var tutorial: TutorialFeature.State?
         @Presents var pushUp: PushUpFeature.State?
         @Presents var running: RunningFeature.State?
         @Presents var alert: AlertState<Action.Alert>?
+        
+        enum Phase {
+            case selectWorkout
+            case selectGrade
+            
+            init() {
+                self = .selectWorkout
+            }
+        }
     }
     
     enum Action {
+        case onAppear
         case exerciseChanged(Exercise)
         case gradeChanged(Grade)
-        case startButtonTapped
+        case changeDescription
+        case resetButtonTapped
+        case doneButtonTapped
         case startRunning
         case startPushUp
         case tutorial(PresentationAction<TutorialFeature.Action>)
@@ -49,17 +63,35 @@ struct WorkoutFeature {
     var body: some ReducerOf<Self> {
         Reduce { state, action in
             switch action {
+            case .onAppear:
+                return .send(.changeDescription)
             case .exerciseChanged(let newValue):
                 state.selectedExercise = newValue
-                return .none
-            case let .gradeChanged(grade):
-                state.grade = grade
-                return .none
-                
-            case .startButtonTapped:
+                return .send(.changeDescription)
+            case .gradeChanged(let newValue):
+                state.grade = newValue
+                return .send(.changeDescription)
+            case .changeDescription:
                 switch state.selectedExercise {
-                case .pushUp: return .send(.startPushUp)
-                case .running: return .send(.startRunning)
+                case .pushUp:
+                    state.description = PushUpCriteria.toDescription(for: state.grade)
+                case .running:
+                    state.description = RunningCriteria.toDescription(for: state.grade)
+                }
+                return .none
+            case .resetButtonTapped:
+                state.phase = .selectWorkout
+                return .send(.changeDescription)
+            case .doneButtonTapped:
+                switch state.phase {
+                case .selectWorkout:
+                    state.phase = .selectGrade
+                    return .none
+                case .selectGrade:
+                    switch state.selectedExercise {
+                    case .pushUp: return .send(.startPushUp)
+                    case .running: return .send(.startRunning)
+                    }
                 }
             case .startPushUp:
                 if state.shouldShowTutorial {
