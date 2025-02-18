@@ -10,7 +10,8 @@ import ComposableArchitecture
 import Combine
 
 struct WorkoutClient: NetworkRequestable {
-    var postPushUp: @Sendable (_ request: PushUpRecordRequest) async throws -> Void
+    var savePushUpRecord: @Sendable (_ record: PushUpRecord) async throws -> Void
+    var saveRunningRecord: @Sendable (_ record: RunningRecord) async throws -> Void
 }
 
 extension DependencyValues {
@@ -23,16 +24,26 @@ extension DependencyValues {
 extension WorkoutClient: DependencyKey {
     
     static let liveValue: WorkoutClient = Self(
-        postPushUp: { dto in
+        savePushUpRecord: { record in
             @Shared(.appStorage(key: .accessToken)) var accessToken = ""
-            
+            let requestBody = record.toData()
             let urlRequest: URLRequest = try .init(
                 path: "/record/pushup",
                 method: .post,
                 headers: ["Authorization": accessToken],
-                body: dto
+                body: requestBody
             )
-            
+            return try await request(for: urlRequest)
+        },
+        saveRunningRecord: { record in
+            @Shared(.appStorage(key: .accessToken)) var accessToken = ""
+            let requestBody = record.toData()
+            let urlRequest = try URLRequest(
+                path: "/record/running",
+                method: .post,
+                headers: ["Authorization": accessToken],
+                body: requestBody
+            )
             return try await request(for: urlRequest)
         }
     )
@@ -40,7 +51,8 @@ extension WorkoutClient: DependencyKey {
 
 extension WorkoutClient {
     static let previewValue: WorkoutClient = Self(
-        postPushUp: { _ in return }
+        savePushUpRecord: { _ in return },
+        saveRunningRecord: { _ in return }
     )
     
     static let testValue: WorkoutClient = previewValue

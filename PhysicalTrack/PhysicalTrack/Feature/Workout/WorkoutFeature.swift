@@ -153,11 +153,14 @@ struct WorkoutFeature {
         }
         .ifLet(\.$pushUp, action: \.pushUp) {
             PushUpFeature()
-                .dependency(\.continuousClock, ImmediateClock())
         }
         .ifLet(\.$running, action: \.running) {
+#if DEBUG
             RunningFeature()
                 .dependency(\.locationClient, .previewValue)
+            #else
+            RunningFeature()
+            #endif
                 
         }
         .ifLet(\.$alert, action: \.alert)

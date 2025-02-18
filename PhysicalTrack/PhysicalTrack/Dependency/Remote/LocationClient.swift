@@ -68,15 +68,20 @@ extension LocationClient: TestDependencyKey {
         liveUpdates: {
             let (stream, continuation) = AsyncStream.makeStream(of: Location.self)
             Task {
-                continuation.yield(.stub(distance: { _ in 0 }))
-                sleep(2)
-                continuation.yield(.stub(distance: { _ in 1000 }))
-                sleep(1)
-                continuation.yield(.stub(distance: { _ in 1000 }))
-                sleep(1)
-                continuation.yield(.stub(distance: { _ in 999 }))
-                sleep(1)
-                continuation.yield(.stub(distance: { _ in 3 }))
+//                continuation.yield(.stub(distance: { _ in 0 }))
+//                sleep(2)
+//                continuation.yield(.stub(distance: { _ in 1000 }))
+//                sleep(1)
+//                continuation.yield(.stub(distance: { _ in 1000 }))
+//                sleep(1)
+//                continuation.yield(.stub(distance: { _ in 999 }))
+//                sleep(1)
+//                continuation.yield(.stub(distance: { _ in 3 }))
+                
+                for _ in 0...31 {
+                    continuation.yield(.stub(timestamp: Date(), distance: { _ in 100}))
+                    try await Task.sleep(for: .seconds(1))
+                }
                 
             }
             return stream
