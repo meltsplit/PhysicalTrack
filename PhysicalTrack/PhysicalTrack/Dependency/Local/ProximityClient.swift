@@ -16,7 +16,6 @@ struct ProximityClient {
 }
 
 extension ProximityClient: TestDependencyKey {
-//    static let liveValue = previewValue
     static let previewValue = Self(
         start: {
             var clock = ContinuousClock()
