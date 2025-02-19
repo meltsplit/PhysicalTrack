@@ -38,6 +38,7 @@ struct PTWebFeature {
     
     enum Action: Equatable {
         case onAppear
+        case makeWebView(RepresentableWebView)
         case setCookies
         case backButtonTapped
         case canGoBackChanged(Bool)
@@ -49,22 +50,30 @@ struct PTWebFeature {
         Reduce { state , action in
             switch action {
             case .onAppear:
-                if state.representableWebView == nil {
-                    state.representableWebView = RepresentableWebView()
+                guard let webView = state.representableWebView else {
+                    return .run { send in
+                        let webView = await RepresentableWebView()
+                        await send(.makeWebView(webView))
+                    }
                 }
                 
                 return .merge(
-                    .publisher {
-                        state.representableWebView!.webView.publisher(for: \.canGoBack)
-                            .map { .canGoBackChanged($0) }
+                    .run { @MainActor send in
+                        for await canGoBack in webView.webView.publisher(for: \.canGoBack).values {
+                            print(canGoBack)
+                            send(.canGoBackChanged(canGoBack))
+                        }
                     },
                     .concatenate(
                         .send(.setCookies),
-                        .run { [url = state.url, representableWebView = state.representableWebView] _ in
-                            await representableWebView?.load(with: url)
+                        .run { [url = state.url, webView] _ in
+                            await webView.load(with: url)
                         }
                     )
                 )
+            case .makeWebView(let webView):
+                state.representableWebView = webView
+                return .send(.onAppear)
                 
             case .setCookies:
                 return .run { [state] _ in

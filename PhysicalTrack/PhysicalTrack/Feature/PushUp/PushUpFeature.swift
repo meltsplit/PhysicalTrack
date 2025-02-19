@@ -8,6 +8,7 @@
 import Foundation
 import ComposableArchitecture
 
+
 @Reducer
 struct PushUpFeature {
     
@@ -179,3 +180,4 @@ struct PushUpFeature {
 }
 
 
+extension PushUpFeature.Action.Alert: Equatable { }

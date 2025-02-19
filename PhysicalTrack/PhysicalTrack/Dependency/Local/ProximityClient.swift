@@ -16,10 +16,11 @@ struct ProximityClient {
 }
 
 extension ProximityClient: TestDependencyKey {
+    static let liveValue = previewValue
     static let previewValue = Self(
         start: {
             var clock = ContinuousClock()
-            return AsyncStream<Bool> { continuation in
+            return AsyncStream<Bool> { [clock] continuation in
                 Task {
                     for try await _ in clock.timer(interval: .seconds(2)) {
                         continuation.yield(true)
@@ -36,7 +37,7 @@ extension ProximityClient: TestDependencyKey {
         start: { AsyncStream<Bool> { _ in }},
         stop: { }
     )
-
+    
 }
 
 extension DependencyValues {
@@ -46,40 +47,31 @@ extension DependencyValues {
     }
 }
 
-extension ProximityClient: DependencyKey {
-    static let liveValue: Self = {
-        return .init(
-            start: {
-                return AsyncStream { continuation in
-                    Task { @MainActor in
-                        UIDevice.current.isProximityMonitoringEnabled = true
-                        
-                        let observer = NotificationCenter.default.addObserver(
-                            forName: UIDevice.proximityStateDidChangeNotification,
-                            object: nil,
-                            queue: nil
-                        ) { _ in
-                            Task { @MainActor in
-                                guard UIDevice.current.isProximityMonitoringEnabled else {
-                                    continuation.finish()
-                                    return
-                                }
-                                continuation.yield(UIDevice.current.proximityState)
-                                
-                            }
-                        }
-                        
-                        continuation.onTermination = { _ in
-                            NotificationCenter.default.removeObserver(observer)
-                        }
-                        
-                    }
-                }
-                
-            }, stop: {
-                Task { @MainActor in
-                    UIDevice.current.isProximityMonitoringEnabled = false
-                }
-            })
-    }()
-}
+//extension ProximityClient: DependencyKey {
+//    static let liveValue: Self = {
+//        return .init(
+//            start: {
+//                return AsyncStream { continuation in
+//                    Task { @MainActor in
+//                        UIDevice.current.isProximityMonitoringEnabled = true
+//                        let notification = NotificationCenter.default.notifications(named: UIDevice.proximityStateDidChangeNotification)
+//                        for await _ in notification {
+//                            let state = await MainActor.run { UIDevice.current.proximityState }
+//                            continuation.yield(state)
+//                        }
+//                    }
+//                    
+//                    continuation.onTermination = { _ in
+//                        Task { @MainActor in
+//                            UIDevice.current.isProximityMonitoringEnabled = false
+//                        }
+//                    }
+//                }
+//                
+//            }, stop: {
+//                Task { @MainActor in
+//                    UIDevice.current.isProximityMonitoringEnabled = false
+//                }
+//            })
+//    }()
+//}

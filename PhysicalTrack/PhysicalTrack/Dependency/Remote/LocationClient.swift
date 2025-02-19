@@ -43,7 +43,7 @@ struct LocationClient {
 
 extension LocationClient: DependencyKey {
     
-    static var liveValue: LocationClient = {
+    static let liveValue: LocationClient = {
         return LocationClient(
             authorizationStatus: { CLLocationManager().authorizationStatus.toDomain() },
             requestAuthorization: { CLLocationManager().requestWhenInUseAuthorization() },
@@ -62,7 +62,7 @@ extension LocationClient: DependencyKey {
 }
 
 extension LocationClient: TestDependencyKey {
-    static var previewValue: LocationClient = Self(
+    static let previewValue: LocationClient = Self(
         authorizationStatus: { .authorized },
         requestAuthorization: { },
         liveUpdates: {
@@ -87,7 +87,7 @@ extension LocationClient: TestDependencyKey {
             return stream
         }
     )
-    static var testValue: LocationClient = Self()
+    static let testValue: LocationClient = Self()
 }
 
 extension DependencyValues {

@@ -7,13 +7,15 @@
 
 import Foundation
 import CoreLocation
+import ConcurrencyExtras
 
-struct Location {
+
+struct Location: Sendable {
     private let rawValue: CLLocation
     
     let speed: Double
     let timestamp: Date
-    let distance: ((_ location: Self) -> Double)
+    @UncheckedSendable var distance: ((_ location: Self) -> Double)
     
     init(
         rawValue: CLLocation
