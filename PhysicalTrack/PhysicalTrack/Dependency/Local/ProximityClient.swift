@@ -6,17 +6,17 @@
 //
 
 import UIKit
-import Combine
+@preconcurrency import Combine
 import ComposableArchitecture
 
 @DependencyClient
 struct ProximityClient {
-    var start: @Sendable () -> AsyncStream<Bool> = { .finished }
-    var stop: @Sendable () -> Void
+    var start: @Sendable () async -> AsyncStream<Bool> = { .finished }
+    var stop: @Sendable () async -> Void
 }
 
 extension ProximityClient: TestDependencyKey {
-    static let liveValue = previewValue
+//    static let liveValue = previewValue
     static let previewValue = Self(
         start: {
             var clock = ContinuousClock()
@@ -47,31 +47,45 @@ extension DependencyValues {
     }
 }
 
-//extension ProximityClient: DependencyKey {
-//    static let liveValue: Self = {
-//        return .init(
-//            start: {
-//                return AsyncStream { continuation in
-//                    Task { @MainActor in
-//                        UIDevice.current.isProximityMonitoringEnabled = true
-//                        let notification = NotificationCenter.default.notifications(named: UIDevice.proximityStateDidChangeNotification)
-//                        for await _ in notification {
-//                            let state = await MainActor.run { UIDevice.current.proximityState }
-//                            continuation.yield(state)
-//                        }
-//                    }
-//                    
-//                    continuation.onTermination = { _ in
-//                        Task { @MainActor in
-//                            UIDevice.current.isProximityMonitoringEnabled = false
-//                        }
-//                    }
-//                }
-//                
-//            }, stop: {
-//                Task { @MainActor in
-//                    UIDevice.current.isProximityMonitoringEnabled = false
-//                }
-//            })
-//    }()
-//}
+extension ProximityClient: DependencyKey {
+    static let liveValue: Self = {
+        let proximity = Proximity()
+        return Self(
+            start: { proximity.start() },
+            stop: { proximity.stop() }
+        )
+    }()
+}
+
+actor Proximity {
+    private var cancellable: AnyCancellable?
+    
+    @MainActor
+    func start() -> AsyncStream<Bool> {
+        return AsyncStream<Bool> { continuation in
+            UIDevice.current.isProximityMonitoringEnabled = true
+            
+            let cancellable = NotificationCenter.default.publisher(for: UIDevice.proximityStateDidChangeNotification)
+                .map { _ in UIDevice.current.proximityState }
+                .sink { state in
+                    continuation.yield(state)
+                }
+            
+            Task {
+                await store(UncheckedSendable(cancellable))
+            }
+        }
+    }
+    
+    @MainActor
+    func stop() -> Void {
+        UIDevice.current.isProximityMonitoringEnabled = false
+        Task {
+            await store(nil)
+        }
+    }
+    
+    func store(_ cancellable: UncheckedSendable<AnyCancellable>?) {
+        self.cancellable = cancellable?.wrappedValue
+    }
+}
