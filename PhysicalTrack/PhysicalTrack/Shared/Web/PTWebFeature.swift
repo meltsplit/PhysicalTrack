@@ -7,7 +7,6 @@
 
 import Foundation
 import ComposableArchitecture
-import Combine
 
 @Reducer
 struct PTWebFeature {
@@ -50,7 +49,7 @@ struct PTWebFeature {
         Reduce { state , action in
             switch action {
             case .onAppear:
-                guard let webView = state.representableWebView else {
+                guard state.representableWebView != nil else {
                     return .run { send in
                         let webView = await RepresentableWebView()
                         await send(.makeWebView(webView))
@@ -58,16 +57,15 @@ struct PTWebFeature {
                 }
                 
                 return .merge(
-                    .run { @MainActor send in
-                        for await canGoBack in webView.webView.publisher(for: \.canGoBack).values {
-                            print(canGoBack)
-                            send(.canGoBackChanged(canGoBack))
+                    .run { [webView = state.representableWebView!.webView] send in
+                        for await value in await webView.canGoBackStream() {
+                            await send(.canGoBackChanged(value))
                         }
                     },
                     .concatenate(
                         .send(.setCookies),
-                        .run { [url = state.url, webView] _ in
-                            await webView.load(with: url)
+                        .run { [state] _ in
+                            await state.representableWebView!.load(with: state.url)
                         }
                     )
                 )
@@ -123,3 +121,5 @@ struct PTWebFeature {
     }
     
 }
+
+
