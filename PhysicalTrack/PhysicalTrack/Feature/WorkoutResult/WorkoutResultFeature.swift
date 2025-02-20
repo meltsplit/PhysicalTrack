@@ -56,5 +56,11 @@ struct WorkoutResultFeature {
                 return .none
             }
         }
+        .ifCaseLet(\.pushUp, action: \.pushUp) {
+            PushUpResultFeature()
+        }
+        .ifCaseLet(\.running, action: \.running) {
+            RunningResultFeature()
+        }
     }
 }

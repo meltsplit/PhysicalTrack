@@ -18,5 +18,18 @@ extension PushUpRecord {
     }
 }
 
+struct RunningRecordRequest: Encodable {
+    let duration: Double
+    let tempo: [Double]
+}
+
+extension RunningRecord {
+    func toData() -> RunningRecordRequest {
+        return RunningRecordRequest(
+            duration: Double(self.currentDuration.components.seconds),
+            tempo: self.timeIntervals
+        )
+    }
+}
 
 

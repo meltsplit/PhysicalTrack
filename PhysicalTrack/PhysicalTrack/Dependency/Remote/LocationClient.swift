@@ -43,7 +43,7 @@ struct LocationClient {
 
 extension LocationClient: DependencyKey {
     
-    static var liveValue: LocationClient = {
+    static let liveValue: LocationClient = {
         return LocationClient(
             authorizationStatus: { CLLocationManager().authorizationStatus.toDomain() },
             requestAuthorization: { CLLocationManager().requestWhenInUseAuthorization() },
@@ -62,27 +62,32 @@ extension LocationClient: DependencyKey {
 }
 
 extension LocationClient: TestDependencyKey {
-    static var previewValue: LocationClient = Self(
+    static let previewValue: LocationClient = Self(
         authorizationStatus: { .authorized },
         requestAuthorization: { },
         liveUpdates: {
             let (stream, continuation) = AsyncStream.makeStream(of: Location.self)
             Task {
-                continuation.yield(.stub(distance: { _ in 0 }))
-                sleep(2)
-                continuation.yield(.stub(distance: { _ in 1000 }))
-                sleep(1)
-                continuation.yield(.stub(distance: { _ in 1000 }))
-                sleep(1)
-                continuation.yield(.stub(distance: { _ in 999 }))
-                sleep(1)
-                continuation.yield(.stub(distance: { _ in 3 }))
+//                continuation.yield(.stub(distance: { _ in 0 }))
+//                sleep(2)
+//                continuation.yield(.stub(distance: { _ in 1000 }))
+//                sleep(1)
+//                continuation.yield(.stub(distance: { _ in 1000 }))
+//                sleep(1)
+//                continuation.yield(.stub(distance: { _ in 999 }))
+//                sleep(1)
+//                continuation.yield(.stub(distance: { _ in 3 }))
+                
+                for _ in 0...31 {
+                    continuation.yield(.stub(timestamp: Date(), distance: { _ in 100}))
+                    try await Task.sleep(for: .seconds(1))
+                }
                 
             }
             return stream
         }
     )
-    static var testValue: LocationClient = Self()
+    static let testValue: LocationClient = Self()
 }
 
 extension DependencyValues {

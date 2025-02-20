@@ -24,23 +24,22 @@ struct RunningResultFeature {
     
     enum Action {
         case onAppear
-        case postRunningResponse(Result<Void, Error>)
+        case saveRunningRecordResponse(Result<Void, Error>)
     }
     
-    @Dependency(\.workoutClient) var workoutClient
+    @Dependency(\.workoutClient.saveRunningRecord) var saveRunningRecord
     
     var body: some ReducerOf<Self> {
         Reduce { state, action in
             switch action {
             case .onAppear:
                 return .run { [record = state.record] send in
-//                    let dto: PushUpRecordRequest = record.toData()
-//                    let result = await Result { try await workoutClient.postPushUp(dto) }
-//                    await send(.postPushUpResponse(result))
+                    let result = await Result { try await saveRunningRecord(record) }
+                    await send(.saveRunningRecordResponse(result))
                 }
-            case .postRunningResponse(.success):
+            case .saveRunningRecordResponse(.success):
                 return .none
-            case .postRunningResponse(.failure):
+            case .saveRunningRecordResponse(.failure):
                 return .none
 
             }

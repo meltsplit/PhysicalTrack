@@ -8,6 +8,7 @@
 import Foundation
 import ComposableArchitecture
 
+
 @Reducer
 struct PushUpFeature {
     
@@ -97,7 +98,7 @@ struct PushUpFeature {
                         }
                     },
                     .run { send in
-                        for await detected in proximityClient.start() {
+                        for await detected in await proximityClient.start() {
                             if detected { await send(.detected) }
                         }
                     }
@@ -115,13 +116,13 @@ struct PushUpFeature {
                 return .none
                 
             case .pause:
-                proximityClient.stop()
-                return .cancel(id: CancelID.workout)
-                
+                return .merge(
+                    .run { _ in await proximityClient.stop() },
+                    .cancel(id: CancelID.workout)
+                )
             case .finish:
                 state.presentResult = true
-                proximityClient.stop()
-                return .cancel(id: CancelID.workout)
+                return .send(.pause)
                 
             case .detected:
                 hapticClient.impact(.heavy)
@@ -179,3 +180,4 @@ struct PushUpFeature {
 }
 
 
+extension PushUpFeature.Action.Alert: Equatable { }

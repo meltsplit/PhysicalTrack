@@ -12,7 +12,7 @@ enum RunningPolicy {
     static let unitDistance = 100
 }
 
-struct RunningRecord: Equatable {
+struct RunningRecord: Equatable, Sendable {
     let targetDuration: Duration
     let targetDistance = 3000
     

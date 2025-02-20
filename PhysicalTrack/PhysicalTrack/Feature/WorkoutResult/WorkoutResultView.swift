@@ -21,10 +21,20 @@ struct WorkoutResultView: View {
                     
                     HStack {
                         switch store.state {
-                        case .pushUp(let state):
-                            ResultPushUpView(record: state.record)
-                        case .running(let state):
-                            ResultRunningView(record: state.record)
+                        case .pushUp:
+                            if let store = store.scope(
+                                state: \.pushUp,
+                                action: \.pushUp
+                            ) {
+                                ResultPushUpView(store: store)
+                            }
+                        case .running:
+                            if let store = store.scope(
+                                state: \.running,
+                                action: \.running
+                            ) {
+                                ResultRunningView(store: store)
+                            }
                         }
                     }
                     .padding(.vertical, 20)
@@ -102,92 +112,94 @@ fileprivate struct ResultTitleView : View {
 }
 
 fileprivate struct ResultRunningView: View {
-    private let record: RunningRecord
     
-    init(record: RunningRecord) {
-        self.record = record
-    }
+    let store: StoreOf<RunningResultFeature>
     
     var body: some View {
-        
-        Spacer()
-        VStack {
-            Text("시간")
-                .foregroundStyle(.ptLightGray01)
+        Group {
+            Spacer()
+            VStack {
+                Text("시간")
+                    .foregroundStyle(.ptLightGray01)
+                
+                Spacer().frame(height: 14)
+                
+                Text(store.record.currentDuration.formatted(.time(pattern: .minuteSecond)))
+                    .bold()
+            }
             
-            Spacer().frame(height: 14)
+            Spacer()
+            VStack {
+                Text("거리")
+                    .foregroundStyle(.ptLightGray01)
+                
+                Spacer().frame(height: 14)
+                
+                Text("\(Int(store.record.targetDistance / 1000)) km")
+                    .bold()
+            }
+            Spacer()
             
-            Text(record.currentDuration.formatted(.time(pattern: .minuteSecond)))
-                .bold()
+            VStack {
+                Text("속도")
+                    .foregroundStyle(.ptLightGray01)
+                
+                Spacer().frame(height: 14)
+                
+                Text(String(format: "%0.2f", store.record.speed))
+                    .bold()
+            }
+            Spacer()
         }
-        
-        Spacer()
-        VStack {
-            Text("거리")
-                .foregroundStyle(.ptLightGray01)
-            
-            Spacer().frame(height: 14)
-            
-            Text("\(Int(record.targetDistance / 1000)) km")
-                .bold()
+        .onAppear {
+            store.send(.onAppear)
         }
-        Spacer()
-        
-        VStack {
-            Text("속도")
-                .foregroundStyle(.ptLightGray01)
-            
-            Spacer().frame(height: 14)
-            
-            Text(String(format: "%0.2f", record.speed))
-                .bold()
-        }
-        Spacer()
     }
 }
 
 fileprivate struct ResultPushUpView: View {
-    private let record: PushUpRecord
     
-    init(record: PushUpRecord) {
-        self.record = record
-    }
+    let store: StoreOf<PushUpResultFeature>
     
     var body: some View {
-        
-        Spacer()
-        VStack {
-            Text("시간")
-                .foregroundStyle(.ptLightGray01)
+        Group {
+            Spacer()
+            VStack {
+                Text("시간")
+                    .foregroundStyle(.ptLightGray01)
+                
+                Spacer().frame(height: 14)
+                
+                Text(String(store.record.duration.components.seconds))
+                    .bold()
+            }
             
-            Spacer().frame(height: 14)
+            Spacer()
+            VStack {
+                Text("횟수")
+                    .foregroundStyle(.ptLightGray01)
+                
+                Spacer().frame(height: 14)
+                
+                Text(String(store.record.count))
+                    .bold()
+            }
+            Spacer()
             
-            Text(String(record.duration.components.seconds))
-                .bold()
+            VStack {
+                Text("페이스")
+                    .foregroundStyle(.ptLightGray01)
+                
+                Spacer().frame(height: 14)
+                
+                Text(String(format: "%0.2f", store.record.pace))
+                    .bold()
+            }
+            Spacer()
         }
-        
-        Spacer()
-        VStack {
-            Text("횟수")
-                .foregroundStyle(.ptLightGray01)
-            
-            Spacer().frame(height: 14)
-            
-            Text(String(record.count))
-                .bold()
+        .onAppear {
+            store.send(.onAppear)
         }
-        Spacer()
-        
-        VStack {
-            Text("페이스")
-                .foregroundStyle(.ptLightGray01)
-            
-            Spacer().frame(height: 14)
-            
-            Text(String(format: "%0.2f", record.pace))
-                .bold()
-        }
-        Spacer()
     }
 }
 

@@ -7,7 +7,6 @@
 
 import Foundation
 import ComposableArchitecture
-import Combine
 
 @Reducer
 struct PTWebFeature {
@@ -38,6 +37,7 @@ struct PTWebFeature {
     
     enum Action: Equatable {
         case onAppear
+        case makeWebView(RepresentableWebView)
         case setCookies
         case backButtonTapped
         case canGoBackChanged(Bool)
@@ -49,22 +49,29 @@ struct PTWebFeature {
         Reduce { state , action in
             switch action {
             case .onAppear:
-                if state.representableWebView == nil {
-                    state.representableWebView = RepresentableWebView()
+                guard state.representableWebView != nil else {
+                    return .run { send in
+                        let webView = await RepresentableWebView()
+                        await send(.makeWebView(webView))
+                    }
                 }
                 
                 return .merge(
-                    .publisher {
-                        state.representableWebView!.webView.publisher(for: \.canGoBack)
-                            .map { .canGoBackChanged($0) }
+                    .run { [webView = state.representableWebView!.webView] send in
+                        for await value in await webView.canGoBackStream() {
+                            await send(.canGoBackChanged(value))
+                        }
                     },
                     .concatenate(
                         .send(.setCookies),
-                        .run { [url = state.url, representableWebView = state.representableWebView] _ in
-                            await representableWebView?.load(with: url)
+                        .run { [state] _ in
+                            await state.representableWebView!.load(with: state.url)
                         }
                     )
                 )
+            case .makeWebView(let webView):
+                state.representableWebView = webView
+                return .send(.onAppear)
                 
             case .setCookies:
                 return .run { [state] _ in
@@ -114,3 +121,5 @@ struct PTWebFeature {
     }
     
 }
+
+

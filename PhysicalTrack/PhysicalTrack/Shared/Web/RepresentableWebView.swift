@@ -55,3 +55,20 @@ extension RepresentableWebView {
     
     
 }
+
+
+extension WKWebView {
+    func canGoBackStream() -> AsyncStream<Bool> {
+        AsyncStream { continuation in
+            let observation = observe(\.canGoBack, options: [.initial, .new]) { webView, change in
+                if let newValue = change.newValue {
+                    continuation.yield(newValue)
+                }
+            }
+            
+            continuation.onTermination = { _ in
+                observation.invalidate()
+            }
+        }
+    }
+}

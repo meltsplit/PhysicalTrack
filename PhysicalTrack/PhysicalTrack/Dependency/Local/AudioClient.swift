@@ -22,7 +22,7 @@ extension DependencyValues {
 }
 
 extension AudioClient: DependencyKey {
-    static var liveValue: Self = Self(
+    static let liveValue: Self = Self(
         play: {
             guard let url = Bundle.main.url(forResource: "beep", withExtension: "wav")
             else { return }
@@ -33,8 +33,8 @@ extension AudioClient: DependencyKey {
 }
 
 extension AudioClient: TestDependencyKey {
-    static var previewValue: AudioClient = liveValue
-    static var testValue: AudioClient = Self(
+    static let previewValue: AudioClient = liveValue
+    static let testValue: AudioClient = Self(
         play: {}
     )
 }
