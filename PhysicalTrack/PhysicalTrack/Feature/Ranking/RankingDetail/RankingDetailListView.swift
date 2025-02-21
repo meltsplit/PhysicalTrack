@@ -16,36 +16,23 @@ struct RankingDetailListView: View {
             emptyView
         } else {
             ScrollView {
-                LazyVStack(spacing: 6) {
+                LazyVStack {
                     ForEach(store.ranking, id: \.userID) { data in
                         Button {
                             store.send(.rankCellTapped(data))
                         } label: {
-                            HStack {
-                                Text(String(data.rank))
-                                    .font(.title3)
-                                    .fontWeight(.semibold)
-                                    .foregroundStyle(.ptPoint)
-                                
-                                Text(data.name)
-                                    .font(.title3)
-                                    .fontWeight(.semibold)
-                                    .foregroundStyle(.ptWhite)
-                                    .padding(.leading, 12)
-                                
-                                Spacer()
-                                
-                                Text(data.description())
-                                    .foregroundStyle(.ptLightGray01)
-                            }
-                            .padding(.horizontal, 12)
-                            .padding(.vertical, 20)
+                            RankingCell(
+                                rank: data.rank,
+                                name: data.name,
+                                description: data.description()
+                            )
                         }
                         .buttonStyle(PTPressedStyle())
                     }
                 }
                 .background(.ptBackground)
                 .padding(.vertical, 20)
+                .padding(.horizontal, 24)
             }
         }
         
@@ -71,6 +58,7 @@ struct RankingDetailListView: View {
             PTButton("운동 하러가기") {
                 store.send(.workoutButtonTapped)
             }
+            .padding(.top, 12)
             
             Spacer()
         }

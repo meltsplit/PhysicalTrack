@@ -19,27 +19,26 @@ struct RankingView: View {
                     emptyView
                 } else {
                     ScrollView {
-                        RankingTop3View(store: store,
-                                        type: .consistency,
-                                        rankings: store.consistencyTop3)
-                        
-                        Spacer().frame(height: 14)
-                        
-                        RankingTop3View(store: store,
-                                        type: .pushUp,
-                                        rankings: store.pushUpTop3)
-                        
-                        Spacer().frame(height: 14)
-                        
-                        RankingTop3View(store: store,
-                                        type: .running,
-                                        rankings: store.runningTop3)
-                        
-                        Spacer().frame(height: 24)
+                        VStack(spacing: 14) {
+                            RankingTop3View(store: store,
+                                            type: .consistency,
+                                            rankings: store.consistencyTop3)
+                            
+                            RankingTop3View(store: store,
+                                            type: .pushUp,
+                                            rankings: store.pushUpTop3)
+                            
+                            RankingTop3View(store: store,
+                                            type: .running,
+                                            rankings: store.runningTop3)
+                            
+                            Spacer().frame(height: 10)
+                        }
+                        .background(.black)
                     }
+                    .background(.ptBackground)
                 }
             }
-            .background(.ptBackground)
             .alert($store.scope(state: \.alert, action: \.alert))
             .navigationTitle("이번 주 순위")
             .onAppear {
@@ -99,6 +98,7 @@ fileprivate struct RankingTop3View: View {
                     .font(.title3)
                     .bold()
                     .foregroundStyle(.ptWhite)
+                    .padding(.top, 14)
                     .padding(.bottom, 20)
                 
                 Spacer()
@@ -107,41 +107,39 @@ fileprivate struct RankingTop3View: View {
             if rankings.isEmpty {
                 emptyView
             } else {
-                LazyVStack(spacing: 20) {
+                LazyVStack {
                     ForEach(rankings, id: \.userID) { data in
-                        HStack {
-                            Text(String(data.rank))
-                                .foregroundStyle(.ptLightGray01)
-                                .fontWeight(.semibold)
-                            
-                            Text(data.name)
-                                .foregroundStyle(.ptWhite)
-                            Spacer()
-                            Text(data.description())
-                                .foregroundStyle(.ptLightGray01)
-                        }
+                        RankingCell(
+                            rank: data.rank,
+                            name: data.name,
+                            description: data.description()
+                        )
                     }
                 }
+                
+                Divider()
+                    .padding(.top, 20)
                 
                 Button {
                     store.send(.rankingDetailButtonTapped(type))
                 } label: {
-                    Text("순위 더보기")
-                        .font(.body.bold())
-                        .frame(maxWidth: .infinity)
-                        .frame(height: 44)
-                        .foregroundStyle(.ptWhite)
-                        .background(.ptDarkGray02)
-                        .clipShape(RoundedRectangle(cornerRadius: 4))
+                    HStack(spacing: 10) {
+                        Text("순위 더 보기")
+                            .font(.body)
+                            .bold()
+
+                        Image(systemName: "chevron.right")
+                            
+                    }
+                    .foregroundStyle(.ptLightGray01)
                 }
                 .padding(.top, 20)
             }
         }
-        .padding(18)
-        .background(.ptDarkNavyGray)
-        .clipShape(RoundedRectangle(cornerRadius: 4))
-        .padding(.horizontal, 20)
-        .padding(.top, 20)
+        .padding(.vertical, 20)
+        .padding(.horizontal, 24)
+        .background(.ptBackground)
+        
     }
     
     var emptyView: some View {
@@ -151,6 +149,7 @@ fileprivate struct RankingTop3View: View {
                 .font(.headline)
                 .multilineTextAlignment(.center)
                 .bold()
+                .padding(.top, 12)
             
             Text("지금 운동하면 1위를 차지할 수 있어요!")
                 .font(.subheadline)
@@ -161,11 +160,8 @@ fileprivate struct RankingTop3View: View {
             PTButton("운동 하러가기") {
                 store.send(.workoutButtonTapped)
             }
-            .buttonStyle(
-                .blue,
-                .init(height: 48, font: .body.bold())
-            )
             .frame(width: 160)
+            .padding(.top, 10)
             
             Spacer()
         }
