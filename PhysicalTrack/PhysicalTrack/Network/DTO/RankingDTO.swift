@@ -13,6 +13,10 @@ struct ConsistencyRankingResponse: Decodable, RankingRepresentable {
     let rank: Int
     let value: Int
     
+    func description() -> String {
+        "\(value) 일째 운동 중"
+    }
+    
     enum CodingKeys: String, CodingKey {
         case userID = "userId"
         case name, rank
@@ -26,12 +30,33 @@ struct PushUpRankingResponse: Decodable, RankingRepresentable {
     let rank: Int
     let value: Int
     
+    func description() -> String {
+        "\(value) 회"
+    }
     
     enum CodingKeys: String, CodingKey {
         case userID = "userId"
         case name, rank
         case value = "quantity"
     }
+}
+
+struct RunningRankingResponse: Decodable, RankingRepresentable {
+    let userID: Int
+    let name: String
+    let rank: Int
+    var value: Int { Int(duration) }
+    let duration: Double
+    
+    enum CodingKeys: String, CodingKey {
+        case userID = "userId"
+        case name, rank, duration
+    }
+    
+    func description() -> String {
+        value.to_분_초
+    }
+    
 }
 
 

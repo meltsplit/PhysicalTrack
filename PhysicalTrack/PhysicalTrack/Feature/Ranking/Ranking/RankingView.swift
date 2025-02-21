@@ -21,15 +21,21 @@ struct RankingView: View {
                     ScrollView {
                         RankingTop3View(store: store,
                                         type: .consistency,
-                                        description: "일째 운동 중",
                                         rankings: store.consistencyTop3)
                         
                         Spacer().frame(height: 14)
                         
                         RankingTop3View(store: store,
                                         type: .pushUp,
-                                        description: "회",
                                         rankings: store.pushUpTop3)
+                        
+                        Spacer().frame(height: 14)
+                        
+                        RankingTop3View(store: store,
+                                        type: .running,
+                                        rankings: store.runningTop3)
+                        
+                        Spacer().frame(height: 24)
                     }
                 }
             }
@@ -84,7 +90,6 @@ fileprivate struct RankingTop3View: View {
     
     let store: StoreOf<RankingFeature>
     let type: RankingType
-    let description: String
     let rankings: [any RankingRepresentable]
     
     var body: some View {
@@ -112,7 +117,7 @@ fileprivate struct RankingTop3View: View {
                             Text(data.name)
                                 .foregroundStyle(.ptWhite)
                             Spacer()
-                            Text("\(data.value)\(description)")
+                            Text(data.description())
                                 .foregroundStyle(.ptLightGray01)
                         }
                     }

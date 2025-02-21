@@ -16,8 +16,10 @@ struct RankingFeature {
         var path = StackState<Path.State>()
         var consistency: [ConsistencyRankingResponse] = []
         var pushUp: [PushUpRankingResponse] = []
+        var running: [RunningRankingResponse] = []
         var consistencyTop3: [ConsistencyRankingResponse] = []
         var pushUpTop3: [PushUpRankingResponse] = []
+        var runningTop3: [RunningRankingResponse] = []
         @Presents var alert: AlertState<Action.Alert>?
     }
     
@@ -26,6 +28,7 @@ struct RankingFeature {
         case workoutButtonTapped
         case pushUpRankingResponse(Result<[PushUpRankingResponse], Error>)
         case consistencyRankingResponse(Result<[ConsistencyRankingResponse], Error>)
+        case runningRankingResponse(Result<[RunningRankingResponse], Error>)
         case path(StackActionOf<Path>)
         case rankingDetailButtonTapped(RankingType)
         case alert(PresentationAction<Alert>)
@@ -55,12 +58,20 @@ struct RankingFeature {
                     },
                     .run { send in
                         await send(.pushUpRankingResponse(Result { try await rankingClient.fetchPushUp()}))
+                    },
+                    .run { send in
+                        await send(.runningRankingResponse(Result { try await rankingClient.fetchRunning()}))
                     }
                 )
             case .workoutButtonTapped:
                 return .none
             case let .rankingDetailButtonTapped(type):
-                state.path.append(.rankingDetail(RankingDetailFeature.State(type, state.consistency, state.pushUp)))
+                state.path.append(.rankingDetail(RankingDetailFeature.State(
+                    type,
+                    state.consistency,
+                    state.pushUp,
+                    state.running
+                )))
                 return .none
             case let .path(.element(id: _, action: .rankingDetail(.rankCellTapped(data)))):
                 state.path.append(.web(PTWebFeature.State(url: "https://physical-t-7jce.vercel.app",
@@ -77,8 +88,13 @@ struct RankingFeature {
                 state.consistency = response
                 state.consistencyTop3 = Array(response.prefix(3))
                 return .none
-                
-            case .pushUpRankingResponse(.failure), .consistencyRankingResponse(.failure):
+            case .runningRankingResponse(.success(let response)):
+                state.running = response
+                state.runningTop3 = Array(response.prefix(3))
+                return .none
+            case .pushUpRankingResponse(.failure),
+                    .consistencyRankingResponse(.failure),
+                    .runningRankingResponse(.failure):
                 state.alert = AlertState(
                     title: { TextState("서버 오류가 발생했습니다.") },
                     actions: { 

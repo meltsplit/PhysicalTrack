@@ -95,3 +95,11 @@ struct PTButtonStyle: ButtonStyle {
         
     }
 }
+
+struct PTPressedStyle: ButtonStyle {
+    
+    func makeBody(configuration: Self.Configuration) -> some View {
+        configuration.label
+            .background(configuration.isPressed ? .ptDarkGray01 : .ptBackground)
+    }
+}

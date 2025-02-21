@@ -21,13 +21,18 @@ struct RankingDetailView: View {
             TabView(selection: $store.selectedTab.sending(\.selectTab)) {
                 
                 if let store = store.scope(state: \.consistency, action: \.consistency) {
-                    RankingDetailListView(store: store, description: "일째 운동 중")
+                    RankingDetailListView(store: store)
                         .tag(RankingType.consistency)
                 }
                 
                 if let store = store.scope(state: \.pushUp, action: \.pushUp) {
-                    RankingDetailListView(store: store, description: "회")
+                    RankingDetailListView(store: store)
                         .tag(RankingType.pushUp)
+                }
+                
+                if let store = store.scope(state: \.running, action: \.running) {
+                    RankingDetailListView(store: store)
+                        .tag(RankingType.running)
                 }
             }
             .animation(.default, value: store.selectedTab)
@@ -52,7 +57,7 @@ struct RankingDetailView: View {
 
 #Preview {
     RankingDetailView(
-        store: .init(initialState: RankingDetailFeature.State(.consistency, [.stub1, .stub2, .stub3], [.stub1, .stub2, .stub3])) {
+        store: .init(initialState: RankingDetailFeature.State(.consistency, [.stub1, .stub2, .stub3], [.stub1, .stub2, .stub3], [])) {
             RankingDetailFeature()
         }
     )

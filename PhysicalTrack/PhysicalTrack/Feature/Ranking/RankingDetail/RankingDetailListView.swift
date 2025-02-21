@@ -10,8 +10,7 @@ import ComposableArchitecture
 
 struct RankingDetailListView: View {
     let store: StoreOf<RankingDetailListFeature>
-    let description: String
-
+    
     var body: some View {
         if store.ranking.isEmpty {
             emptyView
@@ -24,24 +23,29 @@ struct RankingDetailListView: View {
                         } label: {
                             HStack {
                                 Text(String(data.rank))
-                                    .foregroundStyle(.ptLightGray01)
+                                    .font(.title3)
                                     .fontWeight(.semibold)
+                                    .foregroundStyle(.ptPoint)
                                 
                                 Text(data.name)
+                                    .font(.title3)
+                                    .fontWeight(.semibold)
                                     .foregroundStyle(.ptWhite)
+                                    .padding(.leading, 12)
                                 
                                 Spacer()
                                 
-                                Text("\(data.value)\(description)")
+                                Text(data.description())
                                     .foregroundStyle(.ptLightGray01)
                             }
-                            .padding(12)
-                            .background(.ptDarkNavyGray)
-                            .clipShape(RoundedRectangle(cornerRadius: 4))
+                            .padding(.horizontal, 12)
+                            .padding(.vertical, 20)
                         }
+                        .buttonStyle(PTPressedStyle())
                     }
                 }
-                .padding(.all, 20)
+                .background(.ptBackground)
+                .padding(.vertical, 20)
             }
         }
         
@@ -85,7 +89,6 @@ struct RankingDetailListView: View {
                     )
         {
             RankingDetailListFeature()
-        },
-        description: "일째 운동 중"
+        }
     )
 }
