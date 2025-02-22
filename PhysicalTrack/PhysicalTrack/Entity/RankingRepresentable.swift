@@ -12,4 +12,5 @@ protocol RankingRepresentable: Hashable {
     var name: String { get }
     var rank: Int { get }
     var value: Int { get }
+    func description() -> String
 }

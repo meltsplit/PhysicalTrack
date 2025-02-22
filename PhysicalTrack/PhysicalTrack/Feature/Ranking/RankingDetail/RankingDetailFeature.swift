@@ -16,12 +16,19 @@ struct RankingDetailFeature {
         var selectedTab: RankingType
         var consistency: RankingDetailListFeature.State? = .init()
         var pushUp: RankingDetailListFeature.State? = .init()
+        var running: RankingDetailListFeature.State? = .init()
         var headerTab: HeaderTabFeature<RankingType>.State? = .init(selectedItem: .consistency)
         
-        init(_ selectedTab: RankingType, _ consistency: [ConsistencyRankingResponse], _ pushUp: [PushUpRankingResponse]) {
+        init(
+            _ selectedTab: RankingType,
+            _ consistency: [ConsistencyRankingResponse],
+            _ pushUp: [PushUpRankingResponse],
+            _ running: [RunningRankingResponse]
+        ) {
             self.selectedTab = selectedTab
             self.consistency = RankingDetailListFeature.State(ranking: consistency)
             self.pushUp = RankingDetailListFeature.State(ranking: pushUp)
+            self.running = RankingDetailListFeature.State(ranking: running)
             self.headerTab = HeaderTabFeature<RankingType>.State(selectedItem: selectedTab)
         }
     }
@@ -30,6 +37,7 @@ struct RankingDetailFeature {
         case selectTab(RankingType)
         case consistency(RankingDetailListFeature.Action)
         case pushUp(RankingDetailListFeature.Action)
+        case running(RankingDetailListFeature.Action)
         case headerTab(HeaderTabFeature<RankingType>.Action)
         case rankCellTapped(any RankingRepresentable)
     }
@@ -41,8 +49,9 @@ struct RankingDetailFeature {
                 return .send(.headerTab(.selectItem(type)))
             case let .consistency(.rankCellTapped(userID)):
                 return .send(.rankCellTapped(userID))
-                
             case let .pushUp(.rankCellTapped(userID)):
+                return .send(.rankCellTapped(userID))
+            case .running(.rankCellTapped(let userID)):
                 return .send(.rankCellTapped(userID))
             case let .headerTab(.selectItem(type)):
                 state.selectedTab = type
@@ -58,11 +67,11 @@ struct RankingDetailFeature {
         .ifLet(\.pushUp, action: \.pushUp) {
             RankingDetailListFeature()
         }
+        .ifLet(\.running, action: \.running) {
+            RankingDetailListFeature()
+        }
         .ifLet(\.headerTab, action: \.headerTab) {
             HeaderTabFeature<RankingType>()
         }
-        
-        
-        
     }
 }

@@ -10,38 +10,29 @@ import ComposableArchitecture
 
 struct RankingDetailListView: View {
     let store: StoreOf<RankingDetailListFeature>
-    let description: String
-
+    
     var body: some View {
         if store.ranking.isEmpty {
             emptyView
         } else {
             ScrollView {
-                LazyVStack(spacing: 6) {
+                LazyVStack {
                     ForEach(store.ranking, id: \.userID) { data in
                         Button {
                             store.send(.rankCellTapped(data))
                         } label: {
-                            HStack {
-                                Text(String(data.rank))
-                                    .foregroundStyle(.ptLightGray01)
-                                    .fontWeight(.semibold)
-                                
-                                Text(data.name)
-                                    .foregroundStyle(.ptWhite)
-                                
-                                Spacer()
-                                
-                                Text("\(data.value)\(description)")
-                                    .foregroundStyle(.ptLightGray01)
-                            }
-                            .padding(12)
-                            .background(.ptDarkNavyGray)
-                            .clipShape(RoundedRectangle(cornerRadius: 4))
+                            RankingCell(
+                                rank: data.rank,
+                                name: data.name,
+                                description: data.description()
+                            )
                         }
+                        .buttonStyle(PTPressedStyle())
                     }
                 }
-                .padding(.all, 20)
+                .background(.ptBackground)
+                .padding(.vertical, 20)
+                .padding(.horizontal, 24)
             }
         }
         
@@ -67,6 +58,7 @@ struct RankingDetailListView: View {
             PTButton("운동 하러가기") {
                 store.send(.workoutButtonTapped)
             }
+            .padding(.top, 12)
             
             Spacer()
         }
@@ -85,7 +77,6 @@ struct RankingDetailListView: View {
                     )
         {
             RankingDetailListFeature()
-        },
-        description: "일째 운동 중"
+        }
     )
 }

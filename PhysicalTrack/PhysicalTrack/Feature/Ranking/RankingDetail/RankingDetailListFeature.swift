@@ -8,6 +8,14 @@
 import Foundation
 import ComposableArchitecture
 
+//extension RankingDetailListFeature.State: Equatable {
+//    static func == (lhs: RankingDetailListFeature.State, rhs: RankingDetailListFeature.State) -> Bool {
+//        lhs.ranking.hashva == rhs.ranking
+//    }
+//    
+//    
+//}
+
 @Reducer
 struct RankingDetailListFeature {
     

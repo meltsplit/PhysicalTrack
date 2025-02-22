@@ -21,6 +21,7 @@ enum RankingError: Error {
 struct RankingClient: NetworkRequestable {
     var fetchConsistency: @Sendable () async throws -> [ConsistencyRankingResponse]
     var fetchPushUp: @Sendable () async throws -> [PushUpRankingResponse]
+    var fetchRunning: @Sendable () async throws -> [RunningRankingResponse]
 }
 
 // MARK: - Live API implementation
@@ -50,6 +51,17 @@ extension RankingClient: DependencyKey {
             )
             
             return try await request(for: urlRequest, dto: [PushUpRankingResponse].self)
+        },
+        fetchRunning: {
+            @Shared(.appStorage(key: .accessToken)) var accessToken = ""
+            
+            let urlRequest: URLRequest = try .init(
+                path: "/ranking/running",
+                method: .get,
+                headers: ["Authorization": accessToken]
+            )
+            
+            return try await request(for: urlRequest, dto: [RunningRankingResponse].self)
         }
         
     )
@@ -71,6 +83,9 @@ extension RankingClient: TestDependencyKey {
         },
         fetchPushUp: {
             [.stub1]
+        },
+        fetchRunning: {
+            []
         }
     )
     
