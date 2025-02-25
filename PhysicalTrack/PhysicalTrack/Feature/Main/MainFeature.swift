@@ -30,7 +30,6 @@ struct MainFeature {
         case setting(SettingFeature.Action)
     }
     
-    
     @Dependency(\.hapticClient) var hapticClient
     
     var body: some ReducerOf<Self> {
@@ -40,13 +39,8 @@ struct MainFeature {
                 hapticClient.impact(.light)
                 state.$selectedTab.withLock{ $0 = newValue }
                 return .none
-            case .ranking(.workoutButtonTapped),
-                    .ranking(.path(.element(id: _, action: .rankingDetail(.consistency(.workoutButtonTapped))))),
-                    .ranking(.path(.element(id: _, action: .rankingDetail(.pushUp(.workoutButtonTapped))))):
-                hapticClient.impact(.light)
-                state.$selectedTab.withLock{ $0 = .workout }
-                return .none
             case .setting(.tutorial(.presented(.confirmButtonTapped))):
+                hapticClient.impact(.light)
                 state.$selectedTab.withLock{ $0 = .workout }
                 return .none
             default:

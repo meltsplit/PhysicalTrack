@@ -21,6 +21,7 @@ struct RankingDetailListFeature {
     
     @ObservableState
     struct State {
+        @Shared(.selectedMainScene) var selectedScene: MainScene = .ranking
         var ranking: [any RankingRepresentable] = []
     }
     
@@ -37,6 +38,7 @@ struct RankingDetailListFeature {
             case .rankCellTapped:
                 return .none
             case .workoutButtonTapped:
+                state.$selectedScene.withLock { $0 = .workout }
                 return .run { _ in await dismiss()}
             }
             
