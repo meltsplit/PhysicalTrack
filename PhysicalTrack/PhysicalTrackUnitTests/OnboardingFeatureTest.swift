@@ -119,7 +119,7 @@ extension OnboardingFeatureTest {
     }
     
     @Test
-    func 회원가입_통신이_끝나면_로딩중_상태가_해제된다() async {
+    func 회원가입_응답이_실패일때_로딩중_상태가_해제된다() async {
         let store = TestStore(
             initialState: OnboardingFeature.State()
         ) {
