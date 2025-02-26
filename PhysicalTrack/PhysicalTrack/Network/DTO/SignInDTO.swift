@@ -7,6 +7,6 @@
 
 import Foundation
 
-struct SignInRequest: Encodable {
+struct SignInRequest: Encodable, Sendable {
     let deviceId: String
 }

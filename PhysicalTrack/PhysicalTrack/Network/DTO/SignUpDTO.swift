@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct SignUpRequest: Encodable {
+struct SignUpRequest: Encodable, Sendable {
     let deviceId: String
     let name: String
     let birthYear: Int

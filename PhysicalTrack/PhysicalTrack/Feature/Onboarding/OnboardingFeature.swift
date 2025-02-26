@@ -19,7 +19,6 @@ struct OnboardingFeature {
     
     @ObservableState
     struct State: Equatable {
-        
         var name: String = "홍길동"
         var gender: Gender = .male
         var yearOfBirth: Int = 2000
@@ -39,13 +38,13 @@ struct OnboardingFeature {
         case yearOfBirthChanged(Int)
         case nameChanged(String)
         case genderChanged(Gender)
-        case continueButtonTapped
+        case doneButtonTapped
         case signUp
         case signUpResponse(Result<String, Error>)
     }
     
-    @Dependency(\.appClient) var appClient
-    @Dependency(\.authClient) var authClient
+    @Dependency(\.appClient.deviceID) var deviceID
+    @Dependency(\.authClient.signUp) var signUp
     
     var body: some ReducerOf<Self> {
         Reduce { state , action in
@@ -70,7 +69,7 @@ struct OnboardingFeature {
                 state.gender = gender
                 return .none
                 
-            case .continueButtonTapped:
+            case .doneButtonTapped:
                 guard state.currentStep.rawValue < Step.allCases.count
                 else { return .send(.signUp)}
                 let nextStep = Step(rawValue: state.currentStep.rawValue + 1) ?? .yearOfBirth
@@ -79,14 +78,14 @@ struct OnboardingFeature {
             case .signUp:
                 state.isLoading = true
                 return .run { [state] send in
-                    let deviceID = await appClient.deviceID()
+                    let deviceID = await deviceID()
                     let request = SignUpRequest(
                         deviceId: deviceID,
                         name: state.name,
                         birthYear: state.yearOfBirth,
                         gender: state.gender.toData()
                     )
-                    let response = await Result { try await authClient.signUp(request: request) }
+                    let response = await Result { try await signUp(request) }
                     await send(.signUpResponse(response))
                 }
             case let .signUpResponse(.success(jwtToken)):

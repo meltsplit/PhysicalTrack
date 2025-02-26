@@ -13,7 +13,7 @@ struct RootView: View {
     
     var body: some View {
         Group {
-            switch store.state {
+            switch store.selectedScene {
             case .splash:
                 splashView
                     .onAppear {

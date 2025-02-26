@@ -7,22 +7,13 @@
 
 import ComposableArchitecture
 
-extension UserInfoFeature.Destination.State: Equatable {}
-
 @Reducer
 struct UserInfoFeature {
     
-    @Reducer
-    enum Destination {
-        case editNickname(EditUserInfoFeature)
-        case editGender(EditUserInfoFeature)
-        case editBirth(EditUserInfoFeature)
-    }
-    
     @ObservableState
     struct State: Equatable {
+        @Shared(.selectedRootScene) var selectedRootScene = .splash
         var userInfo: UserInfo = .init(name: "", gender: .male, yearOfBirth: 2000)
-        @Presents var destination: Destination.State?
     }
     
     enum Action {
@@ -36,15 +27,6 @@ struct UserInfoFeature {
         // Effect
         case userInfoResponse(Result<UserInfo, Error>)
         case withdrawResponse(Result<Void, Error>)
-        
-        // Navigation
-        case destination(PresentationAction<Destination.Action>)
-        
-        case delegate(Delegate)
-        
-        enum Delegate {
-            case withdrawCompleted
-        }
     }
     
     @Dependency(\.userClient.fetch) private var fetch
@@ -61,13 +43,10 @@ struct UserInfoFeature {
                     await send(.userInfoResponse(result))
                 }
             case .editNicknameButtonTapped:
-                state.destination = .editNickname(.init(userInfo: state.userInfo))
                 return .none
             case .editGenderButtonTapped:
-                state.destination = .editGender(.init(userInfo: state.userInfo))
                 return .none
             case .editBirthButtonTapped:
-                state.destination = .editBirth(.init(userInfo: state.userInfo))
                 return .none
             case .withdrawButtonTapped:
                 return .run { send in
@@ -87,33 +66,28 @@ struct UserInfoFeature {
                 appStorage.dictionaryRepresentation().keys.forEach {
                     appStorage.removeObject(forKey: $0)
                 }
-                return .send(.delegate(.withdrawCompleted))
+                state.$selectedRootScene.withLock { $0 = .splash }
+                return .none
             case .withdrawResponse(.failure):
                 return .none
                 
             // Navigation
-            case .destination(.presented(.editNickname(.delegate(.updateCompleted(let userInfo))))):
-                state.userInfo = userInfo
-                return .none
-            case .destination(.presented(.editBirth(.delegate(.updateCompleted(let userInfo))))):
-                state.userInfo = userInfo
-                return .none
-                
-            case .destination(.presented(.editGender(.delegate(.updateCompleted(let userInfo))))):
-                state.userInfo = userInfo
-                return .none
-            case .destination:
-                return .none
-                
-            // Delegate
-            case .delegate:
-                return .none
+//            case .destination(.presented(.editNickname(.delegate(.updateCompleted(let userInfo))))):
+//                state.userInfo = userInfo
+//                return .none
+//            case .destination(.presented(.editBirth(.delegate(.updateCompleted(let userInfo))))):
+//                state.userInfo = userInfo
+//                return .none
+//                
+//            case .destination(.presented(.editGender(.delegate(.updateCompleted(let userInfo))))):
+//                state.userInfo = userInfo
+//                return .none
+//            case .destination:
+//                return .none
             }
         }
-        .ifLet(\.$destination, action: \.destination)
+//        .ifLet(\.$destination, action: \.destination)
         
     }
     
 }
-
-//extension UserInfoFeature.Destination.State: Equatable {}

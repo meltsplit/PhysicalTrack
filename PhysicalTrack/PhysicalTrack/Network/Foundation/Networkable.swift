@@ -7,7 +7,7 @@
 
 import Foundation
 
-protocol NetworkRequestable {
+protocol NetworkRequestable : Sendable {
     static func request<T: Decodable>(
         session: URLSession,
         for: URLRequestConvertible,

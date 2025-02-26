@@ -8,8 +8,14 @@
 import Foundation
 import Sharing
 
+extension SharedKey where Self == InMemoryKey<RootScene> {
+    static var selectedRootScene: Self {
+        inMemory("selectedRootScene")
+    }
+}
+
 extension SharedKey where Self == InMemoryKey<MainScene> {
-  static var selectedMainScene: Self {
-      inMemory("selectedMainScene")
-  }
+    static var selectedMainScene: Self {
+        inMemory("selectedMainScene")
+    }
 }

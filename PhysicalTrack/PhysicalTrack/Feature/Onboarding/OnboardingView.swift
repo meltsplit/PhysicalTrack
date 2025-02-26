@@ -64,7 +64,7 @@ struct OnboardingView: View {
             Spacer()
             
             PTButton("계속하기") {
-                store.send(.continueButtonTapped)
+                store.send(.doneButtonTapped)
             }
             .disabled(store.name.isEmpty)
             .padding(.horizontal, 20)
@@ -112,7 +112,7 @@ struct OnboardingView: View {
             Spacer()
             
             PTButton("계속하기") {
-                store.send(.continueButtonTapped)
+                store.send(.doneButtonTapped)
             }
             .padding(.horizontal, 20)
             
@@ -169,7 +169,7 @@ struct OnboardingView: View {
             Spacer()
             
             PTButton("회원가입") {
-                store.send(.continueButtonTapped)
+                store.send(.doneButtonTapped)
             }
             .loading(store.isLoading)
             .padding(.horizontal, 20)

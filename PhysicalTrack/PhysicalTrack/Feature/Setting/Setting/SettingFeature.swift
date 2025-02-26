@@ -31,6 +31,9 @@ struct SettingFeature {
     @Reducer
     enum Path {
         case userInfo(UserInfoFeature)
+        case editNickname(EditUserInfoFeature)
+        case editGender(EditUserInfoFeature)
+        case editBirth(EditUserInfoFeature)
     }
     
     var body: some ReducerOf<Self> {
@@ -50,6 +53,32 @@ struct SettingFeature {
                 default:
                     return .none
                 }
+            case let .path(.element(id: id, action: .userInfo(.editBirthButtonTapped))):
+                guard let userInfoState = state.path[id: id]?.userInfo
+                else { return .none }
+                state.path.append(.editBirth(.init(userInfo: userInfoState.userInfo)))
+                return .none
+            case let .path(.element(id: id, action: .userInfo(.editNicknameButtonTapped))):
+                guard let userInfoState = state.path[id: id]?.userInfo
+                else { return .none }
+                state.path.append(.editNickname(.init(userInfo: userInfoState.userInfo)))
+                return .none
+            case let .path(.element(id: id, action: .userInfo(.editGenderButtonTapped))):
+                guard let userInfoState = state.path[id: id]?.userInfo
+                else { return .none }
+                state.path.append(.editGender(.init(userInfo: userInfoState.userInfo)))
+                return .none
+            case .path(.element(
+                id: _,
+                action: .editBirth(.delegate(.updateCompleted))
+            )),
+                    .path(.element(id: _, action: .editGender (.delegate(.updateCompleted)))),
+                    .path(.element(id: _, action: .editNickname(.delegate(.updateCompleted))))
+                       
+                       :
+                
+                state.path.removeAll()
+                return .none
             case .path:
                 return .none
             case .tutorial:
