@@ -145,6 +145,5 @@ extension OnboardingFeatureTest {
 //        store.assert {
 //            $0.$selectedRootScene.withLock { $0 = .main }
 //        }
-        
-    }
+//    }
 }
