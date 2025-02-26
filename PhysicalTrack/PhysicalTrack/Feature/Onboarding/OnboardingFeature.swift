@@ -19,6 +19,8 @@ struct OnboardingFeature {
     
     @ObservableState
     struct State: Equatable {
+        @Shared(.selectedRootScene) var selectedRootScene = RootScene.onboarding
+        
         var name: String = "홍길동"
         var gender: Gender = .male
         var yearOfBirth: Int = 2000
@@ -89,12 +91,13 @@ struct OnboardingFeature {
                     await send(.signUpResponse(response))
                 }
             case let .signUpResponse(.success(jwtToken)):
-                state.$accessToken.withLock{ $0 = jwtToken }
                 guard let jwtWithoutBearer = jwtToken.split(separator: " ").last,
                       let jwt = try? JWTDecoder.decode(String(jwtWithoutBearer))
                 else { return .send(.signUpResponse(.failure(AuthError.jwtDecodeFail)))}
+                state.$accessToken.withLock{ $0 = jwtToken }
                 state.$userID.withLock{ $0 = jwt.payload.userId }
                 state.$username.withLock { $0 = jwt.payload.name }
+                state.$selectedRootScene.withLock { $0 = .main }
                 return .none
             case .signUpResponse(.failure(_)):
                 state.isLoading = false

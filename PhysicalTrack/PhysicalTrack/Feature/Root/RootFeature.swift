@@ -69,9 +69,6 @@ struct RootFeature {
             case .signInResponse(.failure(_)):
                 state.$selectedScene.withLock { $0 = .onboarding }
                 return .none
-            case .onboarding(.signUpResponse(.success(_))):
-                state.$selectedScene.withLock { $0 = .main }
-                return .none
             case .onboarding, .main:
                 return .none
             }
