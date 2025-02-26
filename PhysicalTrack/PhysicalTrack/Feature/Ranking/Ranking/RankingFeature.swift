@@ -21,6 +21,7 @@ struct RankingFeature {
         var pushUpTop3: [PushUpRankingResponse] = []
         var runningTop3: [RunningRankingResponse] = []
         @Presents var alert: AlertState<Action.Alert>?
+        @Shared(.selectedMainScene) var selectedScene: MainScene = .ranking
     }
     
     enum Action {
@@ -64,6 +65,7 @@ struct RankingFeature {
                     }
                 )
             case .workoutButtonTapped:
+                state.$selectedScene.withLock { $0 = .workout }
                 return .none
             case let .rankingDetailButtonTapped(type):
                 state.path.append(.rankingDetail(RankingDetailFeature.State(

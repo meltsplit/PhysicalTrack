@@ -77,13 +77,11 @@ struct WorkoutView: View {
                     store.send(.doneButtonTapped)
                 } label: {
                     HStack(spacing: 12) {
-                        Image(systemName: "play.fill")
-                            .resizable()
-                            .frame(width: 14, height: 14)
-                            .opacity(store.phase == .selectWorkout
-                                     ? 0
-                                     : 1
-                            )
+                        if store.phase == .selectGrade {
+                            Image(systemName: "play.fill")
+                                .resizable()
+                                .frame(width: 14, height: 14)
+                        }
                         
                         Text(store.phase == .selectWorkout
                              ? "완료"

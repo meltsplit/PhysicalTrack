@@ -46,7 +46,7 @@ fileprivate struct TabBarItem: View {
     
     private var scene: MainScene
     
-    fileprivate init(_ scene: MainScene) {
+    init(_ scene: MainScene) {
         self.scene = scene
     }
     
