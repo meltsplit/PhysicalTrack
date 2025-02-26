@@ -64,6 +64,21 @@ extension OnboardingFeatureTest {
     }
     
     @Test
+    func 나이단계에서_완료_버튼을_누르면_회원가입을_수행한다() async {
+        let store = TestStore(
+            initialState: OnboardingFeature.State()
+        ) {
+            OnboardingFeature()
+        }
+        
+        store.exhaustivity = .off
+        
+        await store.send(.stepChanged(.yearOfBirth))
+        await store.send(.doneButtonTapped)
+        await store.receive(\.signUp)
+    }
+    
+    @Test
     func 회원가입_통신_시작시_로딩중으로_처리된다() async {
         let store = TestStore(
             initialState: OnboardingFeature.State()
@@ -123,27 +138,20 @@ extension OnboardingFeatureTest {
         }
     }
     
-    // Shared Test는 breaking Change 예정 https://pointfreeco.github.io/swift-composable-architecture/main/documentation/composablearchitecture/sharingstate#Testing-shared-state
+    @Test
+    func 회원가입_응답이_성공일때_메인으로_화면전환한다() async {
+        let store = TestStore(
+            initialState: OnboardingFeature.State()
+        ) {
+            OnboardingFeature()
+        } withDependencies: {
+            $0.jwtDecoder = .testValue
+        }
+        
+        store.exhaustivity = .off
 
-//    @Test
-//    func 회원가입_응답이_성공일때_메인으로_화면전환한다() async {
-//        let store = TestStore(
-//            initialState: OnboardingFeature.State()
-//        ) {
-//            OnboardingFeature()
-//        } withDependencies: {
-//            $0.authClient.signUp = { @Sendable _ in
-//                return ""
-//            }
-//        }
-//        
-//        store.exhaustivity = .off
-//
-//        await store.send(.signUpResponse(.success(""))) {
-//            $0.$selectedRootScene.withLock { $0 = .main }
-//        }
-//        store.assert {
-//            $0.$selectedRootScene.withLock { $0 = .main }
-//        }
-//    }
+        await store.send(.signUpResponse(.success(""))) {
+            $0.$selectedRootScene.withLock { $0 = .main }
+        }
+    }
 }

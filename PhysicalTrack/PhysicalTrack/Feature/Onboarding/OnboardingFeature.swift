@@ -47,6 +47,7 @@ struct OnboardingFeature {
     
     @Dependency(\.appClient.deviceID) var deviceID
     @Dependency(\.authClient.signUp) var signUp
+    @Dependency(\.jwtDecoder.decode) var decode
     
     var body: some ReducerOf<Self> {
         Reduce { state , action in
@@ -91,8 +92,7 @@ struct OnboardingFeature {
                     await send(.signUpResponse(response))
                 }
             case let .signUpResponse(.success(jwtToken)):
-                guard let jwtWithoutBearer = jwtToken.split(separator: " ").last,
-                      let jwt = try? JWTDecoder.decode(String(jwtWithoutBearer))
+                guard let jwt = try? decode(jwtToken)
                 else { return .send(.signUpResponse(.failure(AuthError.jwtDecodeFail)))}
                 state.$accessToken.withLock{ $0 = jwtToken }
                 state.$userID.withLock{ $0 = jwt.payload.userId }

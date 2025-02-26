@@ -40,7 +40,7 @@ struct RootFeature {
     @Dependency(\.continuousClock) var clock
     @Dependency(\.authClient.signIn) var signIn
     @Dependency(\.appClient.deviceID) var deviceID
-    
+    @Dependency(\.jwtDecoder.decode) var decode
     
     var body: some ReducerOf<Self> {
         Reduce { state , action in
@@ -57,9 +57,7 @@ struct RootFeature {
                     await send(.signInResponse(result))
                 }
             case let .signInResponse(.success(jwtToken)):
-                
-                guard let jwtWithoutBearer = jwtToken.components(separatedBy: " ").last,
-                      let jwt = try? JWTDecoder.decode(jwtWithoutBearer)
+                guard let jwt = try? decode(jwtToken)
                 else { return .send(.signInResponse(.failure(AuthError.jwtDecodeFail)))}
                 self.$accessToken.withLock{ $0 = jwtToken }
                 self.$userID.withLock{ $0 = jwt.payload.userId }

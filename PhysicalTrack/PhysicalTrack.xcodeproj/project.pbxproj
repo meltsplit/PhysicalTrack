@@ -401,7 +401,6 @@
 		8735D71C2CC2044600C7824C /* Util */ = {
 			isa = PBXGroup;
 			children = (
-				87FFBD722CD65C45001AB389 /* JWTDecoder.swift */,
 			);
 			path = Util;
 			sourceTree = "<group>";
@@ -683,6 +682,7 @@
 				87FFBD702CD55198001AB389 /* AppClient.swift */,
 				874ED6122CF0A3360033972E /* AudioClient.swift */,
 				87957D1B2D5B760F00F70FDB /* OpenSettings.swift */,
+				87FFBD722CD65C45001AB389 /* JWTDecoder.swift */,
 			);
 			path = Local;
 			sourceTree = "<group>";
