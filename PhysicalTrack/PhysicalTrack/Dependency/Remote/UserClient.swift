@@ -41,7 +41,8 @@ extension UserClient: DependencyKey {
     static var liveValue: Self {
         Self(
             fetch: {
-                @Shared(.appStorage(key: .accessToken)) var accessToken: String = ""
+                @Shared(.accessToken) var accessToken = ""
+                
                 let urlRequest = try URLRequest(
                     path: "/account",
                     method: .get,
@@ -51,7 +52,8 @@ extension UserClient: DependencyKey {
                 return try await request(for: urlRequest, dto: UserInfoResponse.self).toDomain()
             },
             update: { body in
-                @Shared(.appStorage(key: .accessToken)) var accessToken: String = ""
+                @Shared(.accessToken) var accessToken = ""
+                
                 let urlRequest = try URLRequest(
                     path: "/account",
                     method: .put,
@@ -62,7 +64,8 @@ extension UserClient: DependencyKey {
                 return try await request(for: urlRequest)
             },
             withdraw: {
-                @Shared(.appStorage(key: .accessToken)) var accessToken: String = ""
+                @Shared(.accessToken) var accessToken = ""
+                
                 let urlRequest = try URLRequest(
                     path: "/account",
                     method: .delete,

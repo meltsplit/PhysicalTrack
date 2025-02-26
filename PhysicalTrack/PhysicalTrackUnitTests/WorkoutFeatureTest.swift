@@ -97,7 +97,7 @@ extension WorkoutFeatureTest.StartPushUp {
     
     @Test
     func 튜토리얼을_본_적_없는_유저에게_튜토리얼을_띄운다() async {
-        @Shared(.appStorage(key: .shouldShowTutorial)) var shouldShowTutorial = true
+        @Shared(.shouldShowTutorial) var shouldShowTutorial = true
         
         let store = TestStore(
             initialState: WorkoutFeature.State()
@@ -114,7 +114,7 @@ extension WorkoutFeatureTest.StartPushUp {
     
     @Test
     func 튜토리얼을_본_적_있는_유저에게_튜토리얼을_띄우지_않는다() async {
-        @Shared(.appStorage(key: .shouldShowTutorial)) var shouldShowTutorial = false
+        @Shared(.shouldShowTutorial) var shouldShowTutorial = false
         
         let store = TestStore(
             initialState: WorkoutFeature.State()
@@ -131,7 +131,7 @@ extension WorkoutFeatureTest.StartPushUp {
     
     @Test
     func 튜토리얼을_본_적_있는_유저에게_푸시업을_시작한다() async {
-        @Shared(.appStorage(key: .shouldShowTutorial)) var shouldShowTutorial = false
+        @Shared(.shouldShowTutorial) var shouldShowTutorial = false
         
         let store = TestStore(
             initialState: WorkoutFeature.State()

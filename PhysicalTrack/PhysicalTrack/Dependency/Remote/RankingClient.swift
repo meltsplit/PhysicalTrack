@@ -14,7 +14,6 @@ enum RankingError: Error {
     case unauthorized
 }
 
-
 // MARK: - API client interface
 
 @DependencyClient
@@ -29,8 +28,7 @@ struct RankingClient: NetworkRequestable {
 extension RankingClient: DependencyKey {
     static let liveValue = RankingClient(
         fetchConsistency: {
-            
-            @Shared(.appStorage(key: .accessToken)) var accessToken = ""
+            @Shared(.accessToken) var accessToken = ""
             
             let urlRequest: URLRequest = try .init(
                 path: "/ranking/consistency",
@@ -41,8 +39,7 @@ extension RankingClient: DependencyKey {
             return try await request(for: urlRequest, dto: [ConsistencyRankingResponse].self).filter { $0.value > 0 }
         },
         fetchPushUp: {
-            
-            @Shared(.appStorage(key: .accessToken)) var accessToken = ""
+            @Shared(.accessToken) var accessToken = ""
             
             let urlRequest: URLRequest = try .init(
                 path: "/ranking/pushup",
@@ -53,7 +50,7 @@ extension RankingClient: DependencyKey {
             return try await request(for: urlRequest, dto: [PushUpRankingResponse].self)
         },
         fetchRunning: {
-            @Shared(.appStorage(key: .accessToken)) var accessToken = ""
+            @Shared(.accessToken) var accessToken = ""
             
             let urlRequest: URLRequest = try .init(
                 path: "/ranking/running",

@@ -28,9 +28,9 @@ struct OnboardingFeature {
         var currentStep: Step = .name
         var progress: Double = Double(Step.name.rawValue) / Double(Step.allCases.count)
         
-        @Shared(.appStorage(key: .accessToken)) var accessToken: String = ""
-        @Shared(.appStorage(key: .userID)) var userID: Int = 0
-        @Shared(.appStorage(key: .username)) var username: String = "홍길동"
+        @Shared(.accessToken) var accessToken = ""
+        @Shared(.userID) var userID = 0
+        @Shared(.username) var username = "홍길동"
     }
     
     enum Action {

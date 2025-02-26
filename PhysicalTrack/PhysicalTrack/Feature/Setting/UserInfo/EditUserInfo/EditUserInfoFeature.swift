@@ -18,7 +18,7 @@ struct EditUserInfoFeature {
         init(userInfo: UserInfo) {
             self.userInfo = userInfo
         }
-        @Shared(.appStorage(key: .username)) var username = ""
+        @Shared(.username) var username = ""
     }
     
     enum Action {

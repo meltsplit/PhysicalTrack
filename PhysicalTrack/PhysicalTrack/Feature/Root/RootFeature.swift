@@ -30,9 +30,9 @@ struct RootFeature {
         case main(MainFeature.Action)
     }
     
-    @Shared(.appStorage(key: .accessToken)) var accessToken: String = ""
-    @Shared(.appStorage(key: .userID)) var userID: Int = 0
-    @Shared(.appStorage(key: .username)) var username: String = ""
+    @Shared(.accessToken) var accessToken: String = ""
+    @Shared(.userID) var userID: Int = 0
+    @Shared(.username) var username: String = ""
     
     @Dependency(\.continuousClock) var clock
     @Dependency(\.authClient) var authClient

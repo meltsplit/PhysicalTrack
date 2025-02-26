@@ -69,6 +69,7 @@
 		876C5C682D636E70000C36A7 /* CriteriaDescription.swift in Sources */ = {isa = PBXBuildFile; fileRef = 876C5C672D636E70000C36A7 /* CriteriaDescription.swift */; };
 		876C5C6A2D64CB12000C36A7 /* WorkoutResultFeatureTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 876C5C692D64CB12000C36A7 /* WorkoutResultFeatureTest.swift */; };
 		876C5C702D68D9B3000C36A7 /* RankingCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 876C5C6F2D68D9B3000C36A7 /* RankingCell.swift */; };
+		8781BD1C2D6EF28300B90AD0 /* SharedKey+AppStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8781BD1B2D6EF28300B90AD0 /* SharedKey+AppStorage.swift */; };
 		87957D1C2D5B760F00F70FDB /* OpenSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87957D1B2D5B760F00F70FDB /* OpenSettings.swift */; };
 		87957D1E2D5B993600F70FDB /* AuthorizationStatus.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87957D1D2D5B993600F70FDB /* AuthorizationStatus.swift */; };
 		87957D212D5C5A9C00F70FDB /* PushUpFeature.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87957D202D5C5A9C00F70FDB /* PushUpFeature.swift */; };
@@ -87,7 +88,7 @@
 		87C01C7D2D60C456000871B6 /* PushUpCriteria.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87C01C7C2D60C456000871B6 /* PushUpCriteria.swift */; };
 		87C01C7F2D60C46A000871B6 /* RunningCriteria.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87C01C7E2D60C46A000871B6 /* RunningCriteria.swift */; };
 		87C01C812D60C4B4000871B6 /* CriteriaModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87C01C802D60C4B4000871B6 /* CriteriaModel.swift */; };
-		87C01C842D60D00C000871B6 /* SharedReaderKey+InMemory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87C01C832D60D00C000871B6 /* SharedReaderKey+InMemory.swift */; };
+		87C01C842D60D00C000871B6 /* SharedKey+InMemory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87C01C832D60D00C000871B6 /* SharedKey+InMemory.swift */; };
 		87C59EF82D40E904009B96FA /* AnyPTButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87C59EF72D40E904009B96FA /* AnyPTButton.swift */; };
 		87C59EFB2D40EC25009B96FA /* PTButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87C59EFA2D40EC25009B96FA /* PTButton.swift */; };
 		87C59EFD2D40EF83009B96FA /* AnyPTButton+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87C59EFC2D40EF83009B96FA /* AnyPTButton+.swift */; };
@@ -186,6 +187,7 @@
 		876C5C672D636E70000C36A7 /* CriteriaDescription.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CriteriaDescription.swift; sourceTree = "<group>"; };
 		876C5C692D64CB12000C36A7 /* WorkoutResultFeatureTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkoutResultFeatureTest.swift; sourceTree = "<group>"; };
 		876C5C6F2D68D9B3000C36A7 /* RankingCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RankingCell.swift; sourceTree = "<group>"; };
+		8781BD1B2D6EF28300B90AD0 /* SharedKey+AppStorage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "SharedKey+AppStorage.swift"; sourceTree = "<group>"; };
 		8789F1102D5538C800C46132 /* PhysicalTrackUnitTests.xctestplan */ = {isa = PBXFileReference; lastKnownFileType = text; path = PhysicalTrackUnitTests.xctestplan; sourceTree = "<group>"; };
 		87957D1B2D5B760F00F70FDB /* OpenSettings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OpenSettings.swift; sourceTree = "<group>"; };
 		87957D1D2D5B993600F70FDB /* AuthorizationStatus.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthorizationStatus.swift; sourceTree = "<group>"; };
@@ -205,7 +207,7 @@
 		87C01C7C2D60C456000871B6 /* PushUpCriteria.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PushUpCriteria.swift; sourceTree = "<group>"; };
 		87C01C7E2D60C46A000871B6 /* RunningCriteria.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RunningCriteria.swift; sourceTree = "<group>"; };
 		87C01C802D60C4B4000871B6 /* CriteriaModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CriteriaModel.swift; sourceTree = "<group>"; };
-		87C01C832D60D00C000871B6 /* SharedReaderKey+InMemory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "SharedReaderKey+InMemory.swift"; sourceTree = "<group>"; };
+		87C01C832D60D00C000871B6 /* SharedKey+InMemory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "SharedKey+InMemory.swift"; sourceTree = "<group>"; };
 		87C59EF72D40E904009B96FA /* AnyPTButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnyPTButton.swift; sourceTree = "<group>"; };
 		87C59EFA2D40EC25009B96FA /* PTButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PTButton.swift; sourceTree = "<group>"; };
 		87C59EFC2D40EF83009B96FA /* AnyPTButton+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AnyPTButton+.swift"; sourceTree = "<group>"; };
@@ -318,7 +320,6 @@
 				87C01C7A2D60C434000871B6 /* PushUp */,
 				87C01C712D5E3A28000871B6 /* Exercise.swift */,
 				8735D72F2CC254C800C7824C /* Grade.swift */,
-				873C81AF2CD92DB90041F8FE /* PTAppStorageKey.swift */,
 				87B492C92CF5BAF600628A6E /* RankingRepresentable.swift */,
 				87E43A7D2D37A2B1005512ED /* Setting.swift */,
 				873BB61D2D409E6400B8854E /* Gender.swift */,
@@ -423,7 +424,6 @@
 			isa = PBXGroup;
 			children = (
 				8735D7252CC21A8000C7824C /* Int+.swift */,
-				873C81AC2CD92C700041F8FE /* SharedReaderKey+.swift */,
 			);
 			path = Extension;
 			sourceTree = "<group>";
@@ -663,7 +663,10 @@
 		87C01C822D60CFD5000871B6 /* Sharing */ = {
 			isa = PBXGroup;
 			children = (
-				87C01C832D60D00C000871B6 /* SharedReaderKey+InMemory.swift */,
+				873C81AC2CD92C700041F8FE /* SharedReaderKey+.swift */,
+				873C81AF2CD92DB90041F8FE /* PTAppStorageKey.swift */,
+				87C01C832D60D00C000871B6 /* SharedKey+InMemory.swift */,
+				8781BD1B2D6EF28300B90AD0 /* SharedKey+AppStorage.swift */,
 			);
 			path = Sharing;
 			sourceTree = "<group>";
@@ -871,6 +874,7 @@
 				8735D7262CC21A8000C7824C /* Int+.swift in Sources */,
 				873E9C892CD137A50015FB45 /* View+.swift in Sources */,
 				8735D7592CC371FA00C7824C /* RankingDetailFeature.swift in Sources */,
+				8781BD1C2D6EF28300B90AD0 /* SharedKey+AppStorage.swift in Sources */,
 				87C59EF82D40E904009B96FA /* AnyPTButton.swift in Sources */,
 				8735D7692CC3A38700C7824C /* RankingDTO.swift in Sources */,
 				8735D7452CC27A2200C7824C /* RankingView.swift in Sources */,
@@ -920,7 +924,7 @@
 				8735D74C2CC27C8C00C7824C /* MainFeature.swift in Sources */,
 				873E9C872CD11F3D0015FB45 /* PTButtonStyle.swift in Sources */,
 				87A479E42D58860000A5BFDC /* RunningView.swift in Sources */,
-				87C01C842D60D00C000871B6 /* SharedReaderKey+InMemory.swift in Sources */,
+				87C01C842D60D00C000871B6 /* SharedKey+InMemory.swift in Sources */,
 				87E43A8E2D37DC74005512ED /* EditBirthView.swift in Sources */,
 				87E1E9FC2CC4C529006FAA24 /* HapticClient.swift in Sources */,
 				8735D7342CC25C6500C7824C /* PushUpRecord.swift in Sources */,

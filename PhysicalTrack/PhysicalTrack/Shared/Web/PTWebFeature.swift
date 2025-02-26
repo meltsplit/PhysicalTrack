@@ -13,9 +13,9 @@ struct PTWebFeature {
     
     @ObservableState
     struct State: Equatable {
-        @Shared(.appStorage(key: .userID)) fileprivate var userID: Int = -1
-        @Shared(.appStorage(key: .username)) fileprivate var username: String = "회원"
-        @Shared(.appStorage(key: .accessToken)) fileprivate var accessToken: String = ""
+        @Shared(.userID) fileprivate var userID: Int = -1
+        @Shared(.username) fileprivate var username: String = "회원"
+        @Shared(.accessToken) fileprivate var accessToken: String = ""
         
         fileprivate var targetUserID: Int?
         fileprivate var targetUsername: String? = "회원"
