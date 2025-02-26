@@ -101,6 +101,13 @@ struct SettingView: View {
             case let .userInfo(store):
                 UserInfoView(store: store)
                     .toolbar(.hidden, for: .tabBar)
+            case .editBirth(let store):
+                EditBirthView(store: store)
+            case .editNickname(let store):
+                EditNicknameView(store: store)
+            case .editGender(let store):
+                EditGenderView(store: store)
+                
             }
             
         }

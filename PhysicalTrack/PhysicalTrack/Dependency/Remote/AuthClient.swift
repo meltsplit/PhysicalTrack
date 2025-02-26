@@ -69,6 +69,16 @@ extension AuthClient: DependencyKey {
             return jwtString
         }
     )
+    
+    static let previewValue = Self(
+        signUp: { _ in "" },
+        signIn: { _ in "" }
+    )
+    
+    static let testValue = Self(
+        signUp: { _ in "" },
+        signIn: { _ in "" }
+    )
 }
 
 extension DependencyValues {
@@ -76,17 +86,6 @@ extension DependencyValues {
         get { self[AuthClient.self] }
         set { self[AuthClient.self] = newValue }
     }
-}
-
-//MARK: - Mock
-
-extension AuthClient: TestDependencyKey {
-    static let previewValue = Self(
-        signUp: { _ in "" },
-        signIn: { _ in "" }
-    )
-    
-    static let testValue = Self()
 }
 
 

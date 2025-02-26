@@ -25,7 +25,7 @@ extension WorkoutClient: DependencyKey {
     
     static let liveValue: WorkoutClient = Self(
         savePushUpRecord: { record in
-            @Shared(.appStorage(key: .accessToken)) var accessToken = ""
+            @Shared(.accessToken) var accessToken = ""
             let requestBody = record.toData()
             let urlRequest: URLRequest = try .init(
                 path: "/record/pushup",
@@ -36,7 +36,7 @@ extension WorkoutClient: DependencyKey {
             return try await request(for: urlRequest)
         },
         saveRunningRecord: { record in
-            @Shared(.appStorage(key: .accessToken)) var accessToken = ""
+            @Shared(.accessToken) var accessToken = ""
             let requestBody = record.toData()
             let urlRequest = try URLRequest(
                 path: "/record/running",

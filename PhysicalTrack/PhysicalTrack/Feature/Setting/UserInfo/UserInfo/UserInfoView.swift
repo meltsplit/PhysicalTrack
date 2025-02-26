@@ -58,27 +58,27 @@ struct UserInfoView: View {
                 
             }
         }
-        .navigationDestination(
-            item: $store.scope(
-                state: \.destination?.editNickname,
-                action: \.destination.editNickname)
-        ) { store in
-            EditNicknameView(store: store)
-        }
-        .navigationDestination(
-            item: $store.scope(
-                state: \.destination?.editGender,
-                action: \.destination.editGender)
-        ) { store in
-            EditGenderView(store: store)
-        }
-        .navigationDestination(
-            item: $store.scope(
-                state: \.destination?.editBirth,
-                action: \.destination.editBirth)
-        ) { store in
-            EditBirthView(store: store)
-        }
+//        .navigationDestination(
+//            item: $store.scope(
+//                state: \.destination?.editNickname,
+//                action: \.destination.editNickname)
+//        ) { store in
+//            EditNicknameView(store: store)
+//        }
+//        .navigationDestination(
+//            item: $store.scope(
+//                state: \.destination?.editGender,
+//                action: \.destination.editGender)
+//        ) { store in
+//            EditGenderView(store: store)
+//        }
+//        .navigationDestination(
+//            item: $store.scope(
+//                state: \.destination?.editBirth,
+//                action: \.destination.editBirth)
+//        ) { store in
+//            EditBirthView(store: store)
+//        }
         .onAppear {
             store.send(.onAppear)
         }

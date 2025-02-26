@@ -18,8 +18,8 @@ struct WorkoutFeature {
         var grades: [Grade] = Grade.allCases.filter { $0 != .failed }
         var grade: Grade = .elite
         var description: CriteriaDescription = .init(description: "", highlight: "")
-        @Shared(.appStorage(key: .username)) var username = "회원"
-        @Shared(.appStorage(key: .shouldShowTutorial)) var shouldShowTutorial = true
+        @Shared(.username) var username = "회원"
+        @Shared(.shouldShowTutorial) var shouldShowTutorial = true
         @Presents var tutorial: TutorialFeature.State?
         @Presents var pushUp: PushUpFeature.State?
         @Presents var running: RunningFeature.State?

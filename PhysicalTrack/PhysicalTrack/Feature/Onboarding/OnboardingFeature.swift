@@ -19,6 +19,7 @@ struct OnboardingFeature {
     
     @ObservableState
     struct State: Equatable {
+        @Shared(.selectedRootScene) var selectedRootScene = RootScene.onboarding
         
         var name: String = "홍길동"
         var gender: Gender = .male
@@ -28,9 +29,9 @@ struct OnboardingFeature {
         var currentStep: Step = .name
         var progress: Double = Double(Step.name.rawValue) / Double(Step.allCases.count)
         
-        @Shared(.appStorage(key: .accessToken)) var accessToken: String = ""
-        @Shared(.appStorage(key: .userID)) var userID: Int = 0
-        @Shared(.appStorage(key: .username)) var username: String = "홍길동"
+        @Shared(.accessToken) var accessToken = ""
+        @Shared(.userID) var userID = 0
+        @Shared(.username) var username = "홍길동"
     }
     
     enum Action {
@@ -39,13 +40,14 @@ struct OnboardingFeature {
         case yearOfBirthChanged(Int)
         case nameChanged(String)
         case genderChanged(Gender)
-        case continueButtonTapped
+        case doneButtonTapped
         case signUp
         case signUpResponse(Result<String, Error>)
     }
     
-    @Dependency(\.appClient) var appClient
-    @Dependency(\.authClient) var authClient
+    @Dependency(\.appClient.deviceID) var deviceID
+    @Dependency(\.authClient.signUp) var signUp
+    @Dependency(\.jwtDecoder.decode) var decode
     
     var body: some ReducerOf<Self> {
         Reduce { state , action in
@@ -70,7 +72,7 @@ struct OnboardingFeature {
                 state.gender = gender
                 return .none
                 
-            case .continueButtonTapped:
+            case .doneButtonTapped:
                 guard state.currentStep.rawValue < Step.allCases.count
                 else { return .send(.signUp)}
                 let nextStep = Step(rawValue: state.currentStep.rawValue + 1) ?? .yearOfBirth
@@ -79,23 +81,23 @@ struct OnboardingFeature {
             case .signUp:
                 state.isLoading = true
                 return .run { [state] send in
-                    let deviceID = await appClient.deviceID()
+                    let deviceID = await deviceID()
                     let request = SignUpRequest(
                         deviceId: deviceID,
                         name: state.name,
                         birthYear: state.yearOfBirth,
                         gender: state.gender.toData()
                     )
-                    let response = await Result { try await authClient.signUp(request: request) }
+                    let response = await Result { try await signUp(request) }
                     await send(.signUpResponse(response))
                 }
             case let .signUpResponse(.success(jwtToken)):
-                state.$accessToken.withLock{ $0 = jwtToken }
-                guard let jwtWithoutBearer = jwtToken.split(separator: " ").last,
-                      let jwt = try? JWTDecoder.decode(String(jwtWithoutBearer))
+                guard let jwt = try? decode(jwtToken)
                 else { return .send(.signUpResponse(.failure(AuthError.jwtDecodeFail)))}
+                state.$accessToken.withLock{ $0 = jwtToken }
                 state.$userID.withLock{ $0 = jwt.payload.userId }
                 state.$username.withLock { $0 = jwt.payload.name }
+                state.$selectedRootScene.withLock { $0 = .main }
                 return .none
             case .signUpResponse(.failure(_)):
                 state.isLoading = false
