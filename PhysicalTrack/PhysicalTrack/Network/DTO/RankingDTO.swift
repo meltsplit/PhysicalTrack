@@ -7,56 +7,77 @@
 
 import Foundation
 
-struct ConsistencyRankingResponse: Decodable, RankingRepresentable {
+struct ConsistencyRankingResponse: Decodable, Equatable {
     let userID: Int
     let name: String
     let rank: Int
-    let value: Int
-    
-    func description() -> String {
-        "\(value) 일째 운동 중"
-    }
+    let count: Int
     
     enum CodingKeys: String, CodingKey {
         case userID = "userId"
         case name, rank
-        case value = "streakCount"
+        case count = "streakCount"
     }
 }
 
-struct PushUpRankingResponse: Decodable, RankingRepresentable {
+extension ConsistencyRankingResponse {
+    func toDomain() -> RankingModel {
+        return RankingModel(
+            userID: userID,
+            name: name,
+            rank: rank,
+            value: count,
+            description: "\(count) 일째 운동 중"
+        )
+    }
+}
+
+struct PushUpRankingResponse: Decodable, Equatable {
     let userID: Int
     let name: String
     let rank: Int
-    let value: Int
-    
-    func description() -> String {
-        "\(value) 회"
-    }
-    
+    let quantity: Int
+
     enum CodingKeys: String, CodingKey {
         case userID = "userId"
-        case name, rank
-        case value = "quantity"
+        case name, rank, quantity
     }
 }
 
-struct RunningRankingResponse: Decodable, RankingRepresentable {
+extension PushUpRankingResponse {
+    func toDomain() -> RankingModel {
+        return RankingModel(
+            userID: userID,
+            name: name,
+            rank: rank,
+            value: quantity,
+            description: "\(quantity) 회"
+        )
+    }
+}
+
+struct RunningRankingResponse: Decodable, Equatable {
     let userID: Int
     let name: String
     let rank: Int
-    var value: Int { Int(duration) }
     let duration: Double
     
     enum CodingKeys: String, CodingKey {
         case userID = "userId"
         case name, rank, duration
     }
-    
-    func description() -> String {
-        value.to_분_초
+}
+
+extension RunningRankingResponse {
+    func toDomain() -> RankingModel {
+        return RankingModel(
+            userID: userID,
+            name: name,
+            rank: rank,
+            value: Int(duration),
+            description: Int(duration).to_분_초
+        )
     }
-    
 }
 
 
@@ -64,16 +85,17 @@ struct RunningRankingResponse: Decodable, RankingRepresentable {
 
 
 extension ConsistencyRankingResponse {
-    static let stub1 = Self(userID: 1, name: "장석우",  rank: 1, value: 100)
-    static let stub2 = Self(userID: 2, name: "배진하", rank: 2, value: 97)
-    static let stub3 = Self(userID: 3, name: "조윤호", rank: 3, value: 94)
-    static let stub4 = Self(userID: 4, name: "김철수", rank: 4, value: 91)
-    static let stub5 = Self(userID: 5, name: "손흥민", rank: 5, value: 90)
-    static let stub6 = Self(userID: 6, name: "음바페", rank: 6, value: 84)
+    static let stub1 = Self(userID: 1, name: "장석우",  rank: 1, count: 100)
+    static let stub2 = Self(userID: 2, name: "배진하", rank: 2, count: 97)
+    static let stub3 = Self(userID: 3, name: "조윤호", rank: 3, count: 94)
+    static let stub4 = Self(userID: 4, name: "김철수", rank: 4, count: 91)
+    static let stub5 = Self(userID: 5, name: "손흥민", rank: 5, count: 90)
+    static let stub6 = Self(userID: 6, name: "음바페", rank: 6, count: 84)
 }
 
 extension PushUpRankingResponse {
-    static let stub1 = Self(userID: 1, name: "장석우", rank: 1, value: 70)
-    static let stub2 = Self(userID: 1, name: "배진하", rank: 2, value: 60)
-    static let stub3 = Self(userID: 1, name: "조윤호", rank: 3, value: 50)
+    static let stub1 = Self(userID: 1, name: "장석우", rank: 1, quantity: 70)
+    static let stub2 = Self(userID: 1, name: "배진하", rank: 2, quantity: 60)
+    static let stub3 = Self(userID: 1, name: "조윤호", rank: 3, quantity: 50)
 }
+

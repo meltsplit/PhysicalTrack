@@ -8,18 +8,21 @@
 import Foundation
 import ComposableArchitecture
 
+extension RankingFeature.Path.State: Equatable { }
+extension RankingFeature.Action.Alert: Equatable { }
+
 @Reducer
 struct RankingFeature {
 
     @ObservableState
-    struct State {
+    struct State: Equatable {
         var path = StackState<Path.State>()
         var consistency: [ConsistencyRankingResponse] = []
         var pushUp: [PushUpRankingResponse] = []
         var running: [RunningRankingResponse] = []
-        var consistencyTop3: [ConsistencyRankingResponse] = []
-        var pushUpTop3: [PushUpRankingResponse] = []
-        var runningTop3: [RunningRankingResponse] = []
+        var consistencyTop3: [RankingModel] = []
+        var pushUpTop3: [RankingModel] = []
+        var runningTop3: [RankingModel] = []
         @Presents var alert: AlertState<Action.Alert>?
         @Shared(.selectedMainScene) var selectedScene: MainScene = .ranking
     }
@@ -84,15 +87,15 @@ struct RankingFeature {
                 
             case let .pushUpRankingResponse(.success(response)):
                 state.pushUp = response
-                state.pushUpTop3 = Array(response.prefix(3))
+                state.pushUpTop3 = Array(response.prefix(3)).map { $0.toDomain() }
                 return .none
             case let .consistencyRankingResponse(.success(response)):
                 state.consistency = response
-                state.consistencyTop3 = Array(response.prefix(3))
+                state.consistencyTop3 = Array(response.prefix(3)).map { $0.toDomain() }
                 return .none
             case .runningRankingResponse(.success(let response)):
                 state.running = response
-                state.runningTop3 = Array(response.prefix(3))
+                state.runningTop3 = Array(response.prefix(3)).map { $0.toDomain() }
                 return .none
             case .pushUpRankingResponse(.failure),
                     .consistencyRankingResponse(.failure),

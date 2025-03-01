@@ -36,7 +36,7 @@ extension RankingClient: DependencyKey {
                 headers: ["Authorization": accessToken]
             )
             
-            return try await request(for: urlRequest, dto: [ConsistencyRankingResponse].self).filter { $0.value > 0 }
+            return try await request(for: urlRequest, dto: [ConsistencyRankingResponse].self).filter { $0.count > 0 }
         },
         fetchPushUp: {
             @Shared(.accessToken) var accessToken = ""

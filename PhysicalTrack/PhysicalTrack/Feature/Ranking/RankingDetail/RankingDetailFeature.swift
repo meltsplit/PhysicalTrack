@@ -12,7 +12,7 @@ import ComposableArchitecture
 struct RankingDetailFeature {
     
     @ObservableState
-    struct State {
+    struct State: Equatable {
         var selectedTab: RankingType
         var consistency: RankingDetailListFeature.State? = .init()
         var pushUp: RankingDetailListFeature.State? = .init()
@@ -26,9 +26,9 @@ struct RankingDetailFeature {
             _ running: [RunningRankingResponse]
         ) {
             self.selectedTab = selectedTab
-            self.consistency = RankingDetailListFeature.State(ranking: consistency)
-            self.pushUp = RankingDetailListFeature.State(ranking: pushUp)
-            self.running = RankingDetailListFeature.State(ranking: running)
+            self.consistency = RankingDetailListFeature.State(ranking: consistency.map { $0.toDomain() })
+            self.pushUp = RankingDetailListFeature.State(ranking: pushUp.map { $0.toDomain() })
+            self.running = RankingDetailListFeature.State(ranking: running.map { $0.toDomain() })
             self.headerTab = HeaderTabFeature<RankingType>.State(selectedItem: selectedTab)
         }
     }
@@ -39,7 +39,7 @@ struct RankingDetailFeature {
         case pushUp(RankingDetailListFeature.Action)
         case running(RankingDetailListFeature.Action)
         case headerTab(HeaderTabFeature<RankingType>.Action)
-        case rankCellTapped(any RankingRepresentable)
+        case rankCellTapped(RankingModel)
     }
     
     var body: some ReducerOf<Self> {

@@ -8,25 +8,17 @@
 import Foundation
 import ComposableArchitecture
 
-//extension RankingDetailListFeature.State: Equatable {
-//    static func == (lhs: RankingDetailListFeature.State, rhs: RankingDetailListFeature.State) -> Bool {
-//        lhs.ranking.hashva == rhs.ranking
-//    }
-//    
-//    
-//}
-
 @Reducer
 struct RankingDetailListFeature {
     
     @ObservableState
-    struct State {
+    struct State: Equatable {
         @Shared(.selectedMainScene) var selectedScene: MainScene = .ranking
-        var ranking: [any RankingRepresentable] = []
+        var ranking: [RankingModel] = []
     }
     
     enum Action {
-        case rankCellTapped(any RankingRepresentable)
+        case rankCellTapped(RankingModel)
         case workoutButtonTapped
     }
     
