@@ -47,17 +47,18 @@ struct RankingDetailFeature {
             switch action {
             case let .selectTab(type):
                 return .send(.headerTab(.selectItem(type)))
-            case let .consistency(.rankCellTapped(userID)):
+            case .consistency(.rankCellTapped(let userID)):
                 return .send(.rankCellTapped(userID))
-            case let .pushUp(.rankCellTapped(userID)):
+            case .pushUp(.rankCellTapped(let userID)):
                 return .send(.rankCellTapped(userID))
             case .running(.rankCellTapped(let userID)):
                 return .send(.rankCellTapped(userID))
+            case .consistency, .pushUp, .running:
+                return .none
             case let .headerTab(.selectItem(type)):
                 state.selectedTab = type
                 return .none
-                
-            default:
+            case .rankCellTapped:
                 return .none
             }
         }

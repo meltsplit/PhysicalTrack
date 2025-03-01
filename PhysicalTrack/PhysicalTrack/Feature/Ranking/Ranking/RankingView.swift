@@ -115,11 +115,15 @@ fileprivate struct RankingTop3View: View {
             } else {
                 LazyVStack {
                     ForEach(rankings, id: \.userID) { data in
-                        RankingCell(
-                            rank: data.rank,
-                            name: data.name,
-                            description: data.description
-                        )
+                        Button {
+                            store.send(.rankCellTapped(data))
+                        } label: {
+                            RankingCell(
+                                rank: data.rank,
+                                name: data.name,
+                                description: data.description
+                            )
+                        }
                     }
                 }
                 
