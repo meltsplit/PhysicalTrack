@@ -109,6 +109,7 @@ fileprivate struct RankingTop3View: View {
                 
                 Spacer()
             }
+            .padding(.horizontal, 24)
             
             if rankings.isEmpty {
                 emptyView
@@ -124,6 +125,7 @@ fileprivate struct RankingTop3View: View {
                                 description: data.description
                             )
                         }
+                        .buttonStyle(PTPressedStyle())
                     }
                 }
                 
@@ -147,7 +149,6 @@ fileprivate struct RankingTop3View: View {
             }
         }
         .padding(.vertical, 20)
-        .padding(.horizontal, 24)
         .background(.ptBackground)
         
     }

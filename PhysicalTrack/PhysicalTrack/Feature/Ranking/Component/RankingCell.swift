@@ -33,6 +33,7 @@ struct RankingCell: View {
                 .font(.subheadline)
         }
         .padding(.vertical, 12)
+        .padding(.horizontal, 24)
     }
 }
 

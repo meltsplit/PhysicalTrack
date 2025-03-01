@@ -101,5 +101,6 @@ struct PTPressedStyle: ButtonStyle {
     func makeBody(configuration: Self.Configuration) -> some View {
         configuration.label
             .background(configuration.isPressed ? .ptDarkGray01 : .ptBackground)
+            .clipShape(RoundedRectangle(cornerRadius: 4))
     }
 }

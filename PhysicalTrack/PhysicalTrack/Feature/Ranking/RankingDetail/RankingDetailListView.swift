@@ -32,7 +32,6 @@ struct RankingDetailListView: View {
                 }
                 .background(.ptBackground)
                 .padding(.vertical, 20)
-                .padding(.horizontal, 24)
             }
         }
         
