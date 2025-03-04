@@ -24,7 +24,7 @@ struct RankingDetailListView: View {
                             RankingCell(
                                 rank: data.rank,
                                 name: data.name,
-                                description: data.description()
+                                description: data.description
                             )
                         }
                         .buttonStyle(PTPressedStyle())
@@ -32,7 +32,6 @@ struct RankingDetailListView: View {
                 }
                 .background(.ptBackground)
                 .padding(.vertical, 20)
-                .padding(.horizontal, 24)
             }
         }
         
@@ -70,9 +69,9 @@ struct RankingDetailListView: View {
     RankingDetailListView(
         store: .init(initialState:
                         RankingDetailListFeature.State(
-                            ranking: [ConsistencyRankingResponse.stub1,
-                                      ConsistencyRankingResponse.stub2,
-                                      ConsistencyRankingResponse.stub3]
+                            ranking: [ConsistencyRankingResponse.stub1.toDomain(),
+                                      ConsistencyRankingResponse.stub2.toDomain(),
+                                      ConsistencyRankingResponse.stub3.toDomain()]
                         )
                     )
         {

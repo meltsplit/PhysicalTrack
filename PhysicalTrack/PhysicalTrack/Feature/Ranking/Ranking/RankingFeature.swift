@@ -8,18 +8,21 @@
 import Foundation
 import ComposableArchitecture
 
+extension RankingFeature.Path.State: Equatable { }
+extension RankingFeature.Action.Alert: Equatable { }
+
 @Reducer
 struct RankingFeature {
 
     @ObservableState
-    struct State {
+    struct State: Equatable {
         var path = StackState<Path.State>()
         var consistency: [ConsistencyRankingResponse] = []
         var pushUp: [PushUpRankingResponse] = []
         var running: [RunningRankingResponse] = []
-        var consistencyTop3: [ConsistencyRankingResponse] = []
-        var pushUpTop3: [PushUpRankingResponse] = []
-        var runningTop3: [RunningRankingResponse] = []
+        var consistencyTop3: [RankingModel] = []
+        var pushUpTop3: [RankingModel] = []
+        var runningTop3: [RankingModel] = []
         @Presents var alert: AlertState<Action.Alert>?
         @Shared(.selectedMainScene) var selectedScene: MainScene = .ranking
     }
@@ -27,6 +30,7 @@ struct RankingFeature {
     enum Action {
         case onAppear
         case workoutButtonTapped
+        case rankCellTapped(RankingModel)
         case pushUpRankingResponse(Result<[PushUpRankingResponse], Error>)
         case consistencyRankingResponse(Result<[ConsistencyRankingResponse], Error>)
         case runningRankingResponse(Result<[RunningRankingResponse], Error>)
@@ -52,7 +56,6 @@ struct RankingFeature {
         Reduce { state , action in
             switch action {
             case .onAppear:
-                
                 return .merge(
                     .run { send in
                         await send(.consistencyRankingResponse(Result { try await rankingClient.fetchConsistency()}))
@@ -76,23 +79,34 @@ struct RankingFeature {
                 )))
                 return .none
             case let .path(.element(id: _, action: .rankingDetail(.rankCellTapped(data)))):
-                state.path.append(.web(PTWebFeature.State(url: "https://physical-t-7jce.vercel.app",
-                                                          targetUserID: data.userID,
-                                                          targetUsername: data.name)
-                ))
+                state.path.append(
+                    .web(PTWebFeature.State(
+                        url: "https://physical-t-7jce.vercel.app",
+                        targetUserID: data.userID,
+                        targetUsername: data.name
+                    ))
+                )
                 return .none
-                
+            case .rankCellTapped(let data):
+                state.path.append(
+                    .web(PTWebFeature.State(
+                        url: "https://physical-t-7jce.vercel.app",
+                        targetUserID: data.userID,
+                        targetUsername: data.name
+                    ))
+                )
+                return .none
             case let .pushUpRankingResponse(.success(response)):
                 state.pushUp = response
-                state.pushUpTop3 = Array(response.prefix(3))
+                state.pushUpTop3 = Array(response.prefix(3)).map { $0.toDomain() }
                 return .none
             case let .consistencyRankingResponse(.success(response)):
                 state.consistency = response
-                state.consistencyTop3 = Array(response.prefix(3))
+                state.consistencyTop3 = Array(response.prefix(3)).map { $0.toDomain() }
                 return .none
             case .runningRankingResponse(.success(let response)):
                 state.running = response
-                state.runningTop3 = Array(response.prefix(3))
+                state.runningTop3 = Array(response.prefix(3)).map { $0.toDomain() }
                 return .none
             case .pushUpRankingResponse(.failure),
                     .consistencyRankingResponse(.failure),
@@ -108,7 +122,6 @@ struct RankingFeature {
                     message: { TextState("잠시 후 다시 시도해주세요") }
                 )
                 return .none
-                    
             case .path:
                 return .none
             case .alert(_):

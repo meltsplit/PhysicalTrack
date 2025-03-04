@@ -12,6 +12,13 @@ protocol HeaderItemType: Hashable, CaseIterable, RawRepresentable where RawValue
     var title: String { get }
 }
 
+extension HeaderTabFeature.State: Equatable {
+    static func == (lhs: HeaderTabFeature<Item>.State, rhs: HeaderTabFeature<Item>.State) -> Bool {
+        AnyHashable(lhs.selectedItem) == AnyHashable(rhs.selectedItem)
+        && lhs.selectedIndex == rhs.selectedIndex
+    }
+}
+
 @Reducer
 struct HeaderTabFeature<Item: HeaderItemType> {
     

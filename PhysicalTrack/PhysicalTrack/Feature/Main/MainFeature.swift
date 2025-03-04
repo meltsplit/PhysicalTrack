@@ -19,10 +19,6 @@ struct MainFeature {
         var statistics: StatisticsFeature.State? = .init()
         var ranking: RankingFeature.State? = .init()
         var setting: SettingFeature.State? = .init()
-        
-        init(_ selectedTab: MainScene = .workout) {
-            _selectedTab = Shared(value: selectedTab)
-        }
     }
     
     enum Action {

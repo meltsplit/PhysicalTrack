@@ -78,7 +78,7 @@
 		87A479E62D58860500A5BFDC /* RunningFeature.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87A479E52D58860500A5BFDC /* RunningFeature.swift */; };
 		87A479EA2D58E66400A5BFDC /* Location.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87A479E92D58E66400A5BFDC /* Location.swift */; };
 		87A479EE2D5B594C00A5BFDC /* RunningFeatureTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87A479ED2D5B594C00A5BFDC /* RunningFeatureTest.swift */; };
-		87B492CA2CF5BAF600628A6E /* RankingRepresentable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87B492C92CF5BAF600628A6E /* RankingRepresentable.swift */; };
+		87B492CA2CF5BAF600628A6E /* RankingModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87B492C92CF5BAF600628A6E /* RankingModel.swift */; };
 		87B492CE2CF5C4D800628A6E /* RankingDetailListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87B492CD2CF5C4D800628A6E /* RankingDetailListView.swift */; };
 		87C01C6F2D5E3994000871B6 /* RunningRecord.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87C01C6E2D5E3994000871B6 /* RunningRecord.swift */; };
 		87C01C722D5E3A28000871B6 /* Exercise.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87C01C712D5E3A28000871B6 /* Exercise.swift */; };
@@ -196,7 +196,7 @@
 		87A479E52D58860500A5BFDC /* RunningFeature.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RunningFeature.swift; sourceTree = "<group>"; };
 		87A479E92D58E66400A5BFDC /* Location.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Location.swift; sourceTree = "<group>"; };
 		87A479ED2D5B594C00A5BFDC /* RunningFeatureTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RunningFeatureTest.swift; sourceTree = "<group>"; };
-		87B492C92CF5BAF600628A6E /* RankingRepresentable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RankingRepresentable.swift; sourceTree = "<group>"; };
+		87B492C92CF5BAF600628A6E /* RankingModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RankingModel.swift; sourceTree = "<group>"; };
 		87B492CD2CF5C4D800628A6E /* RankingDetailListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RankingDetailListView.swift; sourceTree = "<group>"; };
 		87C01C6E2D5E3994000871B6 /* RunningRecord.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RunningRecord.swift; sourceTree = "<group>"; };
 		87C01C712D5E3A28000871B6 /* Exercise.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Exercise.swift; sourceTree = "<group>"; };
@@ -318,7 +318,7 @@
 				87C01C7A2D60C434000871B6 /* PushUp */,
 				87C01C712D5E3A28000871B6 /* Exercise.swift */,
 				8735D72F2CC254C800C7824C /* Grade.swift */,
-				87B492C92CF5BAF600628A6E /* RankingRepresentable.swift */,
+				87B492C92CF5BAF600628A6E /* RankingModel.swift */,
 				87E43A7D2D37A2B1005512ED /* Setting.swift */,
 				873BB61D2D409E6400B8854E /* Gender.swift */,
 				873BB6212D40ABE600B8854E /* UserInfo.swift */,
@@ -354,7 +354,6 @@
 				87C01C822D60CFD5000871B6 /* Sharing */,
 				87F6DEBB2D411CC60033534F /* Environment */,
 				8735D7242CC21A7500C7824C /* Extension */,
-				8735D71C2CC2044600C7824C /* Util */,
 			);
 			path = Shared;
 			sourceTree = "<group>";
@@ -396,13 +395,6 @@
 				873E9C822CD11A2B0015FB45 /* Color.xcassets */,
 			);
 			path = Resources;
-			sourceTree = "<group>";
-		};
-		8735D71C2CC2044600C7824C /* Util */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Util;
 			sourceTree = "<group>";
 		};
 		8735D71D2CC2046200C7824C /* Remote */ = {
@@ -902,7 +894,7 @@
 				87B492CE2CF5C4D800628A6E /* RankingDetailListView.swift in Sources */,
 				8754676D2CC3C57A00144BE3 /* HeaderTabFeature.swift in Sources */,
 				87C01C7F2D60C46A000871B6 /* RunningCriteria.swift in Sources */,
-				87B492CA2CF5BAF600628A6E /* RankingRepresentable.swift in Sources */,
+				87B492CA2CF5BAF600628A6E /* RankingModel.swift in Sources */,
 				87FFBD712CD55198001AB389 /* AppClient.swift in Sources */,
 				8735D73F2CC2777E00C7824C /* RankingFeature.swift in Sources */,
 				8735D73B2CC2767600C7824C /* RootView.swift in Sources */,

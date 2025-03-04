@@ -20,17 +20,23 @@ struct RankingView: View {
                 } else {
                     ScrollView {
                         VStack(spacing: 14) {
-                            RankingTop3View(store: store,
-                                            type: .consistency,
-                                            rankings: store.consistencyTop3)
+                            RankingTop3View(
+                                store: store,
+                                type: .consistency,
+                                rankings: store.consistencyTop3
+                            )
                             
-                            RankingTop3View(store: store,
-                                            type: .pushUp,
-                                            rankings: store.pushUpTop3)
+                            RankingTop3View(
+                                store: store,
+                                type: .pushUp,
+                                rankings: store.pushUpTop3
+                            )
                             
-                            RankingTop3View(store: store,
-                                            type: .running,
-                                            rankings: store.runningTop3)
+                            RankingTop3View(
+                                store: store,
+                                type: .running,
+                                rankings: store.runningTop3
+                            )
                             
                             Spacer().frame(height: 10)
                         }
@@ -89,12 +95,12 @@ fileprivate struct RankingTop3View: View {
     
     let store: StoreOf<RankingFeature>
     let type: RankingType
-    let rankings: [any RankingRepresentable]
+    let rankings: [RankingModel]
     
     var body: some View {
         VStack {
             HStack {
-                Text("\(type.title) Top 3")
+                Text("\(type.title) 순위")
                     .font(.title3)
                     .bold()
                     .foregroundStyle(.ptWhite)
@@ -103,17 +109,23 @@ fileprivate struct RankingTop3View: View {
                 
                 Spacer()
             }
+            .padding(.horizontal, 24)
             
             if rankings.isEmpty {
                 emptyView
             } else {
                 LazyVStack {
                     ForEach(rankings, id: \.userID) { data in
-                        RankingCell(
-                            rank: data.rank,
-                            name: data.name,
-                            description: data.description()
-                        )
+                        Button {
+                            store.send(.rankCellTapped(data))
+                        } label: {
+                            RankingCell(
+                                rank: data.rank,
+                                name: data.name,
+                                description: data.description
+                            )
+                        }
+                        .buttonStyle(PTPressedStyle())
                     }
                 }
                 
@@ -137,7 +149,6 @@ fileprivate struct RankingTop3View: View {
             }
         }
         .padding(.vertical, 20)
-        .padding(.horizontal, 24)
         .background(.ptBackground)
         
     }

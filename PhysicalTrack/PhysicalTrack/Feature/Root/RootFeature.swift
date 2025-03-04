@@ -47,7 +47,7 @@ struct RootFeature {
             switch action {
             case .onAppear:
                 state.onboarding = OnboardingFeature.State()
-                state.main = MainFeature.State()
+                state.main = MainFeature.State(selectedTab: .workout)
                 return .run { send in
                     let deviceID = await deviceID()
                     let request = SignInRequest(deviceId: deviceID)
