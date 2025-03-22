@@ -8,6 +8,7 @@
 
 ### Feature
 - Onboarding
+- Home
 - Running
 - PushUp
 - Setting
