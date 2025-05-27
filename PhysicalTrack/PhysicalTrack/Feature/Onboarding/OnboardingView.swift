@@ -9,12 +9,13 @@ import SwiftUI
 import ComposableArchitecture
 
 struct OnboardingView: View {
+    
     @Bindable var store : StoreOf<OnboardingFeature>
-    @FocusState var nameTextFieldFocused: Bool
     
     var body: some View {
-        VStack {
         
+        VStack {
+            
             ProgressView(value: store.progress)
                 .frame(height: 3)
                 .frame(maxWidth: .infinity)
@@ -25,22 +26,64 @@ struct OnboardingView: View {
                 .padding(.top, 40)
                 .padding(.bottom, 20)
             
+            if store.currentStep.rawValue > 1 {
+                HStack {
+                    Button {
+                        store.send(.backButtonTapped)
+                    } label: {
+                        Image(systemName: "chevron.left")
+                            .resizable()
+                            .aspectRatio(contentMode: .fit)
+                            .frame(width: 20, height: 20)
+                            .foregroundStyle(.ptWhite)
+                        
+                    }
+                    Spacer()
+                }
+                .padding(.horizontal, 20)
+            }
+            
             TabView {
                 switch store.currentStep {
-                case .yearOfBirth: yearOfBirthView
-                case .name: nameView
-                case .gender: genderView
+                case .yearOfBirth:
+                    if let store = store.scope(state: \.birth, action: \.birth) {
+                        BirthView(store: store)
+                    }
+                case .name:
+                    if let store = store.scope(state: \.name, action: \.name) {
+                        NameView(store: store)
+                    }
+                case .gender:
+                    if let store = store.scope(state: \.gender, action: \.gender) {
+                        GenderView(store: store)
+                    }
                 }
             }
             .frame(maxWidth: .infinity, maxHeight: .infinity)
             .background(.ptBackground)
+            
+            PTButton(store.doneButtonTitle) {
+                store.send(.doneButtonTapped)
+            }
+            .disabled(store.doneButtonDisabled)
+            .padding(.horizontal, 20)
+            .padding(.bottom, 20)
             
         }
         .background(.ptBackground)
 
     }
     
-    var nameView: some View {
+}
+
+struct NameView: View {
+    
+    @Bindable var store: StoreOf<NameFeature>
+    
+    @FocusState var nameTextFieldFocused: Bool
+    
+    var body: some View {
+        
         VStack {
             
             Text("어떻게 불러 드릴까요?")
@@ -59,40 +102,23 @@ struct OnboardingView: View {
                 .multilineTextAlignment(.center)
                 .focused($nameTextFieldFocused)
                 .padding(.top, 40)
-            
+                .onAppear {
+                    nameTextFieldFocused = true
+                }
             
             Spacer()
-            
-            PTButton("계속하기") {
-                store.send(.doneButtonTapped)
-            }
-            .disabled(store.name.isEmpty)
-            .padding(.horizontal, 20)
-            .padding(.bottom, 20)
-            .onAppear {
-                nameTextFieldFocused = true
-            }
-            
         }
         .background(.ptBackground)
+        
     }
+}
+
+struct GenderView: View {
     
-    var genderView: some View {
+    @Bindable var store: StoreOf<GenderFeature>
+    
+    var body: some View {
         VStack {
-            HStack {
-                Button {
-                    store.send(.backButtonTapped)
-                } label: {
-                    Image(systemName: "chevron.left")
-                        .resizable()
-                        .aspectRatio(contentMode: .fit)
-                        .frame(width: 20, height: 20)
-                        .foregroundStyle(.ptWhite)
-                        
-                }
-                Spacer()
-            }
-            .padding(.horizontal, 20)
             
             Text("성별을 선택해 주세요.")
                 .font(.title)
@@ -111,11 +137,6 @@ struct OnboardingView: View {
             
             Spacer()
             
-            PTButton("계속하기") {
-                store.send(.doneButtonTapped)
-            }
-            .padding(.horizontal, 20)
-            
             Group {
                 Picker("", selection: $store.gender.sending(\.genderChanged)) {
                     ForEach((Gender.allCases), id: \.self) {
@@ -132,22 +153,14 @@ struct OnboardingView: View {
         }
         .background(.ptBackground)
     }
+}
+
+struct BirthView: View {
     
-    var yearOfBirthView: some View {
+    @Bindable var store: StoreOf<BirthFeature>
+    
+    var body: some View {
         VStack {
-            HStack {
-                Button {
-                    store.send(.backButtonTapped)
-                } label: {
-                    Image(systemName: "chevron.left")
-                        .resizable()
-                        .aspectRatio(contentMode: .fit)
-                        .frame(width: 20, height: 20)
-                        .foregroundStyle(.ptWhite)
-                }
-                Spacer()
-            }
-            .padding(.horizontal, 20)
             
             Text("출생 연도를 선택해 주세요.")
                 .font(.title)
@@ -168,12 +181,6 @@ struct OnboardingView: View {
             
             Spacer()
             
-            PTButton("회원가입") {
-                store.send(.doneButtonTapped)
-            }
-            .loading(store.isLoading)
-            .padding(.horizontal, 20)
-            
             Picker("", selection: $store.yearOfBirth.sending(\.yearOfBirthChanged)) {
                 ForEach((1950...2030), id: \.self) {
                     Text(String($0))
@@ -187,7 +194,6 @@ struct OnboardingView: View {
             .backgroundStyle(.gray)
         }
         .background(.ptBackground)
-        .disabled(store.isLoading)
     }
 }
 

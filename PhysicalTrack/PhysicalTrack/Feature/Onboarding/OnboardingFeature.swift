@@ -20,10 +20,13 @@ struct OnboardingFeature {
     @ObservableState
     struct State: Equatable {
         @Shared(.selectedRootScene) var selectedRootScene = RootScene.onboarding
+
+        var name: NameFeature.State? = .init()
+        var gender: GenderFeature.State? = .init()
+        var birth: BirthFeature.State? = .init()
         
-        var name: String = "홍길동"
-        var gender: Gender = .male
-        var yearOfBirth: Int = 2000
+        var doneButtonDisabled = true
+        var doneButtonTitle = "계속하기"
         
         var isLoading: Bool = false
         var currentStep: Step = .name
@@ -35,11 +38,11 @@ struct OnboardingFeature {
     }
     
     enum Action {
+        case name(NameFeature.Action)
+        case gender(GenderFeature.Action)
+        case birth(BirthFeature.Action)
         case stepChanged(Step)
         case backButtonTapped
-        case yearOfBirthChanged(Int)
-        case nameChanged(String)
-        case genderChanged(Gender)
         case doneButtonTapped
         case signUp
         case signUpResponse(Result<String, Error>)
@@ -55,23 +58,14 @@ struct OnboardingFeature {
             case let .stepChanged(step):
                 state.currentStep = step
                 state.progress = Double(step.rawValue) / Double(Step.allCases.count)
+                if step.rawValue == Step.allCases.count {
+                    state.doneButtonTitle = "회원가입"
+                }
                 return .none
             case .backButtonTapped:
                 let prevStep = Step(rawValue: state.currentStep.rawValue - 1 ) ?? .name
                 return .send(.stepChanged(prevStep))
           
-            case let .yearOfBirthChanged(year):
-                state.yearOfBirth = year
-                return .none
-
-            case let .nameChanged(name):
-                state.name = name
-                return .none
-                
-            case let .genderChanged(gender):
-                state.gender = gender
-                return .none
-                
             case .doneButtonTapped:
                 guard state.currentStep.rawValue < Step.allCases.count
                 else { return .send(.signUp)}
@@ -81,12 +75,17 @@ struct OnboardingFeature {
             case .signUp:
                 state.isLoading = true
                 return .run { [state] send in
+                    guard let name = state.name?.name,
+                          let gender = state.gender?.gender,
+                          let birthYear = state.birth?.yearOfBirth
+                    else { return }
+                    
                     let deviceID = await deviceID()
                     let request = SignUpRequest(
                         deviceId: deviceID,
-                        name: state.name,
-                        birthYear: state.yearOfBirth,
-                        gender: state.gender.toData()
+                        name: name,
+                        birthYear: birthYear,
+                        gender: gender.toData()
                     )
                     let response = await Result { try await signUp(request) }
                     await send(.signUpResponse(response))
@@ -101,6 +100,97 @@ struct OnboardingFeature {
                 return .none
             case .signUpResponse(.failure(_)):
                 state.isLoading = false
+                return .none
+            case .name(.validate(let isValid)):
+                state.doneButtonDisabled = !isValid
+                return .none
+            case .name(_):
+                return .none
+            case .gender:
+                return .none
+            case .birth:
+                return .none
+            }
+        }
+        .ifLet(\.name, action: \.name) {
+            NameFeature()
+        }
+        .ifLet(\.gender, action: \.gender) {
+            GenderFeature()
+        }
+        .ifLet(\.birth, action: \.birth) {
+            BirthFeature()
+        }
+    }
+}
+
+
+@Reducer
+struct NameFeature {
+    
+    @ObservableState
+    struct State: Equatable {
+        var name: String = "홍길동"
+    }
+    
+    enum Action {
+        case nameChanged(String)
+        case validate(Bool)
+    }
+    
+    var body: some ReducerOf<Self> {
+        Reduce { state, action in
+            switch action {
+            case .nameChanged(let name):
+                state.name = name
+                return .send(.validate(!name.isEmpty))
+            case .validate:
+                return .none
+            }
+        }
+    }
+}
+
+@Reducer
+struct GenderFeature {
+    
+    @ObservableState
+    struct State: Equatable {
+        var gender: Gender = .male
+    }
+    
+    enum Action {
+        case genderChanged(Gender)
+    }
+    
+    var body: some ReducerOf<Self> {
+        Reduce { state, action in
+            switch action {
+            case .genderChanged(let gender):
+                state.gender = gender
+                return .none
+            }
+        }
+    }
+}
+
+@Reducer
+struct BirthFeature {
+    
+    @ObservableState
+    struct State: Equatable {
+        var yearOfBirth: Int = 2000
+    }
+    
+    enum Action {
+        case yearOfBirthChanged(Int)
+    }
+    
+    var body: some ReducerOf<Self> {
+        Reduce { state, action in
+            switch action {
+            case let .yearOfBirthChanged(year):
+                state.yearOfBirth = year
                 return .none
             }
         }

@@ -7,6 +7,9 @@
 
 import SwiftUI
 import ComposableArchitecture
+//rootStore    ComposableArchitecture.RootStore    0x0000600002c16080
+// rootStore    ComposableArchitecture.RootStore    0x0000600002c16080
+
 
 struct WorkoutView: View {
     
