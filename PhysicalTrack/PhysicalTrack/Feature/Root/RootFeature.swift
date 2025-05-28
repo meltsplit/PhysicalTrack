@@ -21,8 +21,8 @@ struct RootFeature {
     struct State {
         @Shared(.selectedRootScene) var selectedScene = RootScene.splash
         
-        var onboarding: OnboardingFeature.State? = .init()
-        var main: MainFeature.State? = .init()
+        var onboarding = OnboardingFeature.State()
+        var main = MainFeature.State()
     }
     
     enum Action {
@@ -43,6 +43,12 @@ struct RootFeature {
     @Dependency(\.jwtDecoder.decode) var decode
     
     var body: some ReducerOf<Self> {
+        Scope(state: \.onboarding, action: \.onboarding) {
+            OnboardingFeature()
+        }
+        Scope(state: \.main, action: \.main) {
+            MainFeature()
+        }
         Reduce { state , action in
             switch action {
             case .onAppear:
@@ -70,13 +76,6 @@ struct RootFeature {
             case .onboarding, .main:
                 return .none
             }
-        
-        }
-        .ifLet(\.onboarding, action: \.onboarding) {
-            OnboardingFeature()
-        }
-        .ifLet(\.main, action: \.main) {
-            MainFeature()
         }
     }
 }

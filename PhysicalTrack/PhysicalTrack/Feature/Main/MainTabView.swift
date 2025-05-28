@@ -15,29 +15,25 @@ struct MainTabView: View {
         TabView(
             selection: $store.selectedTab.sending(\.selectTab)
         ) {
-            if let store = store.scope(state: \.workout, action: \.workout) {
-                WorkoutView(store: store)
-                    .tag(MainScene.workout)
-                    .tabItem { TabBarItem(.workout) }
-            }
             
-            if let store = store.scope(state: \.statistics, action: \.statistics) {
-                StatisticsView(store: store)
-                    .tag(MainScene.statistics)
-                    .tabItem { TabBarItem(.statistics) }
-            }
+            WorkoutView(store: store.scope(state: \.workout, action: \.workout))
+                .tag(MainScene.workout)
+                .tabItem { TabBarItem(.workout) }
             
-            if let store = store.scope(state: \.ranking, action: \.ranking) {
-                RankingView(store: store)
-                    .tag(MainScene.ranking)
-                    .tabItem { TabBarItem(.ranking) }
-            }
+            StatisticsView(store: store.scope(state: \.statistics, action: \.statistics))
+                .tag(MainScene.statistics)
+                .tabItem { TabBarItem(.statistics) }
             
-            if let store = store.scope(state: \.setting, action: \.setting) {
-                SettingView(store: store)
-                    .tag(MainScene.setting)
-                    .tabItem { TabBarItem(.setting) }
-            }
+            
+            RankingView(store: store.scope(state: \.ranking, action: \.ranking))
+                .tag(MainScene.ranking)
+                .tabItem { TabBarItem(.ranking) }
+            
+            
+            SettingView(store: store.scope(state: \.setting, action: \.setting))
+                .tag(MainScene.setting)
+                .tabItem { TabBarItem(.setting) }
+            
         }
     }
 }

@@ -20,13 +20,9 @@ struct RootView: View {
                         store.send(.onAppear)
                     }
             case .onboarding:
-                if let store = store.scope(state: \.onboarding, action: \.onboarding) {
-                    OnboardingView(store: store)
-                }
+                OnboardingView(store: store.scope(state: \.onboarding, action: \.onboarding))
             case .main:
-                if let store = store.scope(state: \.main, action: \.main) {
-                    MainTabView(store: store)
-                }
+                MainTabView(store: store.scope(state: \.main, action: \.main))
             }
         }
     }

@@ -14,9 +14,7 @@ struct StatisticsView: View {
     
     var body: some View {
         NavigationStack {
-            if let store = store.scope(state: \.web, action: \.web) {
-                PTWebView(store: store)
-            }
+            PTWebView(store: store.scope(state: \.web, action: \.web))
         }
     }
 }

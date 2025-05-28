@@ -21,9 +21,9 @@ struct OnboardingFeature {
     struct State: Equatable {
         @Shared(.selectedRootScene) var selectedRootScene = RootScene.onboarding
 
-        var name: NameFeature.State? = .init()
-        var gender: GenderFeature.State? = .init()
-        var birth: BirthFeature.State? = .init()
+        var name = NameFeature.State()
+        var gender = GenderFeature.State()
+        var birth = BirthFeature.State()
         
         var doneButtonDisabled = true
         var doneButtonTitle = "계속하기"
@@ -53,6 +53,15 @@ struct OnboardingFeature {
     @Dependency(\.jwtDecoder.decode) var decode
     
     var body: some ReducerOf<Self> {
+        Scope(state: \.name, action: \.name) {
+            NameFeature()
+        }
+        Scope(state: \.gender, action: \.gender) {
+            GenderFeature()
+        }
+        Scope(state: \.birth, action: \.birth) {
+            BirthFeature()
+        }
         Reduce { state , action in
             switch action {
             case let .stepChanged(step):
@@ -75,17 +84,17 @@ struct OnboardingFeature {
             case .signUp:
                 state.isLoading = true
                 return .run { [state] send in
-                    guard let name = state.name?.name,
-                          let gender = state.gender?.gender,
-                          let birthYear = state.birth?.yearOfBirth
-                    else { return }
+//                    guard let name = state.name?.name,
+//                          let gender = state.gender?.gender,
+//                          let birthYear = state.birth?.yearOfBirth
+//                    else { return }
                     
                     let deviceID = await deviceID()
                     let request = SignUpRequest(
                         deviceId: deviceID,
-                        name: name,
-                        birthYear: birthYear,
-                        gender: gender.toData()
+                        name: state.name.name,
+                        birthYear: state.birth.yearOfBirth,
+                        gender: state.gender.gender.toData()
                     )
                     let response = await Result { try await signUp(request) }
                     await send(.signUpResponse(response))
@@ -112,15 +121,7 @@ struct OnboardingFeature {
                 return .none
             }
         }
-        .ifLet(\.name, action: \.name) {
-            NameFeature()
-        }
-        .ifLet(\.gender, action: \.gender) {
-            GenderFeature()
-        }
-        .ifLet(\.birth, action: \.birth) {
-            BirthFeature()
-        }
+
     }
 }
 
