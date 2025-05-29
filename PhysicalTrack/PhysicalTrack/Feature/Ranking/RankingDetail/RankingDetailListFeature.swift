@@ -14,7 +14,11 @@ struct RankingDetailListFeature {
     @ObservableState
     struct State: Equatable {
         @Shared(.selectedMainScene) var selectedScene: MainScene = .ranking
-        var ranking: [RankingModel] = []
+        var ranking: [RankingModel]
+        
+        init(ranking: [RankingModel]) {
+            self.ranking = ranking
+        }
     }
     
     enum Action {

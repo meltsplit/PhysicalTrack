@@ -14,26 +14,20 @@ struct RankingDetailView: View {
     @Environment(\.dismiss) var dismiss
     var body: some View {
         VStack {
-            if let store = store.scope(state: \.headerTab, action: \.headerTab) {
-                HeaderTabView<RankingType>(store: store)
-            }
+            HeaderTabView<RankingType>(store: store.scope(state: \.headerTab, action: \.headerTab))
             
             TabView(selection: $store.selectedTab.sending(\.selectTab)) {
                 
-                if let store = store.scope(state: \.consistency, action: \.consistency) {
-                    RankingDetailListView(store: store)
-                        .tag(RankingType.consistency)
-                }
+                RankingDetailListView(store: store.scope(state: \.consistency, action: \.consistency))
+                    .tag(RankingType.consistency)
                 
-                if let store = store.scope(state: \.pushUp, action: \.pushUp) {
-                    RankingDetailListView(store: store)
-                        .tag(RankingType.pushUp)
-                }
                 
-                if let store = store.scope(state: \.running, action: \.running) {
-                    RankingDetailListView(store: store)
-                        .tag(RankingType.running)
-                }
+                RankingDetailListView(store: store.scope(state: \.pushUp, action: \.pushUp))
+                    .tag(RankingType.pushUp)
+                
+                
+                RankingDetailListView(store: store.scope(state: \.running, action: \.running))
+                    .tag(RankingType.running)
             }
             .animation(.default, value: store.selectedTab)
             .tabViewStyle(.page(indexDisplayMode: .never))

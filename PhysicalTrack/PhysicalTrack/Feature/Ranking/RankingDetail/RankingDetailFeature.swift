@@ -14,10 +14,10 @@ struct RankingDetailFeature {
     @ObservableState
     struct State: Equatable {
         var selectedTab: RankingType
-        var consistency: RankingDetailListFeature.State? = .init()
-        var pushUp: RankingDetailListFeature.State? = .init()
-        var running: RankingDetailListFeature.State? = .init()
-        var headerTab: HeaderTabFeature<RankingType>.State? = .init(selectedItem: .consistency)
+        var consistency: RankingDetailListFeature.State
+        var pushUp: RankingDetailListFeature.State
+        var running: RankingDetailListFeature.State
+        var headerTab = HeaderTabFeature<RankingType>.State(selectedItem: .consistency)
         
         init(
             _ selectedTab: RankingType,
@@ -26,9 +26,9 @@ struct RankingDetailFeature {
             _ running: [RunningRankingResponse]
         ) {
             self.selectedTab = selectedTab
-            self.consistency = RankingDetailListFeature.State(ranking: consistency.map { $0.toDomain() })
-            self.pushUp = RankingDetailListFeature.State(ranking: pushUp.map { $0.toDomain() })
-            self.running = RankingDetailListFeature.State(ranking: running.map { $0.toDomain() })
+            self.consistency = RankingDetailListFeature.State(ranking: consistency.map { $0.toRankingModel() })
+            self.pushUp = RankingDetailListFeature.State(ranking: pushUp.map { $0.toRankingModel() })
+            self.running = RankingDetailListFeature.State(ranking: running.map { $0.toRankingModel() })
             self.headerTab = HeaderTabFeature<RankingType>.State(selectedItem: selectedTab)
         }
     }
@@ -43,6 +43,20 @@ struct RankingDetailFeature {
     }
     
     var body: some ReducerOf<Self> {
+        
+        Scope(state: \.consistency, action: \.consistency) {
+            RankingDetailListFeature()
+        }
+        Scope(state: \.pushUp, action: \.pushUp) {
+            RankingDetailListFeature()
+        }
+        Scope(state: \.running, action: \.running) {
+            RankingDetailListFeature()
+        }
+        Scope(state: \.headerTab, action: \.headerTab) {
+            HeaderTabFeature<RankingType>()
+        }
+        
         Reduce { state , action in
             switch action {
             case let .selectTab(type):
@@ -61,18 +75,6 @@ struct RankingDetailFeature {
             case .rankCellTapped:
                 return .none
             }
-        }
-        .ifLet(\.consistency, action: \.consistency) {
-            RankingDetailListFeature()
-        }
-        .ifLet(\.pushUp, action: \.pushUp) {
-            RankingDetailListFeature()
-        }
-        .ifLet(\.running, action: \.running) {
-            RankingDetailListFeature()
-        }
-        .ifLet(\.headerTab, action: \.headerTab) {
-            HeaderTabFeature<RankingType>()
         }
     }
 }

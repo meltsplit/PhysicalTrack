@@ -98,15 +98,15 @@ struct RankingFeature {
                 return .none
             case let .pushUpRankingResponse(.success(response)):
                 state.pushUp = response
-                state.pushUpTop3 = Array(response.prefix(3)).map { $0.toDomain() }
+                state.pushUpTop3 = Array(response.prefix(3)).map { $0.toRankingModel() }
                 return .none
             case let .consistencyRankingResponse(.success(response)):
                 state.consistency = response
-                state.consistencyTop3 = Array(response.prefix(3)).map { $0.toDomain() }
+                state.consistencyTop3 = Array(response.prefix(3)).map { $0.toRankingModel() }
                 return .none
             case .runningRankingResponse(.success(let response)):
                 state.running = response
-                state.runningTop3 = Array(response.prefix(3)).map { $0.toDomain() }
+                state.runningTop3 = Array(response.prefix(3)).map { $0.toRankingModel() }
                 return .none
             case .pushUpRankingResponse(.failure),
                     .consistencyRankingResponse(.failure),
