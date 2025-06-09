@@ -81,7 +81,7 @@ struct PushUpView: View {
                                 
                                 Text(store.workoutLeftSeconds.to_mmss)
                                     .font(.title3.bold())
-                                    
+                                
                             }
                         }
                         .padding(.horizontal, 20)
@@ -158,7 +158,7 @@ struct PushUpView: View {
                 
                 PTButton("완료") {
                     store.send(.doneButtonTapped)
-                } 
+                }
                 .padding(.horizontal, 20)
                 
                 Spacer().frame(height: 44)

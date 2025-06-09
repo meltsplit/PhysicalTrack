@@ -15,6 +15,26 @@ struct OnboardingFeature {
         case name = 1
         case gender = 2
         case yearOfBirth = 3
+        
+        var isFirstStep: Bool {
+            self == .name
+        }
+        
+        var isLastStep: Bool {
+            self == .yearOfBirth
+        }
+        
+        var progressRatio: Double {
+            Double(self.rawValue) / Double(Step.allCases.count)
+        }
+        
+        var prevStep: Step {
+            Step(rawValue: self.rawValue - 1 ) ?? .name
+        }
+        
+        var nextStep: Step {
+            Step(rawValue: self.rawValue + 1 ) ?? .yearOfBirth
+        }
     }
     
     @ObservableState
@@ -26,11 +46,9 @@ struct OnboardingFeature {
         var birth = BirthFeature.State()
         
         var doneButtonDisabled = true
-        var doneButtonTitle = "계속하기"
         
         var isLoading: Bool = false
         var currentStep: Step = .name
-        var progress: Double = Double(Step.name.rawValue) / Double(Step.allCases.count)
         
         @Shared(.accessToken) var accessToken = ""
         @Shared(.userID) var userID = 0
@@ -66,29 +84,21 @@ struct OnboardingFeature {
             switch action {
             case let .stepChanged(step):
                 state.currentStep = step
-                state.progress = Double(step.rawValue) / Double(Step.allCases.count)
-                if step.rawValue == Step.allCases.count {
-                    state.doneButtonTitle = "회원가입"
-                }
                 return .none
             case .backButtonTapped:
-                let prevStep = Step(rawValue: state.currentStep.rawValue - 1 ) ?? .name
+                let prevStep = state.currentStep.prevStep
                 return .send(.stepChanged(prevStep))
           
             case .doneButtonTapped:
-                guard state.currentStep.rawValue < Step.allCases.count
-                else { return .send(.signUp)}
-                let nextStep = Step(rawValue: state.currentStep.rawValue + 1) ?? .yearOfBirth
-                return .send(.stepChanged(nextStep))
-                
+                if state.currentStep.isLastStep {
+                    return .send(.signUp)
+                } else {
+                    let nextStep = state.currentStep.nextStep
+                    return .send(.stepChanged(nextStep))
+                }
             case .signUp:
                 state.isLoading = true
                 return .run { [state] send in
-//                    guard let name = state.name?.name,
-//                          let gender = state.gender?.gender,
-//                          let birthYear = state.birth?.yearOfBirth
-//                    else { return }
-                    
                     let deviceID = await deviceID()
                     let request = SignUpRequest(
                         deviceId: deviceID,

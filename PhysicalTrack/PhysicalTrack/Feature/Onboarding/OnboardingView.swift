@@ -16,17 +16,17 @@ struct OnboardingView: View {
         
         VStack {
             
-            ProgressView(value: store.progress)
+            ProgressView(value: store.currentStep.progressRatio)
                 .frame(height: 3)
                 .frame(maxWidth: .infinity)
                 .background(.ptGray)
                 .tint(.ptPoint)
                 .padding(.horizontal, 20)
-                .animation(.easeInOut, value: store.progress)
+                .animation(.easeInOut, value: store.currentStep.progressRatio)
                 .padding(.top, 40)
                 .padding(.bottom, 20)
             
-            if store.currentStep.rawValue > 1 {
+            if !store.currentStep.isFirstStep {
                 HStack {
                     Button {
                         store.send(.backButtonTapped)
@@ -56,7 +56,7 @@ struct OnboardingView: View {
             .frame(maxWidth: .infinity, maxHeight: .infinity)
             .background(.ptBackground)
             
-            PTButton(store.doneButtonTitle) {
+            PTButton(store.currentStep.isLastStep ? "회원가입" : "계속하기") {
                 store.send(.doneButtonTapped)
             }
             .disabled(store.doneButtonDisabled)
