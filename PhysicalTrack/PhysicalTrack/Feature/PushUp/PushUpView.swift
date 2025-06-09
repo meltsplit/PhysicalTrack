@@ -118,14 +118,8 @@ struct PushUpView: View {
                 }
             }
             .overlay {
-                if store.readyLeftSeconds > 0 {
-                    VStack {
-                        Text("\(store.readyLeftSeconds)")
-                            .font(.largeTitle)
-                            .bold()
-                    }
-                    .frame(maxWidth: .infinity, maxHeight: .infinity)
-                    .background(.black.opacity(0.8))
+                if let store = store.scope(state: \.ready, action: \.ready) {
+                    WorkoutReadyView(store: store)
                 }
             }
             .alert($store.scope(state: \.alert, action: \.alert))
@@ -178,6 +172,24 @@ struct PushUpView: View {
         .background(.black.opacity(0.4))
         .onAppear {
             isAnimation = true
+        }
+    }
+}
+
+struct WorkoutReadyView: View {
+    
+    var store: StoreOf<WorkoutReadyFeature>
+    
+    var body: some View {
+        VStack {
+            Text("\(store.readyLeftSeconds)")
+                .font(.largeTitle)
+                .bold()
+        }
+        .frame(maxWidth: .infinity, maxHeight: .infinity)
+        .background(.black.opacity(0.8))
+        .onAppear {
+            store.send(.onAppear)
         }
     }
 }
