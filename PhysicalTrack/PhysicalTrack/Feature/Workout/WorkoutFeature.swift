@@ -95,7 +95,7 @@ struct WorkoutFeature {
                 }
             case .startPushUp:
                 if state.shouldShowTutorial {
-                    state.tutorial = TutorialFeature.State()
+                    state.tutorial = TutorialFeature.State(tutorialModels: .pushUp)
                 } else {
                     state.pushUp = PushUpFeature.State(PushUpRecord(for: state.grade))
                 }

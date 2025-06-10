@@ -14,9 +14,9 @@ struct TutorialView: View {
     
     var body: some View {
         VStack {
-            TabView(selection: $store.selectedTab.sending(\.tabChanged)) {
-                ForEach(TutorialFeature.Step.allCases, id: \.self) { step in
-                    TutorialStepView(step: step)
+            TabView(selection: $store.currentModel.sending(\.tabChanged)) {
+                ForEach(store.tutorialModels, id: \.self) { model in
+                    TutorialStepView(state: model)
                 }
             }
             .tabViewStyle(.page)
@@ -32,7 +32,7 @@ struct TutorialView: View {
                     Text("운동 시작하기")
                 }
             }
-            .opacity(store.selectedTab == .third
+            .opacity(store.isLastModel
                      ? 1
                      : 0
             )
@@ -45,46 +45,21 @@ struct TutorialView: View {
 
 fileprivate struct TutorialStepView: View {
     
-    let step: TutorialFeature.Step
-    
-    private var title: String {
-        switch step {
-        case .first: "기기를 평평한 바닥에 놓아주세요."
-        case .second: "팔굽혀펴기를 시작하세요."
-        case .third: "횟수가 자동으로 측정됩니다."
-        }
-    }
-    
-    private var description: String {
-        switch step {
-        case .first: "카메라를 코와 일직선에 맞추세요."
-        case .second: "기기와 2cm 이내의 간격으로 접근하세요."
-        case .third: "근접 센서가 자동으로 횟수를 측정해줍니다."
-        }
-    }
-    
-    private var image: ImageResource {
-        switch step {
-        case .first: .tutorial1
-        case .second: .tutorial2
-        case .third: .tutorial3
-        }
-    }
-    
+    let state: TutorialModel
     
     var body: some View {
         VStack(spacing: 10){
-            Text(title)
+            Text(state.title)
                 .font(.title2)
                 .bold()
                 .multilineTextAlignment(.center)
                 .padding(.top, 40)
             
-            Image(image)
+            Image(state.image)
                 .resizable()
                 .scaledToFit()
             
-            Text(description)
+            Text(state.description)
                 .font(.headline)
                 .foregroundStyle(.ptGray)
                 .multilineTextAlignment(.center)
@@ -97,7 +72,7 @@ fileprivate struct TutorialStepView: View {
 }
 
 #Preview {
-    TutorialView(store: .init(initialState: TutorialFeature.State(), reducer: {
+    TutorialView(store: .init(initialState: TutorialFeature.State(tutorialModels: [.PushUp.first, .PushUp.second, .PushUp.third]), reducer: {
         TutorialFeature()
     }))
 }

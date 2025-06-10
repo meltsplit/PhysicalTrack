@@ -48,7 +48,7 @@ struct SettingFeature {
                     state.web = PTWebFeature.State(url: "https://forms.gle/bQZDot2BPxFGjoFi6")
                     return .none
                 case .사용법:
-                    state.tutorial = TutorialFeature.State()
+                    state.tutorial = TutorialFeature.State(tutorialModels: .pushUp)
                     return .none
                 default:
                     return .none

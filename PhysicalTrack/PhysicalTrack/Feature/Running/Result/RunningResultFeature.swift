@@ -14,16 +14,17 @@ struct RunningResultFeature {
     @ObservableState
     struct State: Equatable {
         let record: RunningRecord
-        let criterias: [CriteriaModel]
+        let result: WorkoutResultFeature.State
         
         init(record: RunningRecord) {
             self.record = record
-            self.criterias = RunningCriteria.toModels()
+            self.result = WorkoutResultFeature.State(grade: record.evaluate(), criterias: PushUpCriteria.toModels())
         }
     }
     
     enum Action {
         case onAppear
+        case result(WorkoutResultFeature.Action)
         case saveRunningRecordResponse(Result<Void, Error>)
     }
     
@@ -40,6 +41,8 @@ struct RunningResultFeature {
             case .saveRunningRecordResponse(.success):
                 return .none
             case .saveRunningRecordResponse(.failure):
+                return .none
+            case .result:
                 return .none
 
             }

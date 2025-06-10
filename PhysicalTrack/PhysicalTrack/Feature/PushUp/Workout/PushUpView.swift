@@ -125,7 +125,7 @@ struct PushUpView: View {
             .alert($store.scope(state: \.alert, action: \.alert))
             
         } destination: { store in
-            WorkoutResultView(store: store)
+            PushUpResultView(store: store)
         }
         
     }
@@ -172,24 +172,6 @@ struct PushUpView: View {
         .background(.black.opacity(0.4))
         .onAppear {
             isAnimation = true
-        }
-    }
-}
-
-struct WorkoutReadyView: View {
-    
-    var store: StoreOf<WorkoutReadyFeature>
-    
-    var body: some View {
-        VStack {
-            Text("\(store.readyLeftSeconds)")
-                .font(.largeTitle)
-                .bold()
-        }
-        .frame(maxWidth: .infinity, maxHeight: .infinity)
-        .background(.black.opacity(0.8))
-        .onAppear {
-            store.send(.onAppear)
         }
     }
 }

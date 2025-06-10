@@ -14,22 +14,24 @@ struct PushUpResultFeature {
     @ObservableState
     struct State: Equatable {
         let record: PushUpRecord
-        let criterias: [CriteriaModel]
+        let result: WorkoutResultFeature.State
         
         init(record: PushUpRecord) {
             self.record = record
-            self.criterias = PushUpCriteria.toModels()
+            self.result = WorkoutResultFeature.State(grade: record.evaluate(), criterias: PushUpCriteria.toModels())
         }
     }
     
     enum Action {
         case onAppear
+        case result(WorkoutResultFeature.Action)
         case savePushUpRecordResponse(Result<Void, Error>)
     }
     
     @Dependency(\.workoutClient.savePushUpRecord) var savePushUpRecord
     
     var body: some ReducerOf<Self> {
+
         Reduce { state, action in
             switch action {
             case .onAppear:
@@ -41,7 +43,8 @@ struct PushUpResultFeature {
                 return .none
             case .savePushUpRecordResponse(.failure):
                 return .none
-
+            case .result:
+                return .none
             }
         }
     }

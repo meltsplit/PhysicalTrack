@@ -21,26 +21,7 @@ struct RunningView: View {
                     ZStack {
                         
                         HStack {
-                            VStack(spacing: 8) {
-                                
-                                Text("페이스")
-                                    .bold()
-                                    .foregroundStyle(.ptGray)
-                                
-                                Button {
-                                    store.send(.muteButtonTapped)
-                                } label: {
-                                    Image(systemName: store.isMute
-                                          ? "speaker.slash.fill"
-                                          : "speaker.fill"
-                                    )
-                                    .resizable()
-                                    .scaledToFit()
-                                    .frame(width: 18, height: 18)
-                                    .foregroundStyle(.ptWhite)
-                                }
-                            }
-                            
+
                             Spacer()
                             
                             VStack(spacing: 8) {
@@ -82,20 +63,14 @@ struct RunningView: View {
                 store.send(.onAppear)
             }
             .overlay {
-                if store.readyLeftSeconds > 0 {
-                    VStack {
-                        Text("\(store.readyLeftSeconds)")
-                            .font(.system(size: 80))
-                            .fontWeight(.black)
-                    }
-                    .frame(maxWidth: .infinity, maxHeight: .infinity)
-                    .background(.black.opacity(0.8))
+                if let store = store.scope(state: \.ready, action: \.ready) {
+                    WorkoutReadyView(store: store)
                 }
             }
             .alert($store.scope(state: \.alert, action: \.alert))
             
-        } destination: { store in
-            WorkoutResultView(store: store)
+        } destination: { store in 
+            RunningResultView(store: store)
         }
         
     }
