@@ -15,6 +15,11 @@ struct WorkoutResultFeature {
     struct State: Equatable {
         var grade: Grade
         var criterias: [CriteriaModel]
+        
+        init(grade: Grade, criterias: [CriteriaModel]) {
+            self.grade = grade
+            self.criterias = criterias
+        }
     }
     
     enum Action {

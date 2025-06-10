@@ -303,8 +303,8 @@
 		23C1F3E22DF6E9850024B783 /* Result */ = {
 			isa = PBXGroup;
 			children = (
-				87C01C782D60A6FB000871B6 /* RunningResultFeature.swift */,
 				2390CA612DF7B2060085CAF4 /* RunningResultView.swift */,
+				87C01C782D60A6FB000871B6 /* RunningResultFeature.swift */,
 			);
 			path = Result;
 			sourceTree = "<group>";
@@ -312,8 +312,8 @@
 		23C1F3E32DF6E98F0024B783 /* Result */ = {
 			isa = PBXGroup;
 			children = (
-				87C01C762D60A4C4000871B6 /* PushUpResultFeature.swift */,
 				23C1F3E92DF6EDB30024B783 /* PushUpResultView.swift */,
+				87C01C762D60A4C4000871B6 /* PushUpResultFeature.swift */,
 			);
 			path = Result;
 			sourceTree = "<group>";
@@ -698,9 +698,9 @@
 		87957D1F2D5C565200F70FDB /* PushUp */ = {
 			isa = PBXGroup;
 			children = (
-				23C1F3E42DF6E9B70024B783 /* Entity */,
-				23C1F3E32DF6E98F0024B783 /* Result */,
 				23C1F3E02DF6E95E0024B783 /* Workout */,
+				23C1F3E32DF6E98F0024B783 /* Result */,
+				23C1F3E42DF6E9B70024B783 /* Entity */,
 			);
 			path = PushUp;
 			sourceTree = "<group>";
@@ -708,9 +708,9 @@
 		87A479E22D5885F900A5BFDC /* Running */ = {
 			isa = PBXGroup;
 			children = (
-				23C1F3E52DF6E9BC0024B783 /* Entity */,
-				23C1F3E22DF6E9850024B783 /* Result */,
 				23C1F3E12DF6E9730024B783 /* Workout */,
+				23C1F3E22DF6E9850024B783 /* Result */,
+				23C1F3E52DF6E9BC0024B783 /* Entity */,
 			);
 			path = Running;
 			sourceTree = "<group>";
