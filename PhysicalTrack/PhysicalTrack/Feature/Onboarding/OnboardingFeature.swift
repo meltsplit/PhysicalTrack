@@ -8,6 +8,23 @@
 import Foundation
 import ComposableArchitecture
 
+extension OnboardingFeature.State {
+    var nameFeature: NameFeature.State {
+        get { NameFeature.State(name: self.name) }
+        set { self.name = newValue.name }
+    }
+    
+    var genderFeature: GenderFeature.State {
+        get { GenderFeature.State(gender: self.gender) }
+        set { self.gender = newValue.gender }
+    }
+    
+    var birthFeature: BirthFeature.State {
+        get { BirthFeature.State(yearOfBirth: self.birth) }
+        set { self.birth = newValue.yearOfBirth }
+    }
+}
+
 @Reducer
 struct OnboardingFeature {
     
@@ -40,10 +57,10 @@ struct OnboardingFeature {
     @ObservableState
     struct State: Equatable {
         @Shared(.selectedRootScene) var selectedRootScene = RootScene.onboarding
-
-        var name = NameFeature.State()
-        var gender = GenderFeature.State()
-        var birth = BirthFeature.State()
+        
+        var name: String = ""
+        var gender: Gender = Gender.male
+        var birth: Int = 2000
         
         var doneButtonDisabled = true
         
@@ -56,9 +73,9 @@ struct OnboardingFeature {
     }
     
     enum Action {
-        case name(NameFeature.Action)
-        case gender(GenderFeature.Action)
-        case birth(BirthFeature.Action)
+        case nameFeature(NameFeature.Action)
+        case genderFeature(GenderFeature.Action)
+        case birthFeature(BirthFeature.Action)
         case stepChanged(Step)
         case backButtonTapped
         case doneButtonTapped
@@ -71,13 +88,13 @@ struct OnboardingFeature {
     @Dependency(\.jwtDecoder.decode) var decode
     
     var body: some ReducerOf<Self> {
-        Scope(state: \.name, action: \.name) {
+        Scope(state: \.nameFeature, action: \.nameFeature) {
             NameFeature()
         }
-        Scope(state: \.gender, action: \.gender) {
+        Scope(state: \.genderFeature, action: \.genderFeature) {
             GenderFeature()
         }
-        Scope(state: \.birth, action: \.birth) {
+        Scope(state: \.birthFeature, action: \.birthFeature) {
             BirthFeature()
         }
         Reduce { state , action in
@@ -102,9 +119,9 @@ struct OnboardingFeature {
                     let deviceID = await deviceID()
                     let request = SignUpRequest(
                         deviceId: deviceID,
-                        name: state.name.name,
-                        birthYear: state.birth.yearOfBirth,
-                        gender: state.gender.gender.toData()
+                        name: state.name,
+                        birthYear: state.birth,
+                        gender: state.gender.toData()
                     )
                     let response = await Result { try await signUp(request) }
                     await send(.signUpResponse(response))
@@ -120,14 +137,14 @@ struct OnboardingFeature {
             case .signUpResponse(.failure(_)):
                 state.isLoading = false
                 return .none
-            case .name(.validate(let isValid)):
+            case .nameFeature(.validate(let isValid)):
                 state.doneButtonDisabled = !isValid
                 return .none
-            case .name(_):
+            case .nameFeature:
                 return .none
-            case .gender:
+            case .genderFeature:
                 return .none
-            case .birth:
+            case .birthFeature:
                 return .none
             }
         }

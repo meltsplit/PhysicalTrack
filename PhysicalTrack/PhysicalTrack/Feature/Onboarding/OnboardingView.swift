@@ -46,11 +46,11 @@ struct OnboardingView: View {
             TabView {
                 switch store.currentStep {
                 case .yearOfBirth:
-                        BirthView(store: store.scope(state: \.birth, action: \.birth))
+                        BirthView(store: store.scope(state: \.birthFeature, action: \.birthFeature))
                 case .name:
-                        NameView(store: store.scope(state: \.name, action: \.name))
+                        NameView(store: store.scope(state: \.nameFeature, action: \.nameFeature))
                 case .gender:
-                        GenderView(store: store.scope(state: \.gender, action: \.gender))
+                        GenderView(store: store.scope(state: \.genderFeature, action: \.genderFeature))
                 }
             }
             .frame(maxWidth: .infinity, maxHeight: .infinity)
