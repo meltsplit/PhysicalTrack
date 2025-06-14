@@ -21,7 +21,7 @@ struct ConsistencyRankingResponse: Decodable, Equatable {
 }
 
 extension ConsistencyRankingResponse {
-    func toDomain() -> RankingModel {
+    func toRankingModel() -> RankingModel {
         return RankingModel(
             userID: userID,
             name: name,
@@ -45,7 +45,7 @@ struct PushUpRankingResponse: Decodable, Equatable {
 }
 
 extension PushUpRankingResponse {
-    func toDomain() -> RankingModel {
+    func toRankingModel() -> RankingModel {
         return RankingModel(
             userID: userID,
             name: name,
@@ -69,7 +69,7 @@ struct RunningRankingResponse: Decodable, Equatable {
 }
 
 extension RunningRankingResponse {
-    func toDomain() -> RankingModel {
+    func toRankingModel() -> RankingModel {
         return RankingModel(
             userID: userID,
             name: name,

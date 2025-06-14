@@ -10,14 +10,15 @@ import ComposableArchitecture
 
 @main
 struct PhysicalTrackApp: App {
-    let store = Store(initialState: RootFeature.State()) {
+    
+    static let store = Store(initialState: RootFeature.State()) {
         RootFeature()
     }
 
     var body: some Scene {
         WindowGroup {
             if TestContext.current == nil {
-                RootView(store: store)
+                RootView(store: Self.store)
             }
         }
         

@@ -14,7 +14,7 @@ struct StatisticsFeature {
     @ObservableState
     struct State {
         private var _userID: Int
-        var web: PTWebFeature.State?
+        var web: PTWebFeature.State
         
         init(_ userID: Int = 1) {
             self._userID = userID
@@ -28,14 +28,16 @@ struct StatisticsFeature {
     }
     
     var body: some ReducerOf<Self> {
+        
+        Scope(state:\.web, action: \.web) {
+            PTWebFeature()
+        }
+        
         Reduce { state , action in
             switch action {
             case .web:
                 return .none
             }
-        }
-        .ifLet(\.web, action: \.web) {
-            PTWebFeature()
         }
     }
 }

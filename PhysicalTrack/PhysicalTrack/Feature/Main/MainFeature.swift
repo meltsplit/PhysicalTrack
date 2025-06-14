@@ -15,10 +15,10 @@ struct MainFeature {
     struct State {
         @Shared(.selectedMainScene) var selectedTab: MainScene = .workout
         
-        var workout: WorkoutFeature.State? = .init()
-        var statistics: StatisticsFeature.State? = .init()
-        var ranking: RankingFeature.State? = .init()
-        var setting: SettingFeature.State? = .init()
+        var workout = WorkoutFeature.State()
+        var statistics = StatisticsFeature.State()
+        var ranking = RankingFeature.State()
+        var setting = SettingFeature.State()
     }
     
     enum Action {
@@ -33,6 +33,18 @@ struct MainFeature {
     @Dependency(\.hapticClient) var hapticClient
     
     var body: some ReducerOf<Self> {
+        Scope(state: \.workout, action: \.workout) {
+            WorkoutFeature()
+        }
+        Scope(state: \.statistics, action: \.statistics) {
+            StatisticsFeature()
+        }
+        Scope(state: \.ranking, action: \.ranking) {
+            RankingFeature()
+        }
+        Scope(state: \.setting, action: \.setting) {
+            SettingFeature()
+        }
         Reduce { state , action in
             switch action {
             case let .selectTab(newValue):
@@ -46,18 +58,6 @@ struct MainFeature {
             default:
                 return .none
             }
-        }
-        .ifLet(\.workout, action: \.workout) {
-            WorkoutFeature()
-        }
-        .ifLet(\.statistics, action: \.statistics) {
-            StatisticsFeature()
-        }
-        .ifLet(\.ranking, action: \.ranking) {
-            RankingFeature()
-        }
-        .ifLet(\.setting, action: \.setting) {
-            SettingFeature()
         }
     }
 }

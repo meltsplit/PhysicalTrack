@@ -14,13 +14,14 @@ struct PushUpFeature {
     
     @ObservableState
     struct State: Equatable {
+        @Shared(.selectedMainScene) var selectedTab: MainScene = .workout
         var record: PushUpRecord
         var isMute: Bool = false
         fileprivate var currentWorkoutSeconds: Int { Int(record.duration.components.seconds) - workoutLeftSeconds}
+        var ready: WorkoutReadyFeature.State?
         var workoutLeftSeconds: Int
-        var readyLeftSeconds: Int = 3
         var presentResult: Bool = false
-        var path = StackState<WorkoutResultFeature.State>()
+        var path = StackState<PushUpResultFeature.State>()
         @Presents var alert: AlertState<Action.Alert>?
         
         init(_ record: PushUpRecord) {
@@ -31,10 +32,9 @@ struct PushUpFeature {
     
     enum Action {
         case onAppear
-        case ready
+        case ready(WorkoutReadyFeature.Action)
         case start
         case timerTick
-        case readyTimerTick
         case targetTimerTick
         case pause
         case finish
@@ -43,7 +43,7 @@ struct PushUpFeature {
         case quitButtonTapped
         case selectCount(Int)
         case doneButtonTapped
-        case path(StackAction<WorkoutResultFeature.State, WorkoutResultFeature.Action>)
+        case path(StackAction<PushUpResultFeature.State, PushUpResultFeature.Action>)
         case alert(PresentationAction<Alert>)
         
         @CasePathable
@@ -54,7 +54,6 @@ struct PushUpFeature {
     }
     
     enum CancelID {
-        case ready
         case workout
     }
     
@@ -68,20 +67,12 @@ struct PushUpFeature {
         Reduce { state, action in
             switch action {
             case .onAppear:
-                return .send(.ready)
-                
+                state.ready = WorkoutReadyFeature.State()
+                return .none
+            case .ready(.finished):
+                state.ready = nil
+                return .send(.start)
             case .ready:
-                state.readyLeftSeconds = 3
-                return .run { send in
-                    for await _ in self.clock.timer(interval: .seconds(1)) {
-                        await send(.readyTimerTick)
-                    }
-                }.cancellable(id: CancelID.ready)
-            case .readyTimerTick:
-                guard state.readyLeftSeconds > 0
-                else { return .merge(.cancel(id: CancelID.ready), .send(.start)) }
-                
-                state.readyLeftSeconds -= 1
                 return .none
                 
             case .start:
@@ -152,17 +143,19 @@ struct PushUpFeature {
                 return .none
                 
             case .doneButtonTapped:
-                let workoutResultFeature = WorkoutResultFeature.State.pushUp(.init(record: state.record))
-                state.path.append(workoutResultFeature)
+                let pushUpResultFeature = PushUpResultFeature.State(record: state.record)
+                state.path.append(pushUpResultFeature)
                 return .none
                 
             case.alert(.presented(.quit)):
                 return .run { _ in await dismiss() }
                 
             case .alert(.presented(.resume)):
-                return .send(.ready)
+                state.ready = WorkoutReadyFeature.State()
+                return .none
                 
-            case .path(.element(id: _, action: .goStatisticsButtonTapped)):
+            case .path(.element(id: _, action: .result(.goStatisticsButtonTapped))):
+                state.$selectedTab.withLock { $0 = .statistics }
                 return .run { _ in await dismiss()}
             case .path:
                 return .none
@@ -172,9 +165,12 @@ struct PushUpFeature {
             }
         }
         .forEach(\.path, action: \.path) {
-            WorkoutResultFeature()
+            PushUpResultFeature()
         }
         .ifLet(\.$alert, action: \.alert)
+        .ifLet(\.ready, action: \.ready) {
+            WorkoutReadyFeature()
+        }
     }
     
 }

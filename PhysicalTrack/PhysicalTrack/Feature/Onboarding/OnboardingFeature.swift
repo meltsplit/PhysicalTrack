@@ -8,6 +8,23 @@
 import Foundation
 import ComposableArchitecture
 
+extension OnboardingFeature.State {
+    var nameFeature: NameFeature.State {
+        get { NameFeature.State(name: self.name) }
+        set { self.name = newValue.name }
+    }
+    
+    var genderFeature: GenderFeature.State {
+        get { GenderFeature.State(gender: self.gender) }
+        set { self.gender = newValue.gender }
+    }
+    
+    var birthFeature: BirthFeature.State {
+        get { BirthFeature.State(yearOfBirth: self.birth) }
+        set { self.birth = newValue.yearOfBirth }
+    }
+}
+
 @Reducer
 struct OnboardingFeature {
     
@@ -15,19 +32,40 @@ struct OnboardingFeature {
         case name = 1
         case gender = 2
         case yearOfBirth = 3
+        
+        var isFirstStep: Bool {
+            self == .name
+        }
+        
+        var isLastStep: Bool {
+            self == .yearOfBirth
+        }
+        
+        var progressRatio: Double {
+            Double(self.rawValue) / Double(Step.allCases.count)
+        }
+        
+        var prevStep: Step {
+            Step(rawValue: self.rawValue - 1 ) ?? .name
+        }
+        
+        var nextStep: Step {
+            Step(rawValue: self.rawValue + 1 ) ?? .yearOfBirth
+        }
     }
     
     @ObservableState
     struct State: Equatable {
         @Shared(.selectedRootScene) var selectedRootScene = RootScene.onboarding
         
-        var name: String = "홍길동"
-        var gender: Gender = .male
-        var yearOfBirth: Int = 2000
+        var name: String = ""
+        var gender: Gender = Gender.male
+        var birth: Int = 2000
+        
+        var doneButtonDisabled = true
         
         var isLoading: Bool = false
         var currentStep: Step = .name
-        var progress: Double = Double(Step.name.rawValue) / Double(Step.allCases.count)
         
         @Shared(.accessToken) var accessToken = ""
         @Shared(.userID) var userID = 0
@@ -35,11 +73,11 @@ struct OnboardingFeature {
     }
     
     enum Action {
+        case nameFeature(NameFeature.Action)
+        case genderFeature(GenderFeature.Action)
+        case birthFeature(BirthFeature.Action)
         case stepChanged(Step)
         case backButtonTapped
-        case yearOfBirthChanged(Int)
-        case nameChanged(String)
-        case genderChanged(Gender)
         case doneButtonTapped
         case signUp
         case signUpResponse(Result<String, Error>)
@@ -50,34 +88,31 @@ struct OnboardingFeature {
     @Dependency(\.jwtDecoder.decode) var decode
     
     var body: some ReducerOf<Self> {
+        Scope(state: \.nameFeature, action: \.nameFeature) {
+            NameFeature()
+        }
+        Scope(state: \.genderFeature, action: \.genderFeature) {
+            GenderFeature()
+        }
+        Scope(state: \.birthFeature, action: \.birthFeature) {
+            BirthFeature()
+        }
         Reduce { state , action in
             switch action {
             case let .stepChanged(step):
                 state.currentStep = step
-                state.progress = Double(step.rawValue) / Double(Step.allCases.count)
                 return .none
             case .backButtonTapped:
-                let prevStep = Step(rawValue: state.currentStep.rawValue - 1 ) ?? .name
+                let prevStep = state.currentStep.prevStep
                 return .send(.stepChanged(prevStep))
           
-            case let .yearOfBirthChanged(year):
-                state.yearOfBirth = year
-                return .none
-
-            case let .nameChanged(name):
-                state.name = name
-                return .none
-                
-            case let .genderChanged(gender):
-                state.gender = gender
-                return .none
-                
             case .doneButtonTapped:
-                guard state.currentStep.rawValue < Step.allCases.count
-                else { return .send(.signUp)}
-                let nextStep = Step(rawValue: state.currentStep.rawValue + 1) ?? .yearOfBirth
-                return .send(.stepChanged(nextStep))
-                
+                if state.currentStep.isLastStep {
+                    return .send(.signUp)
+                } else {
+                    let nextStep = state.currentStep.nextStep
+                    return .send(.stepChanged(nextStep))
+                }
             case .signUp:
                 state.isLoading = true
                 return .run { [state] send in
@@ -85,7 +120,7 @@ struct OnboardingFeature {
                     let request = SignUpRequest(
                         deviceId: deviceID,
                         name: state.name,
-                        birthYear: state.yearOfBirth,
+                        birthYear: state.birth,
                         gender: state.gender.toData()
                     )
                     let response = await Result { try await signUp(request) }
@@ -101,6 +136,89 @@ struct OnboardingFeature {
                 return .none
             case .signUpResponse(.failure(_)):
                 state.isLoading = false
+                return .none
+            case .nameFeature(.validate(let isValid)):
+                state.doneButtonDisabled = !isValid
+                return .none
+            case .nameFeature:
+                return .none
+            case .genderFeature:
+                return .none
+            case .birthFeature:
+                return .none
+            }
+        }
+
+    }
+}
+
+
+@Reducer
+struct NameFeature {
+    
+    @ObservableState
+    struct State: Equatable {
+        var name: String = "홍길동"
+    }
+    
+    enum Action {
+        case nameChanged(String)
+        case validate(Bool)
+    }
+    
+    var body: some ReducerOf<Self> {
+        Reduce { state, action in
+            switch action {
+            case .nameChanged(let name):
+                state.name = name
+                return .send(.validate(!name.isEmpty))
+            case .validate:
+                return .none
+            }
+        }
+    }
+}
+
+@Reducer
+struct GenderFeature {
+    
+    @ObservableState
+    struct State: Equatable {
+        var gender: Gender = .male
+    }
+    
+    enum Action {
+        case genderChanged(Gender)
+    }
+    
+    var body: some ReducerOf<Self> {
+        Reduce { state, action in
+            switch action {
+            case .genderChanged(let gender):
+                state.gender = gender
+                return .none
+            }
+        }
+    }
+}
+
+@Reducer
+struct BirthFeature {
+    
+    @ObservableState
+    struct State: Equatable {
+        var yearOfBirth: Int = 2000
+    }
+    
+    enum Action {
+        case yearOfBirthChanged(Int)
+    }
+    
+    var body: some ReducerOf<Self> {
+        Reduce { state, action in
+            switch action {
+            case let .yearOfBirthChanged(year):
+                state.yearOfBirth = year
                 return .none
             }
         }

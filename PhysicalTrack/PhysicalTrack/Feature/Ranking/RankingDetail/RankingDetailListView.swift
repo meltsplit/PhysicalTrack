@@ -69,9 +69,9 @@ struct RankingDetailListView: View {
     RankingDetailListView(
         store: .init(initialState:
                         RankingDetailListFeature.State(
-                            ranking: [ConsistencyRankingResponse.stub1.toDomain(),
-                                      ConsistencyRankingResponse.stub2.toDomain(),
-                                      ConsistencyRankingResponse.stub3.toDomain()]
+                            ranking: [ConsistencyRankingResponse.stub1.toRankingModel(),
+                                      ConsistencyRankingResponse.stub2.toRankingModel(),
+                                      ConsistencyRankingResponse.stub3.toRankingModel()]
                         )
                     )
         {

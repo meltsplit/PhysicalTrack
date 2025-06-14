@@ -81,7 +81,7 @@ struct PushUpView: View {
                                 
                                 Text(store.workoutLeftSeconds.to_mmss)
                                     .font(.title3.bold())
-                                    
+                                
                             }
                         }
                         .padding(.horizontal, 20)
@@ -118,20 +118,14 @@ struct PushUpView: View {
                 }
             }
             .overlay {
-                if store.readyLeftSeconds > 0 {
-                    VStack {
-                        Text("\(store.readyLeftSeconds)")
-                            .font(.largeTitle)
-                            .bold()
-                    }
-                    .frame(maxWidth: .infinity, maxHeight: .infinity)
-                    .background(.black.opacity(0.8))
+                if let store = store.scope(state: \.ready, action: \.ready) {
+                    WorkoutReadyView(store: store)
                 }
             }
             .alert($store.scope(state: \.alert, action: \.alert))
             
         } destination: { store in
-            WorkoutResultView(store: store)
+            PushUpResultView(store: store)
         }
         
     }
@@ -158,7 +152,7 @@ struct PushUpView: View {
                 
                 PTButton("완료") {
                     store.send(.doneButtonTapped)
-                } 
+                }
                 .padding(.horizontal, 20)
                 
                 Spacer().frame(height: 44)

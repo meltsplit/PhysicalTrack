@@ -11,19 +11,20 @@ import ComposableArchitecture
 @Reducer
 struct TutorialFeature {
     
-    enum Step: Hashable, CaseIterable {
-        case first
-        case second
-        case third
-    }
-    
     @ObservableState
     struct State: Equatable {
-        var selectedTab: Step = .first
+        var currentModel : TutorialModel
+        var tutorialModels: [TutorialModel]
+        var isLastModel: Bool { currentModel == tutorialModels.last }
+        
+        init(tutorialModels: [TutorialModel]) {
+            self.tutorialModels = tutorialModels
+            self.currentModel = tutorialModels[0]
+        }
     }
     
     enum Action: Equatable {
-        case tabChanged(Step)
+        case tabChanged(TutorialModel)
         case confirmButtonTapped
     }
     
@@ -32,8 +33,8 @@ struct TutorialFeature {
     var body: some ReducerOf<Self> {
         Reduce { state, action in
             switch action {
-            case let .tabChanged(step):
-                state.selectedTab = step
+            case let .tabChanged(model):
+                state.currentModel = model
                 return .none
             case .confirmButtonTapped:
                 return .run { _ in return await dismiss() }
